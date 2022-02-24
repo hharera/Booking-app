@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion DefaultConfig.compileSdk
+
+    defaultConfig {
+        applicationId DefaultConfig.appId
+        minSdkVersion DefaultConfig.minSdk
+        targetSdkVersion DefaultConfig.targetSdk
+        versionCode Releases.versionCode
+        versionName Releases.versionName
+
+//        ndk.abiFilters 'armeabi-v7a', 'x86', 'armeabi', 'arm'
+        ndk.abiFilters 'armeabi'
+        testInstrumentationRunner "com.englizya.ticket.HiltTestRunner"
+    }
+    sourceSets.main {
+        jni.srcDirs = []
+        jniLibs.srcDir "src/main/libs"
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+//    packagingOptions {
+//        exclude 'lib/armeabi-v7a/*'
+//        exclude 'lib/x86/*'
+//        exclude 'lib/armeabi-v7a-v7a/*'
+//    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'src/main/jniLibs', include: ['*.jar','*.aar'])
+
+    implementation project(Base.common)
+    implementation project(Features.splash)
+
+    //hilt
+    implementation(Libs.hiltAndroid)
+    kapt(Libs.hiltAndroidCompiler)
+
+    implementation(Libs.playServicesTasks)
+
+    implementation(Libs.androidxCore)
+    implementation(Libs.appcompat)
+    implementation(Libs.activity)
+    implementation(Libs.fragments)
+
+    implementation(Libs.navigationUi)
+    implementation(Libs.navigationFragment)
+
+    implementation(Libs.materialDesign)
+    implementation(Libs.circleImage)
+
+    implementation(Libs.liveData)
+    implementation(Libs.viewModels)
+    kapt(Libs.lifeCycleCompiler)
+
+    //hilt
+    kapt(Libs.hiltAndroidCompiler)
+    implementation(Libs.hiltAndroid)
+    implementation(TestDi.testRunner)
+
+    androidTestImplementation(TestDi.hiltTesting)
+    kaptAndroidTest(Libs.hiltAndroidCompiler)
+
+    testImplementation(TestDi.hiltTesting)
+    kaptTest(Libs.hiltAndroidCompiler)
+}

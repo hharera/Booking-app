@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/red_500</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">@color/red_500</color>
+    <color name="red_500">#b71540</color>
+    <color name="red_100">#66B71540</color>
+    <color name="red_200">#73B71540</color>
+    <color name="red_300">#99B71540</color>
+    <color name="red_400">#CCB71540</color>
+    <color name="red_600">#8D1812</color>
+    <color name="app_blue">#20ADDC</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey">#72000000</color>
+    <color name="blue_600">#03264F</color>
+    <color name="white_600">#D5D9DB</color>
+    <color name="splash_status_color">#021327</color>
+</resources>

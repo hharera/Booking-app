@@ -1,0 +1,13 @@
+apply from: "$rootDir/${CommonBuild.DATA_MODULE}"
+apply from: "$rootDir/${CommonBuild.HiltDependencies}"
+
+android {
+    defaultConfig {
+        testInstrumentationRunner "com.englizya.datastore.HiltTestRunner"
+    }
+}
+
+dependencies {
+    implementation(Libs.truth)
+    testImplementation(Libs.truth)
+}

@@ -1,0 +1,4 @@
+object Plugins {
+    const val NAVIGATION_PLUGIN= "androidx.navigation.safeargs"
+    const val KAPT_PLUGIN= "kotlin-kapt"
+}

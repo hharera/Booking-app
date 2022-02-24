@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="driver_review">تقيم السائق</string>
+    <string name="suggestion">الاقتراحات</string>
+    <string name="complaint">الشكاوي</string>
+</resources>
