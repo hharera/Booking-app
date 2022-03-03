@@ -28,3 +28,6 @@ include ':features:complaint'
 
 include ':ui-components'
 include ':ui-components:no-internet'
+include ':features:suggestions'
+include ':features:driver-review'
+include ':data:remote:socket'

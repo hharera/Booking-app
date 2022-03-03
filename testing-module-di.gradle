@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+
+dependencies {
+    androidTestImplementation(TestDi.hiltTesting)
+    androidTestImplementation(TestDi.androidCoreTesting)
+    androidTestImplementation(TestDi.fragmentTest)
+    androidTestImplementation(TestDi.junit4)
+    androidTestImplementation(TestDi.espresso)
+    androidTestImplementation(TestDi.coroutinesTest)
+
+
+    testImplementation(TestDi.hiltTesting)
+    testImplementation(TestDi.androidCoreTesting)
+    testImplementation(TestDi.fragmentTest)
+    testImplementation(TestDi.junit4)
+    testImplementation(TestDi.espresso)
+    testImplementation(TestDi.coroutinesTest)
+}
