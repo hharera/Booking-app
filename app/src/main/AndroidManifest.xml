@@ -23,7 +23,7 @@
             android:exported="true" />
 
         <activity
-            android:name="com.englizya.splash.SplashActivity"
+            android:name="com.englizya.location_update.LocationUpdateActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

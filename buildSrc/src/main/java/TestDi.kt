@@ -8,7 +8,6 @@ object TestDi {
 
     const val junit4 = "junit:junit:${Versions.TEST_JUNIT_VERSION}"
     const val junitExt = "androidx.test.ext:junit:1.1.2"
-    const val espresso = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO}"
 
     const val fragmentTest =
         "androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_TESTING_VERSION}"

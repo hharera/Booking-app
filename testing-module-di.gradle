@@ -7,7 +7,6 @@ dependencies {
     androidTestImplementation(TestDi.androidCoreTesting)
     androidTestImplementation(TestDi.fragmentTest)
     androidTestImplementation(TestDi.junit4)
-    androidTestImplementation(TestDi.espresso)
     androidTestImplementation(TestDi.coroutinesTest)
 
 
@@ -15,6 +14,5 @@ dependencies {
     testImplementation(TestDi.androidCoreTesting)
     testImplementation(TestDi.fragmentTest)
     testImplementation(TestDi.junit4)
-    testImplementation(TestDi.espresso)
     testImplementation(TestDi.coroutinesTest)
 }

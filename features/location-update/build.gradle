@@ -1,0 +1,8 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+
+dependencies {
+    implementation Libs.playServicesMaps
+    implementation Ktor.ktorClient
+    implementation Ktor.ktorClientAndroid
+    api project(Data.REMOTE_SOCKET)
+}
