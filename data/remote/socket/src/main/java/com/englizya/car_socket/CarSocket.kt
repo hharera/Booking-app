@@ -10,4 +10,5 @@ interface CarSocket {
 
     fun updateCarLocation (carUpdate: CarUpdate): Completable
     fun connectToLineCars(lineCode: Int): Flowable<StompMessage>
+    fun connectToCar(carCode: Int): Flowable<StompMessage>
 }

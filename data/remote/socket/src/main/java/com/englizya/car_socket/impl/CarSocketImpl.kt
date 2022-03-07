@@ -5,6 +5,7 @@ import com.englizya.carsocket.request.CarUpdate
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.functions.Consumer
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.StompMessage
 import javax.inject.Inject
