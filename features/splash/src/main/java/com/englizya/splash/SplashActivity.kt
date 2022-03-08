@@ -49,7 +49,7 @@ class SplashActivity : BaseActivity() {
 
     private fun goLogin() {
         val intent = Intent(this@SplashActivity, HomeActivity::class.java).putExtra(
-            Arguments.Destination,
+            Arguments.DESTINATION,
             Destination.LOGIN
         )
         startActivity(intent)
@@ -61,7 +61,7 @@ class SplashActivity : BaseActivity() {
             val intent = Intent(
                 this@SplashActivity,
                 HomeActivity::class.java
-            ).putExtra(Arguments.Destination, Destination.TICKET)
+            ).putExtra(Arguments.DESTINATION, Destination.TICKET)
             startActivity(intent)
             finish()
         }

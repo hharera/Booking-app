@@ -11,12 +11,6 @@ object Versions {
     const val ESPRESSO = "3.4"
     const val ROOM_VERSION = "2.3.0"
 
-    //Firebase
-    const val FIREBASE_DATABASE_VERSION = "20.0.2"
-    const val FIREBASE_AUTH_VERSION = "21.0.1"
-    const val FIREBASE_FIRESTORE_VERSION = "23.0.3"
-    const val FIREBASE_STORAGE_VERSION = "20.0.0"
-    const val FIREBASE_BOM_VERSION = "26.1.1"
 
     //Google Services
     const val GOOGLE_AUTH_VERSION = "19.2.0"

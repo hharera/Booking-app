@@ -61,7 +61,6 @@ dependencies {
     androidTestImplementation(TestDi.junitExt)
 
     implementation(Libs.playServicesMaps)
-    implementation(Libs.firebaseFirestore)
 
     testImplementation(Libs.roomRunTime)
     testImplementation(TestDi.testRunner)

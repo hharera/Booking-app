@@ -44,20 +44,7 @@ object Libs {
     const val playServicesAuthPhone =
         "com.google.android.gms:play-services-auth-api-phone:${Versions.GOOGLE_AUTH_PHONE_VERSION}"
 
-    //firebase
-    const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.FIREBASE_AUTH_VERSION}"
 
-    const val firebaseDatabase =
-        "com.google.firebase:firebase-database:${Versions.FIREBASE_DATABASE_VERSION}"
-
-    const val firebaseStorage =
-        "com.google.firebase:firebase-storage:${Versions.FIREBASE_STORAGE_VERSION}"
-
-    const val firebaseFirestore =
-        "com.google.firebase:firebase-firestore:${Versions.FIREBASE_FIRESTORE_VERSION}"
-
-    const val firebaseBom =
-        "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}"
 
     //Material SearchBar
     const val searchBar = "com.github.mancj:MaterialSearchBar:${Versions.SEARCH_BAR}"

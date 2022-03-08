@@ -7,7 +7,6 @@ dependencies {
     api(Libs.roomRunTime)
     kapt(Libs.roomCompiler)
 
-    implementation(Libs.firebaseFirestore)
 
     implementation(DI.hiltAndroid)
     kapt(DI.hiltAndroidCompiler)

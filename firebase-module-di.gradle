@@ -1,0 +1,9 @@
+apply plugin: 'kotlin-android'
+
+dependencies {
+    api(Firebase.firebaseBom)
+    api(Firebase.firebaseAuth)
+    api(Firebase.firebaseFirestore)
+    api(Firebase.firebaseStorage)
+    api(Firebase.firebaseDatabase)
+}

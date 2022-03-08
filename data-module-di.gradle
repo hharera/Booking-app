@@ -32,6 +32,12 @@ android {
 }
 
 dependencies {
+    api(Firebase.firebaseBom)
+    api(Firebase.firebaseAuth)
+    api(Firebase.firebaseFirestore)
+    api(Firebase.firebaseStorage)
+    api(Firebase.firebaseDatabase)
+
     implementation Libs.kotlin
     testImplementation TestDi.junit4
 

@@ -1,7 +1,6 @@
 apply from:"$rootDir/${CommonBuild.DATA_MODULE}"
 
 dependencies {
-    implementation(Libs.firebaseFirestore)
     implementation(Libs.playServicesMaps)
     implementation(Libs.jodaTime)
 

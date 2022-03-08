@@ -1,7 +1,6 @@
 package com.englizya.navigation
 
 import android.os.Bundle
-import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -34,7 +33,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun getExtras() {
-        intent?.extras?.getString(Arguments.Destination)?.let {
+        intent?.extras?.getString(Arguments.DESTINATION)?.let {
             navController.navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, it, Destination.TICKET))
         }
     }

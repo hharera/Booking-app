@@ -1,4 +1,4 @@
-package com.englizya.manager.login
+package com.englizya.login
 
 data class LoginFormState(
     var passwordError: Int? = null,
