@@ -4,6 +4,7 @@ apply plugin: ("dagger.hilt.android.plugin")
 dependencies {
     api project(Data.localRoom)
     api project(Data.remoteApi)
+    api project(Data.remoteFirebase)
 
     //gms play
     implementation Libs.playServicesAuth
