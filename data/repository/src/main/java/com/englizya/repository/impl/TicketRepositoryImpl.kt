@@ -2,8 +2,6 @@ package com.englizya.repository.impl
 
 import com.englizya.api.RemoteTicketService
 import com.englizya.local.TicketDao
-import com.englizya.model.UnPrintedTicket
-import com.englizya.model.request.Ticket
 import com.englizya.repository.TicketRepository
 import javax.inject.Inject
 

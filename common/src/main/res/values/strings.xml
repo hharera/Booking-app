@@ -192,4 +192,5 @@
     <string name="work_hours">عدد ساعات العمل</string>
     <string name="check_your_internet">تأكد من وجود انترنت ثم عاود المحاولة</string>
     <string name="submit">تأكيد</string>
+    <string name="resend_code">Resend code</string>
 </resources>

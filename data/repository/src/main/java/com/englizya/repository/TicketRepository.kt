@@ -1,8 +1,5 @@
 package com.englizya.repository
 
-import com.englizya.model.UnPrintedTicket
-import com.englizya.model.request.Ticket
-
 
 interface TicketRepository {
 

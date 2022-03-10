@@ -1,11 +1,10 @@
 package com.englizya.car_socket.impl
 
 import com.englizya.car_socket.CarSocket
-import com.englizya.carsocket.request.CarUpdate
+import com.englizya.carsocket.request.UpdateCarLocationRequest
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.functions.Consumer
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.StompMessage
 import javax.inject.Inject
@@ -14,8 +13,8 @@ class CarSocketImpl @Inject constructor(
     private val stompClient: StompClient
 ): CarSocket {
 
-    override fun updateCarLocation(carUpdate: CarUpdate): Completable =
-        stompClient.apply { connect() }.send("car/${carUpdate.carCode}", Gson().toJson(carUpdate))
+    override fun updateCarLocation(updateCarLocationRequest: UpdateCarLocationRequest): Completable =
+        stompClient.apply { connect() }.send("car/${updateCarLocationRequest.carCode}", Gson().toJson(updateCarLocationRequest))
 
     override fun connectToLineCars(lineCode : Int): Flowable<StompMessage> =
         stompClient.apply { connect() }.topic("line/$lineCode")

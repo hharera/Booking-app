@@ -4,9 +4,6 @@ import com.englizya.api.RemoteManifestoService
 import com.englizya.api.utils.AuthenticationParameters
 import com.englizya.api.utils.Routing
 import com.englizya.datastore.core.DriverDataStore
-import com.englizya.model.request.EndShiftRequest
-import com.englizya.model.response.ManifestoDetails
-import com.englizya.model.response.ShiftReportResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*

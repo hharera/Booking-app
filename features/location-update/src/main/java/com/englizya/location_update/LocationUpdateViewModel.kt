@@ -1,7 +1,7 @@
 package com.englizya.location_update
 
 import com.englizya.car_socket.CarSocket
-import com.englizya.carsocket.request.CarUpdate
+import com.englizya.carsocket.request.UpdateCarLocationRequest
 import com.englizya.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,7 +15,7 @@ class LocationUpdateViewModel @Inject constructor(
 
     fun sendRandomLocation() {
         carSocket.updateCarLocation(
-            CarUpdate(
+            UpdateCarLocationRequest(
                 carCode = Random.nextInt(9) + 10,
                 carLatitude = Random.nextDouble(20.0) + 10.0,
                 carLongitude = Random.nextDouble(20.0) + 10.0

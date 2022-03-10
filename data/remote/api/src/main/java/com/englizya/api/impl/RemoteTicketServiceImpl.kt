@@ -4,7 +4,6 @@ import com.englizya.api.RemoteTicketService
 import com.englizya.api.utils.AuthenticationParameters
 import com.englizya.api.utils.Routing
 import com.englizya.datastore.core.DriverDataStore
-import com.englizya.model.request.Ticket
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <item-->
+<!--        android:id="@id/navigation_driver_review"-->
+<!--        android:icon="@drawable/review"-->
+<!--        android:iconTint="@color/grey"-->
+<!--        android:title="@string/driver_review" />-->
+
+<!--    <item-->
+<!--        android:id="@id/navigation_complaint"-->
+<!--        android:icon="@drawable/complaint"-->
+<!--        android:iconTint="@color/grey"-->
+<!--        android:title="@string/complaint" />-->
+
+<!--    <item-->
+<!--        android:id="@id/navigation_suggestions"-->
+<!--        android:icon="@drawable/suggestion"-->
+<!--        android:iconTint="@color/grey"-->
+<!--        android:title="@string/suggestion" />-->
+</menu>

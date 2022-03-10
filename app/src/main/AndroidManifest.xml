@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.englizya.navigation.HomeActivity"
+            android:name="com.englizya.navigation.TicketActivity"
             android:exported="true" />
 
         <activity

@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
-import com.englizya.navigation.HomeActivity
+import com.englizya.navigation.TicketActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun goLogin() {
-        val intent = Intent(this@SplashActivity, HomeActivity::class.java).putExtra(
+        val intent = Intent(this@SplashActivity, TicketActivity::class.java).putExtra(
             Arguments.DESTINATION,
             Destination.LOGIN
         )
@@ -60,7 +60,7 @@ class SplashActivity : BaseActivity() {
         lifecycleScope.launch {
             val intent = Intent(
                 this@SplashActivity,
-                HomeActivity::class.java
+                TicketActivity::class.java
             ).putExtra(Arguments.DESTINATION, Destination.TICKET)
             startActivity(intent)
             finish()
