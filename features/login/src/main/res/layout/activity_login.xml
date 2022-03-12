@@ -3,265 +3,174 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/login_tool_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/arrow_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/login"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
+    android:layout_height="match_parent">
 
 
     <ImageView
-        android:id="@+id/country_code"
-        android:layout_width="@dimen/_25sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:enabled="false"
-        android:src="@drawable/flag_eg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <TextView
-        android:id="@+id/phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text=""
-        android:textColor="@color/colorPrimary"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="@+id/country_code"
-        app:layout_constraintStart_toEndOf="@+id/country_code"
-        app:layout_constraintTop_toTopOf="@+id/country_code" />
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:columnCount="3"
-        android:rowCount="4"
+        android:id="@+id/imageView3"
+        android:layout_width="197.08dp"
+        android:layout_height="189dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/ic_group_84"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_number">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_1"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_2"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="0"
-            android:layout_column="2"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_3"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_4"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/five"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_5"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/six"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="2"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_6"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/seven"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="0"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_7"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/eight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="1"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_8"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/nine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="2"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_9"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/zero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="3"
-            android:layout_column="1"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/num_button"
-            android:text="@string/_0"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/remove"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_row="3"
-            android:layout_column="2"
-            android:layout_margin="@dimen/_25sdp"
-            android:background="@drawable/backspace"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-    </GridLayout>
-
-    <ImageView
-        android:id="@+id/accept_policy"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="54dp"
-        android:src="@drawable/not_verified"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/privacy_policy"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/accept_policy"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/sf"
+        android:text="Welcome Back!"
+        android:textColor="#303030"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <androidx.appcompat.widget.Toolbar
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf"
+        android:text="Log in to your existing account"
+        android:textColor="#6D809B"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/sf"
+        android:text="Phone Number"
+        android:textColor="#303030"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="23dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/category_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:startIconDrawable="@drawable/ic_call_incoming">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeActionId="@integer/btm_to"
+            android:inputType="text"
+            android:lines="1"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf"
+        android:text="Password"
+        android:textColor="#303030"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/category_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:startIconDrawable="@drawable/ic_path_18">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeActionId="@integer/btm_to"
+            android:inputType="text"
+            android:lines="1"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/sf"
+        android:text="Forget password?"
+        android:textColor="#003BAD"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_bottom_tool_bar"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/next"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:src="@drawable/arrow_forward"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="23dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_button_login"
+        android:text="LOG IN"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forget_password" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:text="@string/next"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/sf"
+        android:text="Don't have an account?"
+        android:textColor="#303030"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/sf"
+        android:text=" Signup"
+        android:textColor="#003BAD"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

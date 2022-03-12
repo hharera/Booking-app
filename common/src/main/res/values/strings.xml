@@ -96,7 +96,7 @@
     <string name="dwaa_name"> اسم الدواء </string>
     <string name="expire_date"> تاريخ الانتهاء </string>
     <string name="category"> فئة </string>
-    <string name="save"> حفظ </string>
+    <string name="save">SAVE</string>
     <string name="add"> إضافة </string>
     <string name="type"> النوع </string>
     <string name="location_not_choosen">لم يتم اختيار الموقع</string>
@@ -193,4 +193,6 @@
     <string name="check_your_internet">تأكد من وجود انترنت ثم عاود المحاولة</string>
     <string name="submit">تأكيد</string>
     <string name="resend_code">Resend code</string>
+    <string name="your_balance">Your Balance</string>
+    <string name="charge">CHARGE</string>
 </resources>

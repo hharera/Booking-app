@@ -5,9 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.englizya.common.base.BaseViewModel
 import com.englizya.login.LoginViewModel
-import com.harera.common.utils.navigation.Arguments
 import com.englizya.confirm_login.ConfirmLoginActivity
-import com.harera.login.databinding.ActivityLoginBinding
 
 class LoginActivity : BaseViewModel() {
 
@@ -37,24 +35,6 @@ class LoginActivity : BaseViewModel() {
                 bind.acceptPolicy.setImageResource(R.drawable.verified)
             } else
                 bind.acceptPolicy.setImageResource(R.drawable.not_verified)
-        }
-
-        bind.gridLayout.forEach {
-            it.setOnClickListener {
-                when (it.id) {
-                    R.id.zero -> loginViewModel.changePhoneNumber("0")
-                    R.id.one -> loginViewModel.changePhoneNumber("1")
-                    R.id.two -> loginViewModel.changePhoneNumber("2")
-                    R.id.three -> loginViewModel.changePhoneNumber("3")
-                    R.id.four -> loginViewModel.changePhoneNumber("4")
-                    R.id.five -> loginViewModel.changePhoneNumber("5")
-                    R.id.six -> loginViewModel.changePhoneNumber("6")
-                    R.id.seven -> loginViewModel.changePhoneNumber("7")
-                    R.id.eight -> loginViewModel.changePhoneNumber("8")
-                    R.id.nine -> loginViewModel.changePhoneNumber("9")
-                    R.id.remove -> loginViewModel.removeChar()
-                }
-            }
         }
 
         bind.next.setOnClickListener {
