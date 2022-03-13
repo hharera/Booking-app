@@ -1,15 +1,14 @@
-package com.harera.login
+package com.englizya.login
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.englizya.common.base.BaseViewModel
-import com.englizya.login.LoginViewModel
 import com.englizya.confirm_login.ConfirmLoginActivity
 
 class LoginActivity : BaseViewModel() {
 
-    lateinit var loginViewModel: LoginViewModel
+    private lateinit var loginViewModel: LoginViewModel
     lateinit var bind: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

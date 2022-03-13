@@ -27,7 +27,7 @@
     <string name="phone_number"> رقم الهاتف </string>
     <string name="wrong_phone_number"> رقم الهاتف خاطئ </string>
     <string name="offer"> Offer </string>
-    <string name="name"> الاسم </string>
+    <string name="name">NAME</string>
     <string name="receipt"> الإيصال </string>
     <string name="Confirm"> تأكيد </string>
     <string name="my_orders"> طلباتي </string>
@@ -97,7 +97,7 @@
     <string name="expire_date"> تاريخ الانتهاء </string>
     <string name="category"> فئة </string>
     <string name="save">SAVE</string>
-    <string name="add"> إضافة </string>
+    <string name="add">ADD</string>
     <string name="type"> النوع </string>
     <string name="location_not_choosen">لم يتم اختيار الموقع</string>
     <string name="search_location">مكان البحث</string>
@@ -195,4 +195,10 @@
     <string name="resend_code">Resend code</string>
     <string name="your_balance">Your Balance</string>
     <string name="charge">CHARGE</string>
+    <string name="enter_payment_card">Please enter the following information to add a payment card</string>
+    <string name="cvv">CVV</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="add_payment_card">Add payment card</string>
+    <string name="payment_cards">Payment cards</string>
+    <string name="add_card">Add card</string>
 </resources>

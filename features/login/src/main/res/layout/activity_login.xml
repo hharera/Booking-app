@@ -11,7 +11,7 @@
         android:layout_width="197.08dp"
         android:layout_height="189dp"
         android:layout_marginTop="28dp"
-        android:src="@drawable/ic_group_84"
+        android:src="@drawable/ic_character_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:startIconDrawable="@drawable/ic_path_18">
+        app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name"

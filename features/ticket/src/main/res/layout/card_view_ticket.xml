@@ -15,7 +15,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_group_1964" />
+            android:src="@drawable/ic_rount_bus" />
 
         <TextView
             android:id="@+id/textView8"
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_group_1972"
+            android:src="@drawable/ic_location"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/sf"
-            android:src="@drawable/ic_group_1972"
+            android:src="@drawable/ic_location"
             android:text="From: "
             android:textColor="#171B24"
             app:layout_constraintBottom_toBottomOf="@+id/imageView4"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf"
-            android:src="@drawable/ic_group_1972"
+            android:src="@drawable/ic_location"
             android:text="Lorem ipsum dolor sit"
             android:textColor="#6D809B"
             app:layout_constraintBottom_toBottomOf="@+id/imageView4"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_group_1972"
+            android:src="@drawable/ic_location"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/imageView4" />
