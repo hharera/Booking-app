@@ -4,16 +4,14 @@ import android.os.Bundle
 import androidx.core.view.forEach
 import androidx.lifecycle.ViewModelProvider
 import com.englizya.common.base.BaseActivity
+import com.englizya.common.utils.Status
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.ticket.login.R
 import com.englizya.ticket.login.databinding.ActivityLoginConfirmBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.harera.common.utils.Status
-import com.harera.common.utils.navigation.Arguments
 import com.harera.confirm_login.ConfirmLoginViewModel
-import com.harera.login.databinding.ActivityLoginConfirmBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
+import com.englizya.login.LoginActivity
 import com.englizya.navigation.TicketActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
@@ -33,35 +34,37 @@ class SplashActivity : BaseActivity() {
             splashViewModel.checkLoginState()
         }
 
-        splashViewModel.loginState.observe(this) { state ->
-            checkLoginState(state)
+        splashViewModel.loginState.observe(this) { loginState ->
+            checkLoginState(loginState)
         }
     }
 
-    private fun checkLoginState(state: Boolean) {
-        if (state) {
-            goTicket()
+    private fun checkLoginState(loginState: Boolean) {
+        if (loginState) {
+            goHome()
         } else {
-            goTicket()
-//            goLogin()
+            goLogin()
         }
     }
 
     private fun goLogin() {
-        val intent = Intent(this@SplashActivity, TicketActivity::class.java).putExtra(
-            Arguments.DESTINATION,
-            Destination.LOGIN
-        )
+        val intent =
+            Intent(this@SplashActivity, LoginActivity::class.java)
+                .putExtra(
+                    Arguments.DESTINATION,
+                    Destination.LOGIN
+                )
         startActivity(intent)
         finish()
     }
 
-    private fun goTicket() {
+    private fun goHome() {
         lifecycleScope.launch {
             val intent = Intent(
                 this@SplashActivity,
                 TicketActivity::class.java
             ).putExtra(Arguments.DESTINATION, Destination.TICKET)
+            //TODO : Set animation between activities
             startActivity(intent)
             finish()
         }

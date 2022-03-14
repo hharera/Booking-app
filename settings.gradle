@@ -12,9 +12,6 @@ rootProject.name = "Ticket-Client"
 
 include ':app'
 include ':common'
-include ':navigation:ticket'
-include ':navigation:login'
-include ':navigation:signup'
 include ':datastore'
 include ':core'
 
@@ -40,12 +37,18 @@ include ':features:driver-review'
 
 include ':ui-components'
 include ':ui-components:no-internet'
+include ':ui-components:payment-card'
+
 include ':features:reset-password'
 include ':features:home'
 include ':features:route'
 include ':features:ticket'
-include ':ui-components:payment-card'
 include ':features:profile'
 include ':features:booking'
 include ':features:add-payment'
 include ':features:edit-profile'
+
+include ':navigation:ticket'
+include ':navigation:login'
+include ':navigation:signup'
+include ':navigation:booking'

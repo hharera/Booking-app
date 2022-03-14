@@ -28,38 +28,6 @@ object TimeUtils {
         return "${dateTime.hourOfDay}:${dateTime.secondOfMinute}:${dateTime.minuteOfHour}"
     }
 
-    fun calculateWorkHours(shiftReportResponse: ShiftReportResponse): String {
-        val startTime = SimpleDateFormat(START_SHIFT_DATE_FORMAT).parse(shiftReportResponse.startTime)
-        val endTime = SimpleDateFormat(END_SHIFT_DATE_FORMAT).parse(shiftReportResponse.endTime)
-
-        val millis = endTime.time - startTime.time
-        val workTime = calculateWorkTime(millis)
-        return " ${workTime.hours} "
-            .plus("س")
-            .plus(" ${workTime.minutes} ")
-            .plus("د")
-    }
-
-    private fun calculateWorkTime(millis: Long): WorkTime {
-        val years = calculateYears(millis)
-        val months = calculateMonths(millis - (years * MILLIS_IN_YEAR))
-        val weeks = calculateWeeks(millis - (months * MILLIS_IN_MONTH))
-        val days = calculateDays(millis - (weeks * MILLIS_IN_WEEK))
-        val hours = calculateHours(millis - days * MILLIS_IN_DAY)
-        val minutes = calculateMinutes(millis - hours * MILLIS_IN_HOUR)
-        val seconds = calculateSeconds(millis - minutes * MILLIS_IN_MINUTE)
-
-        return WorkTime(
-            years = years,
-            months = months,
-            weeks = weeks,
-            days = days,
-            hours = hours,
-            minutes = minutes,
-            seconds = seconds
-        )
-    }
-
     private fun calculateSeconds(millis: Long): Long {
         return millis / MILLIS_IN_SECOND
     }

@@ -16,7 +16,7 @@
     <color name="grey">#72000000</color>
     <color name="blue_600">#03264F</color>
     <color name="white_600">#D5D9DB</color>
-    <color name="splash_status_color">#021327</color>
+    <color name="splash_status_color">@color/white</color>
     <color name="green">#009F0B</color>
     <color name="blue_500">#003BAD</color>
     <color name="grey_200">#6D809B</color>

@@ -1,7 +1,9 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
-    implementation Libs.playServicesTasks
+    implementation(Animation.LOTTIE)
+    implementation(Libs.playServicesTasks)
 
-    api project(Navigation.payment)
+    api project(Navigation.login)
+    api project(Navigation.ticket)
 }

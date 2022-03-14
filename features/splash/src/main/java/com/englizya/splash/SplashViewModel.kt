@@ -13,7 +13,6 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val userDataStore: DriverDataStore,
-    //TODO add common module dependencies
 ) : BaseViewModel() {
 
     private val _loginState = MutableLiveData<Boolean>()
@@ -22,5 +21,4 @@ class SplashViewModel @Inject constructor(
     fun checkLoginState() {
         _loginState.postValue(userDataStore.getToken() != NULL_STRING)
     }
-
 }
