@@ -1,4 +1,4 @@
-package com.englizya.carsocket.request
+package com.englizya.model.request
 
 data class UpdateCarLocationRequest(
     val carCode : Int,

@@ -1,7 +1,7 @@
 package com.englizya.location_update
 
 import com.englizya.car_socket.CarSocket
-import com.englizya.carsocket.request.UpdateCarLocationRequest
+import com.englizya.model.request.UpdateCarLocationRequest
 import com.englizya.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

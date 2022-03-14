@@ -44,6 +44,9 @@ dependencies {
     implementation project(":features:location-update")
     implementation project(Base.common)
     implementation project(Features.splash)
+    implementation project(Navigation.ticket)
+    implementation project(Navigation.login)
+    implementation project(Navigation.payment)
 
     //hilt
     implementation(Libs.hiltAndroid)

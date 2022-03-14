@@ -23,6 +23,10 @@
             android:exported="true" />
 
         <activity
+            android:name="com.englizya.navigation.LoginActivity"
+            android:exported="true" />
+
+        <activity
             android:name="com.englizya.location_update.LocationUpdateActivity"
             android:exported="true">
             <intent-filter>

@@ -1,10 +1,8 @@
 package com.englizya.repository.di
 
-import com.englizya.repository.AuthManager
 import com.englizya.repository.UserRepository
-import com.englizya.repository.impl.FirebaseAuthManager
+import com.englizya.repository.impl.FirebaseAuthenticationManager
 import com.englizya.repository.impl.UserRepositoryImpl
-import com.harera.firebase.AuthenticationManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,5 +16,5 @@ abstract class RepositoryModule {
     abstract fun bindUserRepository(userRepositoryImpl: UserRepositoryImpl) : UserRepository
 
     @Binds
-    abstract fun bindAuthenticationManager(authManifestoRepositoryImpl: FirebaseAuthManager) : AuthManager
+    abstract fun bindAuthenticationManager(authManifestoRepositoryImpl: FirebaseAuthenticationManager) : com.englizya.repository.AuthenticationManager
 }

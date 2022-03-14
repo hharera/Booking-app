@@ -4,7 +4,7 @@ class Validity {
 
     companion object {
 
-        fun checkPhoneNumber(string: String) =
+        fun phoneNumberIsValid(string: String) =
             false
                 .or(string.matches(Regex("^010[0-9]{8}\$")))
                 .or(string.matches(Regex("^011[0-9]{8}\$")))
@@ -20,7 +20,7 @@ class Validity {
         fun checkDesc(string: String) =
             string.matches(Regex("^[a-z]{10,200}\$"))
 
-        fun checkPassword(string: String) =
+        fun passwordIsValid(string: String) =
             string.matches(Regex("^[a-z]{5,25}\$"))
 
         fun checkDriverPassword(string: String) =

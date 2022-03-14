@@ -1,6 +1,6 @@
 package com.englizya.car_socket
 
-import com.englizya.carsocket.request.UpdateCarLocationRequest
+import com.englizya.model.request.UpdateCarLocationRequest
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import ua.naiksoftware.stomp.dto.StompMessage

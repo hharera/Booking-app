@@ -1,4 +1,4 @@
-package com.englizya.login
+package com.englizya.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,21 +14,21 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.ticket.login.R
-import com.englizya.ticket.login.databinding.FragmentLoginBinding
+import com.englizya.ticket.login.databinding.FragmentSignupBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginFragment : BaseFragment() {
+class SignupFragment : BaseFragment() {
 
-    private val loginViewModel: LoginViewModel by viewModels()
-    private lateinit var bind: FragmentLoginBinding
+    private val signupViewModel: SignupViewModel by viewModels()
+    private lateinit var bind: FragmentSignupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
             it.getString(Arguments.REDIRECT)?.let { redirect ->
-                loginViewModel.setRedirectRouting(redirect)
+                signupViewModel.setRedirectRouting(redirect)
             }
         }
 
@@ -41,7 +41,7 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        bind = FragmentLoginBinding.inflate(layoutInflater)
+        bind = FragmentSignupBinding.inflate(layoutInflater)
 
         return bind.root
     }
@@ -53,8 +53,8 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun restoreValues() {
-        bind.password.setText(loginViewModel.password.value)
-        bind.phoneNumber.setText(loginViewModel.phoneNumber.value)
+        bind.password.setText(signupViewModel.password.value)
+        bind.phoneNumber.setText(signupViewModel.phoneNumber.value)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,19 +63,19 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        loginViewModel.loading.observe(viewLifecycleOwner) {
+        signupViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
 
-        loginViewModel.error.observe(viewLifecycleOwner) {
+        signupViewModel.error.observe(viewLifecycleOwner) {
             handleFailure(exception = it)
         }
 
-        loginViewModel.loginOperationState.observe(viewLifecycleOwner) { state ->
+        signupViewModel.loginOperationState.observe(viewLifecycleOwner) { state ->
             checkLoginState(state)
         }
 
-        loginViewModel.formValidity.observe(viewLifecycleOwner) {
+        signupViewModel.formValidity.observe(viewLifecycleOwner) {
             if (it.phoneNumberError != null) {
                 bind.phoneNumber.error = getString(it.phoneNumberError!!)
             } else if (it.passwordError != null) {
@@ -93,7 +93,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun redirect() {
-        val redirectDestination = loginViewModel.redirectRouting.value
+        val redirectDestination = signupViewModel.redirectRouting.value
 
         if (redirectDestination == null) {
             findNavController().navigate(
@@ -117,16 +117,16 @@ class LoginFragment : BaseFragment() {
 
     private fun setupListeners() {
         bind.phoneNumber.afterTextChanged { phoneNumber ->
-            loginViewModel.setPhoneNumber(phoneNumber)
+            signupViewModel.setPhoneNumber(phoneNumber)
         }
 
         bind.password.afterTextChanged {
-            loginViewModel.setPassword(it)
+            signupViewModel.setPassword(it)
         }
 
         bind.login.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                loginViewModel.login()
+                signupViewModel.signup()
             }
             bind.login.isEnabled = false
         }

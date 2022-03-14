@@ -7,7 +7,7 @@ class ValidityTest : TestCase() {
 
     @Test
     fun checkPhoneNumberValidity() {
-        assertEquals(Validity.checkPhoneNumber("01062227714"), true )
+        assertEquals(Validity.phoneNumberIsValid("01062227714"), true )
     }
 
     @Test

@@ -1,19 +1,15 @@
-package com.englizya.login
+package com.englizya.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
-import com.englizya.common.utils.Validity.Companion.passwordIsValid
-import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
+import com.englizya.common.utils.Validity
 import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
 import com.englizya.ticket.login.R
-import com.englizya.utils.LoginFormState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class LoginViewModel @Inject constructor(
+class SignupViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 
@@ -26,10 +22,10 @@ class LoginViewModel @Inject constructor(
     private var _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
-    private var _formValidity = MutableLiveData<LoginFormState>()
-    val formValidity: LiveData<LoginFormState> = _formValidity
+    private var _formValidity = MutableLiveData<SignupFormState>()
+    val formValidity: LiveData<SignupFormState> = _formValidity
 
-    private var _redirectRouting = MutableLiveData<String>(null)
+    private var _redirectRouting = MutableLiveData<String>()
     val redirectRouting: LiveData<String> = _redirectRouting
 
     fun setPhoneNumber(phoneNumber: String) {
@@ -44,13 +40,13 @@ class LoginViewModel @Inject constructor(
 
     private fun checkFormValidity() {
         if (phoneNumber.value.isNullOrBlank()) {
-            _formValidity.postValue(LoginFormState(phoneNumberError = R.string.phone_number_should_be_not_empty))
-        } else if (phoneNumberIsValid(phoneNumber.value!!).not()) {
-            _formValidity.postValue(LoginFormState(phoneNumberError = R.string.phone_number_not_valid))
+            _formValidity.postValue(SignupFormState(phoneNumberError = R.string.phone_number_should_be_not_empty))
+        } else if (Validity.phoneNumberIsValid(phoneNumber.value!!).not()) {
+            _formValidity.postValue(SignupFormState(phoneNumberError = R.string.phone_number_not_valid))
         } else if (password.value.isNullOrBlank()) {
-            _formValidity.postValue(LoginFormState(passwordError = R.string.password_should_be_not_empty))
-        } else if (passwordIsValid(password.value!!).not()) {
-            _formValidity.postValue(LoginFormState(passwordError = R.string.password_not_vlid))
+            _formValidity.postValue(SignupFormState(passwordError = R.string.password_should_be_not_empty))
+        } else if (Validity.passwordIsValid(password.value!!).not()) {
+            _formValidity.postValue(SignupFormState(passwordError = R.string.password_not_vlid))
         }
     }
 
@@ -58,13 +54,13 @@ class LoginViewModel @Inject constructor(
         _redirectRouting.postValue(redirect)
     }
 
-    suspend fun login() {
-        if ((formValidity.value != null).and(formValidity.value!!.formIsValid)) {
-            login(phoneNumber.value, password.value)
+    suspend fun signup() {
+        if ((formValidity.value != null).and(formValidity.value!!.isValid)) {
+            signup(phoneNumber.value, password.value)
         }
     }
 
-    private suspend fun login(phoneNumber: String?, password: String?) {
+    private suspend fun signup(phoneNumber: String?, password: String?) {
         password?.let { password ->
             phoneNumber?.let { phoneNumber ->
                 LoginRequest(

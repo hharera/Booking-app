@@ -1,7 +1,7 @@
 package com.englizya.car_socket.impl
 
 import com.englizya.car_socket.CarSocket
-import com.englizya.carsocket.request.UpdateCarLocationRequest
+import com.englizya.model.request.UpdateCarLocationRequest
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Flowable
