@@ -5,22 +5,4 @@
         android:id="@id/navigation_home"
         android:icon="@drawable/ic_home"
         android:title="@string/title_home" />
-
-    <item
-        android:id="@id/navigation_map"
-        android:icon="@drawable/complaint"
-        android:iconTint="@color/grey"
-        android:title="@string/complaint" />
-
-    <item
-        android:id="@id/navigation_suggestions"
-        android:icon="@drawable/suggestion"
-        android:iconTint="@color/grey"
-        android:title="@string/suggestion" />
-
-    <item
-        android:id="@id/navigation_suggestions"
-        android:icon="@drawable/suggestion"
-        android:iconTint="@color/grey"
-        android:title="@string/suggestion" />
 </menu>

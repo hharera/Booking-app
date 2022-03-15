@@ -13,8 +13,8 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.ticket.navigation.R
 import com.englizya.ticket.navigation.databinding.ActivityHomeBinding
 
-
-class LoginActivity : BaseActivity() {
+//TODO extend from base activity
+class TicketActivity : BaseActivity() {
 
     private lateinit var bind: ActivityHomeBinding
     private lateinit var navController: NavController

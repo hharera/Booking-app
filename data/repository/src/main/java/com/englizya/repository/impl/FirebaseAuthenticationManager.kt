@@ -13,7 +13,7 @@ class FirebaseAuthenticationManager @Inject constructor(
     override fun signIn() {
     }
 
-    override fun loginAnonymously(): Task<AuthResult> = auth.signInAnonymously()
+    fun loginAnonymously(): Task<AuthResult> = auth.signInAnonymously()
 
     override fun signInByPhoneNumber() {
     }

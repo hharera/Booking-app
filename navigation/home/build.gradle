@@ -1,0 +1,10 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+
+dependencies {
+    api(project(Features.login))
+    api(project(Base.common))
+
+
+    implementation(Libs.navigationFragment)
+    implementation(Libs.navigationUi)
+}

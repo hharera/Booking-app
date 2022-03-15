@@ -213,4 +213,7 @@
     <string name="create_new_account">Create new account</string>
     <string name="sending_otp_message">We have sent a confirmation code to %1$s Change Number</string>
     <string name="enter_confirmation_code">Enter the confirmation code</string>
+    <string name="map">Map</string>
+    <string name="ticket">Ticket</string>
+    <string name="routes">Routes</string>
 </resources>

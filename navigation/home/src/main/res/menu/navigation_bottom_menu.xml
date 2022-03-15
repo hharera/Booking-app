@@ -7,14 +7,17 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@id/navigation_map"
         android:icon="@drawable/ic_map"
-        android:title="@string/map" />
+        android:title="Map" />
 
     <item
+        android:id="@id/navigation_tciket"
         android:icon="@drawable/ic_ticket"
-        android:title="@string/ticket" />
+        android:title="Ticket" />
 
     <item
+        android:id="@id/navigation_routes"
         android:icon="@drawable/ic_bus"
-        android:title="@string/routes" />
+        android:title="Routes" />
 </menu>
