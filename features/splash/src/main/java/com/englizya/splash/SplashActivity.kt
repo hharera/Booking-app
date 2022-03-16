@@ -8,7 +8,7 @@ import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.login.LoginFragment
-import com.englizya.navigation.TicketActivity
+import com.englizya.navigation.ticket.TicketActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

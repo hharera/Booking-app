@@ -55,56 +55,84 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <TextView
-            android:id="@+id/first"
+            android:id="@+id/code_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_margin="3dp"
-            android:background="@drawable/background_button_number"
+            android:background="@drawable/background_text_code"
             android:gravity="center"
             android:text="@string/_1"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/second"
+            android:id="@+id/code_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="1"
             android:layout_gravity="center"
             android:layout_margin="3dp"
-            android:background="@drawable/background_button_number"
+            android:background="@drawable/background_text_code"
             android:gravity="center"
             android:text="@string/_1"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/third"
+            android:id="@+id/code_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="2"
             android:layout_gravity="center"
             android:layout_margin="3dp"
-            android:background="@drawable/background_button_number"
+            android:background="@drawable/background_text_code"
             android:gravity="center"
             android:text="@string/_1"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/fourth"
+            android:id="@+id/code_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="3"
             android:layout_gravity="center"
             android:layout_margin="3dp"
-            android:background="@drawable/background_button_number"
+            android:background="@drawable/background_text_code"
+            android:gravity="center"
+            android:text="@string/_1"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/code_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="4"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:background="@drawable/background_text_code"
+            android:gravity="center"
+            android:text="@string/_1"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/code_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="4"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:background="@drawable/background_text_code"
             android:gravity="center"
             android:text="@string/_1"
             android:textColor="@color/black"

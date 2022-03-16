@@ -7,11 +7,35 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.englizya.login.LoginFragment"
-        tools:layout="@layout/fragment_login">
+        android:name="com.englizya.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
 
         <argument android:name="redirect" />
         <deepLink app:uri="EnglizyaPay://home/{redirect}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.englizya.map.MapFragment"
+        tools:layout="@layout/fragment_map">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_ticket"
+        android:name="com.englizya.ticket.TicketFragment"
+        tools:layout="@layout/fragment_tickets_select">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_routes"
+        android:name="com.englizya.route.RouteFragment"
+        tools:layout="@layout/fragment_route">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_qr"
+        android:name="com.englizya.qr.ScanFragment"
+        tools:layout="@layout/fragment_scan_qr">
     </fragment>
 
 </navigation>

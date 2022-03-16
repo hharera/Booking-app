@@ -1,7 +1,12 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
-    api(project(Features.login))
+    api(project(Feature.HOME))
+    api(project(Feature.LINE_MAP))
+    api(project(Feature.ROUTE))
+    api(project(Feature.TICKET))
+    api(project(Feature.MAP))
+    api(project(Feature.SCAN_QR))
     api(project(Base.common))
 
 

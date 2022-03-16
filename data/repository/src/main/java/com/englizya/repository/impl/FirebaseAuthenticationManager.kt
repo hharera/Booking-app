@@ -46,6 +46,6 @@ class FirebaseAuthenticationManager @Inject constructor(
     override fun createCredential(verificationId : String, code: String) =
         PhoneAuthProvider.getCredential(verificationId, code)
 
-    override fun login(credential: AuthCredential) =
+    override fun signup(credential: AuthCredential) =
         auth.signInWithCredential(credential)
 }
