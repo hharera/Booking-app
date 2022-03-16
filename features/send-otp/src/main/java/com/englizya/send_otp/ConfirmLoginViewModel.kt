@@ -9,7 +9,6 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
-import java.lang.Exception
 import javax.inject.Inject
 
 class ConfirmLoginViewModel @Inject constructor(
@@ -42,8 +41,17 @@ class ConfirmLoginViewModel @Inject constructor(
         }
     }
 
-    fun checkCodeValidity() {
+    suspend fun checkCodeValidity() {
         _codeValidity.value = Validity.checkCodeValidity(_code.value!!)
+
+        code.value?.let { code ->
+            verificationCode.value?.let { verificationCode ->
+                if (verificationCode == code) {
+                    signup()
+                }
+            }
+        }
+
     }
 
     fun removeCharacter() {

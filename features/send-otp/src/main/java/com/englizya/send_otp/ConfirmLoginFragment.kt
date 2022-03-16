@@ -69,7 +69,7 @@ class ConfirmLoginFragment : BaseFragment() {
     }
 
     private fun restoreValues() {
-        confirmLoginViewMode.code.observe(viewLifecycleOwner) {
+        confirmLoginViewMode.code.value?.let {
             bind.otpGrid.children.forEachIndexed { index, view ->
                 (view as TextView).text = it[index].toString()
             }
@@ -112,7 +112,9 @@ class ConfirmLoginFragment : BaseFragment() {
         }
 
         confirmLoginViewMode.code.observe(viewLifecycleOwner) {
-            confirmLoginViewMode.checkCodeValidity()
+            lifecycleScope.launch {
+                confirmLoginViewMode.checkCodeValidity()
+            }
         }
 
         confirmLoginViewMode.codeValidity.observe(viewLifecycleOwner) {

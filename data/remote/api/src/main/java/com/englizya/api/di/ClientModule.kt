@@ -1,7 +1,6 @@
 package com.englizya.api.di
 
 import com.englizya.api.utils.Request
-import com.englizya.datastore.core.DriverDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,8 +10,6 @@ import io.ktor.client.engine.android.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
-import io.ktor.http.*
-import io.ktor.http.auth.*
 import javax.inject.Singleton
 
 

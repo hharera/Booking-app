@@ -17,26 +17,7 @@ class DataStoreModule {
 
         @Provides
         @Singleton
-        fun provideDriverDataStore(application: Application): DriverDataStore =
-            DriverDataStore(context = application)
-
-        @Provides
-        @Singleton
-        fun provideTicketDataStore(context: Application): TicketDataStore =
-            TicketDataStore(context = context)
-
-        @Provides
-        @Singleton
-        fun provideCarDataStore(context: Application): CarDataStore = CarDataStore(context = context)
-
-        @Provides
-        @Singleton
-        fun provideCompanyDataStore(context: Application): CompanyDataStore =
-            CompanyDataStore(context = context)
-
-        @Provides
-        @Singleton
-        fun provideManifestoDataStore(context: Application): ManifestoDataStore =
-            ManifestoDataStore(context = context)
+        fun provideUserDataStore(application: Application): UserDataStore =
+            UserDataStore(context = application)
     }
 }
