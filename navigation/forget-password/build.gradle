@@ -1,0 +1,12 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+
+dependencies {
+    api(project(Base.common))
+    api(project(Feature.FORGET_PASSWORD))
+    api(project(Feature.SEND_OTP))
+    api(project(Feature.RESET_PASSWORD))
+
+
+    implementation(Libs.navigationFragment)
+    implementation(Libs.navigationUi)
+}

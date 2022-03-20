@@ -1,5 +1,8 @@
 package com.englizya.repository.impl
 
+import com.englizya.api.RemoteUserService
+import com.englizya.model.dto.User
+import com.englizya.model.request.SignupRequest
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.englizya.repository.AuthenticationManager
@@ -7,7 +10,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FirebaseAuthenticationManager @Inject constructor(
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
+    private val userService: RemoteUserService,
 ) : AuthenticationManager {
 
     override fun signIn() {
@@ -48,4 +52,8 @@ class FirebaseAuthenticationManager @Inject constructor(
 
     override fun signup(credential: AuthCredential) =
         auth.signInWithCredential(credential)
+
+    override suspend fun signup(request: SignupRequest) = runCatching {
+        userService.signup(request)
+    }
 }

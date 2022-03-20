@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: ("dagger.hilt.android.plugin")
 apply plugin: 'kotlin-kapt'
 apply from:"$rootDir/hilt-module-di.gradle"
+apply from:"$rootDir/testing-module-di.gradle"
 android {
     compileSdkVersion DefaultConfig.compileSdk
 

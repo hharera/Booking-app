@@ -44,9 +44,9 @@ dependencies {
     implementation project(":features:location-update")
     implementation project(Base.common)
     implementation project(Feature.SPLASH)
-    implementation project(Navigation.signup)
+    implementation project(Navigation.SIGNUP)
     implementation project(Navigation.login)
-    implementation project(Navigation.home)
+    implementation project(Navigation.HOME)
     implementation project(Navigation.booking)
     implementation project(Navigation.ticket)
 

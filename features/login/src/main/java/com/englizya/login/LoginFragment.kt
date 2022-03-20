@@ -1,5 +1,6 @@
 package com.englizya.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,10 @@ import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.ticket.login.R
-import com.englizya.ticket.login.databinding.FragmentLoginBinding
+import com.englizya.login.databinding.FragmentLoginBinding
+import com.englizya.navigation.forget_password.ForgetPasswordActivity
+import com.englizya.navigation.home.HomeActivity
+import com.englizya.navigation.signup.SignupActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -84,6 +87,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
+
     private fun checkLoginState(state: Boolean) {
         if (state) {
             redirect()
@@ -93,6 +97,17 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun redirect() {
+//        TODO: cases to redirect
+
+        activity?.apply {
+            startActivity(
+                Intent(context, HomeActivity::class.java)
+            )
+            finish()
+        }
+        return
+
+
         val redirectDestination = loginViewModel.redirectRouting.value
 
         if (redirectDestination == null) {
@@ -120,8 +135,16 @@ class LoginFragment : BaseFragment() {
             loginViewModel.setPhoneNumber(phoneNumber)
         }
 
+        bind.forgetPassword.setOnClickListener {
+            goToResetPassword()
+        }
+
         bind.password.afterTextChanged {
             loginViewModel.setPassword(it)
+        }
+
+        bind.signup.setOnClickListener {
+            gotToSignup()
         }
 
         bind.login.setOnClickListener {
@@ -129,6 +152,18 @@ class LoginFragment : BaseFragment() {
                 loginViewModel.login()
             }
             bind.login.isEnabled = false
+        }
+    }
+
+    private fun goToResetPassword() {
+        activity?.apply {
+            startActivity(Intent(context, ForgetPasswordActivity::class.java))
+        }
+    }
+
+    private fun gotToSignup() {
+        activity?.apply {
+            startActivity(Intent(context, SignupActivity::class.java))
         }
     }
 }

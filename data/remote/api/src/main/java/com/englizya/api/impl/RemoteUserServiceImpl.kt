@@ -4,7 +4,10 @@ import com.englizya.api.RemoteUserService
 import com.englizya.api.utils.Domain
 import com.englizya.api.utils.Routing
 import com.englizya.api.utils.Routing.LOGIN
+import com.englizya.api.utils.Routing.SIGNUP
+import com.englizya.model.dto.User
 import com.englizya.model.request.LoginRequest
+import com.englizya.model.request.SignupRequest
 import com.englizya.model.response.LoginResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
@@ -18,6 +21,13 @@ class RemoteUserServiceImpl @Inject constructor(
     override suspend fun login(request: LoginRequest): LoginResponse =
         client.post<LoginResponse> {
             url(LOGIN)
+            contentType(ContentType.Application.Json)
+            body = request
+        }
+
+    override suspend fun signup(request: SignupRequest): User =
+        client.post<User> {
+            url(SIGNUP)
             contentType(ContentType.Application.Json)
             body = request
         }

@@ -31,6 +31,10 @@
             android:exported="true" />
 
         <activity
+            android:name="com.englizya.navigation.forget_password.ForgetPasswordActivity"
+            android:exported="true" />
+
+        <activity
             android:name="com.englizya.splash.SplashActivity"
             android:exported="true">
             <intent-filter>

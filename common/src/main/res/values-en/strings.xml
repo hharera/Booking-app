@@ -3,6 +3,7 @@
     <string name="app_name">" Hyper Panda "</string>
     <string name="sign_up">Subscribe</string>
     <string name="shop">Shop</string>
+    <string name="enter_information_to_create_account">Enter the following information to create an new account</string>
     <string name="start">start</string>
     <string name="password">password</string>
     <string name="email">email</string>
@@ -193,4 +194,7 @@
     <string name="dont_have_an_account">Don\'t have an account?</string>
     <string name="forget_password">Forget password?</string>
     <string name="signup">Signup</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset_password">Reset password</string>
+    <string name="please_enter_your_new_password">please enter your new password</string>
 </resources>

@@ -5,7 +5,7 @@ object Feature {
     const val USER_FORM = ":features:user-data"
     const val TICKET = ":features:ticket"
     const val SUGGESTION = ":features:suggestion"
-    const val SIGN_UP = ":features:singup"
+    const val SIGN_UP = ":features:signup"
     const val RESET_PASSWORD = ":features:reset-password"
     const val PROFILE = ":features:profile"
     const val BOOKING = ":features:booking"
@@ -16,4 +16,5 @@ object Feature {
     const val HOME = ":features:home-screen"
     const val MAP = ":features:map"
     const val SCAN_QR = ":features:scan-qr"
+    const val SEND_OTP = ":features:send-otp"
 }

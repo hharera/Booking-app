@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ENGLIZYA PAY</string>
+    <string name="enter_information_to_create_account">Enter the following information to create an new account</string>
     <string name="sign_up">الاشتراك</string>
     <string name="shop">تسوق</string>
     <string name="start">ابدأ</string>
@@ -194,4 +195,7 @@
     <string name="map">Map</string>
     <string name="ticket">Ticket</string>
     <string name="routes">Routes</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset_password">Reset password</string>
+    <string name="please_enter_your_new_password">please enter your new password</string>
 </resources>

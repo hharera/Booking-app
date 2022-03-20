@@ -5,12 +5,5 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/navigation_ticket">
 
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.englizya.login.LoginFragment"
-        tools:layout="@layout/fragment_login">
 
-        <argument android:name="redirect" />
-        <deepLink app:uri="EnglizyaPay://home/{redirect}" />
-    </fragment>
 </navigation>

@@ -1,6 +1,8 @@
 package com.englizya.repository
 
 import androidx.lifecycle.LiveData
+import com.englizya.model.dto.User
+import com.englizya.model.request.SignupRequest
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
@@ -20,4 +22,5 @@ interface AuthenticationManager {
     fun signInWithEmailAndPassword(email: String, password: String): Task<AuthResult>
     fun createCredential(verificationId: String, code: String): PhoneAuthCredential
     fun signup(credential: AuthCredential): Task<AuthResult>
+    suspend fun signup(request: SignupRequest): Result<User>
 }

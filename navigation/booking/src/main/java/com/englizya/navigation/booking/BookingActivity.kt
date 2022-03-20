@@ -27,39 +27,5 @@ class BookingActivity : BaseActivity() {
         setContentView(bind.root)
 
         navController = Navigation.findNavController(this, R.id.nav_host)
-        bind.navView.setupWithNavController(navController)
-        NavigationUI.setupWithNavController(bind.navView, navController)
-
-        getExtras()
-    }
-
-    private fun getExtras() {
-        intent?.extras?.getString(Arguments.DESTINATION)?.let {
-            navController.navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, it, Destination.TICKET))
-        }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        listenToNavigation()
-    }
-
-    private fun listenToNavigation() {
-        bind.navView.bringToFront()
-        bind.navView.setNavigationItemSelectedListener  {
-            when (it.itemId) {
-//                R.id.navigation_end_shift -> {
-//                    navController.navigate(R.id.navigation_day_report)
-//                    bind.root.closeDrawer(GravityCompat.END, true)
-//                }
-            }
-            return@setNavigationItemSelectedListener true
-        }
     }
 }

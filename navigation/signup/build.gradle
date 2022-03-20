@@ -1,10 +1,20 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
+android {
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
+
 dependencies {
-    api(project(Feature.LOGIN))
+    api(project(Feature.SIGN_UP))
     api(project(Base.common))
 
 
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)
+
+    testImplementation(EspressoTesting.JUNIT)
+    androidTestImplementation(EspressoTesting.ESPRESSO)
+    androidTestImplementation(EspressoTesting.TEST_RUNNER)
 }

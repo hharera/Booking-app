@@ -7,8 +7,7 @@ import com.englizya.common.utils.Validity.Companion.passwordIsValid
 import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
 import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
-import com.englizya.ticket.login.R
-import com.englizya.utils.LoginFormState
+import com.englizya.login.utils.LoginFormState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

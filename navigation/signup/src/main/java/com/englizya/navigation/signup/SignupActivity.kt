@@ -8,8 +8,7 @@ import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.ticket.navigation.signup.R
-import com.englizya.ticket.navigation.signup.databinding.ActivitySingupBinding
+import com.englizya.navigation.signup.databinding.ActivitySingupBinding
 
 class SignupActivity : BaseActivity() {
 

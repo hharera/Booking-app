@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
-import com.englizya.login.LoginFragment
+import com.englizya.navigation.login.LoginActivity
 import com.englizya.navigation.ticket.TicketActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
@@ -26,16 +26,28 @@ class SplashActivity : BaseActivity() {
         window?.statusBarColor = resources.getColor(R.color.splash_status_color)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        setupListeners()
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        splashViewModel.loginState.observe(this) { loginState ->
+            checkLoginState(loginState)
+        }
+    }
+
+    private fun setupListeners() {
+    }
+
     override fun onResume() {
         super.onResume()
 
         lifecycleScope.launch {
-            delay(500)
+            delay(2500)
             splashViewModel.checkLoginState()
-        }
-
-        splashViewModel.loginState.observe(this) { loginState ->
-            checkLoginState(loginState)
         }
     }
 
@@ -49,7 +61,7 @@ class SplashActivity : BaseActivity() {
 
     private fun goLogin() {
         val intent =
-            Intent(this@SplashActivity, LoginFragment::class.java)
+            Intent(this@SplashActivity, LoginActivity::class.java)
                 .putExtra(
                     Arguments.DESTINATION,
                     Destination.LOGIN

@@ -4,6 +4,10 @@
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorPrimaryVariant">@color/blue_600</item>
         <item name="backgroundTint">@color/grey_100</item>
+        <item name="backgroundColor">@color/grey_100</item>
+        <item name="errorTextColor">@color/blue_600</item>
+        <item name="errorIconDrawable">@drawable/error</item>
+        <item name="android:statusBarColor">@color/blue_600</item>
     </style>
 
     <style name="Englizya_Pay.NoActionBar">

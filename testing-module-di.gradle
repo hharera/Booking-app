@@ -9,6 +9,10 @@ dependencies {
     androidTestImplementation(TestDi.junit4)
     androidTestImplementation(TestDi.coroutinesTest)
 
+    testImplementation(EspressoTesting.JUNIT)
+    androidTestImplementation(EspressoTesting.ESPRESSO)
+    androidTestImplementation(EspressoTesting.TEST_RUNNER)
+
 
     testImplementation(TestDi.hiltTesting)
     testImplementation(TestDi.androidCoreTesting)

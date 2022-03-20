@@ -3,5 +3,5 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 dependencies {
     implementation Libs.playServicesTasks
 
-    api project(Navigation.home)
+    api project(Navigation.HOME)
 }

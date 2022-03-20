@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:layoutDirection="rtl"
-        app:headerLayout="@layout/navigation_home_header"
-        app:menu="@menu/navigation_side_menu" />
+        app:headerLayout="@layout/navigation_home_header"/>
 
     <include
         android:id="@+id/navigation_content"
