@@ -4,6 +4,6 @@ dependencies {
     implementation(Animation.LOTTIE)
     implementation(Libs.playServicesTasks)
 
-    api project(Navigation.login)
-    api project(Navigation.ticket)
+    api project(Navigation.LOGIN)
+    api project(Navigation.TICKET)
 }

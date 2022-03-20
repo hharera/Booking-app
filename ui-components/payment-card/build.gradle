@@ -8,5 +8,5 @@ dependencies {
     implementation(Libs.materialDesign)
 
     implementation project(Data.repository)
-    implementation project(Base.common)
+    implementation project(Base.COMMON)
 }

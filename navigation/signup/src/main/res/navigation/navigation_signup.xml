@@ -5,12 +5,13 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/navigation_signup">
 
-
     <fragment
         android:id="@+id/navigation_signup"
         android:name="com.englizya.signup.SignupFragment"
-        android:label="@string/reset_password"
         tools:layout="@layout/fragment_signup" />
 
-
+    <fragment
+        android:id="@+id/navigation_send_otp"
+        android:name="com.englizya.send_otp.SendOtpFragment"
+        tools:layout="@layout/fragment_send_otp" />
 </navigation>

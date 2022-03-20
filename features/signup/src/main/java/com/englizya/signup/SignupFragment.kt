@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
@@ -14,8 +13,6 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.signup.databinding.FragmentSignupBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class SignupFragment : BaseFragment() {
 
@@ -75,6 +72,8 @@ class SignupFragment : BaseFragment() {
         }
 
         signupViewModel.formValidity.observe(viewLifecycleOwner) {
+            bind.signup.isEnabled = it.isValid
+
             if (it.phoneNumberError != null) {
                 bind.phoneNumber.error = getString(it.phoneNumberError!!)
             } else if (it.passwordError != null) {
@@ -123,11 +122,19 @@ class SignupFragment : BaseFragment() {
             signupViewModel.setPassword(it)
         }
 
-        bind.login.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                signupViewModel.signup()
-            }
-            bind.login.isEnabled = false
+        bind.signup.setOnClickListener {
+            findNavController().navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.SEND_OTP,
+                )
+            )
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                signupViewModel.signup()
+//            }
+
+            bind.signup.isEnabled = false
         }
     }
+
 }

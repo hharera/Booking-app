@@ -15,8 +15,7 @@ android {
         versionCode Releases.versionCode
         versionName Releases.versionName
 
-
-        testInstrumentationRunner "com.englizya.ticket.HiltTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -42,16 +41,17 @@ android {
 
 dependencies {
     implementation project(":features:location-update")
-    implementation project(Base.common)
+    implementation project(Base.COMMON)
     implementation project(Feature.SPLASH)
     implementation project(Navigation.SIGNUP)
-    implementation project(Navigation.login)
+    implementation project(Navigation.LOGIN)
     implementation project(Navigation.HOME)
-    implementation project(Navigation.booking)
-    implementation project(Navigation.ticket)
+    implementation project(Navigation.BOOKING)
+    implementation project(Navigation.TICKET)
 
     //hilt
     implementation(Libs.hiltAndroid)
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
     kapt(Libs.hiltAndroidCompiler)
 
     implementation(Libs.playServicesTasks)
@@ -81,4 +81,9 @@ dependencies {
 
     testImplementation(TestDi.hiltTesting)
     kaptTest(Libs.hiltAndroidCompiler)
+
+    testImplementation(EspressoTesting.JUNIT)
+    androidTestImplementation(EspressoTesting.ESPRESSO)
+    androidTestImplementation(EspressoTesting.TEST_RUNNER)
+    androidTestImplementation(EspressoTesting.ESPRESSO_INTENT)
 }

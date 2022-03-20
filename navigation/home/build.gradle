@@ -7,7 +7,7 @@ dependencies {
     api(project(Feature.TICKET))
     api(project(Feature.MAP))
     api(project(Feature.SCAN_QR))
-    api(project(Base.common))
+    api(project(Base.COMMON))
 
 
     implementation(Libs.navigationFragment)

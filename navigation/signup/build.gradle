@@ -2,13 +2,14 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 android {
     defaultConfig {
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 
 dependencies {
     api(project(Feature.SIGN_UP))
-    api(project(Base.common))
+    api(project(Feature.SEND_OTP))
+    api(project(Base.COMMON))
 
 
     implementation(Libs.navigationFragment)

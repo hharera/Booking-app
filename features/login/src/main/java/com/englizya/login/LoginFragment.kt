@@ -2,18 +2,15 @@ package com.englizya.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.navigation.Arguments
-import com.englizya.common.utils.navigation.Destination
-import com.englizya.common.utils.navigation.Domain
-import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ForgetPasswordActivity
 import com.englizya.navigation.home.HomeActivity
@@ -25,17 +22,21 @@ class LoginFragment : BaseFragment() {
 
     private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var bind: FragmentLoginBinding
+    private  val TAG = "LoginFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        getExtras()
+        changeStatusBarColor(R.color.blue_600)
+    }
+
+    private fun getExtras() {
         arguments?.let {
             it.getString(Arguments.REDIRECT)?.let { redirect ->
                 loginViewModel.setRedirectRouting(redirect)
             }
         }
-
-        changeStatusBarColor(R.color.blue_600)
     }
 
     override fun onCreateView(
@@ -56,8 +57,13 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun restoreValues() {
-        bind.password.setText(loginViewModel.password.value)
-        bind.phoneNumber.setText(loginViewModel.phoneNumber.value)
+        loginViewModel.password.value?.let {
+            bind.password.setText(it)
+        }
+
+        loginViewModel.phoneNumber.value?.let {
+            bind.phoneNumber.setText(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,32 +112,11 @@ class LoginFragment : BaseFragment() {
             finish()
         }
         return
-
-
-        val redirectDestination = loginViewModel.redirectRouting.value
-
-        if (redirectDestination == null) {
-            findNavController().navigate(
-                NavigationUtils.getUriNavigation(
-                    Domain.ENGLIZYA_PAY,
-                    Destination.TICKET,
-                    null
-                )
-            )
-            return
-        }
-
-        findNavController().navigate(
-            NavigationUtils.getUriNavigation(
-                Domain.ENGLIZYA_PAY,
-                redirectDestination,
-                null
-            )
-        )
     }
 
     private fun setupListeners() {
         bind.phoneNumber.afterTextChanged { phoneNumber ->
+            Log.d(TAG, "setupListeners: $phoneNumber")
             loginViewModel.setPhoneNumber(phoneNumber)
         }
 

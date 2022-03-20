@@ -7,4 +7,5 @@ object Destination {
     const val LOGIN: String = "login"
     const val TICKET = "ticket"
     const val END_SHIFT = "end-shift"
+    const val SEND_OTP = "send-otp"
 }
