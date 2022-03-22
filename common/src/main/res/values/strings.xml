@@ -199,4 +199,10 @@
     <string name="reset_password">Reset password</string>
     <string name="please_enter_your_new_password">please enter your new password</string>
     <string name="payments_history">Payments history</string>
+    <string name="please_enter_a_strong_password_and_keep_it_secret">Please enter a strong password, and keep it secret</string>
+    <string name="set_your_password">Set your password</string>
+    <string name="address">Address</string>
+    <string name="complete_your_profile_data">Complete your profile data</string>
+    <string name="please_enter_the_following_information_to_complete_your_profile">Please enter the following information to complete your profile</string>
+    <string name="required_name">Name*</string>
 </resources>

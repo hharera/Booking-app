@@ -16,6 +16,25 @@
         tools:layout="@layout/fragment_send_otp" >
 
         <argument android:name="phoneNumber" />
+        <argument android:name="password" />
+        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}/{password}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_set_passwor"
+        android:name="com.englizya.feature.set_password.SetPasswordFragment"
+        tools:layout="@layout/fragment_set_password" >
+
+        <argument android:name="phoneNumber" />
+        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user_form"
+        android:name="com.englizya."
+        tools:layout="@layout/fragment_user_form" >
+
+        <argument android:name="phoneNumber" />
         <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}" />
     </fragment>
 </navigation>

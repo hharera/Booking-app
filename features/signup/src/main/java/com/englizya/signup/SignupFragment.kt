@@ -49,7 +49,6 @@ class SignupFragment : BaseFragment() {
     }
 
     private fun restoreValues() {
-        bind.password.setText(signupViewModel.password.value)
         bind.phoneNumber.setText(signupViewModel.phoneNumber.value)
     }
 
@@ -67,50 +66,13 @@ class SignupFragment : BaseFragment() {
             handleFailure(exception = it)
         }
 
-        signupViewModel.loginOperationState.observe(viewLifecycleOwner) { state ->
-            checkLoginState(state)
-        }
-
         signupViewModel.formValidity.observe(viewLifecycleOwner) {
             bind.signup.isEnabled = it.isValid
 
             if (it.phoneNumberError != null) {
                 bind.phoneNumber.error = getString(it.phoneNumberError!!)
-            } else if (it.passwordError != null) {
-                bind.password.error = getString(it.passwordError!!)
             }
         }
-    }
-
-    private fun checkLoginState(state: Boolean) {
-        if (state) {
-            redirect()
-        } else {
-            showToast(R.string.cannot_login)
-        }
-    }
-
-    private fun redirect() {
-        val redirectDestination = signupViewModel.redirectRouting.value
-
-        if (redirectDestination == null) {
-            findNavController().navigate(
-                NavigationUtils.getUriNavigation(
-                    Domain.ENGLIZYA_PAY,
-                    Destination.TICKET,
-                    null
-                )
-            )
-            return
-        }
-
-        findNavController().navigate(
-            NavigationUtils.getUriNavigation(
-                Domain.ENGLIZYA_PAY,
-                redirectDestination,
-                null
-            )
-        )
     }
 
     private fun setupListeners() {
@@ -118,16 +80,12 @@ class SignupFragment : BaseFragment() {
             signupViewModel.setPhoneNumber(phoneNumber)
         }
 
-        bind.password.afterTextChanged {
-            signupViewModel.setPassword(it)
-        }
-
         bind.signup.setOnClickListener {
             findNavController().navigate(
                 NavigationUtils.getUriNavigation(
                     Domain.ENGLIZYA_PAY,
                     Destination.SEND_OTP,
-                    signupViewModel.phoneNumber.value
+                    signupViewModel.phoneNumber.value,
                 )
             )
 

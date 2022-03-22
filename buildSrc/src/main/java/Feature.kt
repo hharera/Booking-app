@@ -3,6 +3,7 @@ object Feature {
     const val LOGIN = ":features:login"
     const val COMPLAINT = ":features:complaint"
     const val USER_FORM = ":features:user-data"
+    const val SET_PASSWORD = ":features:set-password"
     const val TICKET = ":features:ticket"
     const val SUGGESTION = ":features:suggestion"
     const val SIGN_UP = ":features:signup"

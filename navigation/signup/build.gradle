@@ -9,6 +9,8 @@ android {
 dependencies {
     api(project(Feature.SIGN_UP))
     api(project(Feature.SEND_OTP))
+    api(project(Feature.SET_PASSWORD))
+    api(project(Feature.USER_FORM))
     api(project(Base.COMMON))
 
 

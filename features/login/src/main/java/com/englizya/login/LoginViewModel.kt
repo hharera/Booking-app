@@ -17,8 +17,6 @@ class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 
-    private val TAG = "LoginViewModel"
-
     private val _loginOperationState = MutableLiveData<Boolean>()
     val loginOperationState: LiveData<Boolean> = _loginOperationState
 

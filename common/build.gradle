@@ -53,6 +53,7 @@ dependencies {
     kapt(Libs.hiltAndroidCompiler)
 
     implementation(Libs.appcompat)
+    implementation(Libs.searchBar)
     implementation(Libs.androidxCore)
     implementation(Libs.materialDesign)
     implementation(Libs.gligarPicker)

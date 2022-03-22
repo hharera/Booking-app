@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.mancj.materialsearchbar.MaterialSearchBar
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
@@ -16,6 +17,20 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             afterTextChanged.invoke(s.toString())
+        }
+    })
+}
+
+fun MaterialSearchBar.onSearchConfirmed(afterTextChanged: (String) -> Unit) {
+    this.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener {
+        override fun onSearchStateChanged(enabled: Boolean) {
+        }
+
+        override fun onSearchConfirmed(text: CharSequence) {
+            afterTextChanged.invoke(text.toString())
+        }
+
+        override fun onButtonClicked(buttonCode: Int) {
         }
     })
 }

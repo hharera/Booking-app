@@ -9,6 +9,8 @@ import javax.inject.Inject
 @HiltViewModel
 open class BaseViewModel @Inject constructor()  : ViewModel() {
 
+     val TAG = this::class.java.name
+
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
 

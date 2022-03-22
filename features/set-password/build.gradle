@@ -1,0 +1,6 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+
+dependencies {
+
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}

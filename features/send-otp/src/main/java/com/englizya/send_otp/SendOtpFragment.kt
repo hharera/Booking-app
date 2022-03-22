@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
-import androidx.core.view.forEach
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.code.CodeHandler.appendCode
 import com.englizya.common.utils.code.CountryCode
+import com.englizya.common.utils.navigation.Arguments.PASSWORD
 import com.englizya.common.utils.navigation.Arguments.PHONE_NUMBER
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
@@ -22,7 +21,6 @@ import com.englizya.send_otp.databinding.FragmentSendOtpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class SendOtpFragment : BaseFragment() {
@@ -38,10 +36,14 @@ class SendOtpFragment : BaseFragment() {
     }
 
     private fun getPhoneNumberArgument() {
-        arguments?.let {
+        arguments?.also {
             it.getString(PHONE_NUMBER)?.let { phoneNumber ->
                 Log.d(TAG, "getPhoneNumberArgument: $phoneNumber")
                 sendOtpViewModel.setPhoneNumber(appendCode(phoneNumber, CountryCode.EgyptianCode))
+            }
+
+            it.getString(PASSWORD)?.let { password ->
+                sendOtpViewModel.setPassword(password)
             }
         }
     }
@@ -77,30 +79,44 @@ class SendOtpFragment : BaseFragment() {
     }
 
     private fun setupNumberListeners() {
-        bind.numbersGrid.forEach {
-            it.setOnClickListener {
-                when (it.id) {
-                    R.id.zero -> sendOtpViewModel.putCharacter("0")
-                    R.id.one -> sendOtpViewModel.putCharacter("1")
-                    R.id.two -> sendOtpViewModel.putCharacter("2")
-                    R.id.three -> sendOtpViewModel.putCharacter("3")
-                    R.id.four -> sendOtpViewModel.putCharacter("4")
-                    R.id.five -> sendOtpViewModel.putCharacter("5")
-                    R.id.six -> sendOtpViewModel.putCharacter("6")
-                    R.id.seven -> sendOtpViewModel.putCharacter("7")
-                    R.id.eight -> sendOtpViewModel.putCharacter("8")
-                    R.id.nine -> sendOtpViewModel.putCharacter("9")
-                    R.id.delete -> sendOtpViewModel.removeCharacter()
-                }
-            }
+        bind.zero.setOnClickListener {
+            sendOtpViewModel.putCharacter("0")
+        }
+        bind.one.setOnClickListener {
+            sendOtpViewModel.putCharacter("1")
+        }
+        bind.two.setOnClickListener {
+            sendOtpViewModel.putCharacter("2")
+        }
+        bind.three.setOnClickListener {
+            sendOtpViewModel.putCharacter("3")
+        }
+        bind.four.setOnClickListener {
+            sendOtpViewModel.putCharacter("4")
+        }
+        bind.five.setOnClickListener {
+            sendOtpViewModel.putCharacter("5")
+        }
+        bind.six.setOnClickListener {
+            sendOtpViewModel.putCharacter("6")
+        }
+        bind.seven.setOnClickListener {
+            sendOtpViewModel.putCharacter("7")
+        }
+        bind.eight.setOnClickListener {
+            sendOtpViewModel.putCharacter("8")
+        }
+        bind.nine.setOnClickListener {
+            sendOtpViewModel.putCharacter("9")
+        }
+        bind.delete.setOnClickListener {
+            sendOtpViewModel.removeCharacter()
         }
     }
 
     private fun setupListeners() {
         bind.next.setOnClickListener {
-            lifecycleScope.launch {
-                sendOtpViewModel.signup()
-            }
+            sendOtpViewModel.signup()
         }
     }
 
@@ -108,20 +124,17 @@ class SendOtpFragment : BaseFragment() {
         observeOperation()
 
         sendOtpViewModel.phoneNumber.observe(viewLifecycleOwner) {
-            updateUI(it)
+            updatePhoneNumberUI(it)
             sendVerificationCode()
         }
 
         sendOtpViewModel.code.observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                sendOtpViewModel.checkCodeValidity()
-            }
+            updateCodeUI(it)
+            Log.d(TAG, "setupObservers: $it")
         }
 
         sendOtpViewModel.codeValidity.observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                sendOtpViewModel.signup()
-            }
+            bind.next.isEnabled = it
         }
 
         sendOtpViewModel.verificationCode.observe(viewLifecycleOwner) { verificationCode ->
@@ -129,7 +142,22 @@ class SendOtpFragment : BaseFragment() {
         }
     }
 
-    private fun updateUI(phoneNumber: String) {
+    private fun updateCodeUI(code: String) {
+        for (index in 0..5) {
+            val char = code.getOrNull(index)
+            val str = char?.toString() ?: ""
+            when (index) {
+                0 -> bind.code1.text = str
+                1 -> bind.code2.text = str
+                2 -> bind.code3.text = str
+                3 -> bind.code4.text = str
+                4 -> bind.code5.text = str
+                5 -> bind.code6.text = str
+            }
+        }
+    }
+
+    private fun updatePhoneNumberUI(phoneNumber: String) {
         Log.d(TAG, "updateUI: $phoneNumber")
         bind.enterConfirmation.setText(getString(R.string.sending_otp_message, phoneNumber))
     }
@@ -159,8 +187,9 @@ class SendOtpFragment : BaseFragment() {
 
     private fun observeOperation() {
         sendOtpViewModel.verificationState.observe(viewLifecycleOwner) {
-            if(it)
+            if(it) {
                 completeUserInfo()
+            }
         }
     }
 
@@ -168,7 +197,8 @@ class SendOtpFragment : BaseFragment() {
         findNavController().navigate(
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
-                Destination.USER_FORM
+                Destination.USER_FORM,
+                null
             )
         )
     }

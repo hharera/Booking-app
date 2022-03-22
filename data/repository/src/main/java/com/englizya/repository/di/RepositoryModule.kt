@@ -1,7 +1,6 @@
 package com.englizya.repository.di
 
 import com.englizya.repository.UserRepository
-import com.englizya.repository.impl.FirebaseAuthenticationManager
 import com.englizya.repository.impl.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -13,8 +12,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindUserRepository(userRepositoryImpl: UserRepositoryImpl) : UserRepository
-
-    @Binds
-    abstract fun bindAuthenticationManager(authManifestoRepositoryImpl: FirebaseAuthenticationManager) : com.englizya.repository.AuthenticationManager
+    abstract fun bindUserRepository(authenticationManagerImpl: UserRepositoryImpl) : UserRepository
 }
