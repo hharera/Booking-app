@@ -130,7 +130,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signup"
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
@@ -154,19 +154,20 @@
         android:textColor="#303030"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <TextView
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:fontFamily="@font/sf"
         android:text="@string/signup"
         android:textColor="#003BAD"
         android:textSize="14sp"
+        android:layout_marginStart="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/signup" />
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

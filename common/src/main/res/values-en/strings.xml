@@ -141,7 +141,7 @@
     <string name="password_should_be_not_empty">Password is required</string>
     <string name="password_not_vlid">Password is not valid</string>
     <string name="create_new_account">Create new account</string>
-    <string name="sending_otp_message">We have sent a confirmation code to +201099609915 Change Number?</string>
+    <string name="sending_otp_message">We have sent a confirmation code to %1$s Change Number</string>
     <string name="enter_confirmation_code">Enter the confirmation code</string>
     <string name="map">Map</string>
     <string name="ticket">Ticket</string>
@@ -181,7 +181,6 @@
     <string name="check_your_internet">تأكد من وجود انترنت ثم عاود المحاولة</string>
     <string name="submit">تأكيد</string>
     <string name="resend_code">Resend code</string>
-    <string name="your_balance">Your Balance</string>
     <string name="charge">CHARGE</string>
     <string name="enter_payment_card">Please enter the following information to add a payment card</string>
     <string name="cvv">CVV</string>
@@ -197,4 +196,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="reset_password">Reset password</string>
     <string name="please_enter_your_new_password">please enter your new password</string>
+    <string name="your_balance">Your Balance</string>
+    <string name="payments_history">Payments history</string>
 </resources>

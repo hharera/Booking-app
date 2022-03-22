@@ -1,4 +1,4 @@
-package com.englizya.ticket
+package com.englizya.client.ticket
 
 import org.junit.Test
 

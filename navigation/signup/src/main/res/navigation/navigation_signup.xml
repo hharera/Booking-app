@@ -13,5 +13,9 @@
     <fragment
         android:id="@+id/navigation_send_otp"
         android:name="com.englizya.send_otp.SendOtpFragment"
-        tools:layout="@layout/fragment_send_otp" />
+        tools:layout="@layout/fragment_send_otp" >
+
+        <argument android:name="phoneNumber" />
+        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}" />
+    </fragment>
 </navigation>

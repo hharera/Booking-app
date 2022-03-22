@@ -3,7 +3,6 @@ package com.englizya.login
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity.Companion.passwordIsValid
 import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
@@ -11,7 +10,6 @@ import com.englizya.login.utils.LoginFormState
 import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,15 +35,13 @@ class LoginViewModel @Inject constructor(
     val redirectRouting: LiveData<String> = _redirectRouting
 
     fun setPhoneNumber(phoneNumber: String) {
-        _phoneNumber.postValue(phoneNumber).also {
-            checkFormValidity()
-        }
+        _phoneNumber.value = phoneNumber
+        checkFormValidity()
     }
 
-    fun setPassword(password: String) = viewModelScope.launch {
-        _password.postValue(password).also {
-            checkFormValidity()
-        }
+    fun setPassword(password: String) {
+        _password.value = password
+        checkFormValidity()
     }
 
     private fun checkFormValidity() {

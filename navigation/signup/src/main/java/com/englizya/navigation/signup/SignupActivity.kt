@@ -9,6 +9,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.navigation.signup.databinding.ActivitySingupBinding
+import com.google.firebase.FirebaseApp
 
 class SignupActivity : BaseActivity() {
 
@@ -25,6 +26,7 @@ class SignupActivity : BaseActivity() {
         navController = Navigation.findNavController(this, R.id.navView)
 
         getExtras()
+        FirebaseApp.initializeApp(applicationContext)
     }
 
     private fun getExtras() {

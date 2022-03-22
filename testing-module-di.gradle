@@ -2,6 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 
+android {
+
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
 dependencies {
     androidTestImplementation(TestDi.hiltTesting)
     androidTestImplementation(TestDi.androidCoreTesting)

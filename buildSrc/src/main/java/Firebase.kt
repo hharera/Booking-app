@@ -17,6 +17,9 @@ object Firebase {
     const val firebaseFirestore =
         "com.google.firebase:firebase-firestore:${FIREBASE_FIRESTORE_VERSION}"
 
+    const val FIREBASE_CORE =
+        "com.google.firebase:firebase-core:15.0.0"
+
     const val firebaseBom =
         "com.google.firebase:firebase-bom:${FIREBASE_BOM_VERSION}"
 }

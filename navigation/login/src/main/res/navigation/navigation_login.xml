@@ -10,8 +10,8 @@
         android:name="com.englizya.login.LoginFragment"
         tools:layout="@layout/fragment_login">
 
-        <argument android:name="redirect" />
-        <deepLink app:uri="EnglizyaPay://login/{redirect}" />
+        <argument android:name="phoneNumber" />
+        <deepLink app:uri="EnglizyaPay://login/{phoneNumber}" />
     </fragment>
 
 

@@ -9,8 +9,10 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class SendOtpViewModel @Inject constructor(
     private val authenticationManager : AuthenticationManager,
 ) : BaseViewModel() {
@@ -30,14 +32,14 @@ class SendOtpViewModel @Inject constructor(
     private var _verificationState = MutableLiveData<Boolean>()
     val verificationState: LiveData<Boolean> = _verificationState
 
-    private var _code = MutableLiveData<String>("")
+    private var _code = MutableLiveData<String>()
     val code: LiveData<String> = _code
 
     fun putCharacter(numberCharacter: String) {
-        code.value?.let {
-            if (it.length < 6) {
-                _code.postValue(it.plus(numberCharacter))
-            }
+        if (code.value.isNullOrBlank())
+            _code.value = numberCharacter
+        else if (code.value!!.length < 6) {
+            _code.value = code.value!!.plus(numberCharacter)
         }
     }
 
@@ -79,18 +81,21 @@ class SendOtpViewModel @Inject constructor(
             }
         }
 
-    suspend fun signup() {
+    fun signup() {
         if (checkCode().not()) {
             handleException(Exception("Invalid code"))
         }
 
-        signup(verificationCode = verificationCode.value!!, code = code.value!!)
+        signup(verificationCode = verificationCode.value, code = code.value)
     }
 
     private fun checkCode() =
         verificationCode.value.equals(code.value).not()
 
-    private suspend fun signup(verificationCode: String, code: String) {
+    private fun signup(verificationCode: String?, code: String?) {
+        if (verificationCode == null || code == null) {
+            return
+        }
         updateLoading(true)
 
         val credential = authenticationManager.createCredential(verificationCode, code)
@@ -107,6 +112,6 @@ class SendOtpViewModel @Inject constructor(
     }
 
     fun setPhoneNumber(phoneNumber: String) {
-        _phoneNumber.postValue(phoneNumber)
+        _phoneNumber.value = (phoneNumber)
     }
 }

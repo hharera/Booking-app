@@ -127,11 +127,9 @@ class SignupFragment : BaseFragment() {
                 NavigationUtils.getUriNavigation(
                     Domain.ENGLIZYA_PAY,
                     Destination.SEND_OTP,
+                    signupViewModel.phoneNumber.value
                 )
             )
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                signupViewModel.signup()
-//            }
 
             bind.signup.isEnabled = false
         }

@@ -110,9 +110,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
+            android:inputType="textPassword"
             android:layout_height="match_parent"
             android:imeActionId="@integer/btm_to"
-            android:inputType="text"
             android:lines="1"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>

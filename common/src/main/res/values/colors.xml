@@ -21,5 +21,6 @@
     <color name="blue_500">#003BAD</color>
     <color name="grey_200">#6D809B</color>
     <color name="grey_300">#303030</color>
+    <color name="grey_500">#171B24</color>
     <color name="grey_100">#F1F4F8</color>
 </resources>

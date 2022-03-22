@@ -4,6 +4,9 @@ apply plugin: ("dagger.hilt.android.plugin")
 apply plugin: 'kotlin-kapt'
 apply from:"$rootDir/hilt-module-di.gradle"
 apply from:"$rootDir/testing-module-di.gradle"
+apply from:"$rootDir/firebase-module-di.gradle"
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion DefaultConfig.compileSdk
 

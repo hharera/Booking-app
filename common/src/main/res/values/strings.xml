@@ -8,6 +8,7 @@
     <string name="email">الايميل</string>
     <string name="total">الإجمالي</string>
     <string name="remove">إزالة</string>
+    <string name="your_balance">Your Balance</string>
     <string name="price">السعر</string>
     <string name="quantity">الكمية</string>
     <string name="title_activity_cafe_location">خريطة</string>
@@ -172,7 +173,6 @@
     <string name="check_your_internet">تأكد من وجود انترنت ثم عاود المحاولة</string>
     <string name="submit">تأكيد</string>
     <string name="resend_code">Resend code</string>
-    <string name="your_balance">Your Balance</string>
     <string name="charge">CHARGE</string>
     <string name="enter_payment_card">Please enter the following information to add a payment card</string>
     <string name="cvv">CVV</string>
@@ -198,4 +198,5 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="reset_password">Reset password</string>
     <string name="please_enter_your_new_password">please enter your new password</string>
+    <string name="payments_history">Payments history</string>
 </resources>

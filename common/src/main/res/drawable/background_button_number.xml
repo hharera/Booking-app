@@ -8,6 +8,6 @@
     <size
         android:width="72dp"
         android:height="48dp" />
-    <solid android:color="#FFFFFF" />
+    <solid android:color="@color/white" />
     <corners android:radius="8dp" />
 </shape>

@@ -13,6 +13,7 @@ open class BaseFragment : Fragment() {
 
     lateinit var connectionLiveData: ConnectionLiveData
 
+    val TAG = this::class.java.name
     private val loadingDialog: LoadingDialog by lazy {
         LoadingDialog(requireContext())
     }

@@ -2,11 +2,13 @@ package com.englizya.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity
 import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,12 +32,12 @@ class SignupViewModel @Inject constructor(
     val redirectRouting: LiveData<String> = _redirectRouting
 
     fun setPhoneNumber(phoneNumber: String) {
-        _phoneNumber.postValue(phoneNumber)
+        _phoneNumber.value = phoneNumber
         checkFormValidity()
     }
 
-    fun setPassword(password: String) {
-        _password.postValue(password)
+    fun setPassword(password: String)  {
+        _password.value = password
         checkFormValidity()
     }
 
@@ -48,6 +50,8 @@ class SignupViewModel @Inject constructor(
             _formValidity.postValue(SignupFormState(passwordError = R.string.password_should_be_not_empty))
         } else if (Validity.passwordIsValid(password.value!!).not()) {
             _formValidity.postValue(SignupFormState(passwordError = R.string.password_not_vlid))
+        } else {
+            _formValidity.postValue(SignupFormState(isValid = true))
         }
     }
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.englizya.home-screen.HomeFragment"
+        android:name="com.englizya.home_screen.HomeFragment"
         tools:layout="@layout/fragment_home">
 
         <argument android:name="redirect" />
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/navigation_ticket"
-        android:name="com.englizya.ticket.TicketFragment"
+        android:name="com.englizya.client.ticket.TicketFragment"
         tools:layout="@layout/fragment_tickets_select">
     </fragment>
 

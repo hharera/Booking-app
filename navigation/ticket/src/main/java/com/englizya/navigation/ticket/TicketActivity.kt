@@ -10,8 +10,8 @@ import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.ticket.navigation.ticket.R
-import com.englizya.ticket.navigation.ticket.databinding.ActivityTicketBinding
+import com.englizya.client.ticket.navigation.ticket.R
+import com.englizya.client.ticket.navigation.ticket.databinding.ActivityTicketBinding
 
 class TicketActivity : BaseActivity() {
 

@@ -1,6 +1,7 @@
 package com.englizya.send_otp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +24,11 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class SendOtpFragment : BaseFragment() {
 
-    @Inject
-    lateinit var firebaseAuth: FirebaseAuth
-    private val sendOtpViewMode: SendOtpViewModel by viewModels()
+    private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val sendOtpViewModel: SendOtpViewModel by viewModels()
     private lateinit var bind: FragmentSendOtpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +40,8 @@ class SendOtpFragment : BaseFragment() {
     private fun getPhoneNumberArgument() {
         arguments?.let {
             it.getString(PHONE_NUMBER)?.let { phoneNumber ->
-                sendOtpViewMode.setPhoneNumber(appendCode(phoneNumber, CountryCode.EgyptianCode))
+                Log.d(TAG, "getPhoneNumberArgument: $phoneNumber")
+                sendOtpViewModel.setPhoneNumber(appendCode(phoneNumber, CountryCode.EgyptianCode))
             }
         }
     }
@@ -69,7 +69,7 @@ class SendOtpFragment : BaseFragment() {
     }
 
     private fun restoreValues() {
-        sendOtpViewMode.code.value?.let {
+        sendOtpViewModel.code.value?.let {
             bind.otpGrid.children.forEachIndexed { index, view ->
                 (view as TextView).text = it[index].toString()
             }
@@ -80,17 +80,17 @@ class SendOtpFragment : BaseFragment() {
         bind.numbersGrid.forEach {
             it.setOnClickListener {
                 when (it.id) {
-                    R.id.zero -> sendOtpViewMode.putCharacter("0")
-                    R.id.one -> sendOtpViewMode.putCharacter("1")
-                    R.id.two -> sendOtpViewMode.putCharacter("2")
-                    R.id.three -> sendOtpViewMode.putCharacter("3")
-                    R.id.four -> sendOtpViewMode.putCharacter("4")
-                    R.id.five -> sendOtpViewMode.putCharacter("5")
-                    R.id.six -> sendOtpViewMode.putCharacter("6")
-                    R.id.seven -> sendOtpViewMode.putCharacter("7")
-                    R.id.eight -> sendOtpViewMode.putCharacter("8")
-                    R.id.nine -> sendOtpViewMode.putCharacter("9")
-                    R.id.remove -> sendOtpViewMode.removeCharacter()
+                    R.id.zero -> sendOtpViewModel.putCharacter("0")
+                    R.id.one -> sendOtpViewModel.putCharacter("1")
+                    R.id.two -> sendOtpViewModel.putCharacter("2")
+                    R.id.three -> sendOtpViewModel.putCharacter("3")
+                    R.id.four -> sendOtpViewModel.putCharacter("4")
+                    R.id.five -> sendOtpViewModel.putCharacter("5")
+                    R.id.six -> sendOtpViewModel.putCharacter("6")
+                    R.id.seven -> sendOtpViewModel.putCharacter("7")
+                    R.id.eight -> sendOtpViewModel.putCharacter("8")
+                    R.id.nine -> sendOtpViewModel.putCharacter("9")
+                    R.id.delete -> sendOtpViewModel.removeCharacter()
                 }
             }
         }
@@ -99,7 +99,7 @@ class SendOtpFragment : BaseFragment() {
     private fun setupListeners() {
         bind.next.setOnClickListener {
             lifecycleScope.launch {
-                sendOtpViewMode.signup()
+                sendOtpViewModel.signup()
             }
         }
     }
@@ -107,25 +107,31 @@ class SendOtpFragment : BaseFragment() {
     private fun setupObservers() {
         observeOperation()
 
-        sendOtpViewMode.phoneNumber.observe(viewLifecycleOwner) {
+        sendOtpViewModel.phoneNumber.observe(viewLifecycleOwner) {
+            updateUI(it)
             sendVerificationCode()
         }
 
-        sendOtpViewMode.code.observe(viewLifecycleOwner) {
+        sendOtpViewModel.code.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
-                sendOtpViewMode.checkCodeValidity()
+                sendOtpViewModel.checkCodeValidity()
             }
         }
 
-        sendOtpViewMode.codeValidity.observe(viewLifecycleOwner) {
+        sendOtpViewModel.codeValidity.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
-                sendOtpViewMode.signup()
+                sendOtpViewModel.signup()
             }
         }
 
-        sendOtpViewMode.verificationCode.observe(viewLifecycleOwner) { verificationCode ->
+        sendOtpViewModel.verificationCode.observe(viewLifecycleOwner) { verificationCode ->
             promptCode()
         }
+    }
+
+    private fun updateUI(phoneNumber: String) {
+        Log.d(TAG, "updateUI: $phoneNumber")
+        bind.enterConfirmation.setText(getString(R.string.sending_otp_message, phoneNumber))
     }
 
     private fun promptCode() {
@@ -141,19 +147,20 @@ class SendOtpFragment : BaseFragment() {
 
     private fun resendCode() {
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)
-            .setPhoneNumber(sendOtpViewMode.phoneNumber.value!!)
+            .setPhoneNumber(sendOtpViewModel.phoneNumber.value!!)
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(requireActivity())
-            .setCallbacks(sendOtpViewMode.getVerificationCallBack())
-            .setForceResendingToken(sendOtpViewMode.refreshToken.value!!)
+            .setCallbacks(sendOtpViewModel.getVerificationCallBack())
+            .setForceResendingToken(sendOtpViewModel.refreshToken.value!!)
             .build()
 
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
     private fun observeOperation() {
-        sendOtpViewMode.verificationState.observe(viewLifecycleOwner) {
-            completeUserInfo()
+        sendOtpViewModel.verificationState.observe(viewLifecycleOwner) {
+            if(it)
+                completeUserInfo()
         }
     }
 
@@ -168,10 +175,10 @@ class SendOtpFragment : BaseFragment() {
 
     private fun sendVerificationCode() {
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)
-            .setPhoneNumber(sendOtpViewMode.phoneNumber.value!!)
+            .setPhoneNumber(sendOtpViewModel.phoneNumber.value!!)
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(requireActivity())
-            .setCallbacks(sendOtpViewMode.getVerificationCallBack())
+            .setCallbacks(sendOtpViewModel.getVerificationCallBack())
             .build()
 
         PhoneAuthProvider.verifyPhoneNumber(options)

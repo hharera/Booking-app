@@ -22,7 +22,6 @@ class LoginFragment : BaseFragment() {
 
     private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var bind: FragmentLoginBinding
-    private  val TAG = "LoginFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

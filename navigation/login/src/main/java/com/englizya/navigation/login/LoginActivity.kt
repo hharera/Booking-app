@@ -3,15 +3,13 @@ package com.englizya.navigation.login
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.ticket.navigation.login.R
-import com.englizya.ticket.navigation.login.databinding.ActivityLoginBinding
+import com.englizya.client.ticket.navigation.login.R
+import com.englizya.client.ticket.navigation.login.databinding.ActivityLoginBinding
 
 
 class LoginActivity : BaseActivity() {
