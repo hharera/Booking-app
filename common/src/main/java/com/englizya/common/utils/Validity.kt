@@ -11,6 +11,18 @@ class Validity {
                 .or(string.matches(Regex("^012[0-9]{8}\$")))
                 .or(string.matches(Regex("^015[0-9]{8}\$")))
 
+        fun cardNumberIsValid(card: String) =
+            false
+                .or(card.matches(Regex("^[0-9]{16}\$")))
+
+        fun cardExpirationDataIsValid(card: String) =
+            false
+                .or(card.matches(Regex("^[0-9]{2}/[0-9]{2}\$")))
+
+        fun cardCvvIsValid(card: String) =
+            false
+                .or(card.matches(Regex("^[0-9]{3}\$")))
+
         fun checkCode(string: String) =
             string.matches(Regex("^[0-9]{6}\$"))
 

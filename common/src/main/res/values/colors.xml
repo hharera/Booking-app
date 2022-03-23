@@ -4,7 +4,7 @@
     <color name="colorSecondary">@color/blue_600</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">@color/red_500</color>
-    <color name="red_500">#b71540</color>
+    <color name="red_500">#E81212</color>
     <color name="red_100">#66B71540</color>
     <color name="red_200">#73B71540</color>
     <color name="red_300">#99B71540</color>
@@ -19,8 +19,10 @@
     <color name="splash_status_color">@color/white</color>
     <color name="green">#009F0B</color>
     <color name="blue_500">#003BAD</color>
+
+    <color name="grey_100">#F1F4F8</color>
     <color name="grey_200">#6D809B</color>
     <color name="grey_300">#303030</color>
+    <color name="grey_400">#171B24l</color>
     <color name="grey_500">#171B24</color>
-    <color name="grey_100">#F1F4F8</color>
 </resources>

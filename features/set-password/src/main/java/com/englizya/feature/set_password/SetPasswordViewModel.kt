@@ -22,11 +22,18 @@ class SetPasswordViewModel @Inject constructor(
     private var _phoneNumber = MutableLiveData<String>()
     val phoneNumber: LiveData<String> = _phoneNumber
 
+    private var _name = MutableLiveData<String>()
+    val name: LiveData<String> = _name
+
     private var _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
     private var _formValidity = MutableLiveData<PasswordFormState>()
     val formValidity: LiveData<PasswordFormState> = _formValidity
+
+    fun setName(name: String) {
+        _name.value = name
+    }
 
     fun setPhoneNumber(phoneNumber: String) {
         _phoneNumber.value = phoneNumber

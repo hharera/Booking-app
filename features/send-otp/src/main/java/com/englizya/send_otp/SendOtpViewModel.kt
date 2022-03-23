@@ -25,23 +25,20 @@ class SendOtpViewModel @Inject constructor(
     private var _phoneNumber = MutableLiveData<String>()
     val phoneNumber: LiveData<String> = _phoneNumber
 
-    private var _password = MutableLiveData<String>()
-    val password: LiveData<String> = _password
-
-    private var _codeValidity = MutableLiveData<Boolean>(false)
-    val codeValidity: LiveData<Boolean> = _codeValidity
+    private var _code = MutableLiveData<String>()
+    val code: LiveData<String> = _code
 
     private var _verificationCode = MutableLiveData<String>()
     val verificationCode: LiveData<String> = _verificationCode
+
+    private var _codeValidity = MutableLiveData<Boolean>(false)
+    val codeValidity: LiveData<Boolean> = _codeValidity
 
     private var _resendToken = MutableLiveData<ForceResendingToken>()
     val refreshToken: LiveData<ForceResendingToken> = _resendToken
 
     private var _verificationState = MutableLiveData<Boolean>()
     val verificationState: LiveData<Boolean> = _verificationState
-
-    private var _code = MutableLiveData<String>()
-    val code: LiveData<String> = _code
 
     fun putCharacter(numberCharacter: String) {
         if (code.value.isNullOrBlank())
@@ -99,7 +96,7 @@ class SendOtpViewModel @Inject constructor(
         userRepository.signup(credential)
             .addOnSuccessListener { authResult ->
                 updateLoading(false)
-                signup(authResult)
+                _verificationState.postValue(true)
             }
             .addOnFailureListener {
                 updateLoading(false)
@@ -107,29 +104,7 @@ class SendOtpViewModel @Inject constructor(
             }
     }
 
-    private fun signup(authResult: AuthResult) {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.signup(
-                SignupRequest(
-                    uid = authResult.user!!.uid,
-                    phoneNumber = phoneNumber.value!!,
-                    password = phoneNumber.value!!,
-                )
-            ).onSuccess {
-                _verificationState.postValue(true)
-
-            }.onFailure {
-                _verificationState.postValue(false)
-
-            }
-        }
-    }
-
     fun setPhoneNumber(phoneNumber: String) {
         _phoneNumber.value = (phoneNumber)
-    }
-
-    fun setPassword(password: String) {
-        _password.value = password
     }
 }

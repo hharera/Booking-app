@@ -21,12 +21,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_set_passwor"
+        android:id="@+id/navigation_set_password"
         android:name="com.englizya.feature.set_password.SetPasswordFragment"
         tools:layout="@layout/fragment_set_password" >
 
         <argument android:name="phoneNumber" />
-        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}" />
+        <deepLink app:uri="EnglizyaPay://set-password/{phoneNumber}" />
     </fragment>
 
     <fragment

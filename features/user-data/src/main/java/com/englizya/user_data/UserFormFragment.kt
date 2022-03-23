@@ -1,30 +1,26 @@
 package com.englizya.user_data
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.englizya.common.base.BaseFragment
-import com.englizya.common.extension.afterTextChanged
-import com.englizya.common.utils.navigation.Arguments
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.user_data.databinding.FragmentUserFormBinding
+import com.opensooq.supernova.gligar.GligarPicker
 
 class UserFormFragment : BaseFragment() {
 
+    private val IMAGE_REQ_CODE = 3004
     private val userFormViewModel: UserFormViewModel by viewModels()
     private lateinit var bind: FragmentUserFormBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            it.getString(Arguments.REDIRECT)?.let { redirect ->
-                userFormViewModel.setRedirectRouting(redirect)
-            }
-        }
 
         changeStatusBarColor(R.color.blue_600)
     }
@@ -47,7 +43,9 @@ class UserFormFragment : BaseFragment() {
     }
 
     private fun restoreValues() {
-        bind.name.setText(userFormViewModel.name.value)
+//        TODO : get place name by lat lng
+//        bind.address.setText(userFormViewModel.address.value)
+        bind.profileImage.setImageBitmap(userFormViewModel.profileImage.value)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,32 +62,58 @@ class UserFormFragment : BaseFragment() {
             handleFailure(exception = it)
         }
 
-        userFormViewModel.formValidity.observe(viewLifecycleOwner) {
-            bind.save.isEnabled = it.isValid
-
-            if (it.nameError != null) {
-                bind.name.error = getString(it.nameError!!)
+        userFormViewModel.operationState.observe(viewLifecycleOwner) { state ->
+            if (state) {
+                progressToHome()
             }
         }
     }
 
     private fun setupListeners() {
-        bind.name.afterTextChanged { name ->
-            userFormViewModel.setName(name)
+        bind.address.setOnClickListener {
+//            TODO : select address from map
+        }
+
+        bind.profileImage.setOnClickListener {
+            selectImage()
+        }
+
+        bind.add.setOnClickListener {
+            progressToAddPaymentCard()
         }
 
         bind.save.setOnClickListener {
-            goToHome()
-
+            userFormViewModel.saveUserData()
             bind.save.isEnabled = false
         }
     }
 
-    private fun goToHome() {
+    private fun progressToAddPaymentCard() {
+
+    }
+
+    private fun selectImage() {
+        GligarPicker()
+            .requestCode(IMAGE_REQ_CODE)
+            .limit(1)
+            .withFragment(this)
+            .show()
+    }
+
+    private fun progressToHome() {
         activity?.startActivity(
             Intent(context, HomeActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             }
         )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (data != null && data.data != null && resultCode == Activity.RESULT_OK && requestCode == IMAGE_REQ_CODE) {
+            val imageBitmap = BitmapFactory.decodeFile(data.data!!.path)
+            imageBitmap?.let {
+                userFormViewModel.setProfileImage(imageBitmap)
+            }
+        }
     }
 }

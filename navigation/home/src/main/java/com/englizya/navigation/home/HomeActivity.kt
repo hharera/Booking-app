@@ -1,18 +1,16 @@
 package com.englizya.navigation.home
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.englizya.client.ticket.navigation.home.R
+import com.englizya.client.ticket.navigation.home.databinding.ActivityHomeBinding
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.client.ticket.navigation.home.R
-import com.englizya.client.ticket.navigation.home.databinding.ActivityHomeBinding
 
 class HomeActivity : BaseActivity() {
 
@@ -32,9 +30,14 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setupRecyclerViewAdapter() {
-        val adapter : NavigationRecyclerViewAdapter = NavigationRecyclerViewAdapter {
+        val adapter: NavigationAdapter =
+            NavigationAdapter(
+                arrayListOf(
+                    NavigationItem.PaymentHistory,
+                )
+            ) {
 
-        }
+            }
         bind.navigationMenu.adapter = adapter
     }
 

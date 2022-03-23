@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.code.CodeHandler.appendCode
 import com.englizya.common.utils.code.CountryCode
-import com.englizya.common.utils.navigation.Arguments.PASSWORD
 import com.englizya.common.utils.navigation.Arguments.PHONE_NUMBER
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
@@ -40,10 +39,6 @@ class SendOtpFragment : BaseFragment() {
             it.getString(PHONE_NUMBER)?.let { phoneNumber ->
                 Log.d(TAG, "getPhoneNumberArgument: $phoneNumber")
                 sendOtpViewModel.setPhoneNumber(appendCode(phoneNumber, CountryCode.EgyptianCode))
-            }
-
-            it.getString(PASSWORD)?.let { password ->
-                sendOtpViewModel.setPassword(password)
             }
         }
     }
@@ -186,19 +181,19 @@ class SendOtpFragment : BaseFragment() {
     }
 
     private fun observeOperation() {
-        sendOtpViewModel.verificationState.observe(viewLifecycleOwner) {
-            if(it) {
-                completeUserInfo()
+        sendOtpViewModel.verificationState.observe(viewLifecycleOwner) { verificationState ->
+            if(verificationState) {
+                progressToSetPassword()
             }
         }
     }
 
-    private fun completeUserInfo() {
+    private fun progressToSetPassword() {
         findNavController().navigate(
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
-                Destination.USER_FORM,
-                null
+                Destination.SET_PASSWORD,
+                sendOtpViewModel.phoneNumber.value
             )
         )
     }

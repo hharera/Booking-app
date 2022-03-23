@@ -37,49 +37,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/profileImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:src="@drawable/no_path"
+        android:src="@drawable/ic_set_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:fontFamily="@font/sf"
-        android:text="@string/required_name"
-        android:textColor="@color/grey_300"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutName"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_button_number"
-        android:layout_marginHorizontal="23dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName"
-        app:placeholderText="@string/name"
-        app:startIconDrawable="@drawable/ic_user">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:imeActionId="@integer/btm_to"
-            android:inputType="text"
-            android:lines="1"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textViewAddress"
@@ -92,22 +58,23 @@
         android:textColor="@color/grey_300"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName" />
+        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="4dp"
         android:id="@+id/address"
+        android:elevation="4dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/background_button_number"
         android:layout_marginHorizontal="23dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="14dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewAddress">
 
         <ImageView
             android:id="@+id/imageView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:src="@drawable/map_marker_home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/address"
+            android:textColor="@color/grey_300"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView10"
             app:layout_constraintTop_toTopOf="parent" />
@@ -126,7 +93,7 @@
             android:id="@+id/map_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_map_marker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +118,7 @@
         android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="6dp"
+        android:elevation="4dp"
         android:layout_marginHorizontal="23dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/sf"
@@ -160,6 +127,7 @@
         android:textSize="14sp"
         app:backgroundTint="@color/white"
         android:text="@string/add_card"
+        android:enabled="true"
         app:iconGravity="textStart"
         app:iconTint="@color/blue_500"
         android:textColor="@color/blue_600"

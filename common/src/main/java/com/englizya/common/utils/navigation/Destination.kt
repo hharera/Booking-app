@@ -1,6 +1,7 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val SET_PASSWORD: String = "set-password"
     const val RESET_PASSWORD = "reset-password"
     const val USER_FORM = "user-form"
     const val SPLASH = "splash"

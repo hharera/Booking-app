@@ -1,4 +1,5 @@
 object Feature {
+    const val ADD_PAYMENT = ":features:add-payment"
     const val SPLASH = ":features:splash"
     const val LOGIN = ":features:login"
     const val COMPLAINT = ":features:complaint"

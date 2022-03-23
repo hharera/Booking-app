@@ -50,6 +50,7 @@ class SetPasswordFragment : BaseFragment() {
 
     private fun restoreValues() {
         bind.password.setText(setPasswordViewModel.password.value)
+        bind.name.setText(setPasswordViewModel.name.value)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,13 +82,13 @@ class SetPasswordFragment : BaseFragment() {
 
     private fun checkSignupState(state: Boolean) {
         if (state) {
-            progress()
+            progressToPaymentInfo()
         } else {
             showToast(R.string.cannot_login)
         }
     }
 
-    private fun progress() {
+    private fun progressToPaymentInfo() {
         findNavController().navigate(
             getUriNavigation(
                 Domain.ENGLIZYA_PAY,
@@ -100,6 +101,10 @@ class SetPasswordFragment : BaseFragment() {
     private fun setupListeners() {
         bind.password.afterTextChanged {
             setPasswordViewModel.setPassword(it)
+        }
+
+        bind.name.afterTextChanged {
+            setPasswordViewModel.setName(it)
         }
 
         bind.next.setOnClickListener {
