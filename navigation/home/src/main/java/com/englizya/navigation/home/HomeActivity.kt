@@ -34,6 +34,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setupListeners() {
+
     }
 
     private fun setupBottomNavigation() {

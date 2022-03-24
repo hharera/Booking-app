@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        app:labelVisibilityMode="labeled"
         android:id="@id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="@string/title_home" />
+        android:title="@string/home" />
 
     <item
-        app:labelVisibilityMode="labeled"
         android:id="@id/navigation_map"
         android:icon="@drawable/ic_map"
         android:title="@string/map" />
@@ -17,18 +14,15 @@
     <item
         android:id="@id/navigation_qr"
         android:icon="@drawable/ic_qr"
-        android:title="@string/scan_qr"
-        app:labelVisibilityMode="labeled" />
+        android:title="@string/scan_qr" />
 
     <item
         android:id="@id/navigation_ticket"
         android:title="@string/booking"
-        android:icon="@drawable/ic_ticket"
-        app:labelVisibilityMode="labeled" />
+        android:icon="@drawable/ic_ticket" />
 
     <item
         android:id="@id/navigation_routes"
         android:icon="@drawable/ic_bus"
-        app:labelVisibilityMode="labeled"
         android:title="@string/routes" />
 </menu>
