@@ -23,7 +23,7 @@ class LoginActivity : BaseActivity() {
         bind = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
-        navController = Navigation.findNavController(this, R.id.nav_host)
+        navController = Navigation.findNavController(this, R.id.navView)
 
         getExtras()
     }

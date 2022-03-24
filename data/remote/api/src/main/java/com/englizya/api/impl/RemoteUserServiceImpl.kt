@@ -1,8 +1,6 @@
 package com.englizya.api.impl
 
 import com.englizya.api.RemoteUserService
-import com.englizya.api.utils.Domain
-import com.englizya.api.utils.Routing
 import com.englizya.api.utils.Routing.LOGIN
 import com.englizya.api.utils.Routing.SIGNUP
 import com.englizya.model.dto.User

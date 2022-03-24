@@ -212,4 +212,16 @@
     <string name="logout">Log out</string>
     <string name="scan_a_ticket">Scan a ticket</string>
     <string name="book_a_ticket">BOOK A TICKET</string>
+    <string name="outer_transportation">Cities Transportation</string>
+    <string name="inner_transportation">Inner Transportation</string>
+    <string name="offers">Offers</string>
+    <string name="see_more">See More...</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="app_settings">App Settings</string>
+    <string name="suggest_idea">Suggest Idea</string>
+    <string name="terms_and_privacy_policy"><![CDATA[Terms of use & Privacy policy]]></string>
+    <string name="booking">Booking</string>
+    <string name="upcoming_features">Upcoming features</string>
+    <string name="about_us">About us</string>
+    <string name="report_problem">Report problem</string>
 </resources>

@@ -24,7 +24,7 @@ class TicketActivity : BaseActivity() {
         bind = ActivityTicketBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
-        navController = Navigation.findNavController(this, R.id.nav_host)
+        navController = Navigation.findNavController(this, R.id.navView)
         bind.navView.setupWithNavController(navController)
         NavigationUI.setupWithNavController(bind.navView, navController)
 

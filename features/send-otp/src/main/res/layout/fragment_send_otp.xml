@@ -142,7 +142,6 @@
 
     <com.google.android.material.button.MaterialButton
         style="@style/TextButton"
-        android:drawableStart="@drawable/ic_resend"
         android:id="@+id/resend_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

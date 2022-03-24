@@ -65,19 +65,26 @@ class LoginViewModel @Inject constructor(
     }
 
     suspend fun login() {
-        if ((formValidity.value != null).and(formValidity.value!!.formIsValid)) {
-            login(_phoneNumber.value, password.value)
+        if (phoneNumber.value != null) {
+            return
         }
+
+        if (password.value != null) {
+            return
+        }
+
+        login(phoneNumber = phoneNumber.value!!, password = password.value!!)
     }
 
-    private suspend fun login(phoneNumber: String?, password: String?) {
-        password?.let { password ->
-            phoneNumber?.let { phoneNumber ->
-                LoginRequest(
-                    phoneNumber,
-                    password
-                )
+    private suspend fun login(phoneNumber: String, password: String) {
+        userRepository
+            .login(LoginRequest(phoneNumber, password))
+            .onSuccess {
+
             }
-        }?.let { loginRequest -> userRepository.login(loginRequest) }
+            .onFailure {
+
+            }
     }
+
 }
