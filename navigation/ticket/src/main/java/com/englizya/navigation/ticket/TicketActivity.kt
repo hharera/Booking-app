@@ -33,7 +33,7 @@ class TicketActivity : BaseActivity() {
 
     private fun getExtras() {
         intent?.extras?.getString(Arguments.DESTINATION)?.let {
-            navController.navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, it, Destination.TICKET))
+//            navController.navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, it, Destination.TICKET))
         }
     }
 

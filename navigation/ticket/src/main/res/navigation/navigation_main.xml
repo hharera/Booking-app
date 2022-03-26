@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.englizya.login.LoginFragment"
-        tools:layout="@layout/fragment_login">
+        android:name="com.englizya.home_screen.HomeFragment"
+        tools:layout="@layout/fragment_home">
 
         <argument android:name="redirect" />
         <deepLink app:uri="EnglizyaPay://home/{redirect}" />

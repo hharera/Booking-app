@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
+import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.login.LoginActivity
 import com.englizya.navigation.ticket.TicketActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
@@ -72,9 +73,9 @@ class SplashActivity : BaseActivity() {
 
     private fun goHome() {
         val intent =
-            Intent(this@SplashActivity, TicketActivity::class.java)
+            Intent(this@SplashActivity, HomeActivity::class.java)
                 .putExtra(Arguments.DESTINATION, Destination.TICKET)
-                .apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
+                .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) }
 
         startActivity(intent)
     }
