@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity.Companion.passwordIsValid
 import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
+import com.englizya.common.utils.code.CountryCode
+import com.englizya.datastore.core.UserDataStore
 import com.englizya.login.utils.LoginFormState
 import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
@@ -15,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
+    private val userDataStore: UserDataStore,
 ) : BaseViewModel() {
 
     private val _loginOperationState = MutableLiveData<Boolean>()
@@ -57,6 +60,9 @@ class LoginViewModel @Inject constructor(
             passwordIsValid(password.value!!).not() -> {
                 _formValidity.postValue(LoginFormState(passwordError = R.string.password_not_vlid))
             }
+            else -> {
+                _formValidity.postValue(LoginFormState(formIsValid = true))
+            }
         }
     }
 
@@ -65,26 +71,31 @@ class LoginViewModel @Inject constructor(
     }
 
     suspend fun login() {
-        if (phoneNumber.value != null) {
-            return
+        phoneNumber.value?.let { phoneNumber ->
+            password.value?.let { password ->
+                login(LoginRequest(CountryCode.EgyptianCode.code.plus(phoneNumber), password))
+            }
         }
-
-        if (password.value != null) {
-            return
-        }
-
-        login(phoneNumber = phoneNumber.value!!, password = password.value!!)
     }
 
-    private suspend fun login(phoneNumber: String, password: String) {
-        userRepository
-            .login(LoginRequest(phoneNumber, password))
-            .onSuccess {
+    private suspend fun login(loginRequest: LoginRequest) {
+        updateLoading(true)
 
+        userRepository
+            .login(loginRequest)
+            .onSuccess {
+                updateLoading(false)
+                updateToken(it.jwt)
+                _loginOperationState.postValue(true)
             }
             .onFailure {
-
+                updateLoading(false)
+                handleException(it)
+                _loginOperationState.postValue(false)
             }
     }
 
+    private fun updateToken(token: String) {
+        userDataStore.setToken(token)
+    }
 }

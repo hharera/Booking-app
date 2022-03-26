@@ -71,14 +71,11 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun goHome() {
-        lifecycleScope.launch {
-            val intent = Intent(
-                this@SplashActivity,
-                TicketActivity::class.java
-            ).putExtra(Arguments.DESTINATION, Destination.TICKET)
-            //TODO : Set animation between activities
-            startActivity(intent)
-            finish()
-        }
+        val intent =
+            Intent(this@SplashActivity, TicketActivity::class.java)
+                .putExtra(Arguments.DESTINATION, Destination.TICKET)
+                .apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
+
+        startActivity(intent)
     }
 }

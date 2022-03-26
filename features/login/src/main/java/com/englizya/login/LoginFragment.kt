@@ -77,6 +77,8 @@ class LoginFragment : BaseFragment() {
         }
 
         loginViewModel.formValidity.observe(viewLifecycleOwner) {
+            bind.login.isEnabled = it.formIsValid
+
             if (it.phoneNumberError != null) {
                 bind.phoneNumber.error = getString(it.phoneNumberError!!)
             } else if (it.passwordError != null) {
@@ -87,16 +89,22 @@ class LoginFragment : BaseFragment() {
 
     private fun checkLoginState(state: Boolean) {
         if (state) {
-            progress()
+            progressToHomeActivity()
         } else {
             showToast(R.string.cannot_login)
         }
     }
 
-    private fun progress() {
+    private fun progressToHomeActivity() {
         activity?.apply {
-            startActivity(Intent(context, HomeActivity::class.java))
-            finish()
+            startActivity(
+                Intent(
+                    context,
+                    HomeActivity::class.java
+                ).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                }
+            )
         }
     }
 
