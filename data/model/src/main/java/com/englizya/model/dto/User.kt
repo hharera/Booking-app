@@ -1,5 +1,9 @@
 package com.englizya.model.dto
 
+import kotlinx.serialization.Serializable
+
+
+@Serializable
 data class User(
     val uid: String,
     val username: String,

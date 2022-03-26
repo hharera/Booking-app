@@ -36,7 +36,7 @@ android {
 
 dependencies {
     api project(Base.COMMON)
-    api project(Data.repository)
+    api project(Data.REPOSITORY)
 
     implementation(Libs.coroutinesCore)
 

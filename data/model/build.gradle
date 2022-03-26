@@ -1,9 +1,11 @@
 apply from:"$rootDir/${CommonBuild.DATA_MODULE}"
+apply plugin: "kotlinx-serialization"
 
 dependencies {
     implementation(Libs.playServicesMaps)
     implementation(Libs.jodaTime)
 
     implementation(Libs.roomRunTime)
+    implementation(Libs.serializer)
     annotationProcessor(Libs.roomCompiler)
 }

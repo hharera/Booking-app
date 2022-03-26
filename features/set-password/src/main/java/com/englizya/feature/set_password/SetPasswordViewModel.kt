@@ -1,5 +1,6 @@
 package com.englizya.feature.set_password
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
@@ -59,12 +60,14 @@ class SetPasswordViewModel @Inject constructor(
             uid = auth.uid!!,
             phoneNumber = phoneNumber.value!!,
             password = password.value!!,
+            name = name.value!!
         )
 
         signup(request)
     }
 
     private suspend fun signup(request: SignupRequest) {
+        Log.d(TAG, "signup: $request")
         updateLoading(true)
 
         userRepository
@@ -74,6 +77,7 @@ class SetPasswordViewModel @Inject constructor(
                 _signupOperationState.value = true
             }
             .onFailure {
+                handleException(it)
                 updateLoading(false)
                 _signupOperationState.value = false
             }

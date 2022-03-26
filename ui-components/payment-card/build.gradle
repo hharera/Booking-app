@@ -7,6 +7,6 @@ dependencies {
     implementation(Libs.picasso)
     implementation(Libs.materialDesign)
 
-    implementation project(Data.repository)
+    implementation project(Data.REPOSITORY)
     implementation project(Base.COMMON)
 }

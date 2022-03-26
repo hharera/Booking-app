@@ -17,7 +17,7 @@
 
         <argument android:name="phoneNumber" />
         <argument android:name="password" />
-        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}/{password}" />
+        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}" />
     </fragment>
 
     <fragment
@@ -31,10 +31,10 @@
 
     <fragment
         android:id="@+id/navigation_user_form"
-        android:name="com.englizya."
+        android:name="com.englizya.user_data.UserFormFragment"
         tools:layout="@layout/fragment_user_form" >
 
         <argument android:name="phoneNumber" />
-        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}" />
+        <deepLink app:uri="EnglizyaPay://user-form/{phoneNumber}" />
     </fragment>
 </navigation>

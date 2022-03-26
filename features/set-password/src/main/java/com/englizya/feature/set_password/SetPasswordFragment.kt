@@ -13,12 +13,15 @@ import com.englizya.common.utils.navigation.Arguments.PHONE_NUMBER
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils.getUriNavigation
+import com.englizya.done_dialog.DoneDialog
 import com.englizya.feature.set_password.databinding.FragmentSetPasswordBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SetPasswordFragment : BaseFragment() {
 
     private val setPasswordViewModel: SetPasswordViewModel by viewModels()
+    private val doneDialog: DoneDialog by lazy { DoneDialog() }
     private lateinit var bind: FragmentSetPasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,13 +85,26 @@ class SetPasswordFragment : BaseFragment() {
 
     private fun checkSignupState(state: Boolean) {
         if (state) {
-            progressToPaymentInfo()
+            updateSignupUI()
         } else {
             showToast(R.string.cannot_login)
         }
     }
 
-    private fun progressToPaymentInfo() {
+    private fun updateSignupUI() {
+        lifecycleScope.launch {
+            showDoneDialog()
+
+            delay(1000)
+
+            doneDialog.dismiss()
+
+//            navigateToPaymentInfo()
+            activity?.finish()
+        }
+    }
+
+    private fun navigateToPaymentInfo() {
         findNavController().navigate(
             getUriNavigation(
                 Domain.ENGLIZYA_PAY,
@@ -96,6 +112,10 @@ class SetPasswordFragment : BaseFragment() {
                 null
             )
         )
+    }
+
+    private fun showDoneDialog() {
+        doneDialog.show(childFragmentManager, TAG)
     }
 
     private fun setupListeners() {
@@ -115,15 +135,4 @@ class SetPasswordFragment : BaseFragment() {
             bind.next.isEnabled = false
         }
     }
-
-    private fun goToForm() {
-        findNavController().navigate(
-            getUriNavigation(
-                Domain.ENGLIZYA_PAY,
-                Destination.USER_FORM,
-                null
-            )
-        )
-    }
-
 }

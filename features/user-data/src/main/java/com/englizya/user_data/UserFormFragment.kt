@@ -71,7 +71,7 @@ class UserFormFragment : BaseFragment() {
 
     private fun setupListeners() {
         bind.address.setOnClickListener {
-//            TODO : select address from map
+            progressToSelectLocation()
         }
 
         bind.profileImage.setOnClickListener {
@@ -86,6 +86,10 @@ class UserFormFragment : BaseFragment() {
             userFormViewModel.saveUserData()
             bind.save.isEnabled = false
         }
+    }
+
+    private fun progressToSelectLocation() {
+
     }
 
     private fun progressToAddPaymentCard() {
