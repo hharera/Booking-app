@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">" Hyper Panda "</string>
+    <string name="app_name">"ENG TICKET"</string>
     <string name="sign_up">Subscribe</string>
     <string name="shop">Shop</string>
     <string name="enter_information_to_create_account">Enter the following information to create an new account</string>
@@ -100,10 +100,8 @@
     <string name="search">search</string>
     <string name="notifications">Notifications</string>
     <string name="like">Like</string>
-    <string name="search_hyper_panda">Search a hyperpanda</string>
     <string name="profile">Profile</string>
     <string name="our_location">Our location</string>
-    <string name="available_in_hyper_panda">Available in hyperpanda</string>
     <string name="similar_products">Similar products:</string>
     <string name="top_categories">Main Sections</string>
     <string name="no_internet">No internet connection \ n Please check internet</string>
@@ -224,4 +222,10 @@
     <string name="report_problem">Report problem</string>
     <string name="home">Home</string>
     <string name="profile_settings">Profile Settings</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="this_feature_is_currently_under_development">This feature is currently under development</string>
+    <string name="book_your_ticket_now">Book your ticket now</string>
+    <string name="from">From</string>
+    <string name="show_all">Show All</string>
+    <string name="to">To</string>
 </resources>

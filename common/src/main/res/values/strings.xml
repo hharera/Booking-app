@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ENGLIZYA PAY</string>
+    <string name="app_name">ENG TICKET</string>
     <string name="enter_information_to_create_account">Enter the following information to create an new account</string>
     <string name="sign_up">الاشتراك</string>
     <string name="shop">تسوق</string>
@@ -107,10 +107,8 @@
     <string name="search">بحث</string>
     <string name="notifications">الإخطارات</string>
     <string name="like">أعجبني</string>
-    <string name="search_hyper_panda">ابحث في افندينا</string>
     <string name="profile">الملف الشخصي</string>
     <string name="our_location">موقعنا</string>
-    <string name="available_in_hyper_panda">متوفر في افتدينا</string>
     <string name="similar_products">منجات مماثلة:</string>
     <string name="top_categories">الاقسام الرئيسييه</string>
     <string name="no_internet">لا يوجد اتصال بالإنترنت \ n الرجاء التحقق من الإنترنت</string>
@@ -225,4 +223,10 @@
     <string name="report_problem">Report problem</string>
     <string name="home">Home</string>
     <string name="profile_settings">Profile Settings</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="this_feature_is_currently_under_development">This feature is currently under development</string>
+    <string name="book_your_ticket_now">Book your ticket now</string>
+    <string name="from">From</string>
+    <string name="show_all">Show All</string>
+    <string name="to">To</string>
 </resources>

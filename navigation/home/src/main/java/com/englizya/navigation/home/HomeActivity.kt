@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.englizya.client.ticket.navigation.home.R
 import com.englizya.client.ticket.navigation.home.databinding.ActivityHomeBinding
@@ -16,16 +18,16 @@ import com.englizya.common.utils.navigation.NavigationUtils
 
 class HomeActivity : BaseActivity() {
 
-    private lateinit var bind: ActivityHomeBinding
+    private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
     private val TAG = "HomeActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(bind.root)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        navController = Navigation.findNavController(this, R.id.navView)
+        navController = findNavController(R.id.nav_host)
 
         getExtras()
         setupRecyclerViewAdapter()
@@ -38,7 +40,8 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setupBottomNavigation() {
-        NavigationUI.setupWithNavController(bind.bottomNavigation, navController)
+        NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
+        binding.bottomNavigation.setupWithNavController(navController)
     }
 
     private fun setupRecyclerViewAdapter() {
@@ -59,10 +62,10 @@ class HomeActivity : BaseActivity() {
                 checkClickItem(it)
             }
 
-        bind.navigationMenu.layoutManager =
+        binding.navigationMenu.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        bind.navigationMenu.adapter = adapter
+        binding.navigationMenu.adapter = adapter
     }
 
     private fun checkClickItem(item: NavigationItem) {
