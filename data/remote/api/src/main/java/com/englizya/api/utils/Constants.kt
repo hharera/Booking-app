@@ -1,6 +1,7 @@
 package com.englizya.api.utils
 
 object Routing {
+    const val GET_ALL_TRIPS = "${Domain.ENGLIZYA_PAY}api/trip/all"
     const val END_SHIFT = "${Domain.ENGLIZYA_PAY}end-shift"
     const val LOGIN = "${Domain.ENGLIZYA_PAY}login"
     const val SIGNUP = "${Domain.ENGLIZYA_PAY}signup"

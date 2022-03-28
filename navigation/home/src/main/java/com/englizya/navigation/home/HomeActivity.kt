@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +26,7 @@ class HomeActivity : BaseActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navController = findNavController(R.id.nav_host)
+        navController = Navigation.findNavController(this, R.id.nav_host)
 
         getExtras()
         setupRecyclerViewAdapter()
@@ -62,10 +61,10 @@ class HomeActivity : BaseActivity() {
                 checkClickItem(it)
             }
 
-        binding.navigationMenu.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        binding.navigationMenu.adapter = adapter
+//        binding.navigationMenu.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//
+//        binding.navigationMenu.adapter = adapter
     }
 
     private fun checkClickItem(item: NavigationItem) {

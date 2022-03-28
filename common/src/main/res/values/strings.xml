@@ -4,7 +4,7 @@
     <string name="sign_up">الاشتراك</string>
     <string name="shop">تسوق</string>
     <string name="start">ابدأ</string>
-    <string name="password">Password</string>
+    <string name="password">كلمة المرور</string>
     <string name="email">الايميل</string>
     <string name="total">الإجمالي</string>
     <string name="remove">إزالة</string>
@@ -14,19 +14,16 @@
     <string name="title_activity_cafe_location">خريطة</string>
     <string name="phone_number">رقم الهاتف</string>
     <string name="wrong_phone_number">رقم الهاتف خاطئ</string>
-    <string name="offer">Offer</string>
-    <string name="name">NAME</string>
-    <string name="receipt">الإيصال</string>
-    <string name="Confirm">تأكيد</string>
+    <string name="offer">عرض</string>
+    <string name="name">الأسم</string>
+    <string name="confirm">تأكيد</string>
     <string name="my_orders">طلباتي</string>
     <string name="open_in_map">فتح في الخريطة</string>
     <string name="egp">EGP</string>
     <string name="price_value">٪ 1 $ d EGP</string>
-    <string name="blank_list">العربه فارغه ،،، انتقل الي التسوق</string>
     <string name="error_toast">حدث خطأ ما</string>
     <string name="loading">جاري التحميل</string>
     <string name="enter_quantity">أدخل الكمية</string>
-    <string name="cancell">الغاء</string>
     <string name="cart_added">المنتج المضاف إلى سلة التسوق</string>
     <string name="cart_removed">تمت إزالة المنتج من سلة التسوق</string>
     <string name="edit">Edit</string>
@@ -34,23 +31,12 @@
     <string name="first_name">الاسم الأول</string>
     <string name="second_name">الاسم الثاني</string>
     <string name="location">الموقع</string>
-    <string name="blank_expire_date_state">تاريخ الانتهاء مطلوب</string>
-    <string name="blank_name_state">الاسم مطلوب</string>
-    <string name="blank_price_state">اضف سعر</string>
-    <string name="blank_type_state">نوع الدواء مطلوب</string>
-    <string name="blank_empty_image_state">اضف صوره علي الاقل</string>
-    <string name="blank_name_error">اضف الاسم</string>
-    <string name="blank_price_error">لابد من إضافة سعر</string>
-    <string name="blank_location_error">اضف العنوان الخاص بك</string>
-    <string name="blank_image_error">اضف صورة للدواء</string>
-    <string name="blank_phone_error">اضف رقم الهاتف</string>
     <string name="location_not_accessed">يتم الانتقال من الموقع</string>
     <string name="your_location">موقعك</string>
     <string name="search_location_hint">ابحث عن موقعك</string>
     <string name="enter_code">ادخل الكود</string>
     <string name="wrong_code">كود خاطئ</string>
-    <string name="similar_offers">عروض مماثلة:</string>
-    <string name="company_name">WHITESIED DEV</string>
+    <string name="company_name">الشركة الانجليزية</string>
     <string name="privacy_policy">لقد قرأت نص الخصوصية والأمان وأوافق عليه</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
@@ -90,15 +76,12 @@
     <string name="internet_problem_message">حدثت مشكلة في الاتصال</string>
     <string name="try_again">أعد المحاولة</string>
     <string name="back_connected">معاودة الاتصال</string>
-    <string name="went_disconnected">تم قطع الاتصال</string>
     <string name="sort">ترتيب</string>
     <string name="filter">ترشيح</string>
     <string name="price_ascending">السعر: الاقل الي الاعلي</string>
     <string name="price_descending">السعر: الاعلي الي الاقل</string>
-    <string name="adding_time">تاريخ الاضافة</string>
     <string name="min_expire_date">بداية تاريخ الانتهاء</string>
     <string name="search_filter">ترشيحات</string>
-    <string name="choose_medicine_add_date">تاريخ اضافة الدواء</string>
     <string name="add_to_wish">اضف الي المفضله</string>
     <string name="image">image</string>
     <string name="hassan_harera">\ حسن حريرة</string>
@@ -117,7 +100,6 @@
     <string name="addOffer">إضافة عرض</string>
     <string name="addDeliveryMan">إضافة رجل توصيل</string>
     <string name="addOfferCollection">إضافة قائمة عروض</string>
-    <string name="blank_category_name_error">اضف اسم الدواء</string>
     <string name="wrong_category_name">الاسم غير مناسب</string>
     <string name="loren">"لوريم إيبسوم هو ببساطة نص شكلي (بمعنى الغاية هي الشكل وليس المحتوى) في صناعات المطابع ودور النشر. بشكل عشوائي ، مما يجعله مثالياً بشكل عشوائي مقاطع من هذا النص ، وعاد لينتشر مرة أخرى ظهرت مؤخرًا برامج نشر إلكترونية مثل مشاهدة حوت أيضًا على نسخ من نص لوريم إيبسوم. "</string>
     <string name="category_name">اسم القسم</string>
@@ -128,14 +110,10 @@
     <string name="register_now">سجل الآن</string>
     <string name="empty_location_error">العنوان فارغ</string>
     <string name="confirm_login">تأكيد الرقم</string>
-    <string name="confirm">تاكيد</string>
-    <string name="empty_list">العربه فارغه</string>
     <string name="empty_name_error">الاسم خاطئ</string>
     <string name="empty_phone_error">رقم خاطئ</string>
     <string name="empty_category_name_error">اسم القسم فارغ</string>
     <string name="empty_image_error">ادخل صوره</string>
-    <string name="lower" translatable="false"><![CDATA[<]]></string>
-    <string name="greater" translatable="false"><![CDATA[>]]></string>
     <string name="title_add_product">Add Product</string>
     <string name="product_price">Product Price</string>
     <string name="empty_email_error">Email is required</string>
@@ -153,7 +131,6 @@
     <string name="card">CARD</string>
     <string name="driver_code">كود السائق</string>
     <string name="cannot_login">لم نتمكن من تسجيل الدخول</string>
-    <string name="invalid_username_error">كود السائق غير صحيح</string>
     <string name="empty_password_error">أدخل كلمة المرور</string>
     <string name="englizya_pay">ENGLIZYA PAY</string>
     <string name="redirect">Redirect</string>
@@ -210,7 +187,6 @@
     <string name="logout">Log out</string>
     <string name="scan_a_ticket">Scan a ticket</string>
     <string name="book_a_ticket">BOOK A TICKET</string>
-    <string name="outer_transportation">Cities Transportation</string>
     <string name="inner_transportation">Inner Transportation</string>
     <string name="offers">Offers</string>
     <string name="see_more">See More...</string>
@@ -227,6 +203,12 @@
     <string name="this_feature_is_currently_under_development">This feature is currently under development</string>
     <string name="book_your_ticket_now">Book your ticket now</string>
     <string name="from">From</string>
-    <string name="show_all">Show All</string>
+    <string name="show_all">إظهار الكل</string>
     <string name="to">To</string>
+    <string name="per_ticket">لكل تذكرة</string>
+    <string name="cancel">إلغاء</string>
+    <string name="external_transportation">خدمات النقل السياحي</string>
+    <string name="select_seats">Select Seats</string>
+    <string name="available">Available</string>
+    <string name="selected">Selected</string>
 </resources>

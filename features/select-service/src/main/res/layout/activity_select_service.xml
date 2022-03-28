@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/background_button_service_type"
-        android:text="@string/outer_transportation"
+        android:text="@string/external_transportation"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:icon="@drawable/ic_bus"

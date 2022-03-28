@@ -2,8 +2,10 @@ package com.englizya.api.di
 
 import com.englizya.api.RemoteAnnouncementService
 import com.englizya.api.RemoteUserService
+import com.englizya.api.TripService
 import com.englizya.api.impl.RemoteAnnouncementServiceImpl
 import com.englizya.api.impl.RemoteUserServiceImpl
+import com.englizya.api.impl.TripServiceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,4 +24,8 @@ abstract class RemoteModule {
     @Singleton
     @Binds
     abstract fun provideAnnouncementsService(announcementService: RemoteAnnouncementServiceImpl): RemoteAnnouncementService
+
+    @Singleton
+    @Binds
+    abstract fun bindTripService(tripServiceImpl: TripServiceImpl): TripService
 }
