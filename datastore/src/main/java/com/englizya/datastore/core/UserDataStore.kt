@@ -18,4 +18,10 @@ class UserDataStore(context: Context) {
 
     fun getToken(): String =
         driverSharedPreferences.getString(KEY.TOKEN, NULL_STRING)!!
+
+    fun getLanguage(): String =
+        driverSharedPreferences.getString(KEY.LANGUAGE, NULL_STRING)!!
+
+    fun setLanguage(language: String) =
+        driverSharedPreferences.edit().putString(KEY.LANGUAGE, language).apply()
 }

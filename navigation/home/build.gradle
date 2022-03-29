@@ -7,6 +7,8 @@ dependencies {
     api(project(Feature.TICKET))
     api(project(Feature.MAP))
     api(project(Feature.SCAN_QR))
+    api(project(Feature.BOOKING))
+    api(project(Feature.APP_SETTINGS))
     api(project(Base.COMMON))
 
 

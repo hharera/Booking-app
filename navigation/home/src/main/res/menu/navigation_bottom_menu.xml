@@ -3,31 +3,26 @@
 
     <item
         android:id="@id/navigation_home"
-        android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/home" />
 
     <item
         android:id="@id/navigation_map"
         android:icon="@drawable/ic_map"
-        android:enabled="true"
         android:title="@string/map" />
 
     <item
         android:id="@id/navigation_qr"
         android:icon="@drawable/ic_qr"
-        android:enabled="true"
         android:title="@string/scan_qr" />
 
     <item
-        android:id="@id/navigation_ticket"
-        android:enabled="true"
-        android:title="@string/booking"
-        android:icon="@drawable/ic_ticket" />
+        android:id="@id/navigation_booking"
+        android:icon="@drawable/ic_ticket"
+        android:title="@string/booking" />
 
     <item
         android:id="@id/navigation_routes"
-        android:enabled="true"
         android:icon="@drawable/ic_bus"
         android:title="@string/routes" />
 </menu>

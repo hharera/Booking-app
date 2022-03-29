@@ -14,6 +14,7 @@ import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.navigation.home.NavigationItem.*
 
 class HomeActivity : BaseActivity() {
 
@@ -35,7 +36,9 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setupListeners() {
-
+        binding.back.setOnClickListener {
+            binding.root.closeDrawers()
+        }
     }
 
     private fun setupBottomNavigation() {
@@ -47,63 +50,63 @@ class HomeActivity : BaseActivity() {
         val adapter =
             NavigationAdapter(
                 arrayListOf(
-                    NavigationItem.PaymentHistory,
-                    NavigationItem.ReportProblem,
-                    NavigationItem.AboutUs,
-                    NavigationItem.TermsAndPolicy,
-                    NavigationItem.UpcomingFeatures,
-                    NavigationItem.SuggestIdea,
-                    NavigationItem.ProfileSettings,
-                    NavigationItem.PaymentCards,
-                    NavigationItem.AppSettings,
+                    PaymentHistory,
+                    ReportProblem,
+                    AboutUs,
+                    TermsAndPolicy,
+                    UpcomingFeatures,
+                    SuggestIdea,
+                    ProfileSettings,
+                    PaymentCards,
+                    AppSettings,
                 )
             ) {
                 checkClickItem(it)
             }
 
-//        binding.navigationMenu.layoutManager =
-//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//
-//        binding.navigationMenu.adapter = adapter
+        binding.navigationMenu.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        binding.navigationMenu.adapter = adapter
     }
 
     private fun checkClickItem(item: NavigationItem) {
         Log.d(TAG, "checkClickItem: $item")
 
         when (item) {
-            is NavigationItem.AppSettings -> {
+            is AppSettings -> {
 
             }
 
-            is NavigationItem.PaymentCards -> {
+            is PaymentCards -> {
 
             }
 
-            is NavigationItem.ProfileSettings -> {
+            is ProfileSettings -> {
 
             }
 
-            is NavigationItem.TermsAndPolicy -> {
+            is TermsAndPolicy -> {
 
             }
 
-            is NavigationItem.PaymentHistory -> {
+            is PaymentHistory -> {
 
             }
 
-            is NavigationItem.ReportProblem -> {
+            is ReportProblem -> {
 
             }
 
-            is NavigationItem.SuggestIdea -> {
+            is SuggestIdea -> {
 
             }
 
-            is NavigationItem.AboutUs -> {
+            is AboutUs -> {
 
             }
 
-            is NavigationItem.UpcomingFeatures -> {
+            is UpcomingFeatures -> {
 
             }
         }

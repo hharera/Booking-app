@@ -112,7 +112,6 @@
     <string name="invalid_password_error">كلمة مرور غير صالحة</string>
     <string name="empty_category_name_error">اسم القسم فارغ</string>
     <string name="empty_image_error">ادخل صوره</string>
-    <string name="phone_number_should_be_not_empty">يجب أن يكون رقم الهاتف \ 'n فارغًا</string>
     <string name="phone_number_not_valid">رقم الهاتف غير صالح</string>
     <string name="password_should_be_not_empty">كلمة المرور مطلوبة</string>
     <string name="password_not_vlid">كلمة المرور غير صالحة</string>
@@ -212,4 +211,10 @@
     <string name="select_seats">Select Seats</string>
     <string name="available">Available</string>
     <string name="selected">Selected</string>
+    <string name="booked">Booked</string>
+    <string name="semi_booked">Semi Booked</string>
+    <string name="get_a_ticket">Get a Ticket!</string>
+    <string name="arabic">Arabic</string>
+    <string name="language">Language</string>
+    <string name="settings">Settings</string>
 </resources>

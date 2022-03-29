@@ -48,7 +48,7 @@ dependencies {
     implementation project(Navigation.LOGIN)
     implementation project(Navigation.HOME)
     implementation project(Navigation.BOOKING)
-    implementation project(Navigation.TICKET)
+//    implementation project(Navigation.TICKET)
 
     //hilt
     implementation(Libs.hiltAndroid)

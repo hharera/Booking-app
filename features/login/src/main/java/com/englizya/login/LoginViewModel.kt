@@ -49,7 +49,7 @@ class LoginViewModel @Inject constructor(
         Log.d(TAG, "checkFormValidity: ${_phoneNumber.value}")
         when {
             _phoneNumber.value.isNullOrBlank() -> {
-                _formValidity.postValue(LoginFormState(phoneNumberError = R.string.phone_number_should_be_not_empty))
+                _formValidity.postValue(LoginFormState(phoneNumberError = R.string.empty_phone_error))
             }
             phoneNumberIsValid(_phoneNumber.value!!).not() -> {
                 _formValidity.postValue(LoginFormState(phoneNumberError = R.string.phone_number_not_valid))

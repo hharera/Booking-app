@@ -262,7 +262,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
-                    android:src="@drawable/ic_available" />
+                    android:src="@drawable/ic_booked" />
 
                 <TextView
                     android:id="@+id/bookedTV"
@@ -270,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
-                    android:text="@string/available" />
+                    android:text="@string/booked" />
 
                 <ImageView
                     android:id="@+id/semiBookedIV"
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
-                    android:src="@drawable/ic_bocked" />
+                    android:src="@drawable/ic_semi_booked" />
 
                 <TextView
                     android:id="@+id/semiBookedTV"
@@ -286,7 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
-                    android:text="@string/available" />
+                    android:text="@string/semi_booked" />
 
                 <ImageView
                     android:id="@+id/selectedIV"
@@ -310,8 +310,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:paddingHorizontal="35dp"
+                android:paddingTop="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <ImageView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:src="@drawable/ic_exit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </GridLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

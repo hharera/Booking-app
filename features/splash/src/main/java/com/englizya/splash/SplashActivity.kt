@@ -9,7 +9,6 @@ import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.login.LoginActivity
-import com.englizya.navigation.ticket.TicketActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

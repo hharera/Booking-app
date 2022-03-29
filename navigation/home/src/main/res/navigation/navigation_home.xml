@@ -3,36 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/navigation_booking">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.englizya.home_screen.HomeFragment"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_map"
         android:name="com.englizya.map.MapFragment"
-        tools:layout="@layout/fragment_map">
-    </fragment>
+        tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_ticket"
-        android:name="com.englizya.client.ticket.TicketFragment"
-        tools:layout="@layout/fragment_tickets_select">
-    </fragment>
+        android:id="@+id/navigation_booking"
+        android:name="com.englizya.booking.BookingFragment"
+        tools:layout="@layout/fragment_booking" />
 
     <fragment
         android:id="@+id/navigation_routes"
         android:name="com.englizya.route.RouteFragment"
-        tools:layout="@layout/fragment_route">
-    </fragment>
+        tools:layout="@layout/fragment_route" />
 
     <fragment
         android:id="@+id/navigation_qr"
         android:name="com.englizya.qr.ScanFragment"
-        tools:layout="@layout/fragment_scan_qr">
-    </fragment>
+        tools:layout="@layout/fragment_scan_qr" />
 
+    <fragment
+        android:id="@+id/navigation_app_settings"
+        android:name="com.englizya.app_settings.AppSettingsFragment"
+        tools:layout="@layout/fragment_app_settings" />
 </navigation>

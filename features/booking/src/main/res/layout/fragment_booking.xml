@@ -12,7 +12,7 @@
         android:layout_marginStart="23dp"
         android:layout_marginTop="19dp"
         android:fontFamily="@font/sf"
-        android:text="Get a Ticket!"
+        android:text="@string/get_a_ticket"
         android:textColor="#303030"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
         tools:layout_editor_absoluteX="23dp">
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/imageView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -83,11 +83,10 @@
             android:layout_marginStart="20dp"
             android:textColor="@color/grey_300"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            app:layout_constraintStart_toEndOf="@+id/imageView11"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/map_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

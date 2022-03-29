@@ -19,4 +19,5 @@ object Feature {
     const val MAP = ":features:map"
     const val SCAN_QR = ":features:scan-qr"
     const val SEND_OTP = ":features:send-otp"
+    const val APP_SETTINGS = ":features:app-settings"
 }

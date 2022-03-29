@@ -30,7 +30,7 @@ class SignupViewModel @Inject constructor(
 
     private fun checkFormValidity() {
         if (phoneNumber.value.isNullOrBlank()) {
-            _formValidity.postValue(SignupFormState(phoneNumberError = R.string.phone_number_should_be_not_empty))
+            _formValidity.postValue(SignupFormState(phoneNumberError = R.string.empty_phone_error))
         } else if (Validity.phoneNumberIsValid(phoneNumber.value!!).not()) {
             _formValidity.postValue(SignupFormState(phoneNumberError = R.string.phone_number_not_valid))
         } else {

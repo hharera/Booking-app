@@ -24,14 +24,13 @@
             android:name="com.englizya.navigation.login.LoginActivity"
             android:exported="true" />
 
-
         <activity
             android:name="com.englizya.navigation.ticket.TicketActivity"
             android:exported="true" />
 
-<!--        <activity-->
-<!--            android:name="com.englizya.navigation.home.HomeActivity"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name="com.englizya.splash.SplashActivity"
+            android:exported="true" />
 
         <activity
             android:name="com.englizya.add_payment.AddPaymentCardActivity"

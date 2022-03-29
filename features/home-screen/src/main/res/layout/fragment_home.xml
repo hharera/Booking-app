@@ -125,7 +125,6 @@
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/card_view_offer" />
 
-
     <TextView
         android:id="@+id/announcmentsTV"
         android:layout_width="wrap_content"

@@ -5,5 +5,4 @@ dependencies {
     implementation(Libs.playServicesTasks)
 
     api project(Navigation.LOGIN)
-    api project(Navigation.TICKET)
 }
