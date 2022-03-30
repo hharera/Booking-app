@@ -25,11 +25,7 @@
             android:exported="true" />
 
         <activity
-            android:name="com.englizya.navigation.ticket.TicketActivity"
-            android:exported="true" />
-
-        <activity
-            android:name="com.englizya.splash.SplashActivity"
+            android:name="com.englizya.navigation.home.HomeActivity"
             android:exported="true" />
 
         <activity
@@ -45,7 +41,7 @@
             android:exported="true" />
 
         <activity
-            android:name="com.englizya.navigation.home.HomeActivity"
+            android:name="com.englizya.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
