@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">"ENG TICKET"</string>
+    <string name="app_name">"الإنجليزية"</string>
     <string name="sign_up">اشتراك</string>
     <string name="shop">التسوق</string>
     <string name="enter_information_to_create_account">أدخل المعلومات التالية لإنشاء حساب جديد</string>
@@ -217,4 +217,7 @@
     <string name="arabic">Arabic</string>
     <string name="language">Language</string>
     <string name="settings">Settings</string>
+    <string name="date_is_required">Date is required</string>
+    <string name="destincation_is_required">Destincation is required</string>
+    <string name="source_is_required">Source is required</string>
 </resources>

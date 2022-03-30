@@ -17,5 +17,4 @@ class TripServiceImpl @Inject constructor(
             url(Routing.GET_ALL_TRIPS)
             contentType(ContentType.Application.Json)
         }
-
 }

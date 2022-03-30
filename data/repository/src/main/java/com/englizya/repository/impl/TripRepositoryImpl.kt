@@ -6,7 +6,7 @@ import com.englizya.repository.TripRepository
 import javax.inject.Inject
 
 
-class TripRepositoryImpl @Inject constructor(
+ class TripRepositoryImpl @Inject constructor(
     private val tripService: TripService
 ) : TripRepository {
 

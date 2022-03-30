@@ -1,6 +1,6 @@
 package com.englizya.repository.impl
 
-import com.englizya.api.RemoteUserService
+import com.englizya.api.UserService
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.SignupRequest
 import com.englizya.model.response.LoginResponse
@@ -10,8 +10,8 @@ import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(
-    private val userService: RemoteUserService,
+ class UserRepositoryImpl @Inject constructor(
+    private val userService: UserService,
     private val auth: FirebaseAuth,
 ) : UserRepository {
 

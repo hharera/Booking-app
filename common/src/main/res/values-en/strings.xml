@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">"ENG TICKET"</string>
+    <string name="app_name">"Englizya"</string>
     <string name="sign_up">Subscribe</string>
     <string name="shop">Shop</string>
     <string name="enter_information_to_create_account">Enter the following information to create an new account</string>
@@ -217,4 +217,7 @@
     <string name="arabic">Arabic</string>
     <string name="language">Language</string>
     <string name="settings">Settings</string>
+    <string name="date_is_required">Date is required</string>
+    <string name="destincation_is_required">Destincation is required</string>
+    <string name="source_is_required">Source is required</string>
 </resources>

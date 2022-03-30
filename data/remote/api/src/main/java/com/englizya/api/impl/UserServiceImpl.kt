@@ -1,6 +1,6 @@
 package com.englizya.api.impl
 
-import com.englizya.api.RemoteUserService
+import com.englizya.api.UserService
 import com.englizya.api.utils.Routing.LOGIN
 import com.englizya.api.utils.Routing.SIGNUP
 import com.englizya.model.dto.User
@@ -12,9 +12,9 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import javax.inject.Inject
 
-class RemoteUserServiceImpl @Inject constructor(
+class UserServiceImpl @Inject constructor(
     private val client: HttpClient
-): RemoteUserService {
+): UserService {
 
     override suspend fun login(request: LoginRequest): LoginResponse =
         client.post<LoginResponse> {

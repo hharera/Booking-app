@@ -1,14 +1,14 @@
 package com.englizya.api.impl
 
-import com.englizya.api.RemoteAnnouncementService
+import com.englizya.api.AnnouncementService
 import com.englizya.model.dto.Announcement
 import io.ktor.client.*
 import javax.inject.Inject
 
 
-class RemoteAnnouncementServiceImpl @Inject constructor(
+class AnnouncementServiceImpl @Inject constructor(
     private val client: HttpClient
-) : RemoteAnnouncementService {
+) : AnnouncementService {
 
     override suspend fun getAnnouncements(): List<Announcement> {
         TODO("Not yet implemented")
