@@ -7,62 +7,96 @@
     android:background="@color/grey_100">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
         android:layout_marginTop="19dp"
         android:fontFamily="@font/sf"
         android:text="@string/select_service"
         android:textColor="#303030"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/inner_transportation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="67dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/outer_transportation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/long"
+        android:layout_width="248dp"
+        android:layout_height="248dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/background_button_service_type"
-        android:text="@string/external_transportation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginHorizontal="42dp"
+                android:src="@drawable/icon_bus_short"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sf"
+                android:text="@string/long_transportation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/short"
+        android:layout_width="248dp"
+        android:layout_height="248dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_button_service_type"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:icon="@drawable/ic_bus"
-        app:iconGravity="textTop"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintWidth_percent="0.4" />
+        app:icon="@drawable/icon_bus_short"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/long">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/inner_transportation"
-        android:layout_width="0dp"
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        android:background="@drawable/background_button_service_type"
-        android:text="خدمات النقل الداخلي"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:icon="@drawable/ic_ticket"
-        app:iconGravity="textTop"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintWidth_percent="0.4" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginHorizontal="42dp"
+                android:src="@drawable/icon_bus_long"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sf"
+                android:text="@string/short_transportation"
+                android:textCursorDrawable="@color/blue_600"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

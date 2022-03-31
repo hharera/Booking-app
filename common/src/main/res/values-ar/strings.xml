@@ -147,7 +147,7 @@
     <string name="print">طباعة</string>
     <string name="day_report">تقرير اليوم</string>
     <string name="end_shift">انهاء الشيفت</string>
-    <string name="englizya">الأنجليزية</string>
+    <string name="englizya">الإنجليزية</string>
     <string name="our_way_is_once">طريقنا دايماً واحد</string>
     <string name="car_code">كود السيارة</string>
     <string name="line_code">كود الخط</string>
@@ -188,8 +188,8 @@
     <string name="logout">تسجيل الخروج</string>
     <string name="scan_a_ticket">مسح بطاقة ضوئية</string>
     <string name="book_a_ticket">احجز تذكرة</string>
-    <string name="external_transportation">خدمات النقل السياحي</string>
-    <string name="inner_transportation">خدمات النقل الداخلي</string>
+    <string name="long_transportation">خدمات النقل السياحي</string>
+    <string name="short_transportation">خدمات النقل الداخلي</string>
     <string name="offers">العروض</string>
     <string name="see_more">شاهد المزيد ...</string>
     <string name="app_settings">إعدادات التطبيق</string>
@@ -220,4 +220,6 @@
     <string name="date_is_required">Date is required</string>
     <string name="destincation_is_required">Destincation is required</string>
     <string name="source_is_required">Source is required</string>
+    <string name="select_stop_station">Select your stop station</string>
+    <string name="select_service">Select service you want</string>
 </resources>
