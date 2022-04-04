@@ -7,7 +7,6 @@ import com.englizya.common.base.BaseActivity
 import com.englizya.client.ticket.navigation.booking.R
 import com.englizya.client.ticket.navigation.booking.databinding.ActivityBookingBinding
 
-//TODO extend from base activity
 class BookingActivity : BaseActivity() {
 
     private lateinit var bind: ActivityBookingBinding

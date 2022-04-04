@@ -3,7 +3,7 @@ package com.englizya.api.impl
 import com.englizya.api.UserService
 import com.englizya.api.utils.Routing.LOGIN
 import com.englizya.api.utils.Routing.SIGNUP
-import com.englizya.model.dto.User
+import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.SignupRequest
 import com.englizya.model.response.LoginResponse

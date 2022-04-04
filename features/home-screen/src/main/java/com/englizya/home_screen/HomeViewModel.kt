@@ -3,8 +3,8 @@ package com.englizya.home_screen
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
-import com.englizya.model.dto.Announcement
-import com.englizya.model.dto.Offer
+import com.englizya.model.model.Announcement
+import com.englizya.model.model.Offer
 import com.englizya.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

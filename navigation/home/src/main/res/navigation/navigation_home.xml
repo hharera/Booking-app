@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/navigation_booking">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.englizya.home_screen.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <argument android:name="phoneNumber" />
+        <deepLink app:uri="EnglizyaPay://home/{phoneNumber}" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_map"

@@ -1,6 +1,6 @@
 package com.englizya.api
 
-import com.englizya.model.dto.Announcement
+import com.englizya.model.model.Announcement
 
 interface AnnouncementService {
 

@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.englizya.common.base.BaseFragment
-import com.englizya.select_seat.databinding.FragmentSelecetSeatBinding
+import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 
 class SelectSeatFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentSelecetSeatBinding
+    private lateinit var binding: FragmentSelectSeatBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class SelectSeatFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSelecetSeatBinding.inflate(layoutInflater)
+        binding = FragmentSelectSeatBinding.inflate(layoutInflater)
         return binding.root
     }
 

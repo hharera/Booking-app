@@ -21,6 +21,15 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name="com.englizya.select_service.SelectServiceActivity"
+            android:exported="true" />
+
+
+        <activity
+            android:name="com.englizya.navigation.booking.BookingActivity"
+            android:exported="true" />
+
+        <activity
             android:name="com.englizya.navigation.login.LoginActivity"
             android:exported="true" />
 

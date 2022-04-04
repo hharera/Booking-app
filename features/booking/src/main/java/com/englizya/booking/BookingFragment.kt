@@ -1,22 +1,31 @@
 package com.englizya.booking
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.englizya.booking.databinding.FragmentBookingBinding
 import com.englizya.common.base.BaseFragment
-import com.englizya.model.model.BookingOffice
+import com.englizya.common.mapper.DateStringMapper
+import com.englizya.common.mapper.DateTimeMapper
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.model.model.Branch
+import com.englyzia.booking.BookingViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 
 class BookingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentBookingBinding
     private lateinit var adapter: ArrayAdapter<String>
-    private val bookingViewModel: BookingViewModel by viewModels()
+    private val bookingViewModel: BookingViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,28 +48,58 @@ class BookingFragment : BaseFragment() {
     private fun setupListeners() {
         binding.source.setOnItemClickListener { adapterView, view, i, l ->
             adapterView.adapter.getItem(i).toString().let {
+                Log.d(TAG, "setupListeners: $it")
                 bookingViewModel.setSource(it)
             }
         }
 
         binding.destination.setOnItemClickListener { adapterView, view, i, l ->
             adapterView.adapter.getItem(i).toString().let {
+                Log.d(TAG, "setupListeners: $it")
                 bookingViewModel.setDestination(it)
             }
         }
+
+        binding.dateConstraintLayout.setOnClickListener {
+            showDatePickerDialog()
+        }
+
+        binding.search.setOnClickListener {
+            progressToSelectTrip()
+        }
+    }
+
+    private fun progressToSelectTrip() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.SELECT_TRIP, null)
+        )
     }
 
     private fun setupObservers() {
-        bookingViewModel.bookingOffices.observe(viewLifecycleOwner) {
+        bookingViewModel.formValidity.observe(viewLifecycleOwner) {
+            binding.search.isEnabled = it.formIsValid
+
+            if (null != it.sourceError) {
+                binding.source.setError(getString(it.sourceError!!))
+            } else if (null != it.destinationError) {
+                binding.destination.setError(getString(it.destinationError!!))
+            }
+        }
+
+        bookingViewModel.date.observe(viewLifecycleOwner) {
+            binding.date.text = DateStringMapper.map(it)
+        }
+
+        bookingViewModel.stations.observe(viewLifecycleOwner) {
             updateUI(it)
         }
     }
 
-    private fun updateUI(it: List<BookingOffice>) {
+    private fun updateUI(it: List<Branch>) {
         adapter = ArrayAdapter<String>(
             requireContext(),
             R.layout.card_view_booking_office,
-            it.map { it.officeName }
+            it.map { it.branchName }
         )
 
         binding.source.setAdapter(adapter)
@@ -73,10 +112,17 @@ class BookingFragment : BaseFragment() {
         lifecycleScope.launch { bookingViewModel.getBookingOffices() }
     }
 
-    private fun makeOnBackground(function: () -> Unit) {
-        lifecycleScope.launch {
-            function.invoke()
-        }
-    }
+    private fun showDatePickerDialog() {
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText(getString(R.string.select_trip_date))
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
 
+        datePicker.addOnPositiveButtonClickListener {
+            val time = DateTimeMapper.map(it)
+            bookingViewModel.setDate(time)
+        }
+        datePicker.show(childFragmentManager, "DATE")
+    }
 }

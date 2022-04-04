@@ -9,6 +9,7 @@ import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.login.LoginActivity
+import com.englizya.select_service.SelectServiceActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -53,7 +54,7 @@ class SplashActivity : BaseActivity() {
 
     private fun checkLoginState(loginState: Boolean) {
         if (loginState) {
-            goHome()
+            selectService()
         } else {
             goLogin()
         }
@@ -70,10 +71,10 @@ class SplashActivity : BaseActivity() {
         finish()
     }
 
-    private fun goHome() {
+    private fun selectService() {
         val intent =
-            Intent(this@SplashActivity, HomeActivity::class.java)
-                .putExtra(Arguments.DESTINATION, Destination.TICKET)
+            Intent(this@SplashActivity, SelectServiceActivity::class.java)
+                .putExtra(Arguments.DESTINATION, Destination.HOME)
                 .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) }
 
         startActivity(intent)

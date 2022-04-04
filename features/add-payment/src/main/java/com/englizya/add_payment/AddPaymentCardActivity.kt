@@ -6,7 +6,7 @@ import com.englizya.add_payment.databinding.ActivitytAddPaymentBinding
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.navigation.Arguments
-import com.englizya.model.dto.PaymentCard
+import com.englizya.model.model.PaymentCard
 
 class AddPaymentCardActivity : BaseActivity() {
 

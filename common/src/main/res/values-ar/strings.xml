@@ -64,7 +64,7 @@
     <string name="location_not_choosen">لم يتم اختيار الموقع</string>
     <string name="search_location">موقع البحث</string>
     <string name="medicine_type">نوع الدواء</string>
-    <string name="choose_expire_date">اختر تاريخ انتهاء الصلاحية</string>
+    <string name="select_trip_date">اختر تاريخ الرحلة</string>
     <string name="medicine_price">سعر الدواء</string>
     <string name="image_picker_canceled">مُلغى</string>
     <string name="uploading_medicine">تتم إضافة عنصر جديد</string>

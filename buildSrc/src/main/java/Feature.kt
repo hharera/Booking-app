@@ -20,4 +20,8 @@ object Feature {
     const val SCAN_QR = ":features:scan-qr"
     const val SEND_OTP = ":features:send-otp"
     const val APP_SETTINGS = ":features:app-settings"
+    const val SELECT_SERVICE = ":features:select-service"
+    const val SELECT_STATION = ":features:select-station"
+    const val SELECT_SEAT = ":features:select-seat"
+    const val SELECT_TRIP = ":features:select-trip"
 }

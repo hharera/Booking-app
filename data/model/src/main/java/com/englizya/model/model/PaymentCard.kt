@@ -1,4 +1,4 @@
-package com.englizya.model.dto
+package com.englizya.model.model
 
 import java.io.Serializable
 

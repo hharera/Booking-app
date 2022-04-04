@@ -16,10 +16,10 @@
         android:icon="@drawable/ic_qr"
         android:title="@string/scan_qr" />
 
-    <item
-        android:id="@id/navigation_booking"
-        android:icon="@drawable/ic_ticket"
-        android:title="@string/booking" />
+<!--    <item-->
+<!--        android:id="@id/navigation_booking"-->
+<!--        android:icon="@drawable/ic_ticket"-->
+<!--        android:title="@string/booking" />-->
 
     <item
         android:id="@id/navigation_routes"

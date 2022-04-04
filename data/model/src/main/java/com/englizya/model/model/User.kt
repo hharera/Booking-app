@@ -1,4 +1,4 @@
-package com.englizya.model.dto
+package com.englizya.model.model
 
 import kotlinx.serialization.Serializable
 

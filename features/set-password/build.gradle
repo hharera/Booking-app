@@ -2,6 +2,5 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
 
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation(project(":ui-components:done-dialog"))
 }

@@ -66,7 +66,7 @@
     <string name="location_not_choosen">Location not chosen</string>
     <string name="search_location">Search location</string>
     <string name="medicine_type">Medication type</string>
-    <string name="choose_expire_date">choose the expiry date</string>
+    <string name="select_trip_date">Select trip date</string>
     <string name="medicine_price">medicine price</string>
     <string name="image_picker_canceled">Canceled</string>
     <string name="uploading_medicine">A new item is being added</string>

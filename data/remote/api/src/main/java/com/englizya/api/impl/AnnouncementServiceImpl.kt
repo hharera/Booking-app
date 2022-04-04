@@ -1,7 +1,7 @@
 package com.englizya.api.impl
 
 import com.englizya.api.AnnouncementService
-import com.englizya.model.dto.Announcement
+import com.englizya.model.model.Announcement
 import io.ktor.client.*
 import javax.inject.Inject
 

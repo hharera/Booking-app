@@ -22,16 +22,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:layout_constraintWidth_percent="0.4" />
 
-<!--    <ImageView-->
-<!--        android:layout_width="15dp"-->
-<!--        android:layout_height="15dp"-->
-<!--        android:background="@color/white"-->
-<!--        android:src="@drawable/logo"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/lottie_splash"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline3" />-->
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -49,6 +39,7 @@
         android:id="@+id/lottie_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="300dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/splash" />

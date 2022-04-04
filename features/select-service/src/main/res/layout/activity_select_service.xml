@@ -21,7 +21,7 @@
         app:layout_goneMarginTop="67dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/long"
+        android:id="@+id/long_transporation_service"
         android:layout_width="248dp"
         android:layout_height="248dp"
         android:layout_marginTop="50dp"
@@ -59,7 +59,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/short"
+        android:id="@+id/short_transporation_service"
         android:layout_width="248dp"
         android:layout_height="248dp"
         android:layout_marginTop="20dp"
@@ -69,7 +69,7 @@
         app:icon="@drawable/icon_bus_short"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/long">
+        app:layout_constraintTop_toBottomOf="@+id/long_transporation_service">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
