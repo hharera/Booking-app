@@ -75,7 +75,7 @@ class HomeActivity : BaseActivity() {
 
         when (item) {
             is AppSettings -> {
-
+                navigateToSettings()
             }
 
             is PaymentCards -> {
@@ -110,6 +110,10 @@ class HomeActivity : BaseActivity() {
 
             }
         }
+    }
+
+    private fun navigateToSettings() {
+        navController.navigate(R.id.navigation_app_settings)
     }
 
     private fun getExtras() {

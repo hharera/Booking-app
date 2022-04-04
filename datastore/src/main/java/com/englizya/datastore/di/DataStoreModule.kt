@@ -1,7 +1,7 @@
 package com.englizya.datastore.di
 
 import android.app.Application
-import com.englizya.datastore.core.*
+import com.englizya.datastore.UserDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

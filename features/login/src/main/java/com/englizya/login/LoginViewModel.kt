@@ -7,7 +7,7 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity.Companion.passwordIsValid
 import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
 import com.englizya.common.utils.code.CountryCode
-import com.englizya.datastore.core.UserDataStore
+import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
 import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository

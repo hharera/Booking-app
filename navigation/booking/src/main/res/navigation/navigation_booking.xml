@@ -27,7 +27,8 @@
         android:name="com.englizya.select_station.SelectStationFragment"
         tools:layout="@layout/fragment_select_station">
 
-        <deepLink app:uri="EnglizyaPay://select-station" />
+        <argument android:name="arg" />
+        <deepLink app:uri="EnglizyaPay://select-station/{arg}" />
     </fragment>
 
     <fragment
@@ -35,7 +36,8 @@
         android:name="com.englizya.select_seat.SelectSeatFragment"
         tools:layout="@layout/fragment_select_seat">
 
-        <deepLink app:uri="EnglizyaPay://select-seat" />
+        <argument android:name="arg" />
+        <deepLink app:uri="EnglizyaPay://select-seat/{arg}" />
     </fragment>
 
 </navigation>
