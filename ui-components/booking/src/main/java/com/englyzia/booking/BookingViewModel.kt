@@ -37,6 +37,9 @@ class BookingViewModel @Inject constructor(
     private var _trips = MutableLiveData<List<Trip>>()
     val trips: LiveData<List<Trip>> = _trips
 
+    private var _trip = MutableLiveData<Trip>()
+    val trip: LiveData<Trip> = _trip
+
     suspend fun getAlTrips(trips: List<Trip>) {
         updateLoading(true)
         tripsRepository
@@ -91,6 +94,7 @@ class BookingViewModel @Inject constructor(
     }
 
     fun setSource(source: String) {
+        Log.d(TAG, "setSource: $source")
         _source.value = stations.value?.firstOrNull {
             it.branchName == source
         }
@@ -120,4 +124,7 @@ class BookingViewModel @Inject constructor(
         }
     }
 
+    fun setSelectedTrip(trip: Trip) {
+        _trip.value = trip
+    }
 }

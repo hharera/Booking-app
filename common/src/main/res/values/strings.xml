@@ -221,4 +221,6 @@
     <string name="source_is_required">Source is required</string>
     <string name="select_stop_station">Select your stop station</string>
     <string name="select_service">Select service you want</string>
+    <string name="line_stations">Line Stations</string>
+    <string name="next_station">Next Station</string>
 </resources>

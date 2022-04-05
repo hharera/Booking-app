@@ -7,7 +7,7 @@
     <string name="start">start</string>
     <string name="password">كلمة المرور</string>
     <string name="email">البريد الإلكتروني</string>
-    <string name="total">total</string>
+    <string name="total">الإجمالي</string>
     <string name="remove">إزالة</string>
     <string name="price">السعر</string>
     <string name="quantity">الكمية</string>
@@ -222,4 +222,6 @@
     <string name="source_is_required">Source is required</string>
     <string name="select_stop_station">Select your stop station</string>
     <string name="select_service">Select service you want</string>
+    <string name="line_stations">Line Stations</string>
+    <string name="next_station">Next Station</string>
 </resources>

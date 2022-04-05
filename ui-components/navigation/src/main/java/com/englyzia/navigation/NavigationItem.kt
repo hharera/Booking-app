@@ -1,6 +1,4 @@
-package com.englizya.navigation.home
-
-import com.englizya.client.ticket.navigation.home.R
+package com.englyzia.navigation
 
 sealed class NavigationItem(
     val itemIconRes: Int,

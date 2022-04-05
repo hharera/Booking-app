@@ -81,8 +81,14 @@ class BookingFragment : BaseFragment() {
 
             if (null != it.sourceError) {
                 binding.source.setError(getString(it.sourceError!!))
-            } else if (null != it.destinationError) {
+            } else {
+                binding.source.error = null
+            }
+
+            if (null != it.destinationError) {
                 binding.destination.setError(getString(it.destinationError!!))
+            } else {
+                binding.destination.error = null
             }
         }
 
@@ -98,7 +104,7 @@ class BookingFragment : BaseFragment() {
     private fun updateUI(it: List<Branch>) {
         adapter = ArrayAdapter<String>(
             requireContext(),
-            R.layout.card_view_booking_office,
+            R.layout.card_view_station,
             it.map { it.branchName }
         )
 

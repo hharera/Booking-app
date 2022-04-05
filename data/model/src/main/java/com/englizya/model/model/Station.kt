@@ -3,7 +3,7 @@ package com.englizya.model.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LineStation(
+data class Station(
     var stationOrder: Int? = null,
     var lineId: Int? = null,
     var startDate: String? = null,

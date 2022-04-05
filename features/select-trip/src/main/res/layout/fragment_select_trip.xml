@@ -37,11 +37,11 @@
                 android:id="@+id/from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:fontFamily="@font/sf"
                 android:textColor="#303030"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintEnd_toStartOf="@+id/right"
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="@+id/back" />
 
@@ -51,11 +51,10 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_arrow_right"
                 app:layout_constraintBottom_toBottomOf="@+id/from"
-                app:layout_constraintEnd_toStartOf="@+id/to"
-                app:layout_constraintStart_toEndOf="@+id/from"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/from" />
 
             <TextView
@@ -67,6 +66,7 @@
                 android:textColor="#303030"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="@+id/right"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/right"
                 app:layout_constraintTop_toTopOf="@+id/right" />
 
@@ -74,13 +74,16 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trips"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:backgroundTint="@color/grey_100"
+        android:orientation="vertical"
         android:paddingStart="23dp"
         android:paddingEnd="23dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar"
-        tools:listitem="@layout/card_view_ticket" />
+        tools:listitem="@layout/card_view_trip" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

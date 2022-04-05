@@ -1,6 +1,7 @@
 package com.englizya.select_trip
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,13 +48,22 @@ class SelectTripFragment : BaseFragment() {
 
     private fun setupObservers() {
         bookingViewModel.trips.observe(viewLifecycleOwner) {
-            adapter = TripAdapter(it) {
-                progressToSelectStation(it)
-            }
+            updateUI(it)
         }
     }
 
+    private fun updateUI(list: List<Trip>) {
+        Log.d(TAG, "updateUI: $list")
+        adapter = TripAdapter(list, bookingViewModel.source.value, bookingViewModel.destination.value) {
+            progressToSelectStation(it)
+        }
+
+        binding.trips.adapter = adapter
+    }
+
     private fun progressToSelectStation(trip: Trip) {
+        bookingViewModel.setSelectedTrip(trip)
+
         findNavController()
             .navigate(
                 NavigationUtils.getUriNavigation(

@@ -20,7 +20,7 @@ class TripServiceImpl @Inject constructor(
         }
 
     override suspend fun searchTrips(tripRequest: TripSearchRequest): List<Trip> =
-        client.get(Routing.SEARCH_TRIPS) {
+        client.post(Routing.SEARCH_TRIPS) {
             body = tripRequest
             contentType(ContentType.Application.Json)
         }

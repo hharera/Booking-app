@@ -1,9 +1,9 @@
-package com.englizya.navigation.home
+package com.englyzia.navigation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.englizya.client.ticket.navigation.home.databinding.CardViewNavigationItemBinding
+import com.englyzia.navigation.databinding.CardViewNavigationItemBinding
 
 class NavigationAdapter(
     private val navigationItems: List<NavigationItem>,

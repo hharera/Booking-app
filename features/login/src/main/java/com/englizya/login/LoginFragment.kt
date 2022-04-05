@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.login.databinding.FragmentLoginBinding
-import com.englizya.navigation.forget_password.ForgetPasswordActivity
+import com.englizya.navigation.forget_password.ResetPasswordActivity
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
 import kotlinx.coroutines.Dispatchers
@@ -135,7 +135,7 @@ class LoginFragment : BaseFragment() {
 
     private fun goToResetPassword() {
         activity?.apply {
-            startActivity(Intent(context, ForgetPasswordActivity::class.java))
+            startActivity(Intent(context, ResetPasswordActivity::class.java))
         }
     }
 

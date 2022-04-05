@@ -18,7 +18,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_rount_bus" />
+            android:src="@drawable/ic_round_bus" />
 
         <TextView
             android:id="@+id/textView8"

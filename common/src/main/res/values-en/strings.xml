@@ -7,7 +7,7 @@
     <string name="start">start</string>
     <string name="password">password</string>
     <string name="email">email</string>
-    <string name="total">total</string>
+    <string name="total">Total</string>
     <string name="remove">remove</string>
     <string name="price">Price</string>
     <string name="quantity">Quantity</string>
@@ -222,4 +222,6 @@
     <string name="source_is_required">Source is required</string>
     <string name="select_stop_station">Select your stop station</string>
     <string name="select_service">Select service you want</string>
+    <string name="line_stations">Line Stations</string>
+    <string name="next_station">Next Station</string>
 </resources>

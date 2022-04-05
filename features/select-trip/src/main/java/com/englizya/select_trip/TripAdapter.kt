@@ -3,11 +3,14 @@ package com.englizya.select_trip
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.englizya.model.model.Branch
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
 
 class TripAdapter(
     private val trips: List<Trip>,
+    val source: Branch?,
+    private val destination: Branch?,
     private val onItemClicked: (Trip) -> Unit,
 ) : RecyclerView.Adapter<TripAdapter.NavigationItemViewHolder>() {
 
@@ -21,7 +24,7 @@ class TripAdapter(
     }
 
     override fun onBindViewHolder(holder: NavigationItemViewHolder, position: Int) {
-        holder.updateUI(trips[position])
+        holder.updateUI(trips[position], source, destination)
         holder.itemView.setOnClickListener {
             onItemClicked(trips.get(position))
         }
@@ -34,11 +37,18 @@ class TripAdapter(
     class NavigationItemViewHolder(private val binding: CardViewTripBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun updateUI(trip: Trip) {
+        fun updateUI(trip: Trip, source: Branch?, destination: Branch?) {
             val sortedStations = trip.line.stations.sortedBy { it.stationOrder }
 
-            binding.source.text = sortedStations.first().branch?.branchName
-            binding.destination.text = sortedStations.last().branch?.branchName
+            binding.source.text = source?.branchName
+            binding.sourceTimeTV.text = sortedStations.first().startDate
+
+            binding.destination.text = destination?.branchName
+            binding.destinationTimeTV.text = sortedStations.last().startDate
+
+            binding.price.text = trip.plan?.seatPrices?.firstOrNull {
+                it.source == source?.branchId && it.destination == destination?.branchId
+            }?.vipPrice.toString()
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val SELECT_SEAT = "select-seat"
     const val SELECT_TRIP = "select-trip"
     const val SELECT_STATION = "select-station"
     const val HOME: String = "home"

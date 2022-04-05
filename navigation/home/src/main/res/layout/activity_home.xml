@@ -2,9 +2,11 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Main_Style"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_100"
+    android:theme="@style/Main_Style"
     tools:openDrawer="end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -110,7 +112,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf"
-            android:text="0$"
             android:textColor="@color/grey_300"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="@+id/textView2"

@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import com.englizya.common.base.BaseActivity
 import com.englizya.navigation.forget_password.databinding.ActivityForgetPasswordBinding
 
-class ForgetPasswordActivity : BaseActivity() {
+class ResetPasswordActivity : BaseActivity() {
 
     private lateinit var bind: ActivityForgetPasswordBinding
     private lateinit var navController: NavController
