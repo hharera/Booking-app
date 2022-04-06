@@ -40,9 +40,17 @@ class SelectSeatFragment : BaseFragment() {
     private fun setupObservers() {
         bookingViewModel.source.observe(viewLifecycleOwner) { branch ->
             bookingViewModel.trip.value?.tripTimes?.firstOrNull {
-                it.branchId == branch.branchId
+                it.areaId == branch.branchId
             }?.let {
-                binding.sourceTimeTV.text = it.startDate
+                binding.sourceTimeTV.text = it.startTime
+            }
+        }
+
+        bookingViewModel.destination.observe(viewLifecycleOwner) { branch ->
+            bookingViewModel.trip.value?.tripTimes?.firstOrNull {
+                it.areaId == branch.branchId
+            }?.let {
+                binding.destinationTimeTV.text = it.startTime
             }
         }
 

@@ -4,10 +4,11 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-class TripTimes {
+class LineStationTime {
     var tripId: Int? = null
     var areaId: Int? = null
-    var startTime: Int? = null
+    var lineNo: Int? = null
+    var startTime: String? = null
     var bookingOfficeId: Int? = null
     var stationType: Int? = null
     var onlineService: Int? = null
