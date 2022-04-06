@@ -14,7 +14,7 @@ class Trip(
     var setNumber: String?,
     var driverId: String?,
     var service: Service?,
-    var tripTimes: TripTimes?,
+    var tripTimes: List<TripTimes>?,
     var reserveType: ReserveType?,
     var tripStatus: TripStatus?,
     var serviceDegree: ServiceDegree?,

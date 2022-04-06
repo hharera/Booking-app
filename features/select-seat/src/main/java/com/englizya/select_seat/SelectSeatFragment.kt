@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.englizya.common.base.BaseFragment
 import com.englizya.model.model.Trip
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
+import hilt_aggregated_deps._com_englizya_common_base_BaseViewModel_HiltModules_BindsModule
 
 class SelectSeatFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSelectSeatBinding
+    private var adapter: SeatAdapter? = null
     private val bookingViewModel: BookingViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,13 +38,32 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
+        bookingViewModel.source.observe(viewLifecycleOwner) { branch ->
+            bookingViewModel.trip.value?.tripTimes?.firstOrNull {
+                it.branchId == branch.branchId
+            }?.let {
+                binding.sourceTimeTV.text = it.startDate
+            }
+        }
+
+        bookingViewModel.total.observe(viewLifecycleOwner) {
+            binding.price.text = it.toString()
+        }
+
         bookingViewModel.trip.observe(viewLifecycleOwner) {
             updateUI(it)
         }
     }
 
     private fun updateUI(trip: Trip) {
-//        trip.plan.seatPrices.
+        adapter = trip.reservation?.firstOrNull()?.seats?.let {
+            SeatAdapter(it) {
+                bookingViewModel.setSelectedSeat(it)
+            }
+        }
+
+        binding.seats.layoutManager = GridLayoutManager(context, 5)
+        binding.seats.adapter = adapter
     }
 
     override fun onResume() {

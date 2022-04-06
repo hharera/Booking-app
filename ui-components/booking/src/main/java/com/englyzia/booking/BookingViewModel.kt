@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
-import com.englizya.model.model.Branch
+import com.englizya.model.model.Station
+import com.englizya.model.model.ReservationSeat
 import com.englizya.model.model.Trip
 import com.englizya.model.request.TripSearchRequest
 import com.englizya.repository.StationRepository
@@ -22,23 +23,29 @@ class BookingViewModel @Inject constructor(
     private var _formValidity = MutableLiveData<BookingFormState>()
     val formValidity: LiveData<BookingFormState> = _formValidity
 
-    private var _source = MutableLiveData<Branch>()
-    val source: LiveData<Branch> = _source
+    private var _total = MutableLiveData<Int>()
+    val total: LiveData<Int> = _total
 
-    private var _destination = MutableLiveData<Branch>()
-    val destination: LiveData<Branch> = _destination
+    private var _source = MutableLiveData<Station>()
+    val source: LiveData<Station> = _source
+
+    private var _destination = MutableLiveData<Station>()
+    val destination: LiveData<Station> = _destination
 
     private var _date = MutableLiveData<DateTime>()
     val date: LiveData<DateTime> = _date
 
-    private var _stations = MutableLiveData<List<Branch>>()
-    val stations: LiveData<List<Branch>> = _stations
+    private var _stations = MutableLiveData<List<Station>>()
+    val stations: LiveData<List<Station>> = _stations
 
     private var _trips = MutableLiveData<List<Trip>>()
     val trips: LiveData<List<Trip>> = _trips
 
     private var _trip = MutableLiveData<Trip>()
     val trip: LiveData<Trip> = _trip
+
+    private var _selectedSeats = MutableLiveData<Set<ReservationSeat>>(emptySet())
+    val selectedSeats: LiveData<Set<ReservationSeat>> = _selectedSeats
 
     suspend fun getAlTrips(trips: List<Trip>) {
         updateLoading(true)
@@ -126,5 +133,21 @@ class BookingViewModel @Inject constructor(
 
     fun setSelectedTrip(trip: Trip) {
         _trip.value = trip
+    }
+
+    fun setSelectedSeat(seat: ReservationSeat) {
+        if (selectedSeats.value?.contains(seat) == true) {
+            _selectedSeats.value = selectedSeats.value?.minus(seat)
+        } else {
+            _selectedSeats.value = selectedSeats.value?.plus(seat)
+        }
+
+        _total.value = trip.value?.plan?.seatPrices?.firstOrNull {
+            it.source == source.value?.branchId && it.destination == destination.value?.branchId
+        }?.vipPrice?.let {
+            selectedSeats.value?.size?.times(
+                it
+            )
+        }
     }
 }

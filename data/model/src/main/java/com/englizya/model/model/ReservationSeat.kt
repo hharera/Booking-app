@@ -4,8 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ReservationSeat(
-    private val tripReservationId: Int? = null,
-    private val seatId: Int? = null,
-    private val source: Int? = null,
-    private val destination: Int? = null
+    var tripReservationId: Int? = null,
+    var seatId: Int? = null,
+    var source: Int? = null,
+    var destination: Int? = null,
+    var closeFlag: Int? = null,
 )

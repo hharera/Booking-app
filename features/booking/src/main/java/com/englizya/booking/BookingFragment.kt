@@ -16,7 +16,7 @@ import com.englizya.common.mapper.DateTimeMapper
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.model.model.Branch
+import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
@@ -101,7 +101,7 @@ class BookingFragment : BaseFragment() {
         }
     }
 
-    private fun updateUI(it: List<Branch>) {
+    private fun updateUI(it: List<Station>) {
         adapter = ArrayAdapter<String>(
             requireContext(),
             R.layout.card_view_station,

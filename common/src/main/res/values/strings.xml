@@ -223,4 +223,5 @@
     <string name="select_service">Select service you want</string>
     <string name="line_stations">Line Stations</string>
     <string name="next_station">Next Station</string>
+    <string name="book">Book</string>
 </resources>

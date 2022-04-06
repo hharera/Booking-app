@@ -7,9 +7,9 @@ data class Line(
     var lineId: Int,
     var lineName: String? = null,
     var road: Int? = null,
-    var stations: List<Station>,
-    var source: Branch,
-    var destination: Branch,
+    var stations: List<LineStation>,
+    var source: Station,
+    var destination: Station,
     var linePath: String? = null,
     var lineStatus: String? = null,
 )

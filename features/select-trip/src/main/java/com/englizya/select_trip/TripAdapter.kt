@@ -3,14 +3,14 @@ package com.englizya.select_trip
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.englizya.model.model.Branch
+import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
 
 class TripAdapter(
     private val trips: List<Trip>,
-    val source: Branch?,
-    private val destination: Branch?,
+    val source: Station?,
+    private val destination: Station?,
     private val onItemClicked: (Trip) -> Unit,
 ) : RecyclerView.Adapter<TripAdapter.NavigationItemViewHolder>() {
 
@@ -37,7 +37,7 @@ class TripAdapter(
     class NavigationItemViewHolder(private val binding: CardViewTripBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun updateUI(trip: Trip, source: Branch?, destination: Branch?) {
+        fun updateUI(trip: Trip, source: Station?, destination: Station?) {
             val sortedStations = trip.line.stations.sortedBy { it.stationOrder }
 
             binding.source.text = source?.branchName

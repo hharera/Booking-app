@@ -15,9 +15,8 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englyzia.navigation.NavigationAdapter
-import com.englyzia.navigation.NavigationItem.*
 import com.englyzia.navigation.NavigationItem
-import com.englyzia.navigation.NavigationItem.PaymentHistory
+import com.englyzia.navigation.NavigationItem.*
 
 class HomeActivity : BaseActivity() {
 

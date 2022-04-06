@@ -4,11 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Station(
-    var stationOrder: Int? = null,
-    var lineId: Int? = null,
-    var startDate: String? = null,
-    var endDate: String? = null,
-    var pathType: Int? = null,
-    var lineIcon: String? = null,
-    var branch: Branch? = null,
+    var branchId: Int,
+    var branchName: String? = null,
+    var areaId: Int? = null
 )

@@ -3,12 +3,12 @@ package com.englizya.select_station
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.englizya.model.model.Station
+import com.englizya.model.model.LineStation
 import com.englizya.select_station.databinding.CardViewStopStationBinding
 
 class StationAdapter(
-    private val stations: List<Station>,
-    private val onItemClicked: (Station) -> Unit,
+    private val stations: List<LineStation>,
+    private val onItemClicked: (LineStation) -> Unit,
 ) : RecyclerView.Adapter<StationAdapter.NavigationItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavigationItemViewHolder {
@@ -35,7 +35,7 @@ class StationAdapter(
     class NavigationItemViewHolder(private val binding: CardViewStopStationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun updateUI(source: Station, destination: Station) {
+        fun updateUI(source: LineStation, destination: LineStation) {
             binding.station.text = destination.branch?.branchName
 
             binding.source.text = source.branch?.branchName

@@ -3,9 +3,9 @@ package com.englizya.navigation.booking
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.englizya.common.base.BaseActivity
 import com.englizya.client.ticket.navigation.booking.R
 import com.englizya.client.ticket.navigation.booking.databinding.ActivityBookingBinding
+import com.englizya.common.base.BaseActivity
 
 class BookingActivity : BaseActivity() {
 
