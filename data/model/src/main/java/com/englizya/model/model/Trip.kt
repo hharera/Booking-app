@@ -21,4 +21,5 @@ class Trip(
     var line: Line,
     var reservation: List<Reservation>?,
     var plan: LinePricePlanMaster? = null,
+//    var bus: Bus? = null,
 )

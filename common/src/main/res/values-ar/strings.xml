@@ -225,4 +225,5 @@
     <string name="line_stations">Line Stations</string>
     <string name="next_station">Next Station</string>
     <string name="book">Book</string>
+    <string name="empty_seats_error">Please select seats</string>
 </resources>

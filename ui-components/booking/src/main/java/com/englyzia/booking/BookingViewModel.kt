@@ -3,14 +3,17 @@ package com.englyzia.booking
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
+import com.englizya.model.model.Seat
 import com.englizya.model.model.Station
-import com.englizya.model.model.ReservationSeat
 import com.englizya.model.model.Trip
+import com.englizya.model.request.PaymentRequest
 import com.englizya.model.request.TripSearchRequest
 import com.englizya.repository.StationRepository
 import com.englizya.repository.TripRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import javax.inject.Inject
 
@@ -44,8 +47,8 @@ class BookingViewModel @Inject constructor(
     private var _trip = MutableLiveData<Trip>()
     val trip: LiveData<Trip> = _trip
 
-    private var _selectedSeats = MutableLiveData<Set<ReservationSeat>>(emptySet())
-    val selectedSeats: LiveData<Set<ReservationSeat>> = _selectedSeats
+    private var _selectedSeats = MutableLiveData<Set<Seat>>(emptySet())
+    val selectedSeats: LiveData<Set<Seat>> = _selectedSeats
 
     suspend fun getAlTrips(trips: List<Trip>) {
         updateLoading(true)
@@ -135,7 +138,7 @@ class BookingViewModel @Inject constructor(
         _trip.value = trip
     }
 
-    fun setSelectedSeat(seat: ReservationSeat) {
+    fun setSelectedSeat(seat: Seat) {
         if (selectedSeats.value?.contains(seat) == true) {
             _selectedSeats.value = selectedSeats.value?.minus(seat)
         } else {
@@ -150,4 +153,28 @@ class BookingViewModel @Inject constructor(
             )
         }
     }
+
+    fun book() {
+        updateLoading(true)
+
+        if (selectedSeats.value!!.isEmpty()) {
+            updateLoading(false)
+            handleException(R.string.empty_seats_error)
+        } else {
+            requestPayment()
+        }
+    }
+
+    private fun requestPayment() = viewModelScope.launch {
+        val request = createPaymentRequest()
+
+    }
+
+    private fun createPaymentRequest(): PaymentRequest = PaymentRequest(
+        seats = selectedSeats.value!!,
+        source = source.value!!,
+        destination = source.value!!,
+        date = date.value!!.toString(),
+    )
+
 }

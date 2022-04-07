@@ -37,12 +37,12 @@
                 android:id="@+id/from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/sf"
                 android:textColor="#303030"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
                 app:layout_constraintEnd_toStartOf="@+id/right"
-                app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="@+id/back" />
 
 
@@ -61,12 +61,11 @@
                 android:id="@+id/to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/sf"
                 android:textColor="#303030"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="@+id/right"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/right"
                 app:layout_constraintTop_toTopOf="@+id/right" />
 

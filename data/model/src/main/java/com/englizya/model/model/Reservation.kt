@@ -11,5 +11,5 @@ data class Reservation(
     var destination: Int,
     var source: Int,
     var date: String,
-    val seats: List<ReservationSeat>
+    val seats: List<Seat>
 )

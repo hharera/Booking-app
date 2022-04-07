@@ -126,13 +126,13 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <TextView
+                android:id="@+id/service_degree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:background="@color/grey_250"
                 android:fontFamily="@font/sf"
                 android:padding="4dp"
-                android:text="Lorem ipsum"
                 android:textColor="#171B24" />
 
 

@@ -35,6 +35,13 @@ class SelectSeatFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupObservers()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.book.setOnClickListener {
+            bookingViewModel.book()
+        }
     }
 
     private fun setupObservers() {

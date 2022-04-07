@@ -42,6 +42,7 @@ dependencies {
     api project(Data.datastore)
     api project(Data.model)
 
+    implementation(Animation.LOTTIE)
     implementation Libs.kotlin
     testImplementation TestDi.junit4
 

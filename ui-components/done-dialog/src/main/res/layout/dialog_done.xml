@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="23dp"
+    android:layout_margin="20dp"
     android:background="#00000026"
     app:cardCornerRadius="8dp">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_dialog_done">
@@ -17,20 +17,16 @@
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
             android:src="@drawable/ic_done"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
             android:fontFamily="@font/sf"
-            android:text="You have charged 200$ to your balance"
             android:textColor="@color/grey_500"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"

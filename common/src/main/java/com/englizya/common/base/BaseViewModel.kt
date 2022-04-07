@@ -1,5 +1,6 @@
 package com.englizya.common.base
 
+import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,9 +8,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-open class BaseViewModel @Inject constructor()  : ViewModel() {
+open class BaseViewModel @Inject constructor() : ViewModel() {
 
-     val TAG = this::class.java.name
+    val TAG = this::class.java.name
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
@@ -23,6 +24,10 @@ open class BaseViewModel @Inject constructor()  : ViewModel() {
     fun handleException(exception: Exception?) {
         //TODO check for every exception type print specific message
         exception?.printStackTrace()
+    }
+
+    fun handleException(exception: Int) {
+        Resources.getSystem().getString(exception)
     }
 
     fun updateLoading(state: Boolean) {

@@ -1,15 +1,15 @@
-package com.englizya.client.ticket
+package com.englizya.feature.ticket
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.englizya.client.ticket.databinding.FragmentTicketMainBinding
+import com.englizya.feature.ticket.databinding.FragmentTicketMainBinding
 import com.englizya.common.base.BaseFragment
 
 class TicketFragment : BaseFragment() {
 
-    private lateinit var binding : FragmentTicketMainBinding
+    private lateinit var binding: FragmentTicketMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

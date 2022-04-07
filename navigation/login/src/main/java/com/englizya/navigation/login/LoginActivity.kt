@@ -8,8 +8,8 @@ import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.client.ticket.navigation.login.R
-import com.englizya.client.ticket.navigation.login.databinding.ActivityLoginBinding
+import com.englizya.feature.ticket.navigation.login.R
+import com.englizya.feature.ticket.navigation.login.databinding.ActivityLoginBinding
 
 
 class LoginActivity : BaseActivity() {

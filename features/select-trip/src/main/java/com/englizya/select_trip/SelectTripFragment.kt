@@ -47,6 +47,14 @@ class SelectTripFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
+        bookingViewModel.loading.observe(viewLifecycleOwner) {
+            handleLoading(it)
+        }
+
+        bookingViewModel.trips.observe(viewLifecycleOwner) {
+
+        }
+
         bookingViewModel.trips.observe(viewLifecycleOwner) {
             updateUI(it)
         }

@@ -1,4 +1,4 @@
-package com.englizya.client.ticket
+package com.englizya.app.ticket
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -8,7 +8,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.runner.AndroidJUnit4
 import com.englizya.navigation.signup.SignupActivity
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

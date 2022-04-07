@@ -1,4 +1,4 @@
-package com.englizya.client.ticket
+package com.englizya.app.ticket
 
 import android.app.Application
 import com.google.firebase.FirebaseApp

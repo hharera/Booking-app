@@ -3,7 +3,7 @@ package com.englizya.model.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ReservationSeat(
+data class Seat(
     var tripReservationId: Int? = null,
     var seatId: Int? = null,
     var source: Int? = null,

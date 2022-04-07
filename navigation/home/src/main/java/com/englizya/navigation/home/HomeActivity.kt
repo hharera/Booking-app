@@ -7,8 +7,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.englizya.client.ticket.navigation.home.R
-import com.englizya.client.ticket.navigation.home.databinding.ActivityHomeBinding
+import com.englizya.feature.ticket.navigation.home.R
+import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination

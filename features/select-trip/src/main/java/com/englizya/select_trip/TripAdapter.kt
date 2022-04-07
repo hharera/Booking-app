@@ -41,14 +41,20 @@ class TripAdapter(
             val sortedStations = trip.line.stations.sortedBy { it.stationOrder }
 
             binding.source.text = source?.branchName
-            binding.sourceTimeTV.text = sortedStations.first().startDate
+            binding.sourceTimeTV.text = trip.tripTimes?.firstOrNull {
+                it.areaId == source?.areaId
+            }?.startTime
 
             binding.destination.text = destination?.branchName
-            binding.destinationTimeTV.text = sortedStations.last().startDate
+            binding.destinationTimeTV.text = trip.tripTimes?.firstOrNull {
+                it.areaId == destination?.areaId
+            }?.startTime
 
             binding.price.text = trip.plan?.seatPrices?.firstOrNull {
                 it.source == source?.branchId && it.destination == destination?.branchId
             }?.vipPrice.toString()
+
+            binding.serviceDegree.text = trip.service?.serviceName
         }
     }
 }
