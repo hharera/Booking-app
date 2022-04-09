@@ -9,6 +9,7 @@ class LineStationTime {
     var areaId: Int? = null
     var lineNo: Int? = null
     var startTime: String? = null
+    var endTime: String? = null
     var bookingOfficeId: Int? = null
     var stationType: Int? = null
     var onlineService: Int? = null
