@@ -14,6 +14,9 @@ class HomeViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 
+    private var _onNavigationClicked = MutableLiveData<Boolean>(false)
+    val onNavigationClicked: LiveData<Boolean> = _onNavigationClicked
+
     private var _offers = MutableLiveData<List<Offer>>()
     val offers: LiveData<List<Offer>> = _offers
 
@@ -26,6 +29,12 @@ class HomeViewModel @Inject constructor(
 
     fun getAnnouncements(announcements: List<Announcement>) {
         _announcements.value = announcements
+
+    }
+
+    fun onNavigationClicked() {
+        _onNavigationClicked.value = true
+        _onNavigationClicked.postValue(false)
 
     }
 }

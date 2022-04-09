@@ -11,6 +11,19 @@ object Versions {
     const val ESPRESSO = "3.4"
     const val ROOM_VERSION = "2.3.0"
 
+    const val kotlin = "1.4.21"
+    const val material = "1.2.1"
+    const val koin = "2.0.1"
+    const val livedata_testing_lib = "1.1.2"
+    const val junit = "4.12"
+    const val androidx_ext_junit = "1.1.1"
+    const val androidx_testing = "1.2.0"
+    const val testing_core = "1.3.0-alpha03"
+    const val fragments_testing = "1.2.0-rc03"
+    const val mockk = "1.10.6"
+    const val arch_core_testing = "2.1.0"
+    const val coroutines_test = "1.4.2"
+
 
     //Google Services
     const val GOOGLE_AUTH_VERSION = "19.2.0"

@@ -327,19 +327,27 @@
                     android:text="@string/selected" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/seats"
-                android:layout_width="match_parent"
+            <ScrollView
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                android:padding="5dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:scrollbarSize="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                tools:listitem="@layout/card_view_seat" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
+                <GridLayout
+                    android:id="@+id/seats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="5"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:rowCount="13"
+                    android:useDefaultMargins="true"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/card_view_seat" />
+            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

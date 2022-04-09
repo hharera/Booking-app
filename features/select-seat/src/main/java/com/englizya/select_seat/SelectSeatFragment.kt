@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.ImageView
+import androidx.core.view.setMargins
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import com.englizya.common.base.BaseFragment
+import com.englizya.model.model.Seat
 import com.englizya.model.model.Trip
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
-import hilt_aggregated_deps._com_englizya_common_base_BaseViewModel_HiltModules_BindsModule
 
 class SelectSeatFragment : BaseFragment() {
 
@@ -29,6 +32,62 @@ class SelectSeatFragment : BaseFragment() {
     ): View {
         binding = FragmentSelectSeatBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    private fun insertSeatViews(seatList: List<Seat>) {
+        val iterator = seatList.iterator()
+
+        for (position in 0..64) {
+            val image = ImageView(context).apply {
+            }
+
+            binding.seats.addView(image)
+
+            when (position) {
+                in (0..4) -> {
+                    if (position % 5 == 0) {
+                        image.setImageResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 4) {
+                        image.setImageResource(R.drawable.ic_exit)
+                    }
+                }
+
+                in (5..59) -> {
+                    if (position % 5 != 2) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+                else -> {
+                    updateSeatView(image, iterator.next())
+                }
+            }
+        }
+    }
+
+    private fun updateSeatView(image: ImageView, seat: Seat) {
+        var isSelected = false
+        var isAvailable = true
+
+        if (seat.source != null || seat.source != null) {
+            image.setImageResource(R.drawable.ic_seat_booked)
+            isAvailable = false
+        } else {
+            image.setImageResource(R.drawable.ic_seat_available)
+        }
+
+        image.setOnClickListener {
+            if (isAvailable) {
+                bookingViewModel.setSelectedSeat(seat)
+
+                if (isSelected) {
+                    image.setImageResource(R.drawable.ic_seat_available)
+                } else {
+                    image.setImageResource(R.drawable.ic_seat_selected)
+                }
+
+                isSelected = isSelected.not()
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,14 +130,9 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun updateUI(trip: Trip) {
-        adapter = trip.reservation?.firstOrNull()?.seats?.let {
-            SeatAdapter(it) {
-                bookingViewModel.setSelectedSeat(it)
-            }
+        trip.reservation?.firstOrNull()?.seats?.let {
+            insertSeatViews(it)
         }
-
-        binding.seats.layoutManager = GridLayoutManager(context, 5)
-        binding.seats.adapter = adapter
     }
 
     override fun onResume() {

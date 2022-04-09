@@ -1,19 +1,20 @@
 package com.englizya.navigation.home
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
+import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.englizya.feature.ticket.navigation.home.R
-import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.feature.ticket.navigation.home.R
+import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
+import com.englizya.home_screen.HomeViewModel
 import com.englyzia.navigation.NavigationAdapter
 import com.englyzia.navigation.NavigationItem
 import com.englyzia.navigation.NavigationItem.*
@@ -22,6 +23,19 @@ class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
+    private val navigationItemList = arrayListOf(
+        PaymentHistory,
+        ReportProblem,
+        AboutUs,
+        TermsAndPolicy,
+        UpcomingFeatures,
+        SuggestIdea,
+        ProfileSettings,
+        PaymentCards,
+        AppSettings,
+    )
+
+    private val homeViewModel: HomeViewModel by viewModels()
     private val TAG = "HomeActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +53,15 @@ class HomeActivity : BaseActivity() {
 
     private fun setupListeners() {
         binding.back.setOnClickListener {
+            homeViewModel.onNavigationClicked.observe(this) {
+                if (it) {
+                    binding.root.openDrawer(Gravity.RIGHT)
+                }
+            }
+        }
+
+
+        binding.back.setOnClickListener {
             binding.root.closeDrawers()
         }
     }
@@ -50,31 +73,14 @@ class HomeActivity : BaseActivity() {
 
     private fun setupRecyclerViewAdapter() {
         val adapter =
-            NavigationAdapter(
-                arrayListOf(
-                    PaymentHistory,
-                    ReportProblem,
-                    AboutUs,
-                    TermsAndPolicy,
-                    UpcomingFeatures,
-                    SuggestIdea,
-                    ProfileSettings,
-                    PaymentCards,
-                    AppSettings,
-                )
-            ) {
+            NavigationAdapter(navigationItemList) {
                 checkClickItem(it)
             }
-
-        binding.navigationMenu.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         binding.navigationMenu.adapter = adapter
     }
 
     private fun checkClickItem(item: NavigationItem) {
-        Log.d(TAG, "checkClickItem: $item")
-
         when (item) {
             is AppSettings -> {
                 navigateToSettings()
