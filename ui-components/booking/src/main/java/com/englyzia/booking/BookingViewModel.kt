@@ -177,4 +177,8 @@ class BookingViewModel @Inject constructor(
         date = date.value!!.toString(),
     )
 
+    fun clearSelectSeats() {
+        _selectedSeats.value = emptySet()
+    }
+
 }

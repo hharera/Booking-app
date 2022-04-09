@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ImageView
-import androidx.core.view.setMargins
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
@@ -19,12 +16,7 @@ import com.englyzia.booking.BookingViewModel
 class SelectSeatFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSelectSeatBinding
-    private var adapter: SeatAdapter? = null
     private val bookingViewModel: BookingViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,6 +86,8 @@ class SelectSeatFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        bookingViewModel.clearSelectSeats()
+
         setupObservers()
         setupListeners()
     }
@@ -148,9 +142,16 @@ class SelectSeatFragment : BaseFragment() {
 
     private fun restoreValues() {
         binding.source.text = bookingViewModel.source.value?.branchName
-        binding.sourceTimeTV.text = bookingViewModel.trip.value?.startDate
+
+        binding.sourceTimeTV.text = bookingViewModel.trip.value?.tripTimes?.firstOrNull {
+            it.areaId == bookingViewModel.source.value?.branchId
+        }?.startTime
+
 
         binding.destination.text = bookingViewModel.destination.value?.branchName
-        binding.destinationTimeTV.text = bookingViewModel.trip.value?.endDate
+
+        binding.destinationTimeTV.text = bookingViewModel.trip.value?.tripTimes?.firstOrNull {
+            it.areaId == bookingViewModel.destination.value?.branchId
+        }?.startTime
     }
 }

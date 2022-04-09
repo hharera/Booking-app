@@ -54,7 +54,7 @@ class TripAdapter(
                 it.source == source?.branchId && it.destination == destination?.branchId
             }?.vipPrice.toString()
 
-            binding.serviceDegree.text = trip.service?.serviceName
+            binding.serviceDegree.text = trip.serviceDegree?.serviceDegreeName
         }
     }
 }
