@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.core.view.setMargins
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.model.model.Seat
 import com.englizya.model.model.Trip
@@ -98,6 +99,10 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.book.setOnClickListener {
             bookingViewModel.book()
         }

@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/back"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="23dp"
@@ -38,9 +38,9 @@
                 android:text="@string/select_seats"
                 android:textColor="@color/grey_500"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
-                app:layout_constraintTop_toTopOf="@+id/imageView10" />
+                app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintStart_toEndOf="@+id/back"
+                app:layout_constraintTop_toTopOf="@+id/back" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
