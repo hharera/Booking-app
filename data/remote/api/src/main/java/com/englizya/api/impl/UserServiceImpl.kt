@@ -1,6 +1,7 @@
 package com.englizya.api.impl
 
 import com.englizya.api.UserService
+import com.englizya.api.utils.Routing.FETCH_USER
 import com.englizya.api.utils.Routing.LOGIN
 import com.englizya.api.utils.Routing.SIGNUP
 import com.englizya.model.model.User
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 class UserServiceImpl @Inject constructor(
     private val client: HttpClient
-): UserService {
+) : UserService {
 
     override suspend fun login(request: LoginRequest): LoginResponse =
         client.post<LoginResponse> {
@@ -28,5 +29,14 @@ class UserServiceImpl @Inject constructor(
             url(SIGNUP)
             contentType(ContentType.Application.Json)
             body = request
+        }
+
+    override suspend fun getUser(token: String): User =
+        client.get {
+            url(FETCH_USER)
+            headers.append(
+                HttpHeaders.Authorization,
+                token
+            )
         }
 }

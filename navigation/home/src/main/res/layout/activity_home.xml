@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Main_Style"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_100"
@@ -68,16 +69,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="@dimen/_48sdp"
-                    android:layout_height="@dimen/_48sdp"
-                    android:layout_marginStart="8dp"
-                    android:padding="4dp"
-                    android:src="@drawable/no_path"
-                    app:layout_constraintBottom_toBottomOf="@+id/back"
-                    app:layout_constraintStart_toEndOf="@+id/back"
-                    app:layout_constraintTop_toTopOf="@+id/back" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView8"-->
+<!--                    android:layout_width="@dimen/_48sdp"-->
+<!--                    android:layout_height="@dimen/_48sdp"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:padding="4dp"-->
+<!--                    android:src="@drawable/no_path"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/back"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/back"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/back" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,19 +132,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/navigation_menu"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:orientation="vertical"
-            android:padding="6dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/logout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balance"
-            tools:listitem="@layout/card_view_navigation_item" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/navigation_menu"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="6dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="6dp"-->
+<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/logout"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/balance"-->
+<!--            tools:listitem="@layout/card_view_navigation_item" />-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logout"

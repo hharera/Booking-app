@@ -35,7 +35,8 @@ class HomeFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.navigationMenu.setOnClickListener {
-            homeViewModel.onNavigationClicked()
+//            homeViewModel.onNavigationClicked()
+//            activity?.findViewById(R.id.drawer_layout)
         }
 
     }

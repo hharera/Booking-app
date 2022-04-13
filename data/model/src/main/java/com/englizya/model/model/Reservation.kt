@@ -7,7 +7,6 @@ data class Reservation(
     var id: Int,
     var tripId: Int,
     var lineId: Int,
-    var reservationDate: String,
     var destination: Int,
     var source: Int,
     var date: String,

@@ -5,14 +5,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
+import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.Seat
 import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
+import com.englizya.model.model.User
 import com.englizya.model.request.PaymentRequest
 import com.englizya.model.request.TripSearchRequest
+import com.englizya.model.response.PayMobPaymentResponse
+import com.englizya.repository.PaymentRepository
 import com.englizya.repository.StationRepository
 import com.englizya.repository.TripRepository
+import com.englizya.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import javax.inject.Inject
@@ -21,7 +29,23 @@ import javax.inject.Inject
 class BookingViewModel @Inject constructor(
     private val stationRepository: StationRepository,
     private val tripsRepository: TripRepository,
+    private val userRepository: UserRepository,
+    private val dataStore: UserDataStore,
+    private val paymentRepository: PaymentRepository,
 ) : BaseViewModel() {
+
+    companion object {
+        const val ACCEPT_PAYMENT_REQUEST = 3005
+    }
+
+    private var _paymentAction = MutableStateFlow<Boolean>(false)
+    val paymentAction: StateFlow<Boolean> get() = _paymentAction
+
+    private var _user = MutableStateFlow<User?>(null)
+    val user: StateFlow<User?> get() = _user
+
+    private var _paymentToken = MutableStateFlow<PayMobPaymentResponse?>(null)
+    val paymentToken: StateFlow<PayMobPaymentResponse?> get() = this._paymentToken
 
     private var _formValidity = MutableLiveData<BookingFormState>()
     val formValidity: LiveData<BookingFormState> = _formValidity
@@ -49,6 +73,20 @@ class BookingViewModel @Inject constructor(
 
     private var _selectedSeats = MutableLiveData<Set<Seat>>(emptySet())
     val selectedSeats: LiveData<Set<Seat>> = _selectedSeats
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            fetchUser()
+        }
+    }
+
+    private suspend fun fetchUser() {
+        userRepository
+            .fetchUser(dataStore.getToken())
+            .onSuccess {
+
+            }
+    }
 
     suspend fun getAlTrips(trips: List<Trip>) {
         updateLoading(true)
@@ -165,20 +203,58 @@ class BookingViewModel @Inject constructor(
         }
     }
 
-    private fun requestPayment() = viewModelScope.launch {
-        val request = createPaymentRequest()
-
+    private fun requestPayment() {
+        updateLoading(true)
+        createPaymentRequest()
+            .onSuccess {
+                updateLoading(false)
+                requestPayment(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
     }
 
-    private fun createPaymentRequest(): PaymentRequest = PaymentRequest(
-        seats = selectedSeats.value!!,
-        source = source.value!!,
-        destination = source.value!!,
-        date = date.value!!.toString(),
-    )
+    private fun requestPayment(request: PaymentRequest) {
+        updateLoading(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            paymentRepository
+                .requestPayment(request)
+                .onSuccess {
+                    updateLoading(false)
+                    _paymentToken.value = it
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
+    }
+
+    private fun createPaymentRequest(): Result<PaymentRequest> = kotlin.runCatching {
+        PaymentRequest(
+            seats = selectedSeats.value!!.toList(),
+            source = source.value!!.branchId,
+            destination = destination.value!!.branchId,
+            date = date.value!!.toString(),
+            reservationId = trip.value!!.reservation?.first()?.id.toString(),
+            itemPrice = trip.value!!.plan!!.seatPrices.first {
+                it.source == source.value!!.branchId
+                        && it.destination == destination.value!!.branchId
+                        && it.destination == destination.value!!.branchId
+            }.vipPrice!!,
+            passenger = user.value!!.name,
+            phoneMobile = user.value!!.phoneNumber,
+            qty = selectedSeats.value!!.size,
+            tripId = trip.value!!.tripId.toString(),
+            tripName = trip.value!!.tripName.toString(),
+        )
+    }
 
     fun clearSelectSeats() {
         _selectedSeats.value = emptySet()
+        _total.value = 0
     }
 
 }

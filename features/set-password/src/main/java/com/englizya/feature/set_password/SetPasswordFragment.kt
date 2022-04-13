@@ -75,7 +75,7 @@ class SetPasswordFragment : BaseFragment() {
         }
 
         setPasswordViewModel.formValidity.observe(viewLifecycleOwner) {
-            bind.next.isEnabled = it.isValid
+            bind.pay.isEnabled = it.isValid
 
             if (it.passwordError != null) {
                 bind.password.error = getString(it.passwordError!!)
@@ -127,12 +127,12 @@ class SetPasswordFragment : BaseFragment() {
             setPasswordViewModel.setName(it)
         }
 
-        bind.next.setOnClickListener {
+        bind.pay.setOnClickListener {
             lifecycleScope.launch {
                 setPasswordViewModel.signup()
             }
 
-            bind.next.isEnabled = false
+            bind.pay.isEnabled = false
         }
     }
 }

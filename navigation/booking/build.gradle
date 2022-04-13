@@ -6,6 +6,7 @@ dependencies {
     api(project(Feature.SELECT_TRIP))
     api(project(Feature.SELECT_STATION))
     api(project(Feature.SELECT_SEAT))
+    api(project(Feature.BOOKING_PAYMENT))
 
     api(project(UiComponents.BOOKING))
 

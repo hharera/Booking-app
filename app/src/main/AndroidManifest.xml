@@ -12,13 +12,15 @@
         android:name=".TicketApplication"
         android:allowBackup="true"
         android:configChanges="keyboardHidden|orientation|screenSize"
+        android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Main_Style"
-        android:extractNativeLibs="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:theme,android:supportsRtl,android:icon,android:allowBackup,android:label">
+
 
         <activity
             android:name="com.englizya.select_service.SelectServiceActivity"

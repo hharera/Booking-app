@@ -55,7 +55,7 @@ class HomeActivity : BaseActivity() {
         binding.back.setOnClickListener {
             homeViewModel.onNavigationClicked.observe(this) {
                 if (it) {
-                    binding.root.openDrawer(Gravity.RIGHT)
+                    binding.root.openDrawer(binding.root)
                 }
             }
         }
@@ -77,7 +77,7 @@ class HomeActivity : BaseActivity() {
                 checkClickItem(it)
             }
 
-        binding.navigationMenu.adapter = adapter
+//        binding.navigationMenu.adapter = adapter
     }
 
     private fun checkClickItem(item: NavigationItem) {
@@ -134,9 +134,5 @@ class HomeActivity : BaseActivity() {
                 )
             )
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }

@@ -110,7 +110,7 @@ class SendOtpFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
-        bind.next.setOnClickListener {
+        bind.pay.setOnClickListener {
             sendOtpViewModel.signup()
         }
     }
@@ -129,7 +129,7 @@ class SendOtpFragment : BaseFragment() {
         }
 
         sendOtpViewModel.codeValidity.observe(viewLifecycleOwner) {
-            bind.next.isEnabled = it
+            bind.pay.isEnabled = it
         }
 
         sendOtpViewModel.verificationCode.observe(viewLifecycleOwner) { verificationCode ->

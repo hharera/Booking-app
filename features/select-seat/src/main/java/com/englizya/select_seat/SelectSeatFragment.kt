@@ -97,7 +97,7 @@ class SelectSeatFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        binding.book.setOnClickListener {
+        binding.next.setOnClickListener {
             bookingViewModel.book()
         }
     }

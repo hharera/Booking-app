@@ -33,8 +33,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onNavigationClicked() {
-        _onNavigationClicked.value = true
-        _onNavigationClicked.postValue(false)
-
+        _onNavigationClicked.postValue(true)
+//        _onNavigationClicked.postValue(false)
     }
 }

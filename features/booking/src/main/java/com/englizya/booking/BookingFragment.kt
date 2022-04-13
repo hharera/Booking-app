@@ -126,6 +126,7 @@ class BookingFragment : BaseFragment() {
                 .build()
 
         datePicker.addOnPositiveButtonClickListener {
+            Log.d(TAG, "showDatePickerDialog: $it")
             val time = DateTimeMapper.map(it)
             bookingViewModel.setDate(time)
         }

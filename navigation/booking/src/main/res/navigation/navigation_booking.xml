@@ -40,4 +40,13 @@
         <deepLink app:uri="EnglizyaPay://select-seat/{arg}" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_payment"
+        android:name="com.englyzia.booking_payment.BookingPaymentFragment"
+        tools:layout="@layout/fragment_booking_payment">
+
+        <argument android:name="arg" />
+        <deepLink app:uri="EnglizyaPay://booking-payment/{arg}" />
+    </fragment>
+
 </navigation>

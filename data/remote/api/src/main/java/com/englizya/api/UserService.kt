@@ -8,4 +8,5 @@ import com.englizya.model.response.LoginResponse
 interface UserService {
     suspend fun login(request: LoginRequest): LoginResponse
     suspend fun signup(request: SignupRequest): User
+    suspend fun getUser(token : String): User
 }

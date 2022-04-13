@@ -45,7 +45,7 @@ class SelectStationFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        binding.next.setOnClickListener {
+        binding.pay.setOnClickListener {
             progressToSelectSeats()
         }
     }

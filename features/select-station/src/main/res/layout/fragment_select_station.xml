@@ -60,7 +60,7 @@
         android:orientation="vertical"
         android:padding="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/next"
+        app:layout_constraintBottom_toTopOf="@+id/pay"
         app:layout_constraintCircleRadius="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
         tools:listitem="@layout/card_view_stop_station" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/next"
+        android:id="@+id/pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"

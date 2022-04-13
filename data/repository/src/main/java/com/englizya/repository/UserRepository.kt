@@ -22,4 +22,5 @@ interface UserRepository {
     fun createCredential(verificationId: String, code: String): PhoneAuthCredential
     fun signup(credential: AuthCredential): Task<AuthResult>
     fun signOut()
+    suspend fun fetchUser(token : String): Result<User>
 }

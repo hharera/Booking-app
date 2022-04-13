@@ -1,6 +1,7 @@
 package com.englizya.repository.impl
 
 import com.englizya.api.UserService
+import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.SignupRequest
 import com.englizya.model.response.LoginResponse
@@ -10,7 +11,7 @@ import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
- class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl @Inject constructor(
     private val userService: UserService,
     private val auth: FirebaseAuth,
 ) : UserRepository {
@@ -22,6 +23,10 @@ import javax.inject.Inject
     fun loginAnonymously(): Task<AuthResult> = auth.signInAnonymously()
 
     override fun signOut() = auth.signOut()
+
+    override suspend fun fetchUser(token : String): Result<User> = kotlin.runCatching {
+        userService.getUser(token)
+    }
 
     override fun signInWithCredential(credential: PhoneAuthCredential) =
         auth.signInWithCredential(credential)
@@ -43,10 +48,10 @@ import javax.inject.Inject
     override fun updatePassword(password: String) =
         auth.currentUser!!.updatePassword(password)
 
-    override fun signInWithEmailAndPassword(email: String, password : String): Task<AuthResult> =
+    override fun signInWithEmailAndPassword(email: String, password: String): Task<AuthResult> =
         auth.signInWithEmailAndPassword(email, password)
 
-    override fun createCredential(verificationId : String, code: String) =
+    override fun createCredential(verificationId: String, code: String) =
         PhoneAuthProvider.getCredential(verificationId, code)
 
     override fun signup(credential: AuthCredential) =

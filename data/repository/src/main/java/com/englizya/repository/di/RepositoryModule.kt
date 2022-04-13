@@ -1,13 +1,7 @@
 package com.englizya.repository.di
 
-import com.englizya.repository.BookingOfficeRepository
-import com.englizya.repository.StationRepository
-import com.englizya.repository.TripRepository
-import com.englizya.repository.UserRepository
-import com.englizya.repository.impl.BookingOfficeRepositoryImpl
-import com.englizya.repository.impl.StationRepositoryImpl
-import com.englizya.repository.impl.TripRepositoryImpl
-import com.englizya.repository.impl.UserRepositoryImpl
+import com.englizya.repository.*
+import com.englizya.repository.impl.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,4 +27,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindStationRepository(stationRepositoryImpl: StationRepositoryImpl): StationRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindPaymentRepository(paymentRepositoryImpl: PaymentRepositoryImpl): PaymentRepository
 }
