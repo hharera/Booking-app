@@ -11,6 +11,7 @@ import com.englizya.model.response.LoginResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.http.HttpHeaders.Authorization
 import javax.inject.Inject
 
 class UserServiceImpl @Inject constructor(
@@ -32,11 +33,11 @@ class UserServiceImpl @Inject constructor(
         }
 
     override suspend fun getUser(token: String): User =
-        client.get {
+        client.post {
             url(FETCH_USER)
             headers.append(
-                HttpHeaders.Authorization,
-                token
+                Authorization,
+                "Bearer $token"
             )
         }
 }

@@ -6,12 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Seat
 import com.englizya.model.model.Trip
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SelectSeatFragment : BaseFragment() {
 
@@ -126,6 +132,22 @@ class SelectSeatFragment : BaseFragment() {
         bookingViewModel.trip.observe(viewLifecycleOwner) {
             updateUI(it)
         }
+
+        lifecycleScope.launch {
+            bookingViewModel.paymentToken.collect {
+                it?.let {
+                    progressToPayment()
+                }
+            }
+        }
+
+        bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
+            binding.next.isEnabled = it.isNotEmpty()
+        }
+    }
+
+    private fun progressToPayment() {
+        findNavController().navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.PAYMENT, null))
     }
 
     private fun updateUI(trip: Trip) {

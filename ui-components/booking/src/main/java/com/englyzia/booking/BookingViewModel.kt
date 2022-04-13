@@ -81,10 +81,16 @@ class BookingViewModel @Inject constructor(
     }
 
     private suspend fun fetchUser() {
+        updateLoading(true)
         userRepository
             .fetchUser(dataStore.getToken())
             .onSuccess {
-
+                updateLoading(false)
+                _user.value = it
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
             }
     }
 
@@ -222,6 +228,7 @@ class BookingViewModel @Inject constructor(
             paymentRepository
                 .requestPayment(request)
                 .onSuccess {
+                    Log.d(TAG, "requestPayment: $it")
                     updateLoading(false)
                     _paymentToken.value = it
                 }

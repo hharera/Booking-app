@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_toStartOf="@+id/app_name"
-        android:text="@string/lower"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/app_name"
@@ -45,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_toEndOf="@+id/app_name"
-        android:text="@string/greater"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/app_name"
@@ -105,7 +103,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/product_name_tag"
             app:startIconTint="@color/green">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -124,14 +121,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
-            android:hint="@string/suggestion"
             android:inputType="textPassword"
             android:textColor="#000000"
             android:textColorHint="#636e72"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/"
             app:startIconTint="@color/green">
 
             <com.google.android.material.textfield.TextInputEditText

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/grey_100"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/grey_100">
 
     <ImageView
         android:id="@+id/imageView"
@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
         android:fontFamily="@font/sf"
-        android:text="Lorem ipsum"
         android:textColor="@color/grey_500"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -53,41 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/book_ticket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
-        android:fontFamily="@font/sf"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/book_a_ticket"
-        android:textColor="@color/blue_600"
-        android:textSize="14sp"
-        app:iconSize="30dp"
-        app:icon="@drawable/ic_ticket"
-        app:iconGravity="textTop"
-        app:iconTint="@color/blue_600"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/scan_ticket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/scan_a_ticket"
-        app:iconSize="30dp"
-        android:textColor="@color/blue_600"
-        app:iconTint="@color/blue_600"
-        app:icon="@drawable/ic_qr"
-        app:iconGravity="textTop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -99,7 +63,7 @@
         android:textColor="@color/grey_300"
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/book_ticket" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView5"
@@ -132,7 +96,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="19dp"
         android:fontFamily="@font/sf"
-        android:text="@string/announcments"
+        android:text="@string/announcement"
         android:textColor="@color/grey_300"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"

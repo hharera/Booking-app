@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">التاريخ</string>
+    <string name="app_name">ENGLIZYA BUS</string>
     <string name="sign_up">اشتراك</string>
     <string name="enter_information_to_create_account">أدخل المعلومات التالية لإنشاء حساب جديد</string>
     <string name="start">ابدأ</string>
@@ -225,4 +225,5 @@
     <string name="tickets">تذاكر</string>
     <string name="pay">دفع</string>
     <string name="suspend">معلق</string>
+    <string name="announcement">الاعلانات</string>
 </resources>

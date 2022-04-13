@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Englizya</string>
+    <string name="app_name">ENGLIZYA BUS</string>
     <string name="sign_up">Subscribe</string>
     <string name="enter_information_to_create_account">Enter the following information to create an new account</string>
     <string name="start">start</string>
@@ -224,5 +224,6 @@
     <string name="empty_seats_error">Please select seats</string>
     <string name="tickets">Tickets</string>
     <string name="pay">Pay</string>
+    <string name="announcement">Announcement</string>
     <string name="suspend">Suspend</string>
 </resources>

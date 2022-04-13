@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">الإنجليزية</string>
+    <string name="app_name">ENGLIZYA BUS</string>
     <string name="enter_information_to_create_account">أدخل المعلومات التالية لإنشاء حساب جديد</string>
     <string name="sign_up">الاشتراك</string>
     <string name="start">ابدأ</string>
@@ -224,4 +224,5 @@
     <string name="pay">دفع</string>
     <string name="suspend">معلق</string>
     <string name="select_stop_station">اختر محطة التوقف</string>
+    <string name="announcement">الاعلانات</string>
 </resources>
