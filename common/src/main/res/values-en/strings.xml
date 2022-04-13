@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">date</string>
+    <string name="app_name">Englizya</string>
     <string name="sign_up">Subscribe</string>
-    <string name="shop">Shop</string>
     <string name="enter_information_to_create_account">Enter the following information to create an new account</string>
     <string name="start">start</string>
     <string name="password">password</string>
@@ -95,7 +94,7 @@
     <string name="no_internet">No internet connection \ n Please check internet</string>
     <string name="addCategory">Add Section</string>
     <string name="addProduct">Add Product</string>
-    <string name="addOffer">AddOffer</string>
+    <string name="addOffer">Add Offer</string>
     <string name="addDeliveryMan">Add Delivery Man</string>
     <string name="addOfferCollection">Add View List</string>
     <string name="wrong_category_name">Inappropriate name</string>
@@ -112,7 +111,6 @@
     <string name="confirm_login">confirm login</string>
     <string name="empty_phone_error">phone number is required</string>
     <string name="invalid_password_error">Invalid password</string>
-    <string name="empty_category_name_error">اسم القسم فارغ</string>
     <string name="empty_image_error">Image is required</string>
     <string name="phone_number_not_valid">Invalid Phone Number</string>
     <string name="password_should_be_not_empty">Password is required</string>
@@ -138,10 +136,8 @@
     <string name="cash">CASH</string>
     <string name="scan_qr">QR</string>
     <string name="card">CARD</string>
-    <string name="driver_code">كود السائق</string>
-    <string name="cannot_login">لم نتمكن من تسجيل الدخول</string>
-    <string name="empty_password_error">أدخل كلمة المرور</string>
-    <string name="englizya_pay">ENGLIZYA PAY</string>
+    <string name="cannot_login">Some thing went wrong</string>
+    <string name="empty_password_error">Enter password</string>
     <string name="redirect">Redirect</string>
     <string name="print">طباعة</string>
     <string name="day_report">تقرير اليوم</string>
@@ -207,7 +203,7 @@
     <string name="to">To</string>
     <string name="per_ticket">Per ticket</string>
     <string name="terms_and_privacy_policy"><![CDATA[Terms of use & Privacy policy]]></string>
-    <string name="offer">عرض</string>
+    <string name="offer">Offer</string>
     <string name="select_seats">Select Seats</string>
     <string name="available">Available</string>
     <string name="selected">Selected</string>
