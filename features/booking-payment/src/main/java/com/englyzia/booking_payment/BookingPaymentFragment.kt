@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
@@ -49,6 +49,11 @@ class BookingPaymentFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().popBackStack()
+        }
+
+
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -110,7 +115,7 @@ class BookingPaymentFragment : BaseFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d(TAG, "onActivityResult: $resultCode")
+        Log.d(TAG, "onActivityResult: $data")
         if (null == data)
             return
 
