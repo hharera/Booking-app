@@ -146,7 +146,7 @@
     <string name="our_way_is_once">طريقنا دايماً واحد</string>
     <string name="car_code">كود السيارة</string>
     <string name="line_code">كود الخط</string>
-    <string name="date">التاريخ</string>
+    <string name="date">Date</string>
     <string name="shift_start">بداية الشيف</string>
     <string name="shift_end">نهاية الشيف</string>
     <string name="work_hours">عدد ساعات العمل</string>
