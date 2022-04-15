@@ -1,6 +1,5 @@
 package com.englizya.common.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -66,7 +65,7 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    fun changeStatusBarColor(colorRes : Int) {
+    fun changeStatusBarColor(colorRes: Int) {
         activity?.window?.statusBarColor = resources.getColor(colorRes)
     }
 }

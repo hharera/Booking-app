@@ -14,7 +14,7 @@
         android:configChanges="keyboardHidden|orientation|screenSize"
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="ENGLIZYA BUS"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Main_Style"
@@ -23,9 +23,13 @@
 
 
         <activity
+            android:name="com.paymob.acceptsdk.PayActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+
+        <activity
             android:name="com.englizya.select_service.SelectServiceActivity"
             android:exported="true" />
-
 
         <activity
             android:name="com.englizya.navigation.booking.BookingActivity"

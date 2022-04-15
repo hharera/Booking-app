@@ -4,7 +4,11 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.englizya.common.utils.exception.CustomException
+import com.englizya.common.utils.exception.CustomException.AuthorizationException
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.ktor.client.features.*
+import io.ktor.http.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,6 +19,9 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
 
+    private val _exception: MutableLiveData<CustomException> = MutableLiveData()
+    val exception: LiveData<CustomException> = _exception
+
     private val _error: MutableLiveData<Exception?> = MutableLiveData()
     val error: LiveData<Exception?> = _error
 
@@ -22,7 +29,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
     val connectivity: LiveData<Boolean> = _connectivity
 
     fun handleException(exception: Exception?) {
-        //TODO check for every exception type print specific message
+        exception?.let { checkExceptionType(exception) }
         exception?.printStackTrace()
     }
 
@@ -34,9 +41,27 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
         _loading.postValue(state)
     }
 
+    private fun checkExceptionType(exception: Any) {
+        when (exception) {
+            is ClientRequestException -> {
+                handleHttpException(exception)
+            }
+        }
+    }
+
+    private fun handleHttpException(exception: ClientRequestException) {
+        when (exception.response.status) {
+            HttpStatusCode.Unauthorized -> {
+                _exception.postValue(AuthorizationException)
+            }
+        }
+    }
+
     fun handleException(exception: Throwable?) {
-        //TODO check for every exception type print specific message
-        exception?.printStackTrace()
+        exception?.let {
+            it.printStackTrace()
+            checkExceptionType(exception)
+        }
     }
 
     fun updateConnectivity(connectivity: Boolean) {

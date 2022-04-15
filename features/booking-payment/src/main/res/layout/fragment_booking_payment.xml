@@ -397,6 +397,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
                 <TextView
+                    android:id="@+id/dateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf"
@@ -438,6 +439,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/totalTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf"

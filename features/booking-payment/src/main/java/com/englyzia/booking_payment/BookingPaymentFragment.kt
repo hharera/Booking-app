@@ -2,22 +2,27 @@ package com.englyzia.booking_payment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.mapper.DateStringMapper
 import com.englizya.model.model.Seat
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
 import com.paymob.acceptsdk.*
+import com.paymob.acceptsdk.PayActivityIntentKeys.*
 
 
 class BookingPaymentFragment : BaseFragment() {
 
     private lateinit var binding: FragmentBookingPaymentBinding
-    private val bookingViewModel: BookingViewModel by viewModels()
+    private val bookingViewModel: BookingViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,24 +49,51 @@ class BookingPaymentFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.pay.setOnClickListener {
-            progressToPayment()
+            bookingViewModel.paymentToken.value?.let {
+                progressToPayment(it.token)
+            }
         }
     }
 
-    private fun progressToPayment() {
+    private fun progressToPayment(paymentKey: String) {
         Intent(context, PayActivity::class.java).apply {
-            putExtra(PayActivityIntentKeys.SAVE_CARD_DEFAULT, false)
-            putExtra(PayActivityIntentKeys.SHOW_SAVE_CARD, false)
-            putExtra(PayActivityIntentKeys.THEME_COLOR, resources.getColor(R.color.blue_600))
+            putExtra(PAYMENT_KEY, paymentKey)
+            putExtra(THREE_D_SECURE_ACTIVITY_TITLE, getString(R.string.payment_checkout))
+            putExtra(SAVE_CARD_DEFAULT, false)
+            putExtra(SHOW_SAVE_CARD, false)
+            putExtra(THEME_COLOR, context?.getColor(R.color.blue_600))
             putExtra("ActionBar", true)
             putExtra("language", "ar")
+
             startActivityForResult(this, ACCEPT_PAYMENT_REQUEST)
         }
     }
 
     private fun setupObservers() {
+        bookingViewModel.total.observe(viewLifecycleOwner) {
+            binding.totalTV.text = it.toString()
+        }
 
+        bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
+            binding.ticketsCountTV.text = it.size.toString()
+        }
+
+        bookingViewModel.date.observe(viewLifecycleOwner) {
+            binding.dateTV.text = DateStringMapper.map(it)
+        }
+
+        bookingViewModel.source.observe(viewLifecycleOwner) {
+            binding.sourceTimeTV.text = it.branchName
+        }
+
+        bookingViewModel.destination.observe(viewLifecycleOwner) {
+            binding.destinationTimeTV.text = it.branchName
+        }
     }
 
     private fun updateUI(data: List<Seat>) {
@@ -78,6 +110,7 @@ class BookingPaymentFragment : BaseFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d(TAG, "onActivityResult: $resultCode")
         if (null == data)
             return
 
@@ -116,6 +149,8 @@ class BookingPaymentFragment : BaseFragment() {
                     extras.getString(IntentConstants.RAW_PAY_RESPONSE)
                 )
             } else if (resultCode == IntentConstants.TRANSACTION_SUCCESSFUL) {
+                val key = extras.getString(PayResponseKeys.DATA_MESSAGE)
+                bookingViewModel.finishBooking()
                 // User finished their payment successfully
 
                 // Use the static keys declared in PayResponseKeys to extract the fields you want
@@ -158,4 +193,5 @@ class BookingPaymentFragment : BaseFragment() {
             }
         }
     }
+
 }

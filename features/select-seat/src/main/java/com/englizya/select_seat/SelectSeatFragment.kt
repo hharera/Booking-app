@@ -67,11 +67,24 @@ class SelectSeatFragment : BaseFragment() {
         var isSelected = false
         var isAvailable = true
 
-        if (seat.source != null || seat.source != null) {
-            image.setImageResource(R.drawable.ic_seat_booked)
-            isAvailable = false
-        } else {
-            image.setImageResource(R.drawable.ic_seat_available)
+        when (seat.seatStatus) {
+            in arrayListOf("WFR", "WPR", "OFR", "OHR") -> {
+                image.setImageResource(R.drawable.ic_seat_booked)
+                isAvailable = false
+            }
+
+            in arrayListOf("SUS", "UAV") -> {
+                image.setImageResource(R.drawable.ic_seat_suspend)
+                isAvailable = false
+            }
+
+            "AVL" -> {
+                image.setImageResource(R.drawable.ic_seat_available)
+            }
+
+            else -> {
+                image.setImageResource(R.drawable.ic_seat_available)
+            }
         }
 
         image.setOnClickListener {
@@ -147,7 +160,13 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun progressToPayment() {
-        findNavController().navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.PAYMENT, null))
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.PAYMENT,
+                null
+            )
+        )
     }
 
     private fun updateUI(trip: Trip) {

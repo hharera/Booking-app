@@ -43,7 +43,6 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun handleFailure(exception: Exception?, messageRes: Int? = null) {
-//        TODO handle every single exception
         exception?.printStackTrace()
         messageRes?.let { res ->
             showToast(res)

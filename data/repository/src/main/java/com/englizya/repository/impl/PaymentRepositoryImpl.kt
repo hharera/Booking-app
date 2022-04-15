@@ -10,8 +10,8 @@ class PaymentRepositoryImpl @Inject constructor(
     private val paymentService: PaymentService
 ) : PaymentRepository {
 
-    override suspend fun requestPayment(request: PaymentRequest): Result<PayMobPaymentResponse> =
+    override suspend fun requestPayment(request: PaymentRequest, token: String): Result<PayMobPaymentResponse> =
         kotlin.runCatching {
-            paymentService.requestPayment(request)
+            paymentService.requestPayment(request, token)
         }
 }

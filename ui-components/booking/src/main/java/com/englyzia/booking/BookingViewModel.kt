@@ -226,7 +226,7 @@ class BookingViewModel @Inject constructor(
         updateLoading(true)
         viewModelScope.launch(Dispatchers.IO) {
             paymentRepository
-                .requestPayment(request)
+                .requestPayment(request, dataStore.getToken())
                 .onSuccess {
                     Log.d(TAG, "requestPayment: $it")
                     updateLoading(false)
@@ -262,6 +262,10 @@ class BookingViewModel @Inject constructor(
     fun clearSelectSeats() {
         _selectedSeats.value = emptySet()
         _total.value = 0
+    }
+
+    fun finishBooking() {
+
     }
 
 }

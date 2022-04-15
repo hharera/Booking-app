@@ -18,7 +18,23 @@ class SplashViewModel @Inject constructor(
     private val _loginState = MutableLiveData<Boolean>()
     val loginState: LiveData<Boolean> = _loginState
 
-    fun checkLoginState() {
-        _loginState.postValue(userDataStore.getToken() != NULL_STRING)
+    suspend fun checkLoginState() {
+        val token = userDataStore.getToken()
+        if (token == NULL_STRING) {
+            _loginState.postValue(false)
+        } else {
+            getUser(token)
+        }
+    }
+
+    private suspend fun getUser(token: String) {
+        userRepository
+            .fetchUser(token)
+            .onSuccess {
+                _loginState.postValue(true)
+            }
+            .onFailure {
+                _loginState.postValue(false)
+            }
     }
 }

@@ -5,5 +5,5 @@ import com.englizya.model.response.PayMobPaymentResponse
 
 interface PaymentService {
 
-    suspend fun requestPayment(request: PaymentRequest): PayMobPaymentResponse
+    suspend fun requestPayment(request: PaymentRequest, token: String): PayMobPaymentResponse
 }

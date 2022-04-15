@@ -9,4 +9,5 @@ data class Seat(
     var source: Int? = null,
     var destination: Int? = null,
     var closeFlag: Int? = null,
+    var seatStatus: String? = null,
 )

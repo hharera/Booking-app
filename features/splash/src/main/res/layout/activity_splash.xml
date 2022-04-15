@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/sf"
-        android:text="@string/company_name"
+        android:text="ENGLIZYA BUS"
         android:textColor="@color/blue_600"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"

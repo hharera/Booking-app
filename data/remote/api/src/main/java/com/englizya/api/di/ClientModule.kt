@@ -30,6 +30,7 @@ class ClientModule {
                 install(HttpTimeout) {
                     requestTimeoutMillis = Request.TIME_OUT
                 }
+
             }
     }
 }

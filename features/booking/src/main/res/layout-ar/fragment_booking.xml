@@ -256,17 +256,17 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/show_all"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/background_button_login"
-        android:text="@string/show_all"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/show_all"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="23dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/background_button_login"-->
+<!--        android:text="@string/show_all"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/search" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
