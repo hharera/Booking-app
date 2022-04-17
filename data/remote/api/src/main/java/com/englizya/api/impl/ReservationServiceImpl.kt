@@ -7,9 +7,8 @@ import com.englizya.model.request.PaymentRequest
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import javax.inject.Inject
 
-class ReservationServiceImpl @Inject constructor(
+class ReservationServiceImpl constructor(
     private val client: HttpClient
 ) : ReservationService {
 

@@ -13,10 +13,11 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.signup.databinding.FragmentSignupBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignupFragment : BaseFragment() {
 
-    private val signupViewModel: SignupViewModel by viewModels()
+    private val signupViewModel: SignupViewModel by viewModel()
     private lateinit var bind: FragmentSignupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

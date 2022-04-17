@@ -4,12 +4,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.englizya.common.base.BaseActivity
 import com.englizya.location_update.databinding.ActivityLocationUpdateBinding
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class LocationUpdateActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLocationUpdateBinding
-    private val locationUpdateViewModel: LocationUpdateViewModel by viewModels()
+    private val locationUpdateViewModel: LocationUpdateViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

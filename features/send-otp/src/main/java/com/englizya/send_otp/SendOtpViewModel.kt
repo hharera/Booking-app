@@ -2,23 +2,15 @@ package com.englizya.send_otp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity
-import com.englizya.model.request.SignupRequest
 import com.englizya.repository.UserRepository
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SendOtpViewModel @Inject constructor(
+class SendOtpViewModel constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 

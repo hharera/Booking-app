@@ -4,10 +4,9 @@ import com.englizya.api.TripService
 import com.englizya.model.model.Trip
 import com.englizya.model.request.TripSearchRequest
 import com.englizya.repository.TripRepository
-import javax.inject.Inject
 
 
-class TripRepositoryImpl @Inject constructor(
+class TripRepositoryImpl constructor(
     private val tripService: TripService
 ) : TripRepository {
 

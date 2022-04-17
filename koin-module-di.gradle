@@ -1,12 +1,12 @@
 dependencies {
     //Koin
-    implementation(DI.koinCore)
-    implementation(DI.koinAndroid)
-    implementation(DI.koinCompose)
+    api(DI.koinCore)
+    api(DI.koinAndroid)
+    api(DI.koinCompose)
 
-    testImplementation(DI.koinJUnit4)
-    testImplementation(DI.koinTest)
+    testApi(DI.koinJUnit4)
+    testApi(DI.koinTest)
 
-    androidTestImplementation(DI.koinJUnit4)
-    androidTestImplementation(DI.koinTest)
+    androidTestApi(DI.koinJUnit4)
+    androidTestApi(DI.koinTest)
 }

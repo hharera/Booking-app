@@ -1,0 +1,22 @@
+android {
+    composeOptions {
+        kotlinCompilerExtensionVersion = Compose.compose_version
+    }
+
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    implementation(Compose.composeActivity)
+    implementation(Compose.composeAndroidX)
+    implementation(Compose.composUiTooling)
+    implementation(Compose.composeLivedata)
+    implementation(Compose.composeMaterial)
+    implementation(Compose.composeNavigation)
+    implementation(Compose.composePreview)
+    implementation(Compose.accompanist)
+    implementation(Compose.composJUnitTest)
+    implementation(Compose.composeRefresh)
+}

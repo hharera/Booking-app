@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.englizya.common.base.BaseFragment
 import com.englizya.complaint.databinding.FragmentComplaintBinding
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ComplaintFragment : BaseFragment()  {
 
     private lateinit var binding: FragmentComplaintBinding
-    private val complaintViewModel: ComplaintViewModel by viewModels()
+    private val complaintViewModel: ComplaintViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

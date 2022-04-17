@@ -3,13 +3,10 @@ package com.englizya.location_update
 import com.englizya.car_socket.CarSocket
 import com.englizya.model.request.UpdateCarLocationRequest
 import com.englizya.common.base.BaseViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlin.random.Random
 
 
-@HiltViewModel
-class LocationUpdateViewModel @Inject constructor(
+class LocationUpdateViewModel constructor(
     private val carSocket: CarSocket
 ) : BaseViewModel() {
 

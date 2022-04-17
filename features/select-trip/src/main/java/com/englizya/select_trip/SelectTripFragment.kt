@@ -16,12 +16,13 @@ import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.FragmentSelectTripBinding
 import com.englyzia.booking.BookingViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SelectTripFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSelectTripBinding
     private lateinit var adapter: TripAdapter
-    private val bookingViewModel: BookingViewModel by activityViewModels()
+    private val bookingViewModel: BookingViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

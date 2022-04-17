@@ -11,4 +11,5 @@ object Compose {
     const val composeActivity = "androidx.activity:activity-compose:1.3.1"
     const val composeLivedata = "androidx.compose.runtime:runtime-livedata:1.1.0-alpha02"
     const val composeNavigation = "androidx.navigation:navigation-compose:2.4.0-alpha10"
+    const val composeRefresh = "io.github.shenzhen2017:compose-refreshlayout:1.0.0"
 }

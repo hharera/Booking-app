@@ -11,16 +11,15 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
-import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
-import com.englizya.select_seat.SelectSeatFragment
 import com.englizya.select_service.SelectServiceActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment() {
 
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var bind: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

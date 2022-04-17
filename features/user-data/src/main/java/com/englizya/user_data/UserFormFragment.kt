@@ -12,11 +12,12 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.user_data.databinding.FragmentUserFormBinding
 import com.opensooq.supernova.gligar.GligarPicker
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserFormFragment : BaseFragment() {
 
     private val IMAGE_REQ_CODE = 3004
-    private val userFormViewModel: UserFormViewModel by viewModels()
+    private val userFormViewModel: UserFormViewModel by viewModel()
     private lateinit var bind: FragmentUserFormBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

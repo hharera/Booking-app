@@ -8,11 +8,8 @@ import com.englizya.common.utils.Validity
 import com.englizya.model.request.SignupRequest
 import com.englizya.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class SetPasswordViewModel @Inject constructor(
+class SetPasswordViewModel constructor(
     private val userRepository: UserRepository,
     private val auth: FirebaseAuth,
 ) : BaseViewModel() {

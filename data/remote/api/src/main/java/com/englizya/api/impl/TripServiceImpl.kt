@@ -7,9 +7,8 @@ import com.englizya.model.request.TripSearchRequest
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import javax.inject.Inject
 
-class TripServiceImpl @Inject constructor(
+class TripServiceImpl constructor(
     private val client: HttpClient
 ) : TripService {
 

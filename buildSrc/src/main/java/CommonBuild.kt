@@ -5,6 +5,8 @@ object CommonBuild {
     const val UI_MODULE = "ui-module-di.gradle"
     const val NavigationModule = "navigation-module-di.gradle"
     const val FeatureModule = "feature-module-di.gradle"
+    const val COMPOSE_MODULE = "compose-module-di.gradle"
+    const val KOIN_MODULE = "koin-module-di.gradle"
     const val HiltDependencies = "hilt-module-di.gradle"
     const val LibraryDependencies = "library-module-di.gradle"
 }

@@ -13,10 +13,11 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Trip
 import com.englizya.select_station.databinding.FragmentSelectStationBinding
 import com.englyzia.booking.BookingViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SelectStationFragment : BaseFragment() {
 
-    private val bookingViewModel: BookingViewModel by activityViewModels()
+    private val bookingViewModel: BookingViewModel by sharedViewModel()
     private lateinit var binding: FragmentSelectStationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

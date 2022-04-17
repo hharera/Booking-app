@@ -15,6 +15,7 @@ import com.englizya.feature.ticket.navigation.home.R
 import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
 import com.englizya.home_screen.HomeViewModel
 import com.englizya.profile.NavigationItem.*
+import org.koin.android.ext.android.inject
 
 class HomeActivity : BaseActivity() {
 
@@ -22,7 +23,7 @@ class HomeActivity : BaseActivity() {
     private lateinit var navController: NavController
 
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by inject()
     private val TAG = "HomeActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {

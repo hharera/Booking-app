@@ -7,10 +7,11 @@ import com.englizya.common.base.BaseActivity
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.model.model.PaymentCard
+import org.koin.android.ext.android.inject
 
 class AddPaymentCardActivity : BaseActivity() {
 
-    private val addPaymentCardViewModel: AddPaymentCardViewModel by viewModels()
+    private val addPaymentCardViewModel: AddPaymentCardViewModel by inject()
     private lateinit var bind: ActivitytAddPaymentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

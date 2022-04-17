@@ -1,11 +1,9 @@
 package com.englizya.car_socket
 
 import androidx.test.platform.app.InstrumentationRegistry
-
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 
 @RunWith(AndroidJUnit4::class)

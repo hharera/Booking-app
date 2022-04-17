@@ -2,15 +2,6 @@ object Libs {
     //adMob
     const val adMob = "com.google.android.gms:play-services-ads-lite:${Versions.Ad_MOB_VERSION}"
 
-    const val hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT_VERSION}"
-
-    //Hilt
-    const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.HILT_VERSION}"
-    const val hiltAndroidCompiler =
-        "com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}"
-    const val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_VERSION}"
-    const val hiltAnnotation = "androidx.hilt:hilt-compiler:${Versions.HILT_VERSION}"
-
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.2"
 
     //UI

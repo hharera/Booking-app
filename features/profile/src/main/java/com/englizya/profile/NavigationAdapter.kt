@@ -14,7 +14,7 @@ class NavigationAdapter(
         val bind = CardViewNavigationItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            true
+            false
         )
         return NavigationItemViewHolder(binding = bind)
     }

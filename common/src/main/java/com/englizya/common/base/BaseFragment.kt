@@ -6,9 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 open class BaseFragment : Fragment() {
 
     lateinit var connectionLiveData: ConnectionLiveData

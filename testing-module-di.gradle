@@ -10,20 +10,18 @@ android {
 }
 
 dependencies {
-    androidTestImplementation(TestDi.hiltTesting)
-    androidTestImplementation(TestDi.androidCoreTesting)
-    androidTestImplementation(TestDi.fragmentTest)
-    androidTestImplementation(TestDi.junit4)
-    androidTestImplementation(TestDi.coroutinesTest)
+    androidTestImplementation(Testing.androidCoreTesting)
+    androidTestImplementation(Testing.fragmentTest)
+    androidTestImplementation(Testing.junit4)
+    androidTestImplementation(Testing.coroutinesTest)
 
     testImplementation(EspressoTesting.JUNIT)
     androidTestImplementation(EspressoTesting.ESPRESSO)
     androidTestImplementation(EspressoTesting.TEST_RUNNER)
 
 
-    testImplementation(TestDi.hiltTesting)
-    testImplementation(TestDi.androidCoreTesting)
-    testImplementation(TestDi.fragmentTest)
-    testImplementation(TestDi.junit4)
-    testImplementation(TestDi.coroutinesTest)
+    testImplementation(Testing.androidCoreTesting)
+    testImplementation(Testing.fragmentTest)
+    testImplementation(Testing.junit4)
+    testImplementation(Testing.coroutinesTest)
 }

@@ -20,12 +20,13 @@ import com.englizya.send_otp.databinding.FragmentSendOtpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 class SendOtpFragment : BaseFragment() {
 
     private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val sendOtpViewModel: SendOtpViewModel by viewModels()
+    private val sendOtpViewModel: SendOtpViewModel by viewModel()
     private lateinit var bind: FragmentSendOtpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

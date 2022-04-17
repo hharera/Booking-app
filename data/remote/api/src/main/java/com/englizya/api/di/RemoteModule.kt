@@ -2,42 +2,36 @@ package com.englizya.api.di
 
 import com.englizya.api.*
 import com.englizya.api.impl.*
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RemoteModule {
+val remoteModule = module {
 
-    @Singleton
-    @Binds
-    abstract fun bindUserService(remoteUserServiceImpl: UserServiceImpl): UserService
+    single<UserService> {
+        UserServiceImpl(get())
+    }
 
-    @Singleton
-    @Binds
-    abstract fun bindAnnouncementService(announcementService: AnnouncementServiceImpl): AnnouncementService
+    single<AnnouncementService> {
+        AnnouncementServiceImpl(get())
+    }
 
-    @Singleton
-    @Binds
-    abstract fun bindTripService(tripServiceImpl: TripServiceImpl): TripService
+    single<ReservationService> {
+        ReservationServiceImpl(get())
+    }
 
-    @Singleton
-    @Binds
-    abstract fun bindBookingOfficeService(bookingOfficeService: BookingOfficeServiceImpl): BookingOfficeService
+    single<PaymentService> {
+        PaymentServiceImpl(get())
+    }
 
-    @Singleton
-    @Binds
-    abstract fun bindStationService(stationService: StationServiceImpl): StationService
+    single<StationService> {
+        StationServiceImpl(get())
+    }
 
-    @Singleton
-    @Binds
-    abstract fun bindPaymentService(service: PaymentServiceImpl): PaymentService
+    single<BookingOfficeService> {
+        BookingOfficeServiceImpl(get())
+    }
 
-    @Singleton
-    @Binds
-    abstract fun bindReservationService(service: ReservationServiceImpl): ReservationService
+    single<TripService> {
+        TripServiceImpl(get())
+    }
 }

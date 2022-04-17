@@ -7,9 +7,8 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.StompMessage
-import javax.inject.Inject
 
-class CarSocketImpl @Inject constructor(
+class CarSocketImpl constructor(
     private val stompClient: StompClient
 ): CarSocket {
 

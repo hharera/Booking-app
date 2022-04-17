@@ -9,10 +9,11 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.reset_password.databinding.FragmentResetPasswordBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ResetPasswordFragment : BaseFragment() {
 
-    private val resetPasswordViewModel: ResetPasswordViewModel by viewModels()
+    private val resetPasswordViewModel: ResetPasswordViewModel by viewModel()
     private lateinit var bind: FragmentResetPasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

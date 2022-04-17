@@ -1,31 +1,23 @@
 package com.englizya.local
 
-import com.google.common.truth.Truth
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
+import org.koin.test.KoinTest
 
-@HiltAndroidTest
-class TestCategoryDao {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @Inject
-    private lateinit var dao: TicketDao
+class TestCategoryDao : KoinTest {
 
     @Before
     fun setup() {
-        hiltRule.inject()
+        startKoin {
+            loadKoinModules(
+                arrayListOf()
+            )
+        }
     }
 
     @Test
     fun getCategories() {
-        dao.getCategories().let {
-            Truth.assertThat(it.size).isEqualTo(5)
-        }
     }
 }

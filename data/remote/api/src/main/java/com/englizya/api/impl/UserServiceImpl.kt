@@ -12,9 +12,8 @@ import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.http.HttpHeaders.Authorization
-import javax.inject.Inject
 
-class UserServiceImpl @Inject constructor(
+class UserServiceImpl constructor(
     private val client: HttpClient
 ) : UserService {
 

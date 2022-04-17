@@ -5,11 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.model.model.Trip
 import com.englizya.repository.TripRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class TripsViewModel @Inject constructor(
+class TripsViewModel constructor(
     private val tripsRepository: TripRepository,
 ) : BaseViewModel() {
 

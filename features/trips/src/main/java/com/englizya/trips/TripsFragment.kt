@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.englizya.common.base.BaseFragment
-import com.englizya.trips.databinding.CardViewTicketBinding
 import com.englizya.trips.databinding.FragmentTripsBinding
 
 class TripsFragment : BaseFragment() {

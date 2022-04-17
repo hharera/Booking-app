@@ -18,15 +18,16 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
-import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class BookingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentBookingBinding
     private lateinit var adapter: ArrayAdapter<String>
-    private val bookingViewModel: BookingViewModel by activityViewModels()
+    private val bookingViewModel: BookingViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

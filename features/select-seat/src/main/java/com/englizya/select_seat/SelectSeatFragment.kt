@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -19,11 +18,12 @@ import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SelectSeatFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSelectSeatBinding
-    private val bookingViewModel: BookingViewModel by activityViewModels()
+    private val bookingViewModel: BookingViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

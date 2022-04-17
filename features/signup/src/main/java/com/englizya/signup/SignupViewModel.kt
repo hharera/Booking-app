@@ -4,13 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity
-import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class SignupViewModel @Inject constructor(
+class SignupViewModel constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 

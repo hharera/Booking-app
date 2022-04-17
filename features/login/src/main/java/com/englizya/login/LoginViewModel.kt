@@ -11,11 +11,8 @@ import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
 import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class LoginViewModel @Inject constructor(
+class LoginViewModel constructor(
     private val userRepository: UserRepository,
     private val userDataStore: UserDataStore,
 ) : BaseViewModel() {

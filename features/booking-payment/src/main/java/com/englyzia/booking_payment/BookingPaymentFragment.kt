@@ -19,12 +19,13 @@ import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
 import com.paymob.acceptsdk.*
 import com.paymob.acceptsdk.PayActivityIntentKeys.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class BookingPaymentFragment : BaseFragment() {
 
     private lateinit var binding: FragmentBookingPaymentBinding
-    private val bookingViewModel: BookingViewModel by activityViewModels()
+    private val bookingViewModel: BookingViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

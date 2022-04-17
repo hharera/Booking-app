@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: ("dagger.hilt.android.plugin")
 apply plugin: 'kotlin-kapt'
-apply from:"$rootDir/${CommonBuild.HiltDependencies}"
+//apply from:"$rootDir/${CommonBuild.HiltDependencies}"
 android {
     compileSdkVersion DefaultConfig.compileSdk
 

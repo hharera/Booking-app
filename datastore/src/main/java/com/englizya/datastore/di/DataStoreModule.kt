@@ -1,23 +1,12 @@
 package com.englizya.datastore.di
 
-import android.app.Application
 import com.englizya.datastore.UserDataStore
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
 
-@InstallIn(SingletonComponent::class)
-@Module
-class DataStoreModule {
+val dataStoreModule = module {
 
-    companion object {
-
-        @Provides
-        @Singleton
-        fun provideUserDataStore(application: Application): UserDataStore =
-            UserDataStore(context = application)
+    single {
+        UserDataStore(get())
     }
 }

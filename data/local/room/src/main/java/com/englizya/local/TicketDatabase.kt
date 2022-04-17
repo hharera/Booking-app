@@ -1,9 +1,6 @@
 package com.englizya.local
 
-import androidx.room.Database
 import androidx.room.RoomDatabase
-
-
 
 
 //TODO : uncomment database annotation to add schema

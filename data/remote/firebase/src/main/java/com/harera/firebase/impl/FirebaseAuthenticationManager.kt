@@ -4,9 +4,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.harera.firebase.AuthenticationManager
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class FirebaseAuthenticationManager @Inject constructor(
+class FirebaseAuthenticationManager constructor(
     private val auth: FirebaseAuth
 ) : AuthenticationManager {
 

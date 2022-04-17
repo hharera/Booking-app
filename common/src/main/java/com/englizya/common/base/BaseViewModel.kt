@@ -6,13 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.englizya.common.utils.exception.CustomException
 import com.englizya.common.utils.exception.CustomException.AuthorizationException
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ktor.client.features.*
 import io.ktor.http.*
-import javax.inject.Inject
 
-@HiltViewModel
-open class BaseViewModel @Inject constructor() : ViewModel() {
+open class BaseViewModel : ViewModel() {
 
     val TAG = this::class.java.name
 

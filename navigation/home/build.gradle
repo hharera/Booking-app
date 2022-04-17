@@ -10,7 +10,7 @@ dependencies {
     api(project(Feature.BOOKING))
     api(project(Feature.APP_SETTINGS))
     api(project(Feature.PROFILE))
-    api(project(Feature.COMPLAINT))
+//    api(project(Feature.COMPLAINT))
     api(project(Feature.SUGGESTION))
     api(project(Feature.DRIVER_REVIEW))
 

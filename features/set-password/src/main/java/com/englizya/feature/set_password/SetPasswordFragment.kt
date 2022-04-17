@@ -17,10 +17,11 @@ import com.englizya.done_dialog.DoneDialog
 import com.englizya.feature.set_password.databinding.FragmentSetPasswordBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SetPasswordFragment : BaseFragment() {
 
-    private val setPasswordViewModel: SetPasswordViewModel by viewModels()
+    private val setPasswordViewModel: SetPasswordViewModel by viewModel()
     private val doneDialog: DoneDialog by lazy { DoneDialog() }
     private lateinit var bind: FragmentSetPasswordBinding
 

@@ -6,9 +6,8 @@ import com.englizya.model.model.BookingOffice
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import javax.inject.Inject
 
-class BookingOfficeServiceImpl @Inject constructor(
+class BookingOfficeServiceImpl constructor(
     private val client: HttpClient
 ): BookingOfficeService {
 

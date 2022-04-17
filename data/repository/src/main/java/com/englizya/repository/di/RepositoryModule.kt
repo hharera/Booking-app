@@ -2,37 +2,35 @@ package com.englizya.repository.di
 
 import com.englizya.repository.*
 import com.englizya.repository.impl.*
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+val repositoryModule = module {
 
-    @Binds
-    @Singleton
-    abstract fun bindUserRepository(authenticationManagerImpl: UserRepositoryImpl): UserRepository
+    single<UserRepository> {
+        UserRepositoryImpl(get(), get())
+    }
 
-    @Binds
-    @Singleton
-    abstract fun bindTripRepository(tripRepository: TripRepositoryImpl): TripRepository
+    single<TripRepository> {
+        TripRepositoryImpl(get())
+    }
 
-    @Binds
-    @Singleton
-    abstract fun bindBookingOfficeRepository(officeRepositoryImpl: BookingOfficeRepositoryImpl): BookingOfficeRepository
+    single<BookingOfficeRepository> {
+        BookingOfficeRepositoryImpl(get())
+    }
 
-    @Binds
-    @Singleton
-    abstract fun bindStationRepository(stationRepositoryImpl: StationRepositoryImpl): StationRepository
+    single<StationRepository> {
+        StationRepositoryImpl(get())
+    }
 
-    @Binds
-    @Singleton
-    abstract fun bindPaymentRepository(paymentRepositoryImpl: PaymentRepositoryImpl): PaymentRepository
+    single<PaymentRepository> {
+        PaymentRepositoryImpl(get())
+    }
 
-    @Binds
-    @Singleton
-    abstract fun bindReservationRepository(reservationRepositoryImpl: ReservationRepositoryImpl): ReservationRepository
+    single<ReservationRepository> {
+        ReservationRepositoryImpl(get())
+    }
+
+    single<ComplaintRepository> {
+        ComplaintRepositoryImpl()
+    }
 }

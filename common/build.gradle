@@ -1,4 +1,3 @@
-apply plugin: ("dagger.hilt.android.plugin")
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -44,14 +43,12 @@ dependencies {
 
     implementation(Animation.LOTTIE)
     implementation Libs.kotlin
-    testImplementation TestDi.junit4
+    testImplementation Testing.junit4
 
     implementation(Libs.viewModels)
     implementation(Libs.activity)
 
     api(Libs.intuit)
-    implementation(Libs.hiltAndroid)
-    kapt(Libs.hiltAndroidCompiler)
 
     implementation(Libs.appcompat)
     implementation(Libs.searchBar)
@@ -59,16 +56,15 @@ dependencies {
     implementation(Libs.materialDesign)
     implementation(Libs.gligarPicker)
 
-    testImplementation(TestDi.junit4)
-    androidTestImplementation(TestDi.junitExt)
+    testImplementation(Testing.junit4)
+    androidTestImplementation(Testing.junitExt)
 
     implementation(Libs.playServicesMaps)
 
     testImplementation(Libs.roomRunTime)
-    testImplementation(TestDi.testRunner)
-    testImplementation(TestDi.coroutinesTest)
-    testImplementation(TestDi.hiltTesting)
-    testImplementation(TestDi.androidCoreTesting)
+    testImplementation(Testing.testRunner)
+    testImplementation(Testing.coroutinesTest)
+    testImplementation(Testing.androidCoreTesting)
 
     api(Libs.jodaTime)
 }

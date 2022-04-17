@@ -4,9 +4,8 @@ import com.englizya.api.ReservationService
 import com.englizya.model.model.ReservationTicket
 import com.englizya.model.request.PaymentRequest
 import com.englizya.repository.ReservationRepository
-import javax.inject.Inject
 
-class ReservationRepositoryImpl @Inject constructor(
+class ReservationRepositoryImpl constructor(
     private val reservationService: ReservationService,
 ) : ReservationRepository {
 

@@ -1,6 +1,5 @@
 package com.englizya.model.model
 
-import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable

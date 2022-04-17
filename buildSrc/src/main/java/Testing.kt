@@ -1,7 +1,5 @@
-object TestDi {
+object Testing {
     const val truth = "com.google.truth:truth:1.1.3"
-
-    const val hiltTesting = "com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}"
 
     const val testRunner = "androidx.test:runner:${Versions.TEST_RUNNER_VERSION}"
     const val androidCoreTesting =
@@ -32,27 +30,6 @@ object TestDi {
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_test}"
     val arch_core_testing =
         "androidx.arch.core:core-testing:${Versions.arch_core_testing}"
-
-
-    val testLibs = arrayOf(
-        arch_core_testing,
-        coroutines_testing,
-        mockk,
-        koin_test,
-        livedata_testing,
-        testlib_junit
-    )
-
-    val uiTestLibs = arrayOf(
-        testandroidx_runner,
-        testandroidx_junit,
-        testandroidx_rules,
-        arch_core_testing,
-        coroutines_testing,
-        mockk_android,
-        koin_test,
-        livedata_testing
-    )
 }
 
 

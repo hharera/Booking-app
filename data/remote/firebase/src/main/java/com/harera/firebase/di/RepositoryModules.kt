@@ -1,16 +1,12 @@
 package com.harera.firebase.di
 
-import com.harera.firebase.*
-import com.harera.firebase.impl.*
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import com.harera.firebase.AuthenticationManager
+import com.harera.firebase.impl.FirebaseAuthenticationManager
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModules {
+val repositoryModules = module {
 
-    @Binds
-    abstract fun bindAuthManager(manager: FirebaseAuthenticationManager): AuthenticationManager
+    single<AuthenticationManager> {
+        FirebaseAuthenticationManager(get())
+    }
 }

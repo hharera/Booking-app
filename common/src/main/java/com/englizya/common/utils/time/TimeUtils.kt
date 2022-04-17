@@ -1,7 +1,6 @@
 package com.englizya.common.utils.time
 
 import org.joda.time.DateTime
-import java.text.SimpleDateFormat
 
 object TimeUtils {
 

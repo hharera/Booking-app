@@ -3,10 +3,9 @@ package com.englizya.api.impl
 import com.englizya.api.AnnouncementService
 import com.englizya.model.model.Announcement
 import io.ktor.client.*
-import javax.inject.Inject
 
 
-class AnnouncementServiceImpl @Inject constructor(
+class AnnouncementServiceImpl constructor(
     private val client: HttpClient
 ) : AnnouncementService {
 

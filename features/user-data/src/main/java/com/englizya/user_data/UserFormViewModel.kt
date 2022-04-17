@@ -6,11 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.repository.UserRepository
 import com.google.type.LatLng
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class UserFormViewModel @Inject constructor(
+class UserFormViewModel constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 

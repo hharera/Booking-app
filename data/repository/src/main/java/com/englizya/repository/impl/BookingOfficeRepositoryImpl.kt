@@ -3,9 +3,8 @@ package com.englizya.repository.impl
 import com.englizya.api.BookingOfficeService
 import com.englizya.model.model.BookingOffice
 import com.englizya.repository.BookingOfficeRepository
-import javax.inject.Inject
 
-class BookingOfficeRepositoryImpl @Inject constructor(
+class BookingOfficeRepositoryImpl constructor(
     private val bookingOfficeService: BookingOfficeService
 ) : BookingOfficeRepository {
 

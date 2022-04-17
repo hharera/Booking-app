@@ -11,16 +11,13 @@ import com.englizya.model.request.PaymentRequest
 import com.englizya.model.request.TripSearchRequest
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.repository.*
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
-import javax.inject.Inject
 
-@HiltViewModel
-class BookingViewModel @Inject constructor(
+class BookingViewModel constructor(
     private val stationRepository: StationRepository,
     private val tripsRepository: TripRepository,
     private val userRepository: UserRepository,

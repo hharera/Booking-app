@@ -3,14 +3,11 @@ package com.englizya.splash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
-import com.englizya.datastore.utils.Value.NULL_STRING
 import com.englizya.datastore.UserDataStore
+import com.englizya.datastore.utils.Value.NULL_STRING
 import com.englizya.repository.UserRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class SplashViewModel @Inject constructor(
+class SplashViewModel constructor(
     private val userRepository: UserRepository,
     private val userDataStore: UserDataStore,
 ) : BaseViewModel() {

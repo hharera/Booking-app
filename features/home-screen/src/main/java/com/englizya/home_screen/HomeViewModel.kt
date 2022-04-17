@@ -6,11 +6,8 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.repository.UserRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 

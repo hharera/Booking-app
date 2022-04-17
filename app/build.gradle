@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
 }
 apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -52,9 +51,7 @@ dependencies {
 //    implementation project(Navigation.TICKET)
 
     //hilt
-    implementation(Libs.hiltAndroid)
     implementation 'androidx.test.ext:junit-ktx:1.1.3'
-    kapt(Libs.hiltAndroidCompiler)
 
     implementation(Libs.playServicesTasks)
 
@@ -73,16 +70,6 @@ dependencies {
     implementation(Libs.viewModels)
     kapt(Libs.lifeCycleCompiler)
 
-    //hilt
-    kapt(Libs.hiltAndroidCompiler)
-    implementation(Libs.hiltAndroid)
-    implementation(TestDi.testRunner)
-
-    androidTestImplementation(TestDi.hiltTesting)
-    kaptAndroidTest(Libs.hiltAndroidCompiler)
-
-    testImplementation(TestDi.hiltTesting)
-    kaptTest(Libs.hiltAndroidCompiler)
 
     testImplementation(EspressoTesting.JUNIT)
     androidTestImplementation(EspressoTesting.ESPRESSO)

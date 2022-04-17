@@ -9,9 +9,8 @@ import com.englizya.repository.UserRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl constructor(
     private val userService: UserService,
     private val auth: FirebaseAuth,
 ) : UserRepository {

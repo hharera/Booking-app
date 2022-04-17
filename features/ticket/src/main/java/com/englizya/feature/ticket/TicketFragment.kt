@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.englizya.feature.ticket.databinding.FragmentTicketMainBinding
 import com.englizya.common.base.BaseFragment
+import com.englizya.feature.ticket.databinding.FragmentTicketMainBinding
 
 class TicketFragment : BaseFragment() {
 

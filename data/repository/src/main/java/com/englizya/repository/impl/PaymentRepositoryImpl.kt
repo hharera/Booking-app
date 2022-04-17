@@ -4,9 +4,8 @@ import com.englizya.api.PaymentService
 import com.englizya.model.request.PaymentRequest
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.repository.PaymentRepository
-import javax.inject.Inject
 
-class PaymentRepositoryImpl @Inject constructor(
+class PaymentRepositoryImpl  constructor(
     private val paymentService: PaymentService
 ) : PaymentRepository {
 
