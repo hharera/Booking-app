@@ -1,6 +1,7 @@
 package com.englizya.api.utils
 
 object Routing {
+    const val BOOK_SEATS = "${Domain.ENGLIZYA_PAY}api/payment/confirm-reservation"
     const val REQUEST_PAYMENT = "${Domain.ENGLIZYA_PAY}api/payment/request-payment"
     const val SEARCH_TRIPS = "${Domain.ENGLIZYA_PAY}api/trip/search"
     const val GET_ALL_STATIONS = "${Domain.ENGLIZYA_PAY}api/station/all"

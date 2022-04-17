@@ -31,4 +31,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindPaymentRepository(paymentRepositoryImpl: PaymentRepositoryImpl): PaymentRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindReservationRepository(reservationRepositoryImpl: ReservationRepositoryImpl): ReservationRepository
 }

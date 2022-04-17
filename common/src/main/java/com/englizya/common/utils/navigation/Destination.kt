@@ -1,6 +1,10 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val SUGGEST_IDEA = "suggest-idea"
+    const val COMPLAINT = "complaint"
+    const val DRIVER_RATING = "driver-rating"
+    const val SETTINGS =  "settings"
     const val PAYMENT: String = "booking-payment"
     const val SELECT_SEAT = "select-seat"
     const val SELECT_TRIP = "select-trip"

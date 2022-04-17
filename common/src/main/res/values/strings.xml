@@ -185,7 +185,6 @@
     <string name="short_transportation">خدمات النقل الداخلي</string>
     <string name="offers">العروض</string>
     <string name="see_more">شاهد المزيد ...</string>
-    <string name="app_settings">إعدادات التطبيق</string>
     <string name="suggest_idea">اقتراح فكرة</string>
     <string name="terms_and_privacy_policy"><![CDATA[Terms of use & Privacy policy]]></string>
     <string name="booking">الحجز</string>
@@ -225,4 +224,9 @@
     <string name="suspend">معلق</string>
     <string name="select_stop_station">اختر محطة التوقف</string>
     <string name="announcement">الاعلانات</string>
+    <string name="user_canceled">User cancled</string>
+    <string name="missing_argument">Data missed</string>
+    <string name="successful_transaction">Successful transaction</string>
+    <string name="transaction_rejected">Transaction rejected</string>
+    <string name="user_tickets">Ticket history</string>
 </resources>

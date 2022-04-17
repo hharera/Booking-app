@@ -187,7 +187,6 @@
     <string name="short_transportation">City bus</string>
     <string name="offers">Offers</string>
     <string name="see_more">See More...</string>
-    <string name="app_settings">App Settings</string>
     <string name="suggest_idea">Suggest Idea</string>
     <string name="booking">Booking</string>
     <string name="upcoming_features">Upcoming features</string>
@@ -226,4 +225,9 @@
     <string name="pay">Pay</string>
     <string name="announcement">Announcement</string>
     <string name="suspend">Suspend</string>
+    <string name="user_canceled">User cancled</string>
+    <string name="missing_argument">Data missed</string>
+    <string name="successful_transaction">Successful transaction</string>
+    <string name="transaction_rejected">Transaction rejected</string>
+    <string name="user_tickets">Ticket history</string>
 </resources>

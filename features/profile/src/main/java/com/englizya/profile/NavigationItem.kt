@@ -1,13 +1,13 @@
-package com.englyzia.navigation
+package com.englizya.profile
 
 sealed class NavigationItem(
     val itemIconRes: Int,
     val itemTitleRes: Int,
 ) {
+    object UserTickets : NavigationItem(R.drawable.ic_ticket, R.string.user_tickets)
     object PaymentHistory : NavigationItem(R.drawable.payments_history, R.string.payments_history)
     object PaymentCards : NavigationItem(R.drawable.ic_payment_card, R.string.payment_cards)
-    object ProfileSettings : NavigationItem(R.drawable.ic_id, R.string.profile_settings)
-    object AppSettings : NavigationItem(R.drawable.ic_settings, R.string.app_settings)
+    object Settings : NavigationItem(R.drawable.ic_settings, R.string.settings)
     object SuggestIdea : NavigationItem(R.drawable.ic_bulb, R.string.suggest_idea)
     object ReportProblem : NavigationItem(R.drawable.ic_info, R.string.report_problem)
     object UpcomingFeatures :

@@ -6,17 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.model.model.Seat
-import com.englizya.model.model.Station
-import com.englizya.model.model.Trip
-import com.englizya.model.model.User
+import com.englizya.model.model.*
 import com.englizya.model.request.PaymentRequest
 import com.englizya.model.request.TripSearchRequest
 import com.englizya.model.response.PayMobPaymentResponse
-import com.englizya.repository.PaymentRepository
-import com.englizya.repository.StationRepository
-import com.englizya.repository.TripRepository
-import com.englizya.repository.UserRepository
+import com.englizya.repository.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +25,7 @@ class BookingViewModel @Inject constructor(
     private val tripsRepository: TripRepository,
     private val userRepository: UserRepository,
     private val dataStore: UserDataStore,
+    private val reservationRepository: ReservationRepository,
     private val paymentRepository: PaymentRepository,
 ) : BaseViewModel() {
 
@@ -73,6 +68,12 @@ class BookingViewModel @Inject constructor(
 
     private var _selectedSeats = MutableLiveData<Set<Seat>>(emptySet())
     val selectedSeats: LiveData<Set<Seat>> = _selectedSeats
+
+    private var _paymentRequest = MutableLiveData<PaymentRequest>()
+    val paymentRequest: LiveData<PaymentRequest> = _paymentRequest
+
+    private var _reservationTickets = MutableLiveData<List<ReservationTicket>>()
+    val reservationTickets: LiveData<List<ReservationTicket>> = _reservationTickets
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -256,7 +257,9 @@ class BookingViewModel @Inject constructor(
             qty = selectedSeats.value!!.size,
             tripId = trip.value!!.tripId.toString(),
             tripName = trip.value!!.tripName.toString(),
-        )
+        ).also {
+            _paymentRequest.value = it
+        }
     }
 
     fun clearSelectSeats() {
@@ -264,8 +267,21 @@ class BookingViewModel @Inject constructor(
         _total.value = 0
     }
 
-    fun finishBooking() {
+    suspend fun submitBooking() {
+        updateLoading(true)
 
+        paymentRequest.value?.let {
+            reservationRepository
+                .reserveSeats(it, dataStore.getToken())
+                .onSuccess {
+                    updateLoading(false)
+                    _reservationTickets.postValue(it)
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
     }
 
 }

@@ -20,11 +20,6 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_booking"
-        android:name="com.englizya.booking.BookingFragment"
-        tools:layout="@layout/fragment_booking" />
-
-    <fragment
         android:id="@+id/navigation_routes"
         android:name="com.englizya.route.RouteFragment"
         tools:layout="@layout/fragment_route" />
@@ -35,7 +30,17 @@
         tools:layout="@layout/fragment_scan_qr" />
 
     <fragment
-        android:id="@+id/navigation_app_settings"
+        android:id="@+id/navigation_profile"
+        android:name="com.englizya.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
         android:name="com.englizya.app_settings.AppSettingsFragment"
         tools:layout="@layout/fragment_app_settings" />
+
+    <fragment
+        android:id="@+id/navigation_"
+        android:name="com.englizya.profile.ProfileFragment"
+        tools:layout="@layout/fragment_complaint" />
 </navigation>

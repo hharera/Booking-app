@@ -5,6 +5,21 @@ import com.englizya.datastore.utils.Value.NULL_STRING
 
 object NavigationUtils {
 
+    fun getUriNavigation(
+        domain: String,
+        destination: String,
+        arg: Boolean,
+        argument: String? = null
+    ): Uri {
+        return if (arg) {
+            "$domain://$destination/${argument}"
+        } else {
+            "$domain://$destination"
+        }.let {
+            Uri.parse(it)
+        }
+    }
+
     fun getUriNavigation(domain: String, destination: String, argument: String? = null): Uri {
         return "$domain://$destination/${argument ?: NULL_STRING}".let { Uri.parse(it) }
     }

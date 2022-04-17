@@ -188,7 +188,6 @@
     <string name="short_transportation">خدمات النقل الداخلي</string>
     <string name="offers">العروض</string>
     <string name="see_more">شاهد المزيد ...</string>
-    <string name="app_settings">إعدادات التطبيق</string>
     <string name="suggest_idea">اقتراح فكرة</string>
     <string name="booking">الحجز</string>
     <string name="upcoming_features">الميزات القادمة</string>
@@ -212,7 +211,7 @@
     <string name="get_a_ticket">احصل علي تذكرة</string>
     <string name="arabic">عربي</string>
     <string name="language">اللغة</string>
-    <string name="settings">الاعدادات</string>
+    <string name="settings">الإعدادات</string>
     <string name="date_is_required">اختر التاريخ</string>
     <string name="destincation_is_required">اختر محطة الوصول</string>
     <string name="source_is_required">اختر محطة القيام</string>
@@ -226,4 +225,9 @@
     <string name="pay">دفع</string>
     <string name="suspend">معلق</string>
     <string name="announcement">الاعلانات</string>
+    <string name="user_canceled">User cancled</string>
+    <string name="missing_argument">Data missed</string>
+    <string name="successful_transaction">Successful transaction</string>
+    <string name="transaction_rejected">Transaction rejected</string>
+    <string name="user_tickets">Ticket history</string>
 </resources>

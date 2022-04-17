@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
@@ -17,6 +18,7 @@ import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
 import com.paymob.acceptsdk.*
 import com.paymob.acceptsdk.PayActivityIntentKeys.*
+import kotlinx.coroutines.launch
 
 
 class BookingPaymentFragment : BaseFragment() {
@@ -50,7 +52,7 @@ class BookingPaymentFragment : BaseFragment() {
 
     private fun setupListeners() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
 
 
@@ -124,77 +126,57 @@ class BookingPaymentFragment : BaseFragment() {
 
         val extras: Bundle = data.extras!!
         if (requestCode == BookingViewModel.ACCEPT_PAYMENT_REQUEST) {
-            if (resultCode == IntentConstants.USER_CANCELED) {
-                // User canceled and did no payment request was fired
-                ToastMaker.displayShortToast(activity, "User canceled!!")
-            } else if (resultCode == IntentConstants.MISSING_ARGUMENT) {
-                // You forgot to pass an important key-value pair in the intent's extras
-                ToastMaker.displayShortToast(
-                    activity,
-                    "Missing Argument == " + extras.getString(IntentConstants.MISSING_ARGUMENT_VALUE)
-                )
-            } else if (resultCode == IntentConstants.TRANSACTION_ERROR) {
-                // An error occurred while handling an API's response
-                ToastMaker.displayShortToast(
-                    activity,
-                    "Reason == " + extras.getString(IntentConstants.TRANSACTION_ERROR_REASON)
-                )
-            } else if (resultCode == IntentConstants.TRANSACTION_REJECTED) {
-                // User attempted to pay but their transaction was rejected
+            when (resultCode) {
 
-                // Use the static keys declared in PayResponseKeys to extract the fields you want
-                ToastMaker.displayShortToast(
-                    activity,
-                    extras.getString(PayResponseKeys.DATA_MESSAGE)
-                )
-            } else if (resultCode == IntentConstants.TRANSACTION_REJECTED_PARSING_ISSUE) {
-                // User attempted to pay but their transaction was rejected. An error occured while reading the returned JSON
-                ToastMaker.displayShortToast(
-                    activity,
-                    extras.getString(IntentConstants.RAW_PAY_RESPONSE)
-                )
-            } else if (resultCode == IntentConstants.TRANSACTION_SUCCESSFUL) {
-                val key = extras.getString(PayResponseKeys.DATA_MESSAGE)
-                bookingViewModel.finishBooking()
-                // User finished their payment successfully
+                IntentConstants.USER_CANCELED -> {
+                    showToast(R.string.user_canceled)
+                }
 
-                // Use the static keys declared in PayResponseKeys to extract the fields you want
-                ToastMaker.displayShortToast(
-                    activity,
-                    extras.getString(PayResponseKeys.DATA_MESSAGE)
-                )
-            } else if (resultCode == IntentConstants.TRANSACTION_SUCCESSFUL_PARSING_ISSUE) {
-                // User finished their payment successfully. An error occured while reading the returned JSON.
-                ToastMaker.displayShortToast(activity, "TRANSACTION_SUCCESSFUL - Parsing Issue")
+                IntentConstants.MISSING_ARGUMENT -> {
+                    showToast(R.string.missing_argument)
+                }
 
-                // ToastMaker.displayShortToast(activity, extras.getString(IntentConstants.RAW_PAY_RESPONSE));
-            } else if (resultCode == IntentConstants.TRANSACTION_SUCCESSFUL_CARD_SAVED) {
-                // User finished their payment successfully and card was saved.
+                IntentConstants.TRANSACTION_ERROR -> {
+                    showToast(R.string.transaction_error)
+                }
 
-                // Use the static keys declared in PayResponseKeys to extract the fields you want
-                // Use the static keys declared in SaveCardResponseKeys to extract the fields you want
-                ToastMaker.displayShortToast(
-                    activity,
-                    "Token == " + extras.getString(SaveCardResponseKeys.TOKEN)
-                )
-            } else if (resultCode == IntentConstants.USER_CANCELED_3D_SECURE_VERIFICATION) {
-                ToastMaker.displayShortToast(activity, "User canceled 3-d scure verification!!")
+                IntentConstants.TRANSACTION_REJECTED -> {
+                    showToast(R.string.transaction_rejected)
+                }
 
-                // Note that a payment process was attempted. You can extract the original returned values
-                // Use the static keys declared in PayResponseKeys to extract the fields you want
-                ToastMaker.displayShortToast(activity, extras.getString(PayResponseKeys.PENDING))
-            } else if (resultCode == IntentConstants.USER_CANCELED_3D_SECURE_VERIFICATION_PARSING_ISSUE) {
-                ToastMaker.displayShortToast(
-                    activity,
-                    "User canceled 3-d scure verification - Parsing Issue!!"
-                )
+                IntentConstants.TRANSACTION_REJECTED_PARSING_ISSUE -> {
+                    showToast(R.string.transaction_rejected)
+                }
 
-                // Note that a payment process was attempted.
-                // User finished their payment successfully. An error occured while reading the returned JSON.
-                ToastMaker.displayShortToast(
-                    activity,
-                    extras.getString(IntentConstants.RAW_PAY_RESPONSE)
-                )
+                IntentConstants.TRANSACTION_SUCCESSFUL -> {
+                    showToast(R.string.successful_transaction)
+
+                    extras.getString(PayResponseKeys.SUCCESS)
+                    extras.getString(PayResponseKeys.ID)
+
+                    lifecycleScope.launch {
+                        bookingViewModel.submitBooking()
+                    }
+                }
+
+                IntentConstants.TRANSACTION_SUCCESSFUL_PARSING_ISSUE -> {
+                    showToast(R.string.successful_transaction)
+
+                    lifecycleScope.launch {
+                        bookingViewModel.submitBooking()
+                    }
+                }
+
+                IntentConstants.TRANSACTION_SUCCESSFUL_CARD_SAVED -> {}
+
+                IntentConstants.USER_CANCELED_3D_SECURE_VERIFICATION -> {
+                    showToast(R.string.user_canceled)
+                }
+
+                IntentConstants.USER_CANCELED_3D_SECURE_VERIFICATION_PARSING_ISSUE -> {
+                    showToast(R.string.user_canceled)
+                }
+
             }
         }
     }

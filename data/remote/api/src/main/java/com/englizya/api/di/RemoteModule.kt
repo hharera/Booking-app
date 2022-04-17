@@ -36,4 +36,8 @@ abstract class RemoteModule {
     @Singleton
     @Binds
     abstract fun bindPaymentService(service: PaymentServiceImpl): PaymentService
+
+    @Singleton
+    @Binds
+    abstract fun bindReservationService(service: ReservationServiceImpl): ReservationService
 }

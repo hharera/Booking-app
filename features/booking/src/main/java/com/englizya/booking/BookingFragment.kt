@@ -18,6 +18,7 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 
@@ -120,7 +121,9 @@ class BookingFragment : BaseFragment() {
 
     private fun showDatePickerDialog() {
         val datePicker =
-            MaterialDatePicker.Builder.datePicker()
+            MaterialDatePicker
+                .Builder
+                .datePicker()
                 .setTitleText(getString(R.string.select_trip_date))
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()

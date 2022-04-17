@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -165,7 +166,7 @@ class SelectSeatFragment : BaseFragment() {
                 Domain.ENGLIZYA_PAY,
                 Destination.PAYMENT,
                 null
-            )
+            ),
         )
     }
 
