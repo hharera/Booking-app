@@ -39,6 +39,8 @@ dependencies {
     api(Firebase.firebaseStorage)
     api(Firebase.firebaseDatabase)
 
+    api Libs.jodaTime
+
     implementation Libs.kotlin
     testImplementation Testing.junit4
 
