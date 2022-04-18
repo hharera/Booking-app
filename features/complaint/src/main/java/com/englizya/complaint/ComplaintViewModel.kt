@@ -3,9 +3,9 @@ package com.englizya.complaint
 import android.graphics.Bitmap
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
+import com.englizya.complaint.util.ImageUtils.Companion.convertBitmapToFile
 import com.englizya.datastore.UserDataStore
 import com.englizya.repository.ComplaintRepository
-import com.harera.base.utils.ImageUtils.Companion.convertBitmapToFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -39,15 +39,19 @@ class ComplaintViewModel constructor(
     }
 
     private suspend fun addPost(caption: String, image: Bitmap) {
-        complaintRepository.insertImagePost(
-            token = token!!,
+        complaintRepository.insertComplaint(
+            token = userDataStore.getToken(),
             caption = caption,
             image = convertBitmapToFile(image),
         ).onSuccess {
 //            state = PostingState.PostingCompleted(postId = postId.toInt())
         }.onFailure {
-            handleFailure(it)
+            handleException(it)
             state = PostingState.Error(it.message)
         }
+    }
+
+    private suspend fun createComplaintRequest() = kotlin.runCatching {
+        ComplaintRe
     }
 }

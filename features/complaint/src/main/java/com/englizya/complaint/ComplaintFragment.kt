@@ -24,8 +24,9 @@ class ComplaintFragment : BaseFragment()  {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    ): View {
+        val view = FragmentComplaintBinding.inflate(layoutInflater)
+        return view.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

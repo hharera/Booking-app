@@ -9,5 +9,4 @@ val ComplaintModule = module {
     viewModel {
         ComplaintViewModel(get(), get())
     }
-
 }
