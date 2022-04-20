@@ -31,7 +31,5 @@ android {
 }
 
 dependencies {
-    testImplementation Libs.junit4
-
     implementation(project(Base.COMMON))
 }

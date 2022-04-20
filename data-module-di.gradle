@@ -1,5 +1,6 @@
 apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
+apply from: "$rootDir/${CommonBuild.KTOR_MODULE}"
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -15,7 +16,6 @@ android {
         versionName Releases.versionName
     }
 
-//    TODO what is package options exclude
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -41,11 +41,5 @@ dependencies {
 
     api Libs.jodaTime
 
-    testImplementation Testing.junit4
-
-    api(Ktor.ktorClientAndroid)
-    api(Ktor.ktorClient)
-
     api(Libs.serializer)
-    api(Ktor.ktorClientGson)
 }

@@ -55,9 +55,6 @@ dependencies {
     implementation(Libs.materialDesign)
     implementation(Libs.gligarPicker)
 
-    testImplementation(Testing.junit4)
-    androidTestImplementation(Testing.junitExt)
-
     implementation(Libs.playServicesMaps)
 
     testImplementation(Libs.roomRunTime)

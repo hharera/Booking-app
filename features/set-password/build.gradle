@@ -1,6 +1,4 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
-
-    implementation(project(":ui-components:done-dialog"))
 }

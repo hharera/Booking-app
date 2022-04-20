@@ -1,7 +1,7 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
-apply from: "$rootDir/${CommonBuild.COMPOSE_MODULE}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 
 dependencies {
     implementation Libs.playServicesTasks
+    implementation Libs.gligarPicker
 }
