@@ -41,7 +41,6 @@ dependencies {
 
     api Libs.jodaTime
 
-    implementation Libs.kotlin
     testImplementation Testing.junit4
 
     api(Ktor.ktorClientAndroid)

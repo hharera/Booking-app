@@ -4,7 +4,7 @@ dependencyResolutionManagement {
         google()
         maven { url 'https://jitpack.io' }
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        jcenter()
     }
 }
 rootProject.name = "Ticket-Client"
@@ -61,7 +61,6 @@ include ':features:select-service'
 include ':features:profile-settings'
 include ':features:announcement'
 include ':features:select-payment'
-include ':ui-components:done-dialog'
 include ':ui-components:upcoming-soon'
 include ':features:trips'
 include ':features:select-seat'

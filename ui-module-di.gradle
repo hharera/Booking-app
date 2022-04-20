@@ -49,5 +49,4 @@ dependencies {
     implementation Libs.materialDesign
     implementation Libs.lifeCycleRuntime
 
-    implementation Libs.kotlin
 }

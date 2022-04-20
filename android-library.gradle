@@ -31,7 +31,6 @@ android {
 }
 
 dependencies {
-    implementation Libs.kotlin
     testImplementation Libs.junit4
 
     implementation(project(Base.COMMON))
