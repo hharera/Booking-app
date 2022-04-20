@@ -42,7 +42,6 @@ dependencies {
     api project(Data.model)
 
     implementation(Animation.LOTTIE)
-    implementation Libs.kotlin
     testImplementation Testing.junit4
 
     implementation(Libs.viewModels)
