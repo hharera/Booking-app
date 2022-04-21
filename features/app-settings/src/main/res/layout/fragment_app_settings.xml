@@ -6,6 +6,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar"
+        style="@style/AppBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"

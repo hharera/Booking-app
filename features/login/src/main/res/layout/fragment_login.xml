@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/FragmentStyle"
     android:layout_width="match_parent"
-    style="@style/Main_Style"
     android:layout_height="match_parent">
 
     <ImageView
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:imeActionId="@integer/btm_to"
-            android:inputType="text"
+            android:inputType="phone"
             android:lines="1"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -136,8 +136,8 @@
         android:layout_marginHorizontal="23dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/background_button_login"
-        android:text="@string/log_in"
         android:enabled="false"
+        android:text="@string/log_in"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,11 +161,11 @@
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
         android:fontFamily="@font/sf"
         android:text="@string/signup"
         android:textColor="#003BAD"
         android:textSize="14sp"
-        android:layout_marginStart="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="@+id/textView6" />

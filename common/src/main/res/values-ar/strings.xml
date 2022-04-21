@@ -216,7 +216,7 @@
     <string name="destincation_is_required">اختر محطة الوصول</string>
     <string name="source_is_required">اختر محطة القيام</string>
     <string name="select_stop_station">اختر محطة التوقف</string>
-    <string name="select_service">اختر نوع الخدمة</string>
+    <string name="select_service">قم بإختيار الخدمة التي تريدها</string>
     <string name="line_stations">المحطات</string>
     <string name="next_station">المحطة التالية</string>
     <string name="book">حجز</string>
@@ -230,4 +230,6 @@
     <string name="successful_transaction">Successful transaction</string>
     <string name="transaction_rejected">Transaction rejected</string>
     <string name="user_tickets">Ticket history</string>
+    <string name="add_complaint">Add Complaint</string>
+    <string name="one_way">One Way</string>
 </resources>

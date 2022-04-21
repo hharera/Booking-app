@@ -1,6 +1,7 @@
 package com.englizya.api.utils
 
 object Routing {
+    const val POST_COMPLAINT = "${Domain.ENGLIZYA_PAY}api/support/complaint"
     const val BOOK_SEATS = "${Domain.ENGLIZYA_PAY}api/payment/confirm-reservation"
     const val REQUEST_PAYMENT = "${Domain.ENGLIZYA_PAY}api/payment/request-payment"
     const val SEARCH_TRIPS = "${Domain.ENGLIZYA_PAY}api/trip/search"
@@ -40,6 +41,6 @@ object Constants {
 }
 
 object Domain {
-//    const val ENGLIZYA_PAY = "http://161.97.71.140:9100/"
-    const val ENGLIZYA_PAY = "http://192.168.1.190:9100/"
+    const val ENGLIZYA_PAY = "http://161.97.71.140:9100/"
+//    const val ENGLIZYA_PAY = "http://192.168.1.190:9100/"
 }

@@ -1,15 +1,19 @@
 package com.englizya.common.base
 
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.englizya.common.R
+import com.englizya.common.ui.DoneDialog
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
 
 open class BaseFragment : Fragment() {
 
     lateinit var connectionLiveData: ConnectionLiveData
+    private val doneDialog: DoneDialog by lazy { DoneDialog() }
 
     val TAG = this::class.java.name
     private val loadingDialog: LoadingDialog by lazy {
@@ -27,6 +31,11 @@ open class BaseFragment : Fragment() {
         } else {
             dismissLoading()
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        context?.theme?.applyStyle(R.style.Main_Style, true);
     }
 
     private fun showLoading() {
@@ -65,5 +74,9 @@ open class BaseFragment : Fragment() {
 
     fun changeStatusBarColor(colorRes: Int) {
         activity?.window?.statusBarColor = resources.getColor(colorRes)
+    }
+
+    fun showDoneDialog() {
+        doneDialog.show(childFragmentManager, TAG)
     }
 }

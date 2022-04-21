@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/FragmentStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_100">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar"
+        style="@style/AppBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/white"
@@ -48,6 +49,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
+        style="@style/CardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
@@ -217,7 +219,7 @@
         android:layout_height="0dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/next"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -357,7 +359,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/next"
+        android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"

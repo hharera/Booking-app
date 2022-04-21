@@ -30,7 +30,7 @@ val repositoryModule = module {
         ReservationRepositoryImpl(get())
     }
 
-    single<ComplaintRepository> {
-        ComplaintRepositoryImpl()
+    single<SupportRepository> {
+        SupportRepositoryImpl(get())
     }
 }

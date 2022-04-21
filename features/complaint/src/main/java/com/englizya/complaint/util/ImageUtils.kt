@@ -1,36 +1,32 @@
 package com.englizya.complaint.util
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.google.firebase.firestore.Blob
-import java.io.*
+import com.opensooq.supernova.gligar.GligarPicker
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 
-class ImageUtils {
+object ImageUtils {
 
-    companion object {
-        fun convertBlobToBitmap(blob: Blob?): Bitmap? {
-            if (blob != null) {
-                return BitmapFactory.decodeByteArray(blob.toBytes(), 0, blob.toBytes().size)
+    fun convertBitmapToFile(bitmap: Bitmap): File {
+        val file = File.createTempFile("image", ".jpg")
+        val outputStream: OutputStream = BufferedOutputStream(FileOutputStream(file))
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
+        outputStream.close()
+        return file
+    }
+
+    fun convertImagePathToBitmap(data: Intent): Bitmap? {
+        val imagesList = data.extras?.getStringArray(GligarPicker.IMAGES_RESULT)
+        if (!imagesList.isNullOrEmpty()) {
+            BitmapFactory.decodeFile(imagesList[0])?.let {
+                return it
             }
-//            else {
-//                return BitmapFactory.decodeResource(ResourcesCompat.getDrawable(resource), R.drawable.loading)
-//            }
-            return null
         }
-
-        fun convertBitmapToBlob(bitmap: Bitmap): Blob {
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            return Blob.fromBytes(stream.toByteArray())
-        }
-
-        fun convertBitmapToFile(bitmap: Bitmap): File {
-            val file = File.createTempFile("image", ".jpg")
-            val outputStream: OutputStream = BufferedOutputStream(FileOutputStream(file))
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
-            outputStream.close()
-            return file
-        }
+        return null
     }
 }

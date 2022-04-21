@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="max_desc_length">400</integer>
+    <integer name="max_title_length">100</integer>
+    <integer name="min_desc_length">10</integer>
+    <integer name="min_title_length">10</integer>
+</resources>

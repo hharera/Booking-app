@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
@@ -117,7 +116,7 @@ class SelectSeatFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        binding.next.setOnClickListener {
+        binding.submit.setOnClickListener {
             bookingViewModel.book()
         }
     }
@@ -156,7 +155,7 @@ class SelectSeatFragment : BaseFragment() {
         }
 
         bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
-            binding.next.isEnabled = it.isNotEmpty()
+            binding.submit?.isEnabled = it.isNotEmpty()
         }
     }
 

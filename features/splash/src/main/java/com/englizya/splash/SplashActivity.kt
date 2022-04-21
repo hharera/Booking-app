@@ -11,11 +11,11 @@ import com.englizya.select_service.SelectServiceActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity() {
 
-    private val splashViewModel: SplashViewModel by inject()
+    private val splashViewModel: SplashViewModel by viewModel()
     private lateinit var bind: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.home_screen.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -35,8 +39,9 @@ class HomeFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.navigationMenu.setOnClickListener {
-//            homeViewModel.onNavigationClicked()
-//            activity?.findViewById(R.id.drawer_layout)
+            findNavController().navigate(
+                NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.PROFILE, false)
+            )
         }
 
     }

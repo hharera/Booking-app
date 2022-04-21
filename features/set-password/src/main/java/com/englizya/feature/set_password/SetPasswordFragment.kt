@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
+import com.englizya.common.ui.DoneDialog
 import com.englizya.common.utils.navigation.Arguments.PHONE_NUMBER
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils.getUriNavigation
-import com.englizya.done_dialog.DoneDialog
 import com.englizya.feature.set_password.databinding.FragmentSetPasswordBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -113,10 +112,6 @@ class SetPasswordFragment : BaseFragment() {
                 null
             )
         )
-    }
-
-    private fun showDoneDialog() {
-        doneDialog.show(childFragmentManager, TAG)
     }
 
     private fun setupListeners() {

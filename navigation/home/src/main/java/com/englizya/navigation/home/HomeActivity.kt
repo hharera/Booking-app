@@ -16,6 +16,7 @@ import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBindi
 import com.englizya.home_screen.HomeViewModel
 import com.englizya.profile.NavigationItem.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
 
@@ -23,7 +24,7 @@ class HomeActivity : BaseActivity() {
     private lateinit var navController: NavController
 
 
-    private val homeViewModel: HomeViewModel by inject()
+    private val homeViewModel: HomeViewModel by viewModel()
     private val TAG = "HomeActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class HomeActivity : BaseActivity() {
 
         getExtras()
         setupBottomNavigation()
+        changeStatusBarColor(R.color.grey_100)
     }
 
     private fun setupBottomNavigation() {
@@ -42,7 +44,14 @@ class HomeActivity : BaseActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
     }
 
+    override fun onStart() {
+        super.onStart()
+        setupListeners()
+    }
 
+    private fun setupListeners() {
+
+    }
 
     private fun getExtras() {
         intent?.extras?.getString(Arguments.DESTINATION)?.let {

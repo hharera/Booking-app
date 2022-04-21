@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Main_Style"
+    style="@style/FragmentStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -57,7 +57,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutName"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/MainInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:imeActionId="@integer/btm_to"
-            android:inputType="text"
+            android:inputType="phone"
             android:lines="1"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -83,11 +83,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/background_button_login"
         android:enabled="false"
-        android:layout_marginBottom="16dp"
-        android:textColor="#FFFFFF"
         android:text="@string/signup"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

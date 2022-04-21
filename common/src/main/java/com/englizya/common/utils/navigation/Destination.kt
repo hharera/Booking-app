@@ -1,6 +1,7 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val PROFILE = "profile"
     const val SUGGEST_IDEA = "suggest-idea"
     const val COMPLAINT = "complaint"
     const val DRIVER_RATING = "driver-rating"

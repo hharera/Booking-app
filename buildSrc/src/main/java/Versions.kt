@@ -18,7 +18,7 @@ object Versions {
     const val junit = "4.12"
     const val androidx_ext_junit = "1.1.1"
     const val androidx_testing = "1.2.0"
-    const val testing_core = "1.3.0-alpha03"
+    const val testing_core = "1.4.0"
     const val fragments_testing = "1.2.0-rc03"
     const val mockk = "1.10.6"
     const val arch_core_testing = "2.1.0"
@@ -36,7 +36,7 @@ object Versions {
     const val HILT_VERSION = "2.37"
     const val NAV_VERSION = "2.3.1"
     const val COROUTINES_VERSION = "1.5.0"
-    const val GRADLE_TOOLS_VERSION = "7.0.2"
+    const val GRADLE_TOOLS_VERSION = "7.1.3"
     const val GMS_GOOGLE_SERVICES = "4.3.10"
     const val Jvm_TARGET = "4.3.10"
 
@@ -63,8 +63,8 @@ object Versions {
 
     const val ANDROIDX_CORE_Testing_VERSION = "2.1.0"
 
-    const val ANDROIDX_CORE_VERSION = "1.3.2"
-    const val ANDROIDX_APP_COMPAT_VERSION = "1.3.1"
+    const val ANDROIDX_CORE_VERSION = "1.6.0"
+    const val ANDROIDX_APP_COMPAT_VERSION = "1.4.1"
     const val GOOGLE_MATERIAL_VERSION = "1.4.0"
     const val ANDROIDX_SWIPE_REFRESH_LAYOUT_VERSION = "1.1.0"
     const val ANDROIDX_FRAGMENT_TESTING_VERSION = "1.3.3"

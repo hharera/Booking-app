@@ -2,12 +2,11 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Main_Style"
+    style="@style/ActivityStyle"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_100"
-    android:theme="@style/Main_Style"
     tools:openDrawer="end">
 
     <androidx.constraintlayout.widget.ConstraintLayout

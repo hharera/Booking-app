@@ -1,10 +1,13 @@
 package com.englizya.datastore
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.englizya.datastore.utils.KEY
 import com.englizya.datastore.utils.Language
 import com.englizya.datastore.utils.SharedPreferences
 import com.englizya.datastore.utils.Value.NULL_STRING
+
 class UserDataStore(context: Context) {
 
     private val driverSharedPreferences =
@@ -13,14 +16,16 @@ class UserDataStore(context: Context) {
             Context.MODE_PRIVATE
         )
 
+    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     fun setToken(token: String) =
         driverSharedPreferences.edit().putString(KEY.TOKEN, token).apply()
 
     fun getToken(): String =
         driverSharedPreferences.getString(KEY.TOKEN, NULL_STRING)!!
 
+    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     fun setLanguage(language: Language) {
-        when(language) {
+        when (language) {
             is Language.Arabic -> {
                 driverSharedPreferences.edit().putString(KEY.LANGUAGE, language.key).apply()
             }

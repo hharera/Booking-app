@@ -29,11 +29,9 @@ class Validity {
         fun checkName(string: String) =
             string.matches(Regex("^[a-z]{5,15}\$"))
 
-        fun checkDesc(string: String) =
-            string.matches(Regex("^[a-z]{10,200}\$"))
 
-        fun passwordIsValid(string: String) =
-            string.matches(Regex("^[a-z]{5,25}\$"))
+        fun passwordIsValid(string: String) : Boolean =
+            (string.contains(" ").not()).and(string.length in (8..50))
 
         fun checkDriverPassword(string: String) =
             string.matches(Regex("^[\\d]{4,40}\$"))

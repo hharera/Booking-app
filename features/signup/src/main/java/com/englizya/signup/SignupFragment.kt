@@ -50,7 +50,9 @@ class SignupFragment : BaseFragment() {
     }
 
     private fun restoreValues() {
-        bind.phoneNumber.setText(signupViewModel.phoneNumber.value)
+        signupViewModel.phoneNumber.value?.let {
+            bind.phoneNumber.setText(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -48,10 +48,6 @@ dependencies {
     implementation project(Navigation.LOGIN)
     implementation project(Navigation.HOME)
     implementation project(Navigation.BOOKING)
-//    implementation project(Navigation.TICKET)
-
-    //hilt
-    implementation 'androidx.test.ext:junit-ktx:1.1.3'
 
     implementation(Libs.playServicesTasks)
 
@@ -70,9 +66,4 @@ dependencies {
     implementation(Libs.viewModels)
     kapt(Libs.lifeCycleCompiler)
 
-
-    testImplementation(EspressoTesting.JUNIT)
-    androidTestImplementation(EspressoTesting.ESPRESSO)
-    androidTestImplementation(EspressoTesting.TEST_RUNNER)
-    androidTestImplementation(EspressoTesting.ESPRESSO_INTENT)
 }

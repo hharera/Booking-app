@@ -32,7 +32,10 @@
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.englizya.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+
+        <deepLink app:uri="EnglizyaPay://profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"
@@ -40,7 +43,10 @@
         tools:layout="@layout/fragment_app_settings" />
 
     <fragment
-        android:id="@+id/navigation_"
-        android:name="com.englizya.profile.ProfileFragment"
-        tools:layout="@layout/fragment_complaint" />
+        android:id="@+id/navigation_complaint"
+        android:name="com.englizya.complaint.ComplaintFragment"
+        tools:layout="@layout/fragment_driver_review">
+
+        <deepLink app:uri="EnglizyaPay://insert-complaint" />
+    </fragment>
 </navigation>

@@ -30,6 +30,7 @@ object Testing {
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_test}"
     val arch_core_testing =
         "androidx.arch.core:core-testing:${Versions.arch_core_testing}"
+
 }
 
 

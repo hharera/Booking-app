@@ -17,6 +17,8 @@ class SelectServiceActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySelectServiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        changeStatusBarColor(R.color.grey_100)
     }
 
     override fun onStart() {
@@ -25,11 +27,11 @@ class SelectServiceActivity : BaseActivity() {
     }
 
     private fun setupListeners() {
-        binding.shortTransporationService.setOnClickListener {
+        binding.shortTransportationService.setOnClickListener {
             progressToHomeActivity()
         }
 
-        binding.longTransporationService.setOnClickListener {
+        binding.longTransportationService.setOnClickListener {
             progressToBookingActivity()
         }
     }

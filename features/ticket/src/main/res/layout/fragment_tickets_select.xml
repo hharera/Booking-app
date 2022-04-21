@@ -7,8 +7,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        style="@style/AppBarLayoutStyle"
         android:layout_height="75dp"
-        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -3,9 +3,8 @@ apply plugin: 'kotlin-android'
 
 
 android {
-
     defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 
@@ -15,13 +14,47 @@ dependencies {
     androidTestImplementation(Testing.junit4)
     androidTestImplementation(Testing.coroutinesTest)
 
-    testImplementation(EspressoTesting.JUNIT)
-    androidTestImplementation(EspressoTesting.ESPRESSO)
-    androidTestImplementation(EspressoTesting.TEST_RUNNER)
 
 
     testImplementation(Testing.androidCoreTesting)
     testImplementation(Testing.fragmentTest)
     testImplementation(Testing.junit4)
     testImplementation(Testing.coroutinesTest)
+    testImplementation(Testing.testRules)
+
+    // Required -- JUnit 4 framework
+    testImplementation "junit:junit:4.13.2"
+    // Optional -- Robolectric environment
+    // Optional -- Mockito framework
+    testImplementation "org.mockito:mockito-core:4.0.0"
+    // Optional -- Mockk framework
+    testImplementation "io.mockk:mockk:1.12.2"
+
+    // Optional -- UI testing with UI Automator
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
+    // Optional -- UI testing with Compose
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.1.1"
+
+    // To use the androidx.test.core APIs
+    androidTestImplementation("androidx.test:core:1.4.0")
+    // Kotlin extensions for androidx.test.core
+    androidTestImplementation("androidx.test:core-ktx:1.4.0")
+
+    // To use the androidx.test.espresso
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
+
+    // To use the JUnit Extension APIs
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    // Kotlin extensions for androidx.test.ext.junit
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
+
+    // To use the Truth Extension APIs
+    androidTestImplementation("androidx.test.ext:truth:1.4.0")
+
+    // To use the androidx.test.runner APIs
+    androidTestImplementation("androidx.test:runner:1.4.0")
+
+    // To use android test orchestrator
+    androidTestUtil("androidx.test:orchestrator:1.4.1")
+
 }
