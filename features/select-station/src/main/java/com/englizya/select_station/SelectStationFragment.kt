@@ -56,7 +56,7 @@ class SelectStationFragment : BaseFragment() {
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
                 Destination.SELECT_SEAT,
-                null
+                false
             )
         )
     }

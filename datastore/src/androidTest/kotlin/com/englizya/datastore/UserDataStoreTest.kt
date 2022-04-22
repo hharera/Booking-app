@@ -42,7 +42,12 @@ class UserDataStoreTest : KoinTest {
         ).isNull()
     }
 
-    fun testGetToken() {}
+    @Test
+    fun testNameToken() {
+        assertThat(
+            userDataStore.setUserName("Hassan")
+        ).isNotNull()
+    }
 
     fun testSetLanguage() {}
 

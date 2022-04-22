@@ -32,8 +32,6 @@ class SetPasswordFragment : BaseFragment() {
                 setPasswordViewModel.setPhoneNumber(phoneNumber)
             }
         }
-
-        changeStatusBarColor(R.color.blue_600)
     }
 
     override fun onCreateView(

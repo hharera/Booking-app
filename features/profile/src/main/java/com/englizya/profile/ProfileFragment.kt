@@ -11,22 +11,24 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.profile.NavigationItem.*
 import com.englizya.profile.databinding.FragmentProfileBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var profileViewModel: ProfileViewModel
+    private val profileViewModel: ProfileViewModel by viewModel()
 
     private val navigationItemList = arrayListOf(
         UserTickets,
+        PaymentHistory,
         ReportProblem,
+        DriverReview,
         SuggestIdea,
         Settings,
-        AboutUs,
-        TermsAndPolicy,
+//        AboutUs,
+//        TermsAndPolicy,
 //        UpcomingFeatures,
 //        PaymentCards,
-//        PaymentHistory,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +74,23 @@ class ProfileFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.back.setOnClickListener {
-
+            findNavController().popBackStack()
         }
+
+        binding.logout.setOnClickListener {
+            profileViewModel.logout()
+            navigateToLogin()
+        }
+    }
+
+    private fun navigateToLogin() {
+        activity?.finish()
+//        startActivity(
+//            Intent(
+//                context,
+//                LoginActivity::class.java
+//            )
+//        )
     }
 
     private fun checkClickItem(item: NavigationItem) {
@@ -86,10 +103,6 @@ class ProfileFragment : BaseFragment() {
 
             }
 
-            is Settings -> {
-
-            }
-
             is TermsAndPolicy -> {
 
             }
@@ -99,7 +112,7 @@ class ProfileFragment : BaseFragment() {
             }
 
             is ReportProblem -> {
-
+                navigateToComplaint()
             }
 
             is SuggestIdea -> {
@@ -113,6 +126,10 @@ class ProfileFragment : BaseFragment() {
             is UpcomingFeatures -> {
 
             }
+
+            is DriverReview -> {
+                navigateReviewDriver()
+            }
         }
     }
 
@@ -122,11 +139,22 @@ class ProfileFragment : BaseFragment() {
         )
     }
 
-    private fun navigateToDriverRating() {
+    private fun navigateToPaymentHistory() {
         findNavController().navigate(
-            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.DRIVER_RATING, false)
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.PAYMENT_HISTORY,
+                false
+            )
         )
     }
+
+    private fun navigateReviewDriver() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.DRIVER_REVIEW, false)
+        )
+    }
+
 
     private fun navigateToSuggestIdea() {
         findNavController().navigate(

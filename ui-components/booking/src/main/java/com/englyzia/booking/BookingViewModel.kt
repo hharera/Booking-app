@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
+import com.englizya.common.utils.date.DateOnly
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.*
 import com.englizya.model.request.PaymentRequest
@@ -16,6 +17,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import java.util.*
 
 class BookingViewModel constructor(
     private val stationRepository: StationRepository,
@@ -75,6 +78,16 @@ class BookingViewModel constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             fetchUser()
+        }
+
+        setDefaultDate()
+    }
+
+    private fun setDefaultDate() {
+        DateOnly.map(
+            DateTime(DateTimeZone.UTC)
+        ).let {
+            _date.postValue(DateTime(it))
         }
     }
 

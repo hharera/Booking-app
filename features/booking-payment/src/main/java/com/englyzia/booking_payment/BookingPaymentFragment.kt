@@ -7,17 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Seat
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
-import com.paymob.acceptsdk.*
+import com.paymob.acceptsdk.IntentConstants
+import com.paymob.acceptsdk.PayActivity
 import com.paymob.acceptsdk.PayActivityIntentKeys.*
+import com.paymob.acceptsdk.PayResponseKeys
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -29,12 +33,6 @@ class BookingPaymentFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        getExtras()
-    }
-
-    private fun getExtras() {
-
     }
 
     override fun onCreateView(
@@ -53,12 +51,23 @@ class BookingPaymentFragment : BaseFragment() {
 
     private fun setupListeners() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().navigateUp()
+            findNavController().navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.SELECT_SEAT,
+                    false
+                )
+            )
         }
 
-
         binding.back.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.SELECT_SEAT,
+                    false
+                )
+            )
         }
 
         binding.pay.setOnClickListener {
@@ -168,7 +177,8 @@ class BookingPaymentFragment : BaseFragment() {
                     }
                 }
 
-                IntentConstants.TRANSACTION_SUCCESSFUL_CARD_SAVED -> {}
+                IntentConstants.TRANSACTION_SUCCESSFUL_CARD_SAVED -> {
+                }
 
                 IntentConstants.USER_CANCELED_3D_SECURE_VERIFICATION -> {
                     showToast(R.string.user_canceled)

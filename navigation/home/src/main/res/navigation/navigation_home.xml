@@ -43,6 +43,14 @@
         tools:layout="@layout/fragment_app_settings" />
 
     <fragment
+        android:id="@+id/navigation_driver_review"
+        android:name="com.englyzia.reviewdriver.DriverReviewFragment"
+        tools:layout="@layout/fragment_driver_review" >
+
+        <deepLink app:uri="EnglizyaPay://review-driver" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_complaint"
         android:name="com.englizya.complaint.ComplaintFragment"
         tools:layout="@layout/fragment_driver_review">

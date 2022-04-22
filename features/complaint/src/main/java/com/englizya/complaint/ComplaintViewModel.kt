@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
-import com.englizya.complaint.util.ImageUtils.convertBitmapToFile
+import com.englizya.common.utils.ImageUtils.convertBitmapToFile
 import com.englizya.complaint.util.Validity
 import com.englizya.model.request.ComplaintRequest
 import com.englizya.repository.SupportRepository
@@ -64,11 +64,11 @@ class ComplaintViewModel constructor(
     }
 
     private fun checkFormValidity() {
-        if (title.value?.isBlank() == true) {
+        if (title.value.isNullOrEmpty()) {
             _formValidity.postValue(ComplaintFormState(titleError = R.string.empty_title_error))
         } else if (title.value?.let { Validity.isTitleValid(it).not() } == true) {
             _formValidity.postValue(ComplaintFormState(titleError = R.string.invalid_title_error))
-        } else if (desc.value?.isBlank() == true) {
+        } else if (desc.value.isNullOrEmpty()) {
             _formValidity.postValue(ComplaintFormState(descriptionError = R.string.empty_desc_error))
         } else if (desc.value?.let { Validity.isDescValid(it).not() } == true) {
             _formValidity.postValue(ComplaintFormState(descriptionError = R.string.invalid_desc_error))

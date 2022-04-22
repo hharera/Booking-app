@@ -1,11 +1,11 @@
-package com.englizya.forget_password
+package com.englizya.put_number
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.englizya.common.base.BaseFragment
-import com.englizya.forget_password.databinding.FragmentForgetPasswordBinding
+import com.englizya.put_number.databinding.FragmentForgetPasswordBinding
 
 class ForgetPasswordFragment  : BaseFragment() {
 

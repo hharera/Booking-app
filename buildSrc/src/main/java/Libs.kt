@@ -49,7 +49,8 @@ object Libs {
     const val circleImage = "de.hdodenhof:circleimageview:${Versions.CIRCLE_IMAGE}"
 
     //gligar picker
-    const val gligarPicker = "com.opensooq.supernova:gligar:${Versions.GLIGER_VERSION}"
+    const val gligarPicker =
+        "com.github.omkar-tenkale:Gligar:78d8110102e0be4e1e2f939b5307ae5f645e6761"
 
     //intuit
     const val intuit = "com.intuit.sdp:sdp-android:${Versions.INTUIT_VERSION}"

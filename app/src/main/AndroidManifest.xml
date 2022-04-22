@@ -4,6 +4,9 @@
     package="com.englizya.client.ticket">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".TicketApplication"
@@ -24,7 +27,7 @@
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 
         <activity
-            android:name="com.englizya.splash.SplashActivity"
+            android:name="com.englizya.select_service.SelectServiceActivity"
             android:exported="true" />
 
         <activity
@@ -52,7 +55,7 @@
             android:exported="true" />
 
         <activity
-            android:name="com.englizya.select_service.SelectServiceActivity"
+            android:name="com.englizya.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

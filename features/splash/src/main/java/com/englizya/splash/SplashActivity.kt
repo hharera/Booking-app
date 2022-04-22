@@ -22,8 +22,6 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         bind = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(bind.root)
-
-        window?.statusBarColor = resources.getColor(R.color.splash_status_color)
     }
 
     override fun onStart() {

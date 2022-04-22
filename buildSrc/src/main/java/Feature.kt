@@ -14,7 +14,6 @@ object Feature {
     const val PROFILE = ":features:profile"
     const val BOOKING = ":features:booking"
     const val EDIT_PROFILE = ":features:edit-profile"
-    const val FORGET_PASSWORD = ":features:forget-password"
     const val ROUTE = ":features:route"
     const val LINE_MAP = ":features:line-map"
     const val HOME = ":features:home-screen"

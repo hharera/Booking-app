@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/FragmentStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +24,6 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/background_button_back"
-                android:elevation="4dp"
                 android:padding="16dp"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"

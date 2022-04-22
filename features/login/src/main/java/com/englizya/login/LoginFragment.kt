@@ -26,7 +26,6 @@ class LoginFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
 
         getExtras()
-        changeStatusBarColor(R.color.blue_600)
     }
 
     private fun getExtras() {

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:statusBarColor="@color/grey_100"
-    style="@style/FragmentStyle">
+    android:statusBarColor="@color/grey_100">
 
     <TextView
         android:id="@+id/textView3"

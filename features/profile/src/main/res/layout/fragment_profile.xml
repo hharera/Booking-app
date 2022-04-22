@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/FragmentStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/grey_100">
@@ -15,9 +14,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/toolbar"
+            style="@style/AppBarLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            style="@style/AppBarLayoutStyle"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,11 +28,10 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="23dp"
-                    android:layout_marginTop="15dp"
                     android:background="@drawable/background_button_back"
-                    android:elevation="4dp"
                     android:padding="16dp"
                     android:src="@drawable/ic_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf"
+            android:text="0"
             android:textColor="@color/grey_300"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="@+id/textView2"
@@ -103,7 +102,6 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/navigation_menu"
-            tools:listitem="@layout/card_view_navigation_item"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="6dp"
@@ -113,7 +111,8 @@
             app:layout_constraintBottom_toTopOf="@+id/logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balance" />
+            app:layout_constraintTop_toBottomOf="@+id/balance"
+            tools:listitem="@layout/card_view_navigation_item" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logout"
@@ -123,7 +122,6 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/background_button_logout"
             android:backgroundTint="@color/white"
-            android:elevation="4dp"
             android:enabled="true"
             android:fontFamily="@font/sf"
             android:text="@string/logout"

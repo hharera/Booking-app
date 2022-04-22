@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
+import com.englizya.datastore.utils.Value
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
@@ -39,5 +40,9 @@ class ProfileViewModel constructor(
     }
 
     fun getAnnouncements(announcements: List<Announcement>) {
+    }
+
+    fun logout() {
+        dataStore.setToken(Value.NULL_STRING)
     }
 }

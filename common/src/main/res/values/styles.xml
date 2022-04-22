@@ -7,10 +7,12 @@
         <item name="colorOnPrimary">@color/grey_100</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_500</item>
-        <item name="colorOnSecondary">@color/grey_100</item>
         <item name="colorSecondaryVariant">@color/blue_600</item>
+        <item name="colorOnSecondary">@color/grey_100</item>
 
-        <item name="android:statusBarColor">@color/blue_600</item>
+        <item name="android:windowBackground">@color/grey_100</item>
+        <item name="android:statusBarColor">@color/grey_100</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="FragmentStyle">
@@ -47,8 +49,22 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="OutlinedInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="iconSize">24dp</item>
+        <item name="checkedIconSize">24dp</item>
+        <item name="itemIconSize">24dp</item>
+        <item name="chipIconSize">24dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:radius">8dp</item>
+        <item name="android:isIndicator">false</item>
+        <item name="startIconTint">#99A5B7</item>
+        <item name="android:background">@drawable/background_input_layout</item>
+        <item name="android:textColor">@color/grey_300</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -65,19 +81,30 @@
         <item name="colorControlActivated">#E1C300</item>
     </style>
 
+    <style name="MainImageViewStyle">
+
+    </style>
+
     <style name="MainInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="iconSize">24dp</item>
         <item name="checkedIconSize">24dp</item>
         <item name="itemIconSize">24dp</item>
         <item name="chipIconSize">24dp</item>
         <item name="cornerRadius">8dp</item>
-        <item name="android:radius">8dp</item>
         <item name="android:isIndicator">false</item>
         <item name="borderWidth">1dp</item>
         <item name="startIconTint">#99A5B7</item>
-        <item name="android:background">@drawable/background_input_layout</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
         <item name="android:textColor">@color/grey_300</item>
         <item name="android:textColorHint">@color/grey</item>
+        <item name="boxStrokeErrorColor">@color/red_600</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/background_input_focus</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
     </style>
 
     <style name="TextViewStyle">

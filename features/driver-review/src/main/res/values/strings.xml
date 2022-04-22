@@ -13,4 +13,6 @@
     <string name="rate_driver">Rate the driver</string>
     <string name="review_image">Review image</string>
     <string name="image_attachment">Image attachment</string>
+    <string name="invalid_driver_code">"Invalid driver code "</string>
+    <string name="required_rating">Your rate is required</string>
 </resources>

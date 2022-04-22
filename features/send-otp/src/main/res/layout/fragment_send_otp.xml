@@ -2,18 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/Main_Style">
-
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.16"
         android:layout_marginTop="15dp"
         android:src="@drawable/ic_otp_person"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,15 +139,15 @@
     </GridLayout>
 
     <com.google.android.material.button.MaterialButton
-        style="@style/TextButton"
         android:id="@+id/resend_code"
+        style="@style/TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/background_button_resend"
-        app:icon="@drawable/ic_resend"
-        android:textSize="14sp"
         android:text="@string/resend_code"
+        android:textSize="14sp"
+        app:icon="@drawable/ic_resend"
         app:iconGravity="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -159,12 +157,12 @@
     <GridLayout
         android:id="@+id/numbersGrid"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="63dp"
         android:layout_marginTop="6dp"
         android:useDefaultMargins="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/resend_code">
 
         <Button
@@ -259,8 +257,8 @@
         android:layout_marginHorizontal="23dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/background_button_login"
-        android:text="@string/next"
         android:enabled="false"
+        android:text="@string/next"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

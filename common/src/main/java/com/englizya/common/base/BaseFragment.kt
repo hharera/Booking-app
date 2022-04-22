@@ -35,7 +35,6 @@ open class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        context?.theme?.applyStyle(R.style.Main_Style, true);
     }
 
     private fun showLoading() {

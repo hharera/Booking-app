@@ -6,14 +6,19 @@ android {
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
-
 dependencies {
+    implementation(Libs.truth)
+
     androidTestImplementation(Testing.androidCoreTesting)
     androidTestImplementation(Testing.fragmentTest)
     androidTestImplementation(Testing.junit4)
     androidTestImplementation(Testing.coroutinesTest)
-
 
 
     testImplementation(Testing.androidCoreTesting)
@@ -57,4 +62,14 @@ dependencies {
     // To use android test orchestrator
     androidTestUtil("androidx.test:orchestrator:1.4.1")
 
+    // (Required) Writing and executing Unit Tests on the JUnit Platform
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+
+    // (Optional) If you need "Parameterized Tests"
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+
+    // (Optional) If you also have JUnit 4-based tests
+    testImplementation("junit:junit:4.13.2")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.8.2")
 }

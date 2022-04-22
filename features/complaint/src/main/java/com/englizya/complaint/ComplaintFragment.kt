@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.complaint.databinding.FragmentComplaintBinding
-import com.englizya.complaint.util.ImageUtils
+import com.englizya.common.utils.ImageUtils
 import com.opensooq.supernova.gligar.GligarPicker
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,8 +35,8 @@ class ComplaintFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = FragmentComplaintBinding.inflate(layoutInflater)
-        return view.root
+        binding = FragmentComplaintBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,9 +56,9 @@ class ComplaintFragment : BaseFragment() {
         complaintViewModel.formValidity.observe(viewLifecycleOwner) {
             binding.submit.isEnabled = it.formIsValid
 
-            if (it.descriptionError == null) {
+            if (it.descriptionError != null) {
                 binding.desc.error = getString(it.descriptionError!!)
-            } else if (it.titleError == null) {
+            } else if (it.titleError != null) {
                 binding.title.error = getString(it.titleError!!)
             }
         }
@@ -109,6 +109,7 @@ class ComplaintFragment : BaseFragment() {
         GligarPicker()
             .requestCode(IMAGE_REQ_CODE)
             .limit(1)
+            .disableCamera(true)
             .withFragment(this)
             .show()
     }

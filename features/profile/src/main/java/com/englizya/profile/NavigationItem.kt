@@ -5,6 +5,7 @@ sealed class NavigationItem(
     val itemTitleRes: Int,
 ) {
     object UserTickets : NavigationItem(R.drawable.ic_ticket, R.string.my_tickets)
+    object DriverReview : NavigationItem(R.drawable.ic_star, R.string.review_driver)
     object PaymentHistory : NavigationItem(R.drawable.payments_history, R.string.payments_history)
     object PaymentCards : NavigationItem(R.drawable.ic_payment_card, R.string.payment_cards)
     object Settings : NavigationItem(R.drawable.ic_settings, R.string.settings)

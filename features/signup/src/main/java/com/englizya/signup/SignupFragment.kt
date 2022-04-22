@@ -29,7 +29,6 @@ class SignupFragment : BaseFragment() {
             }
         }
 
-        changeStatusBarColor(R.color.blue_600)
     }
 
     override fun onCreateView(

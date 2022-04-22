@@ -9,6 +9,7 @@ import com.englizya.common.di.baseModule
 import com.englizya.complaint.di.complaintModule
 import com.englizya.datastore.di.dataStoreModule
 import com.englizya.feature.set_password.di.setPasswordModule
+import com.englizya.home_screen.di.homeModule
 import com.englizya.local.di.databaseModule
 import com.englizya.location_update.di.locationViewModel
 import com.englizya.login.di.loginModule
@@ -64,6 +65,7 @@ class TicketApplication : Application(), KoinComponent {
                     locationViewModel,
                     contextModule,
                     remoteModule,
+                    homeModule,
                 )
             )
         }

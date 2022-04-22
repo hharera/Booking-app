@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.utils.Value.NULL_STRING
+import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
 
 class SplashViewModel constructor(
@@ -28,10 +29,16 @@ class SplashViewModel constructor(
         userRepository
             .fetchUser(token)
             .onSuccess {
+                updateUserDataStore(it)
                 _loginState.postValue(true)
             }
             .onFailure {
                 _loginState.postValue(false)
             }
+    }
+
+    private fun updateUserDataStore(it: User) {
+        userDataStore.setUserName(it.name)
+        userDataStore.setPhoneNumber(it.phoneNumber)
     }
 }

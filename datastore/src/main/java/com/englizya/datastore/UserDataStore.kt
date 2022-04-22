@@ -38,5 +38,21 @@ class UserDataStore(context: Context) {
 
     fun getLanguage(): String =
         driverSharedPreferences.getString(KEY.LANGUAGE, NULL_STRING)!!
+
+    fun setUserName(name: String) {
+        driverSharedPreferences.edit().putString(KEY.NAME, name).apply()
+    }
+
+    fun getUserName(): String =
+        driverSharedPreferences.getString(KEY.NAME, NULL_STRING)!!
+
+
+    fun setPhoneNumber(phoneNumber: String) {
+        driverSharedPreferences.edit().putString(KEY.PHONE_NUMBER, phoneNumber).apply()
+    }
+
+    fun getPhoneNumber(): String =
+        driverSharedPreferences.getString(KEY.PHONE_NUMBER, NULL_STRING)!!
+
 }
 

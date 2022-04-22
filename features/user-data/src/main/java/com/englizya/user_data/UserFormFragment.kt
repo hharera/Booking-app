@@ -23,7 +23,6 @@ class UserFormFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        changeStatusBarColor(R.color.blue_600)
     }
 
     override fun onCreateView(

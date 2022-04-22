@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.navigation.Arguments
-import com.englizya.reset_password.databinding.FragmentResetPasswordBinding
+import com.englizya.put_number.databinding.FragmentResetPasswordBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ResetPasswordFragment : BaseFragment() {
@@ -32,7 +31,7 @@ class ResetPasswordFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bind = FragmentResetPasswordBinding.inflate(layoutInflater)
         return bind.root
     }
@@ -63,7 +62,6 @@ class ResetPasswordFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
     }
-
 
 
 }

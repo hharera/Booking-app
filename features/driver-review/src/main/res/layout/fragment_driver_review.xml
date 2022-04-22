@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/FragmentStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_100"
@@ -25,7 +24,6 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/background_button_back"
-                android:elevation="4dp"
                 android:padding="16dp"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
@@ -116,15 +114,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
         android:layout_marginTop="4dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driverCodeTV"
         app:placeholderText="@string/title">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/driverCpde"
+            android:id="@+id/driver_code"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:imeActionId="@integer/btm_to"
@@ -156,10 +152,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/background_input_layout"
         android:scrollIndicators="none"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviewMessageTV"

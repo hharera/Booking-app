@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.home_screen.databinding.FragmentHomeBinding
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val homeViewModel: HomeViewModel by sharedViewModel()
+    private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +36,12 @@ class HomeFragment : BaseFragment() {
         setupListeners()
     }
 
+    private fun setupObservers() {
+        homeViewModel.user.observe(viewLifecycleOwner) {
+            binding.userNameTV.text = it.name
+        }
+    }
+
     private fun setupListeners() {
         binding.navigationMenu.setOnClickListener {
             findNavController().navigate(
@@ -48,5 +53,11 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+
+        restoreValues()
+    }
+
+    private fun restoreValues() {
+
     }
 }

@@ -1,10 +1,11 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val PAYMENT_HISTORY = "payment-history"
     const val PROFILE = "profile"
     const val SUGGEST_IDEA = "suggest-idea"
-    const val COMPLAINT = "complaint"
-    const val DRIVER_RATING = "driver-rating"
+    const val COMPLAINT = "insert-complaint"
+    const val DRIVER_REVIEW = "review-driver"
     const val SETTINGS =  "settings"
     const val PAYMENT: String = "booking-payment"
     const val SELECT_SEAT = "select-seat"
