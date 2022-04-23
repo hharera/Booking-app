@@ -30,7 +30,7 @@ android {
 
     buildTypes {
         release {
-            debuggable true
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -43,6 +43,14 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    signingConfigs {
+        debug {
+            storeFile file("englizya.jks")
+            storePassword "englizya"
+            keyAlias "key0"
+            keyPassword "englizya"
+        }
     }
 }
 
