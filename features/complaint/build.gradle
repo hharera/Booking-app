@@ -1,7 +1,15 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
+apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
+
+android{
+    buildFeatures{
+        dataBinding true
+    }
+}
 
 dependencies {
     implementation Libs.playServicesTasks
     implementation Libs.gligarPicker
+    api(UI.SSPICKER)
 }

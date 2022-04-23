@@ -54,15 +54,5 @@
             android:name="com.englizya.navigation.forget_password.ResetPasswordActivity"
             android:exported="true" />
 
-        <activity
-            android:name="com.englizya.splash.SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
-
 </manifest>

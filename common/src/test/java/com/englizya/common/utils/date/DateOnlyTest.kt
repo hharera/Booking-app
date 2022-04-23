@@ -4,12 +4,12 @@ import android.util.Log
 import com.google.common.truth.Truth
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
-import org.junit.jupiter.api.Assertions.*
+import org.junit.Test
 import java.util.*
 
 internal class DateOnlyTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     fun map() {
         println(DateTime.now().toString())
         DateOnly.map(

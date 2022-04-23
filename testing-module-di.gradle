@@ -11,6 +11,10 @@ android {
             useJUnitPlatform()
         }
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 dependencies {
     implementation(Libs.truth)
@@ -21,8 +25,7 @@ dependencies {
     androidTestImplementation(Testing.coroutinesTest)
 
 
-    testImplementation(Testing.androidCoreTesting)
-    testImplementation(Testing.fragmentTest)
+
     testImplementation(Testing.junit4)
     testImplementation(Testing.coroutinesTest)
     testImplementation(Testing.testRules)
@@ -48,28 +51,5 @@ dependencies {
     // To use the androidx.test.espresso
     androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
 
-    // To use the JUnit Extension APIs
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    // Kotlin extensions for androidx.test.ext.junit
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
 
-    // To use the Truth Extension APIs
-    androidTestImplementation("androidx.test.ext:truth:1.4.0")
-
-    // To use the androidx.test.runner APIs
-    androidTestImplementation("androidx.test:runner:1.4.0")
-
-    // To use android test orchestrator
-    androidTestUtil("androidx.test:orchestrator:1.4.1")
-
-    // (Required) Writing and executing Unit Tests on the JUnit Platform
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-
-    // (Optional) If you need "Parameterized Tests"
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
-
-    // (Optional) If you also have JUnit 4-based tests
-    testImplementation("junit:junit:4.13.2")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.8.2")
 }

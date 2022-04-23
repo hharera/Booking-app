@@ -20,6 +20,7 @@ import com.englizya.signup.di.signupModule
 import com.englizya.splash.splashModule
 import com.englizya.user_data.di.module
 import com.englyzia.booking.di.bookingModule
+import com.englyzia.reviewdriver.di.driverReviewModule
 import com.google.firebase.FirebaseApp
 import com.harera.firebase.di.firebaseModule
 import com.harera.firebase.di.firebaseServiceModule
@@ -66,6 +67,7 @@ class TicketApplication : Application(), KoinComponent {
                     contextModule,
                     remoteModule,
                     homeModule,
+                    driverReviewModule,
                 )
             )
         }

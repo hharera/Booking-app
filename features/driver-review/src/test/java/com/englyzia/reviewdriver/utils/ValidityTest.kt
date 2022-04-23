@@ -1,11 +1,9 @@
 package com.englyzia.reviewdriver.utils
 
 import com.google.common.truth.Truth.assertThat
-import junit.framework.TestCase
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.params.ParameterizedTest
+import org.junit.Test
 
-internal class ValidityTest : TestCase() {
+internal class ValidityTest {
 
     @Test
     fun `string with spaces should be blank`() {

@@ -1,4 +1,11 @@
 apply from:"$rootDir/${CommonBuild.DATA_MODULE}"
+apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
+
+android {
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
 
 dependencies {
     api project(Data.localRoom)

@@ -2,6 +2,7 @@ package com.englizya.splash
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.view.setPadding
 import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
@@ -9,6 +10,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.navigation.login.LoginActivity
 import com.englizya.select_service.SelectServiceActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
+import com.sarnava.textwriter.TextWriter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +24,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         bind = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(bind.root)
+        startTextAnimation()
     }
 
     override fun onStart() {
@@ -42,11 +45,6 @@ class SplashActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        lifecycleScope.launch {
-            delay(2500)
-            splashViewModel.checkLoginState()
-        }
     }
 
     private fun checkLoginState(loginState: Boolean) {
@@ -75,5 +73,28 @@ class SplashActivity : BaseActivity() {
                 .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) }
 
         startActivity(intent)
+    }
+
+    private fun startTextAnimation() {
+        bind.textView2
+            .setWidth(12f)
+            .setColor(getColor(R.color.blue_500))
+            .setConfig(TextWriter.Configuration.INTERMEDIATE)
+            .setSizeFactor(30f)
+            .setLetterSpacing(20f)
+            .setText("ENGLIZYA BUS")
+            .apply {
+                setPadding(20)
+                setListener {
+                    checkLogin()
+                }
+            }
+            .startAnimation();
+    }
+
+    private fun checkLogin() {
+        lifecycleScope.launch {
+            splashViewModel.checkLoginState()
+        }
     }
 }

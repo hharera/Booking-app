@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.booking.databinding.FragmentBookingBinding
@@ -20,7 +19,6 @@ import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class BookingFragment : BaseFragment() {
@@ -108,6 +106,7 @@ class BookingFragment : BaseFragment() {
         adapter = ArrayAdapter<String>(
             requireContext(),
             R.layout.card_view_station,
+            R.id.station,
             it.map { it.branchName }
         )
 

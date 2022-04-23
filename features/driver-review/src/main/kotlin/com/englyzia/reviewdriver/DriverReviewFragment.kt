@@ -1,27 +1,32 @@
 package com.englyzia.reviewdriver
 
-import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.app.imagepickerlibrary.ImagePickerActivityClass
+import com.app.imagepickerlibrary.ImagePickerBottomsheet
+import com.app.imagepickerlibrary.bottomSheetActionCamera
+import com.app.imagepickerlibrary.bottomSheetActionGallary
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.ImageUtils
 import com.englizya.driver_review.databinding.FragmentDriverReviewBinding
-import com.opensooq.supernova.gligar.GligarPicker
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DriverReviewFragment : BaseFragment() {
+class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
+    ImagePickerBottomsheet.ItemClickListener {
 
     companion object {
         private const val IMAGE_REQ_CODE = 3005
     }
 
+    private lateinit var imagePicker: ImagePickerActivityClass
     private lateinit var binding: FragmentDriverReviewBinding
     private val driverReviewViewModel: DriverReviewViewModel by viewModel()
 
@@ -45,10 +50,15 @@ class DriverReviewFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
+        driverReviewViewModel.image.observe(viewLifecycleOwner) {
+            binding.image.setImageBitmap(it)
+        }
+
         driverReviewViewModel.insertionCompleted.observe(viewLifecycleOwner) {
             when (it) {
                 true -> {
                     showDoneDialog()
+                    findNavController().popBackStack()
                 }
             }
         }
@@ -78,23 +88,18 @@ class DriverReviewFragment : BaseFragment() {
         }
 
         binding.driverCode.afterTextChanged {
-            driverReviewViewModel.setDescription(it)
+            driverReviewViewModel.setDriverReview(it)
         }
 
         binding.message.afterTextChanged {
-            driverReviewViewModel.setTitle(it)
+            driverReviewViewModel.setReviewMessage(it)
         }
 
         binding.submit.setOnClickListener {
             lifecycleScope.launch {
-                driverReviewViewModel.insertComplaint()
+                driverReviewViewModel.insertDriverReview()
             }
         }
-    }
-
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onResume() {
@@ -110,22 +115,49 @@ class DriverReviewFragment : BaseFragment() {
     }
 
     private fun onImageClicked() {
-        GligarPicker()
-            .requestCode(IMAGE_REQ_CODE)
-            .limit(1)
-            .disableCamera(true)
-            .withFragment(this)
-            .show()
+        val fragment = ImagePickerBottomsheet()
+        fragment.show(childFragmentManager, "String")
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (data != null && resultCode == Activity.RESULT_OK && requestCode == IMAGE_REQ_CODE) {
-            val imageBitmap = ImageUtils.convertImagePathToBitmap(data)
-            imageBitmap?.let {
-                driverReviewViewModel.setImage(it)
+    override fun returnString(item: Uri?) {
+        ImageUtils.convertImagePathToBitmap(uri = item)?.let {
+            driverReviewViewModel.setImage(it)
+            binding.image.setImageBitmap(it)
+        }
+    }
+
+    override fun onItemClick(item: String?) {
+        imagePicker = ImagePickerActivityClass(
+            context = requireContext(),
+            this,
+            requireActivity().activityResultRegistry,
+            fragment = this,
+        )
+        imagePicker.cropOptions(true)
+
+        when (item) {
+            bottomSheetActionGallary -> {
+                imagePicker.choosePhotoFromGallery()
+            }
+
+            bottomSheetActionCamera -> {
+                imagePicker.takePhotoFromCamera()
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        imagePicker.onActivityResult(requestCode, resultCode, data)
     }
 
 }

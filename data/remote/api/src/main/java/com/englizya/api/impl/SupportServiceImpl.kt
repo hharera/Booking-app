@@ -13,12 +13,17 @@ import com.englizya.model.request.DriverReviewRequest
 import io.ktor.client.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
+import io.ktor.util.*
 
 class SupportServiceImpl(
     private val client: HttpClient,
 ) : SupportService {
 
-    override suspend fun insertComplaint(complaintRequest: ComplaintRequest): Int {
+    @OptIn(InternalAPI::class)
+    override suspend fun insertComplaint(
+        complaintRequest: ComplaintRequest,
+        token: String
+    ): Int {
         return client.submitFormWithBinaryData(
             url = Routing.POST_COMPLAINT,
             formData = formData {
@@ -26,34 +31,33 @@ class SupportServiceImpl(
                 append(DESC, complaintRequest.complaintDesc)
 
                 complaintRequest.complaintImage?.readBytes()?.let {
-                    append(IMAGE, it, Headers.build {
-                        append(HttpHeaders.ContentType, "image/png")
-                        append(HttpHeaders.ContentDisposition, "filename=complaint.png")
-                    })
+                    append(IMAGE, it)
                 }
-            },
+            }
         ) {
-
+            headers.append(HttpHeaders.Authorization, "Bearer $token")
         }
     }
 
-    override suspend fun insertDriverReview(driverReviewRequest: DriverReviewRequest): Int {
+    @OptIn(InternalAPI::class)
+    override suspend fun insertDriverReview(
+        driverReviewRequest: DriverReviewRequest,
+        token: String
+    ): Int {
         return client.submitFormWithBinaryData(
-            url = Routing.POST_COMPLAINT,
+            url = Routing.POST_DRIVER_REVIEW,
             formData = formData {
                 append(REVIEW, driverReviewRequest.review)
-                append(REVIEW_MESSAGE, driverReviewRequest.reviewMessage)
                 append(DRIVER_CODE, driverReviewRequest.driverCode)
 
+                driverReviewRequest.reviewMessage?.let { append(REVIEW_MESSAGE, it) }
+
                 driverReviewRequest.complaintImage?.readBytes()?.let {
-                    append(IMAGE, it, Headers.build {
-                        append(HttpHeaders.ContentType, "image/png")
-                        append(HttpHeaders.ContentDisposition, "filename=complaint.png")
-                    })
+                    append(IMAGE, it)
                 }
             },
         ) {
-
+            headers.append(HttpHeaders.Authorization, "Bearer $token")
         }
     }
 }

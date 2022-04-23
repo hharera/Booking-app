@@ -1,9 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply from:"$rootDir/testing-module-di.gradle"
-apply from:"$rootDir/firebase-module-di.gradle"
 apply plugin: 'com.google.gms.google-services'
+apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
+apply from: "$rootDir/${CommonBuild.FIREBASE_MODULE}"
 
 android {
     compileSdkVersion DefaultConfig.compileSdk
@@ -33,6 +35,10 @@ android {
         exclude 'META-INF/AL2.0'
         exclude "META-INF/*.kotlin_module"
         exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 

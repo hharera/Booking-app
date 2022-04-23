@@ -22,6 +22,10 @@ android {
         viewBinding true
     }
 
+    buildFeatures {
+        dataBinding true
+    }
+
     buildTypes {
         release {
             debuggable true
@@ -66,4 +70,10 @@ dependencies {
     implementation(Libs.viewModels)
     kapt(Libs.lifeCycleCompiler)
 
+    androidTestImplementation(EspressoTesting.TEST_RUNNER)
+    androidTestImplementation(EspressoTesting.RULES)
+    androidTestImplementation(EspressoTesting.ESPRESSO)
+    androidTestImplementation(EspressoTesting.ESPRESSO_INTENT)
+
+    androidTestImplementation(Mock.UI_MOCK)
 }

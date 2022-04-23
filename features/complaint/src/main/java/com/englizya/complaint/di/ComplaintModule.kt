@@ -8,6 +8,6 @@ import org.koin.dsl.module
 val complaintModule = module {
 
     viewModel {
-        ComplaintViewModel(get())
+        ComplaintViewModel(get(), get())
     }
 }

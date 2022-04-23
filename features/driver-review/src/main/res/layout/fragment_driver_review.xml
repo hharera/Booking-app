@@ -2,15 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_100"
-    android:statusBarColor="@color/white">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar"
+        style="@style/AppBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        style="@style/AppBarLayoutStyle"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sf"
-                android:text="@string/rate_driver"
+                android:text="@string/review_driver"
                 android:textColor="@color/grey_500"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
@@ -45,28 +43,16 @@
             <ImageView
                 android:id="@+id/imageView12"
                 style="@style/ImageViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="15dp"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
                 android:rotationY="180"
                 android:src="@drawable/app_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.2"
-                app:layout_constraintWidth_percent="0.4" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <TextView
-        style="@style/TextViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf"
-        android:text="@string/image_attachment"
-        android:textColor="@color/grey_500"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/rating"
-        app:layout_constraintTop_toTopOf="@+id/image" />
 
     <RatingBar
         android:id="@+id/rating"
@@ -74,21 +60,21 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:numStars="5"
-        android:rating="5"
+        android:rating="3.5"
         android:theme="@style/RatingBar"
-        app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="23dp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_marginTop="16dp"
         android:background="@drawable/background_camera"
         android:padding="16dp"
         android:src="@drawable/ic_camera"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -99,13 +85,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/sf"
         android:text="@string/driver_code"
         android:textColor="@color/grey_500"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image" />
+        app:layout_constraintTop_toBottomOf="@+id/rating" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutDriverCode"
@@ -124,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:imeActionId="@integer/btm_to"
-            android:inputType="text"
+            android:inputType="number|none"
             android:lines="1"
             android:maxLength="@integer/max_title_length"
             android:maxLines="1"
@@ -137,11 +123,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="9dp"
         android:fontFamily="@font/sf"
         android:text="@string/rate_message"
         android:textColor="@color/grey_500"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDriverCode" />
 
@@ -179,12 +165,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/cancel"
+        style="CancelButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
+        android:layout_marginHorizontal="4dp"
         android:layout_marginVertical="8dp"
         android:background="@drawable/background_button_cancel"
         android:text="@string/cancel"
+        android:textColor="@color/blue_600"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2" />
 
@@ -193,9 +182,10 @@
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
+        android:layout_marginHorizontal="4dp"
         android:layout_marginVertical="8dp"
         android:background="@drawable/background_button_submit"
+        android:enabled="false"
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />

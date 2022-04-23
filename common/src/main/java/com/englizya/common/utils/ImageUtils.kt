@@ -1,5 +1,9 @@
 package com.englizya.common.utils
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+
 object ImageUtils {
 
     fun convertBitmapToFile(bitmap: android.graphics.Bitmap): java.io.File {
@@ -21,4 +25,8 @@ object ImageUtils {
         }
         return null
     }
+
+    fun convertImagePathToBitmap(uri: Uri?): Bitmap? =
+        BitmapFactory.decodeFile(uri?.path)
+
 }

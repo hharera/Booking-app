@@ -8,9 +8,9 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
+        style="@style/AppBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        style="@style/AppBarLayoutStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -75,10 +75,9 @@
         android:id="@+id/trips"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:backgroundTint="@color/grey_100"
         android:orientation="vertical"
-        android:paddingStart="23dp"
-        android:paddingEnd="23dp"
+        android:paddingHorizontal="23dp"
+        android:paddingTop="7dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar"

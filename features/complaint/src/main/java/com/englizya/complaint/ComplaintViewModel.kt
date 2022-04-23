@@ -6,11 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.ImageUtils.convertBitmapToFile
 import com.englizya.complaint.util.Validity
+import com.englizya.datastore.UserDataStore
 import com.englizya.model.request.ComplaintRequest
 import com.englizya.repository.SupportRepository
 
 class ComplaintViewModel constructor(
     private val complaintRepository: SupportRepository,
+    private val userDataStore: UserDataStore,
 ) : BaseViewModel() {
 
     private val _image: MutableLiveData<Bitmap> = MutableLiveData()
@@ -45,7 +47,10 @@ class ComplaintViewModel constructor(
     private suspend fun insertComplaint(complaintRequest: ComplaintRequest) {
         updateLoading(true)
         complaintRepository
-            .insertComplaint(complaintRequest = complaintRequest)
+            .insertComplaint(
+                complaintRequest = complaintRequest,
+                userDataStore.getToken()
+            )
             .onSuccess {
                 updateLoading(false)
                 _insertionCompleted.value = true

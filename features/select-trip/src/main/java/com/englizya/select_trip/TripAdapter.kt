@@ -3,6 +3,8 @@ package com.englizya.select_trip
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.astritveliu.boom.utils.BoomUtils
+import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
@@ -43,7 +45,9 @@ class TripAdapter(
             binding.source.text = source?.branchName
             binding.sourceTimeTV.text = trip.tripTimes?.firstOrNull {
                 it.areaId == source?.areaId
-            }?.startTime
+            }?.let {
+                TimeOnly.map(it.startTime)
+            }
 
             binding.destination.text = destination?.branchName
             binding.destinationTimeTV.text = trip.tripTimes?.firstOrNull {
@@ -55,6 +59,12 @@ class TripAdapter(
             }?.vipPrice.toString()
 
             binding.serviceDegree.text = trip.serviceDegree?.serviceDegreeName
+
+            boomBook()
+        }
+
+        private fun boomBook() {
+            BoomUtils.boomAll(binding.book)
         }
     }
 }

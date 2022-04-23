@@ -1,4 +1,7 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
+apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 
 dependencies {
     api project(Feature.SELECT_SERVICE)
@@ -7,4 +10,6 @@ dependencies {
     implementation(Libs.playServicesTasks)
 
     api project(Navigation.LOGIN)
+
+    implementation(UI.TEXT_WRITER)
 }

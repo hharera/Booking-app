@@ -9,13 +9,20 @@ class SupportRepositoryImpl constructor(
     private val supportService: SupportService,
 ): SupportRepository {
 
-    override suspend fun insertComplaint(complaintRequest: ComplaintRequest): Result<Int> = kotlin.runCatching{
-        supportService.insertComplaint(complaintRequest)
+    override suspend fun insertComplaint(
+        complaintRequest: ComplaintRequest,
+        token: String
+    ): Result<Int> = kotlin.runCatching{
+        supportService.insertComplaint(complaintRequest, token)
     }
 
-    override suspend fun insertDriverReview(driverReviewRequest: DriverReviewRequest): Result<Int> = kotlin.runCatching{
+    override suspend fun insertDriverReview(
+        driverReviewRequest: DriverReviewRequest,
+        token: String
+    ): Result<Int> = kotlin.runCatching{
         supportService.insertDriverReview(
-            driverReviewRequest
+            driverReviewRequest,
+            token
         )
     }
 
