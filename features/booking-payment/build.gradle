@@ -3,7 +3,7 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 dependencies {
     api project(UiComponents.BOOKING)
 
-    api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    api project(":core:paymob")
 
     api 'com.pnikosis:materialish-progress:1.7'
     api 'com.squareup.retrofit2:retrofit:2.9.0'

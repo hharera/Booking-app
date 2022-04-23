@@ -50,6 +50,8 @@ include ':features:booking'
 include ':features:add-payment'
 include ':features:edit-profile'
 
+include ':core:paymob'
+
 include ':navigation:login'
 include ':navigation:signup'
 include ':navigation:booking'
