@@ -46,7 +46,7 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file("englizya.jks")
+            storeFile file("$rootDir/englizya.jks")
             storePassword "englizya"
             keyAlias "key0"
             keyPassword "englizya"
