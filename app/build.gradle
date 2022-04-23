@@ -4,6 +4,8 @@ plugins {
     id 'com.google.gms.google-services'
 }
 apply plugin: 'kotlin-kapt'
+apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 
 android {
     compileSdkVersion DefaultConfig.compileSdk
@@ -76,4 +78,8 @@ dependencies {
     androidTestImplementation(EspressoTesting.ESPRESSO_INTENT)
 
     androidTestImplementation(Mock.UI_MOCK)
+
+    def appCenterSdkVersion = '4.3.1'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 }

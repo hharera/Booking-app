@@ -24,6 +24,9 @@ import com.englyzia.reviewdriver.di.driverReviewModule
 import com.google.firebase.FirebaseApp
 import com.harera.firebase.di.firebaseModule
 import com.harera.firebase.di.firebaseServiceModule
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
@@ -38,6 +41,16 @@ class TicketApplication : Application(), KoinComponent {
         TimeZone.setDefault(TimeZone.getTimeZone("EET"));
 
         setupKoin()
+        setupAppCenter()
+    }
+
+    private fun setupAppCenter() {
+        AppCenter.start(
+            this,
+            "3e587360-616d-4d54-b801-0bacab2ecc54",
+            Analytics::class.java,
+            Crashes::class.java
+        )
     }
 
     private fun setupKoin() {

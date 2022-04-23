@@ -12,6 +12,8 @@ import com.englizya.home_screen.HomeViewModel
 import com.englizya.profile.ProfileFragment
 import com.englizya.profile.ProfileViewModel
 import com.englizya.select_service.SelectServiceActivity
+import com.englizya.splash.SplashActivity
+import com.englizya.splash.SplashViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import org.junit.Before

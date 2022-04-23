@@ -1,21 +1,21 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-
-android {
-    defaultConfig {
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
-
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-}
+//apply plugin: 'com.android.library'
+//apply plugin: 'kotlin-android'
+//
+//
+//android {
+//    defaultConfig {
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//    }
+//    testOptions {
+//        unitTests.all {
+//            useJUnitPlatform()
+//        }
+//    }
+//
+//    testOptions {
+//        unitTests.returnDefaultValues = true
+//    }
+//}
 dependencies {
     implementation(Libs.truth)
 
@@ -32,10 +32,8 @@ dependencies {
 
     // Required -- JUnit 4 framework
     testImplementation "junit:junit:4.13.2"
-    // Optional -- Robolectric environment
-    // Optional -- Mockito framework
+
     testImplementation "org.mockito:mockito-core:4.0.0"
-    // Optional -- Mockk framework
     testImplementation "io.mockk:mockk:1.12.2"
 
     // Optional -- UI testing with UI Automator
