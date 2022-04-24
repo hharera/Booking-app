@@ -51,7 +51,7 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
 
     private fun setupObservers() {
         complaintViewModel.image.observe(viewLifecycleOwner) {
-            binding.image.setImageBitmap(it)
+            binding.imageView.setImageBitmap(it)
         }
 
         complaintViewModel.insertionCompleted.observe(viewLifecycleOwner) {
@@ -111,7 +111,7 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
 
     private fun restoreValues() {
         binding.desc.setText(complaintViewModel.desc.value)
-        binding.image.setImageBitmap(complaintViewModel.image.value)
+        binding.imageView.setImageBitmap(complaintViewModel.image.value)
         binding.title.setText(complaintViewModel.title.value)
     }
 
@@ -124,7 +124,7 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
     override fun returnString(item: Uri?) {
         ImageUtils.convertImagePathToBitmap(uri = item)?.let {
             complaintViewModel.setImage(it)
-            binding.image.setImageBitmap(it)
+            binding.imageView.setImageBitmap(it)
         }
     }
 

@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:fontFamily="@font/sf"
-                android:text="11 March 2022"
+                android:text="12 : 00 PM"
                 android:textColor="#6D809B"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView8"
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:fontFamily="@font/sf"
-                android:text="11 March 2022"
+                android:text="12 : 00 PM"
                 android:textColor="#6D809B"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView7"
@@ -118,7 +118,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <GridLayout
-            android:id="@+id/offices"
+            android:id="@+id/details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
@@ -127,25 +127,102 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_text_service"
+                android:padding="4dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/trip_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf"
+                    android:padding="4dp"
+                    android:text="11 March 2022"
+                    android:textColor="@color/blue_500"
+                    app:background="@drawable/background_text_service"
+                    app:icon="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/service_degree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="6dp"
-                android:background="@color/grey_250"
+                android:background="@drawable/background_text_service"
                 android:fontFamily="@font/sf"
-                android:padding="4dp"
-                android:textColor="#171B24" />
-
-
+                android:padding="8dp"
+                android:text="VIP"
+                android:textColor="@color/blue_500" />
         </GridLayout>
+
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollIndicators="none"
+            android:scrollbars="none"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details">
+
+            <GridLayout
+                android:id="@+id/stations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:rowCount="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_text_station"
+                    android:fontFamily="@font/sf"
+                    android:gravity="center"
+                    android:text="Lorem ipsum\n05:00 am"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_text_station"
+                    android:fontFamily="@font/sf"
+                    android:gravity="center"
+                    android:text="Lorem ipsum\n05:00 am"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </GridLayout>
+        </HorizontalScrollView>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.67" />
+            app:layout_constraintGuide_percent="0.6715" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -155,19 +232,18 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
-
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/sf"
             android:text="100$"
             android:textColor="@color/grey_500"
             android:textSize="22sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -180,7 +256,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/price"
             app:layout_constraintStart_toStartOf="@+id/price"
-            app:layout_constraintTop_toBottomOf="@+id/guideline3" />
+            app:layout_constraintTop_toBottomOf="@+id/price" />
 
 
         <TextView
@@ -193,9 +269,9 @@
             android:text="@string/book"
             android:textColor="@color/blue_500"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/details"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/offices"
+            app:layout_constraintStart_toEndOf="@+id/details"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
