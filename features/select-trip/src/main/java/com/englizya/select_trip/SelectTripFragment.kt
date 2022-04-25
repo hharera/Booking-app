@@ -1,11 +1,9 @@
 package com.englizya.select_trip
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
@@ -41,10 +39,23 @@ class SelectTripFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupListeners()
         setupObservers()
+        setupUI()
 
         lifecycleScope.launch {
             bookingViewModel.searchTrips()
         }
+    }
+
+    private fun setupUI() {
+        adapter = TripAdapter(
+            emptyList(),
+            bookingViewModel.source.value,
+            bookingViewModel.destination.value
+        ) {
+            progressToSelectStation(it)
+        }
+
+        binding.trips.adapter = adapter
     }
 
     private fun setupObservers() {
@@ -62,12 +73,12 @@ class SelectTripFragment : BaseFragment() {
     }
 
     private fun updateUI(list: List<Trip>) {
-        Log.d(TAG, "updateUI: $list")
-        adapter = TripAdapter(list, bookingViewModel.source.value, bookingViewModel.destination.value) {
-            progressToSelectStation(it)
+        if (list.isEmpty()) {
+            binding.emptyView?.root?.visibility = View.VISIBLE
+        } else {
+            binding.emptyView?.root?.visibility = View.GONE
+            adapter.setTrips(list)
         }
-
-        binding.trips.adapter = adapter
     }
 
     private fun progressToSelectStation(trip: Trip) {

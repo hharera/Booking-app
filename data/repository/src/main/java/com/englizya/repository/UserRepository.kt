@@ -2,6 +2,7 @@ package com.englizya.repository
 
 import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
+import com.englizya.model.request.ResetPasswordRequest
 import com.englizya.model.request.SignupRequest
 import com.englizya.model.response.LoginResponse
 import com.google.android.gms.tasks.Task
@@ -12,7 +13,11 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
 interface UserRepository {
-    fun sendVerificationCode(phoneNumber: String, callback: OnVerificationStateChangedCallbacks)
+    fun sendVerificationCode(
+        phoneNumber: String,
+        callback: OnVerificationStateChangedCallbacks
+    )
+
     suspend fun login(request: LoginRequest): Result<LoginResponse>
     suspend fun signup(request: SignupRequest): Result<User>
     fun signInWithCredential(credential: PhoneAuthCredential): Task<AuthResult>
@@ -22,5 +27,6 @@ interface UserRepository {
     fun createCredential(verificationId: String, code: String): PhoneAuthCredential
     fun signup(credential: AuthCredential): Task<AuthResult>
     fun signOut()
-    suspend fun fetchUser(token : String): Result<User>
+    suspend fun fetchUser(token: String): Result<User>
+    suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any>
 }

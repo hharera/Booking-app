@@ -114,7 +114,6 @@
                     android:layout_height="40dp"
                     android:padding="12dp"
                     android:src="@drawable/ic_ticket"
-                    android:tint="@color/blue_600"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,7 +213,6 @@
                     android:layout_height="40dp"
                     android:padding="12dp"
                     android:src="@drawable/ic_calendar"
-                    android:tint="@color/blue_600"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

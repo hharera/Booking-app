@@ -80,8 +80,8 @@ class SplashActivity : BaseActivity() {
             .setWidth(12f)
             .setColor(getColor(R.color.blue_500))
             .setConfig(TextWriter.Configuration.INTERMEDIATE)
-            .setSizeFactor(30f)
-            .setLetterSpacing(20f)
+            .setSizeFactor(24f)
+            .setLetterSpacing(25f)
             .setText("ENGLIZYA BUS")
             .apply {
                 setPadding(20)

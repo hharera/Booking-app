@@ -86,30 +86,31 @@
     </style>
 
     <style name="MainInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="iconSize">24dp</item>
-        <item name="checkedIconSize">24dp</item>
-        <item name="itemIconSize">24dp</item>
-        <item name="chipIconSize">24dp</item>
-        <item name="cornerRadius">8dp</item>
-        <item name="android:isIndicator">false</item>
-        <item name="borderWidth">1dp</item>
-        <item name="startIconTint">#99A5B7</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeWidthFocused">1dp</item>
-        <item name="android:textColor">@color/grey_300</item>
-        <item name="android:textColorHint">@color/grey</item>
-        <item name="boxStrokeErrorColor">@color/red_600</item>
         <item name="boxBackgroundColor">@color/white</item>
-        <item name="boxStrokeColor">@color/background_input_focus</item>
-        <item name="boxCornerRadiusBottomEnd">8dp</item>
-        <item name="boxCornerRadiusBottomStart">8dp</item>
-        <item name="boxCornerRadiusTopEnd">8dp</item>
-        <item name="boxCornerRadiusTopStart">8dp</item>
+
+        <!--        <item name="iconSize">24dp</item>-->
+        <!--        <item name="checkedIconSize">24dp</item>-->
+        <!--        <item name="itemIconSize">24dp</item>-->
+        <!--        <item name="chipIconSize">24dp</item>-->
+        <!--        <item name="cornerRadius">8dp</item>-->
+        <!--        <item name="android:isIndicator">false</item>-->
+        <!--        <item name="borderWidth">1dp</item>-->
+        <!--        <item name="startIconTint">#99A5B7</item>-->
+        <!--        <item name="boxStrokeWidth">1dp</item>-->
+        <!--        <item name="boxStrokeWidthFocused">2dp</item>-->
+        <!--        <item name="android:textColor">@color/grey_300</item>-->
+        <!--        <item name="android:textColorHint">@color/grey</item>-->
+        <!--        <item name="boxStrokeErrorColor">@color/red_600</item>-->
+        <!--        <item name="boxBackgroundColor">@color/white</item>-->
+        <!--        <item name="boxStrokeColor">@color/background_input_focus</item>-->
+        <!--        <item name="boxCornerRadiusBottomEnd">8dp</item>-->
+        <!--        <item name="boxCornerRadiusBottomStart">8dp</item>-->
+        <!--        <item name="boxCornerRadiusTopEnd">8dp</item>-->
+        <!--        <item name="boxCornerRadiusTopStart">8dp</item>-->
     </style>
 
 
-    <style name="CancelButtonStyle"
-        parent="Widget.MaterialComponents.Button.TextButton">
+    <style name="CancelButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="iconSize">24dp</item>
         <item name="checkedIconSize">24dp</item>
         <item name="itemIconSize">24dp</item>
@@ -142,8 +143,7 @@
         <item name="android:background">#00FFFFFF</item>
     </style>
 
-    <style name="ImageViewStyle">
-    </style>
+    <style name="ImageViewStyle"></style>
 
     <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="boxCollapsedPaddingTop">0dp</item>

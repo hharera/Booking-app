@@ -15,8 +15,7 @@
         android:name="com.englizya.send_otp.SendOtpFragment"
         tools:layout="@layout/fragment_send_otp" >
 
-        <argument android:name="phoneNumber" />
-        <deepLink app:uri="EnglizyaPay://send-otp/{phoneNumber}" />
+        <deepLink app:uri="EnglizyaPay://send-otp" />
     </fragment>
 
     <fragment
@@ -24,8 +23,7 @@
         android:name="com.englizya.feature.set_password.SetPasswordFragment"
         tools:layout="@layout/fragment_set_password" >
 
-        <argument android:name="phoneNumber" />
-        <deepLink app:uri="EnglizyaPay://set-password/{phoneNumber}" />
+        <deepLink app:uri="EnglizyaPay://set-password" />
     </fragment>
 
     <fragment
@@ -33,7 +31,6 @@
         android:name="com.englizya.user_data.UserFormFragment"
         tools:layout="@layout/fragment_user_form" >
 
-        <argument android:name="phoneNumber" />
-        <deepLink app:uri="EnglizyaPay://user-form/{phoneNumber}" />
+        <deepLink app:uri="EnglizyaPay://user-form" />
     </fragment>
 </navigation>

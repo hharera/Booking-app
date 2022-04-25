@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
+import com.englizya.common.utils.code.CodeHandler
+import com.englizya.common.utils.code.CountryCode
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.send_otp.SendOtpViewModel
 import com.englizya.signup.databinding.FragmentSignupBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignupFragment : BaseFragment() {
 
     private val signupViewModel: SignupViewModel by viewModel()
+    private val sendOtpViewModel: SendOtpViewModel by sharedViewModel()
     private lateinit var bind: FragmentSignupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,9 +91,20 @@ class SignupFragment : BaseFragment() {
                 NavigationUtils.getUriNavigation(
                     Domain.ENGLIZYA_PAY,
                     Destination.SEND_OTP,
-                    signupViewModel.phoneNumber.value,
+                    false
                 )
-            )
+            ).also {
+                sendOtpViewModel.setPhoneNumber(
+                    CodeHandler.appendCode(
+                        signupViewModel
+                            .phoneNumber
+                            .value!!,
+                        CountryCode.EgyptianCode
+                    )
+                )
+            }.also {
+                sendOtpViewModel.setRedirectToSignupCompletion()
+            }
 
             bind.signup.isEnabled = false
         }

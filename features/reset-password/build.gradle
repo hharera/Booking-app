@@ -1,5 +1,6 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
-
+// dependencies of send otp feature
+    api(project(Feature.SEND_OTP))
 }

@@ -78,9 +78,17 @@
         android:orientation="vertical"
         android:paddingHorizontal="23dp"
         android:paddingTop="7dp"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar"
         tools:listitem="@layout/card_view_trip" />
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/fragment_bank_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

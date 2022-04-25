@@ -20,11 +20,6 @@ class UserFormFragment : BaseFragment() {
     private val userFormViewModel: UserFormViewModel by viewModel()
     private lateinit var bind: FragmentUserFormBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

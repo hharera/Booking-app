@@ -1,11 +1,11 @@
-package com.englizya.put_number
+package com.englizya.forgetpassword
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.englizya.common.base.BaseFragment
-import com.englizya.put_number.databinding.FragmentForgetPasswordBinding
+import com.englizya.forgetpassword.databinding.FragmentForgetPasswordBinding
 
 class ForgetPasswordFragment  : BaseFragment() {
 
@@ -31,6 +31,4 @@ class ForgetPasswordFragment  : BaseFragment() {
     override fun onResume() {
         super.onResume()
     }
-
-
 }

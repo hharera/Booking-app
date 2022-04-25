@@ -20,19 +20,20 @@ import com.englizya.send_otp.databinding.FragmentSendOtpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 class SendOtpFragment : BaseFragment() {
 
     private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val sendOtpViewModel: SendOtpViewModel by viewModel()
+    private val sendOtpViewModel: SendOtpViewModel by sharedViewModel()
     private lateinit var bind: FragmentSendOtpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getPhoneNumberArgument()
+//        getPhoneNumberArgument()
     }
 
     private fun getPhoneNumberArgument() {
@@ -111,6 +112,10 @@ class SendOtpFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
+        bind.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         bind.pay.setOnClickListener {
             sendOtpViewModel.signup()
         }
@@ -184,19 +189,22 @@ class SendOtpFragment : BaseFragment() {
     private fun observeOperation() {
         sendOtpViewModel.verificationState.observe(viewLifecycleOwner) { verificationState ->
             if(verificationState) {
-                progressToSetPassword()
+                progressToNextScreen()
             }
         }
     }
 
-    private fun progressToSetPassword() {
-        findNavController().navigate(
-            NavigationUtils.getUriNavigation(
-                Domain.ENGLIZYA_PAY,
-                Destination.SET_PASSWORD,
-                sendOtpViewModel.phoneNumber.value
+    private fun progressToNextScreen() {
+        sendOtpViewModel.redirect.observe(viewLifecycleOwner) {
+
+            findNavController().navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    it,
+                    false
+                )
             )
-        )
+        }
     }
 
     private fun sendVerificationCode() {

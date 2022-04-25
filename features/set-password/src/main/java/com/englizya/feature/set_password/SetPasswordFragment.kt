@@ -14,24 +14,23 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils.getUriNavigation
 import com.englizya.feature.set_password.databinding.FragmentSetPasswordBinding
+import com.englizya.send_otp.SendOtpViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SetPasswordFragment : BaseFragment() {
 
     private val setPasswordViewModel: SetPasswordViewModel by viewModel()
+    private val sendOtpViewModel: SendOtpViewModel by sharedViewModel()
     private val doneDialog: DoneDialog by lazy { DoneDialog() }
     private lateinit var bind: FragmentSetPasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            it.getString(PHONE_NUMBER)?.let { phoneNumber ->
-                setPasswordViewModel.setPhoneNumber(phoneNumber)
-            }
-        }
+        setPasswordViewModel.setPhoneNumber(sendOtpViewModel.phoneNumber.value!!)
     }
 
     override fun onCreateView(
@@ -41,12 +40,6 @@ class SetPasswordFragment : BaseFragment() {
     ): View {
         bind = FragmentSetPasswordBinding.inflate(layoutInflater)
         return bind.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        restoreValues()
     }
 
     private fun restoreValues() {

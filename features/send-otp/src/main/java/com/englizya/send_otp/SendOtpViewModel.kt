@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity
+import com.englizya.common.utils.navigation.Destination
 import com.englizya.repository.UserRepository
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -13,6 +14,10 @@ import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 class SendOtpViewModel constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
+
+    private val _redirect = MutableLiveData<String>()
+    val redirect: LiveData<String>
+        get() = _redirect
 
     private var _phoneNumber = MutableLiveData<String>()
     val phoneNumber: LiveData<String> = _phoneNumber
@@ -98,5 +103,13 @@ class SendOtpViewModel constructor(
 
     fun setPhoneNumber(phoneNumber: String) {
         _phoneNumber.value = (phoneNumber)
+    }
+
+    fun setRedirectToResetPassword() {
+        _redirect.value = Destination.RESET_PASSWORD
+    }
+
+    fun setRedirectToSignupCompletion() {
+        _redirect.value = Destination.SET_PASSWORD
     }
 }

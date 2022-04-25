@@ -9,12 +9,14 @@ import com.englizya.common.di.baseModule
 import com.englizya.complaint.di.complaintModule
 import com.englizya.datastore.di.dataStoreModule
 import com.englizya.feature.set_password.di.setPasswordModule
+import com.englizya.forgetpassword.di.forgetPasswordModule
 import com.englizya.home_screen.di.homeModule
 import com.englizya.local.di.databaseModule
 import com.englizya.location_update.di.locationViewModel
 import com.englizya.login.di.loginModule
 import com.englizya.profile.di.profileModule
 import com.englizya.repository.di.repositoryModule
+import com.englizya.reset_password.di.resetPasswordModule
 import com.englizya.send_otp.di.sendOtpModule
 import com.englizya.signup.di.signupModule
 import com.englizya.splash.splashModule
@@ -61,6 +63,8 @@ class TicketApplication : Application(), KoinComponent {
                     firebaseModule,
                     firebaseServiceModule,
                     clientModule,
+                    forgetPasswordModule,
+                    resetPasswordModule,
                     dataStoreModule,
                     databaseModule,
                     baseModule,

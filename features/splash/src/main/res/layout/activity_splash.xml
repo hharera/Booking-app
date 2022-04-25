@@ -38,6 +38,7 @@
         android:id="@+id/lottie_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="30dp"
         android:paddingTop="300dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
