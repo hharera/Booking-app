@@ -1,25 +1,22 @@
 package com.englizya.model.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Serializable
-class Trip(
-    var tripId: Int,
-    var tripName: String?,
-    var startTime: String?,
-    var endTime: String?,
-    var startDate: String?,
-    var endDate: String?,
-    var tripDays: String?,
-    var setNumber: String?,
-    var driverId: String?,
-    var service: Service?,
-    var tripTimes: List<LineStationTime>?,
-    var reserveType: ReserveType?,
-    var tripStatus: TripStatus?,
-    var serviceDegree: ServiceDegree?,
-    var line: Line,
-    var reservation: List<Reservation>?,
-    var plan: LinePricePlanMaster? = null,
-//    var bus: Bus? = null,
+data class Trip(
+    @SerialName("tripId") var tripId: Int? = null,
+    @SerialName("tripName") var tripName: String? = null,
+    @SerialName("startDate") var startDate: String? = null,
+    @SerialName("endDate") var endDate: String? = null,
+    @SerialName("tripDays") var tripDays: String? = null,
+    @SerialName("pathType") var pathType: Int? = null,
+    @SerialName("setNumber") var setNumber: String? = null,
+    @SerialName("lineId") var lineId: Int? = null,
+    @SerialName("stations") var stations: ArrayList<LineStation> = arrayListOf(),
+    @SerialName("tripTimes") var tripTimes: ArrayList<LineStationTime> = arrayListOf(),
+    @SerialName("plan") var plan: Plan? = Plan(),
+    @SerialName("reservations") var reservations: ArrayList<Reservations> = arrayListOf(),
+    @SerialName("serviceDegree") var serviceDegree: ServiceDegree? = null
 )

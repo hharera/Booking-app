@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
-import java.util.*
 
 class BookingViewModel constructor(
     private val stationRepository: StationRepository,
@@ -256,7 +255,7 @@ class BookingViewModel constructor(
             source = source.value!!.branchId,
             destination = destination.value!!.branchId,
             date = date.value!!.toString(),
-            reservationId = trip.value!!.reservation?.first()?.id.toString(),
+            reservationId = trip.value!!.reservations?.first()?.id.toString(),
             itemPrice = trip.value!!.plan!!.seatPrices.first {
                 it.source == source.value!!.branchId
                         && it.destination == destination.value!!.branchId

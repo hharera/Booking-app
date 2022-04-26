@@ -15,7 +15,6 @@ import com.englizya.model.model.Seat
 import com.englizya.model.model.Trip
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -170,7 +169,7 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun updateUI(trip: Trip) {
-        trip.reservation?.firstOrNull()?.seats?.let {
+        trip.reservations.firstOrNull()?.seats?.let {
             insertSeatViews(it)
         }
     }

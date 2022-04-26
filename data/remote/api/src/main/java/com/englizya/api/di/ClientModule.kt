@@ -14,7 +14,9 @@ val clientModule = module {
     single {
         HttpClient(Android) {
             install(JsonFeature) {
-                serializer = KotlinxSerializer()
+                serializer = KotlinxSerializer(
+                    json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+                )
             }
 
             install(HttpTimeout) {

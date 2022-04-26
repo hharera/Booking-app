@@ -68,7 +68,7 @@ class SelectStationFragment : BaseFragment() {
     }
 
     private fun updateUI(trip: Trip) {
-        val stationAdapter = StationAdapter(trip.line.stations) {
+        val stationAdapter = StationAdapter(trip.stations) {
 
         }
 

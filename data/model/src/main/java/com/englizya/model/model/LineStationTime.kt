@@ -1,19 +1,21 @@
 package com.englizya.model.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
 class LineStationTime {
-    var tripId: Int? = null
-    var areaId: Int? = null
+    @SerialName("lineNo")
     var lineNo: Int? = null
-    var startTime: String? = null
-    var endTime: String? = null
-    var bookingOfficeId: Int? = null
+    @SerialName("tripId")
+    var tripId: Int? = null
+    @SerialName("areaId")
+    var areaId: Int? = null
+    @SerialName("stationType")
     var stationType: Int? = null
-    var onlineService: Int? = null
-    var appService: Int? = null
-    var media: Int? = null
-    var bookingOffice: BookingOffice? = null
+    @SerialName("startTime")
+    var startTime: String? = null
+    @SerialName("bookingOffice")
+    var bookingOffice: BookingOffice? = BookingOffice()
 }

@@ -79,7 +79,7 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
             findNavController().popBackStack()
         }
 
-        binding.image.setOnClickListener {
+        binding.imageView.setOnClickListener {
             onImageClicked()
         }
 

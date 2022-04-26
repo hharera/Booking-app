@@ -1,9 +1,10 @@
 package com.englizya.model.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BookingOffice (
-    var officeId: Int,
-    var officeName: String? = null,
+data class BookingOffice(
+  @SerialName("officeId") var officeId: Int? = null,
+  @SerialName("officeName") var officeName: String? = null
 )

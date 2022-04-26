@@ -51,23 +51,11 @@ class BookingPaymentFragment : BaseFragment() {
 
     private fun setupListeners() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().navigate(
-                NavigationUtils.getUriNavigation(
-                    Domain.ENGLIZYA_PAY,
-                    Destination.SELECT_SEAT,
-                    false
-                )
-            )
+            activity?.finish()
         }
 
         binding.back.setOnClickListener {
-            findNavController().navigate(
-                NavigationUtils.getUriNavigation(
-                    Domain.ENGLIZYA_PAY,
-                    Destination.SELECT_SEAT,
-                    false
-                )
-            )
+            activity?.finish()
         }
 
         binding.pay.setOnClickListener {
