@@ -45,7 +45,7 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     signingConfigs {
-        debug {
+        release {
             storeFile file("$rootDir/englizya.jks")
             storePassword "englizya"
             keyAlias "key0"
