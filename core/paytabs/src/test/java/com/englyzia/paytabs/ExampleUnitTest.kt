@@ -1,4 +1,4 @@
-package com.harera.reset_password
+package com.englyzia.paytabs
 
 import org.junit.Test
 
