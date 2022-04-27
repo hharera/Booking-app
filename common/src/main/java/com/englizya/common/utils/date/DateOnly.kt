@@ -7,6 +7,7 @@ import java.util.*
 object DateOnly {
 
     private const val DATE_FORMAT = "dd-MM-yyyy"
+    private const val DATE_FORMAT_2 = "yyyy-MM-dd"
     private const val MONTH_DATE = "dd MMM yyyy"
     private const val SPACE_DATE_FORMAT = "dd-MM-yyyy HH:mm:ss"
 
@@ -18,10 +19,10 @@ object DateOnly {
     }
 
     fun map(dateTime: String): String {
-        var simpleDateFormat = SimpleDateFormat(SPACE_DATE_FORMAT);
-        val format = simpleDateFormat.parse(dateTime)
+        var simpleDateFormat = SimpleDateFormat(DATE_FORMAT_2);
+        val format = simpleDateFormat.parse(dateTime.split(" ")[0])
 
-        simpleDateFormat = SimpleDateFormat(MONTH_DATE);
+        simpleDateFormat = SimpleDateFormat(MONTH_DATE)
         return simpleDateFormat.format(format)
     }
 }
