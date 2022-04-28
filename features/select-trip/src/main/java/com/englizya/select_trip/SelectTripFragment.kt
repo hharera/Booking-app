@@ -52,7 +52,7 @@ class SelectTripFragment : BaseFragment() {
             bookingViewModel.source.value,
             bookingViewModel.destination.value
         ) {
-            progressToSelectStation(it)
+            progressToSelectSeats(it)
         }
 
         binding.trips.adapter = adapter
@@ -89,6 +89,19 @@ class SelectTripFragment : BaseFragment() {
                 NavigationUtils.getUriNavigation(
                     Domain.ENGLIZYA_PAY,
                     Destination.SELECT_STATION,
+                    null
+                )
+            )
+    }
+
+    private fun progressToSelectSeats(trip: Trip) {
+        bookingViewModel.setSelectedTrip(trip)
+
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.SELECT_SEAT,
                     null
                 )
             )
