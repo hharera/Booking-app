@@ -23,12 +23,15 @@ class UserTicketsViewModel constructor(
     }
 
     fun getUserTickets() = viewModelScope.launch {
+        updateLoading(true)
         ticketRepository
             .getUserTickets(userDataStore.getToken())
             .onSuccess {
+                updateLoading(false)
                 _tickets.value = it
             }
             .onFailure {
+                updateLoading(false)
                 handleException(it)
             }
     }
