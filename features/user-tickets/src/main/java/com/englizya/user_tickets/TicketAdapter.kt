@@ -3,6 +3,8 @@ package com.englizya.user_tickets
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.englizya.common.utils.date.DateOnly
+import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.TripTimes
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.CardViewTicketBinding
@@ -39,10 +41,13 @@ class TicketAdapter(
 
         fun updateUI(ticket: UserTicket) {
             binding.source.text = ticket.source
-            binding.sourceTimeTV.text = ticket.sourceTime
+            binding.sourceTimeTV.text = TimeOnly.map(ticket.sourceTime)
 
             binding.destination.text = ticket.destination
-            binding.destinationTimeTV.text = ticket.destinationTime
+            binding.destinationTimeTV.text = TimeOnly.map(ticket.destinationTime)
+
+//            binding.tripDate.text = DateOnly.toMonthDate(ticket.tripDate)
+//            binding.serviceDegree.text = (ticket.serviceType)
 
             setupStationsAdapter(ticket.sourceOfficeList)
 

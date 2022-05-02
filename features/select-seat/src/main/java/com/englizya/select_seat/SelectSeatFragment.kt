@@ -40,7 +40,7 @@ class SelectSeatFragment : BaseFragment() {
 
         for (position in 0..64) {
             val image = TextView(context).apply {
-                setTextColor(resources.getColor(R.color.white))
+                setTextColor(resources.getColor(R.color.seat_no_color))
                 textSize = 20f
             }
 

@@ -408,7 +408,7 @@ class BookingViewModel constructor(
             reservationRepository.confirmReservation(request, dataStore.getToken())
                 .onSuccess {
                     updateLoading(false)
-                    _onlineTickets.value = it
+                    _onlineTickets.postValue(it)
                 }
                 .onFailure {
                     updateLoading(false)
