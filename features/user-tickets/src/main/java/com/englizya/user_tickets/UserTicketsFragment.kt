@@ -50,11 +50,13 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        userTicketViewModel
-            .tickets
-            .observe(viewLifecycleOwner) {
-                setupAdapter(it)
-            }
+        userTicketViewModel.loading.observe(viewLifecycleOwner) {
+            handleLoading(it)
+        }
+
+        userTicketViewModel.tickets.observe(viewLifecycleOwner) {
+            setupAdapter(it)
+        }
     }
 
     private fun setupListeners() {
