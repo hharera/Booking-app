@@ -11,7 +11,7 @@ internal class DateOnlyTest {
     @Test
     fun map() {
         println(DateTime.now().toString())
-        DateOnly.map(
+        DateOnly.toMonthDate(
             DateTime(DateTimeZone.forTimeZone(TimeZone.getTimeZone("GMT")))
         ).let {
             println("$it")
@@ -24,7 +24,7 @@ internal class DateOnlyTest {
     //    test date
     @Test
     fun toDate() {
-        DateOnly.map("2018-01-01 222").let {
+        DateOnly.toMonthDate("2018-01-01 222").let {
             println(it)
 
             Truth.assertThat(

@@ -1,7 +1,7 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
-    implementation 'com.paytabs:payment-sdk:6.2.2'
+    api 'com.paytabs:payment-sdk:6.2.2'
 //
 //    def kotlin_coroutinesVersion = "1.6.0"
 //    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutinesVersion"

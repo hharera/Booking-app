@@ -1,7 +1,7 @@
-package com.harera.firebase.di
+package com.englizya.firebase.di
 
-import com.harera.firebase.AuthenticationManager
-import com.harera.firebase.impl.FirebaseAuthenticationManager
+import com.englizya.firebase.AuthenticationManager
+import com.englizya.firebase.impl.FirebaseAuthenticationManager
 import org.koin.dsl.module
 
 val firebaseServiceModule = module {

@@ -35,6 +35,10 @@ val remoteModule = module {
         TripServiceImpl(get())
     }
 
+    single<TicketService> {
+        TicketServiceImpl(get())
+    }
+
     single<SupportService> {
         SupportServiceImpl(get())
     }

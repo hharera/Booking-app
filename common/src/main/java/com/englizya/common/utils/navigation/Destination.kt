@@ -1,6 +1,7 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val USER_TICKETS = "user-tickets"
     const val PAYMENT_HISTORY = "payment-history"
     const val PROFILE = "profile"
     const val SUGGEST_IDEA = "suggest-idea"

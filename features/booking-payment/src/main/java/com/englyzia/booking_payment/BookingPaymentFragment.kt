@@ -18,6 +18,11 @@ import com.englizya.model.model.Seat
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
+import com.payment.paymentsdk.PaymentSdkActivity
+import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
+import com.payment.paymentsdk.integrationmodels.PaymentSdkError
+import com.payment.paymentsdk.integrationmodels.PaymentSdkTransactionDetails
+import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
 import com.paymob.acceptsdk.IntentConstants
 import com.paymob.acceptsdk.PayActivity
 import com.paymob.acceptsdk.PayActivityIntentKeys.*
@@ -26,7 +31,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-class BookingPaymentFragment : BaseFragment() {
+class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
     private lateinit var binding: FragmentBookingPaymentBinding
     private val bookingViewModel: BookingViewModel by sharedViewModel()
@@ -59,13 +64,13 @@ class BookingPaymentFragment : BaseFragment() {
         }
 
         binding.pay.setOnClickListener {
-            bookingViewModel.paymentToken.value?.let {
-                progressToPayment(it.token)
+            lifecycleScope.launch {
+                bookingViewModel.cratePaymentConfigurationDetails()
             }
         }
     }
 
-    private fun progressToPayment(paymentKey: String) {
+    private fun payWithPayMob(paymentKey: String) {
         Intent(context, PayActivity::class.java).apply {
             putExtra(PAYMENT_KEY, paymentKey)
             putExtra(THREE_D_SECURE_ACTIVITY_TITLE, getString(R.string.payment_checkout))
@@ -80,6 +85,14 @@ class BookingPaymentFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
+        lifecycleScope.launch {
+            bookingViewModel.billingDetails.collect {
+                it?.let {
+                    payWithPayTabs(it)
+                }
+            }
+        }
+
         bookingViewModel.total.observe(viewLifecycleOwner) {
             binding.totalTV.text = it.toString()
         }
@@ -99,6 +112,26 @@ class BookingPaymentFragment : BaseFragment() {
         bookingViewModel.destination.observe(viewLifecycleOwner) {
             binding.destinationTimeTV.text = it.branchName
         }
+
+        bookingViewModel.onlineTickets.observe(viewLifecycleOwner) {
+            showUserTickets()
+        }
+
+        bookingViewModel.loading.observe(viewLifecycleOwner) {
+            handleLoading(it)
+        }
+
+    }
+
+    private fun showUserTickets() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.USER_TICKETS,
+                    false
+                )
+            )
     }
 
     private fun updateUI(data: List<Seat>) {
@@ -180,4 +213,27 @@ class BookingPaymentFragment : BaseFragment() {
         }
     }
 
+
+    override fun onError(error: PaymentSdkError) {
+        Log.d(TAG, "onError: $error")
+        handleFailure(exception = null, messageRes = R.string.payment_failed)
+    }
+
+    override fun onPaymentCancel() {
+        handleFailure(exception = null, messageRes = R.string.payment_cancelled)
+    }
+
+    override fun onPaymentFinish(paymentSdkTransactionDetails: PaymentSdkTransactionDetails) {
+        handleLoading(true)
+        bookingViewModel.setTransactionRef(paymentSdkTransactionDetails.transactionReference)
+        bookingViewModel.confirmReservation()
+    }
+
+    private fun payWithPayTabs(paymentSdkConfigurationDetails: PaymentSdkConfigurationDetails) {
+        PaymentSdkActivity.startCardPayment(
+            requireActivity(),
+            paymentSdkConfigurationDetails,
+            this
+        )
+    }
 }

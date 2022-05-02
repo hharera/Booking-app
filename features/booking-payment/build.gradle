@@ -2,6 +2,7 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
     api project(UiComponents.BOOKING)
+    api project(Core.PAY_TABS)
 
     api project(":core:paymob")
 

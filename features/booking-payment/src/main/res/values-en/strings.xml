@@ -2,4 +2,6 @@
 <resources>
     <string name="payment_checkout">Payment checkout</string>
     <string name="transaction_error">Transaction error</string>
+    <string name="payment_cancelled">Payment canceled</string>
+    <string name="payment_failed">Payment failed</string>
 </resources>

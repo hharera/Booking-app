@@ -18,10 +18,11 @@ import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
+import java.util.ArrayList
 
 class TripAdapter(
     private var trips: List<Trip>,
-    val source: Station?,
+    private val source: Station?,
     private val destination: Station?,
     private val onItemClicked: (Trip) -> Unit,
 ) : RecyclerView.Adapter<TripAdapter.NavigationItemViewHolder>() {
@@ -57,11 +58,9 @@ class TripAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(trip: Trip, source: Station?, destination: Station?) {
-            trip.tripTimes.let { source?.let { it1 -> updateUI(it1, it) } }
+            updateStopStationsUI(trip.tripTimes)
 
             setTripDate(trip.reservations.first().date)
-
-            val sortedStations = trip.stations.sortedBy { it.stationOrder }
 
             binding.source.text = source?.branchName
             binding.sourceTimeTV.text = trip.tripTimes.firstOrNull {
@@ -84,35 +83,11 @@ class TripAdapter(
             boomBook(trip)
         }
 
-        private fun updateUI(station: Station, tripTimes: List<LineStationTime>) {
-            station.bookingOfficeList
-                ?.forEach { bookingOffice ->
-                    binding
-                        .stations
-                        .addView(createTextView(bookingOffice, tripTimes))
-                }
-        }
-
-        private fun createTextView(
-            bookingOffice: BookingOffice,
-            tripTimes: List<LineStationTime>
-        ): View {
-            val params = RelativeLayout.LayoutParams(140, 78).apply {
-                setMargins(4)
-            }
-
-            return TextView(
-                binding.root.context,
-            ).apply {
-                setPadding(4)
-                layoutParams = params
-                setBackgroundResource(R.drawable.background_text_station)
-                setTextColor(binding.root.context.getColor(R.color.colorPrimary))
-                getStation(bookingOffice, tripTimes)?.let {
-                    text = getStationTime(it)
-                }
-                gravity = CENTER
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
+        private fun updateStopStationsUI(tripTimes: ArrayList<LineStationTime>) {
+            StopStationAdapter(tripTimes){
+//                TODO update UI
+            }.let {
+                binding.stations.adapter = it
             }
         }
 
@@ -125,23 +100,7 @@ class TripAdapter(
         }
 
         private fun setTripDate(date: String?) {
-            binding.tripDate.text = date?.let { DateOnly.map(it) }
+            binding.tripDate.text = date?.let { DateOnly.toMonthDate(it) }
         }
-    }
-
-
-
-    private fun getStation(
-        bookingOffice: BookingOffice,
-        tripTimes: List<LineStationTime>
-    ) = tripTimes
-        .firstOrNull {
-            bookingOffice.officeId == it.bookingOffice!!.officeId
-        }
-
-    private fun getStationTime(lineStationTime: LineStationTime): CharSequence? {
-        return lineStationTime.bookingOffice?.officeName
-            .plus("\n")
-            .plus(TimeOnly.map(lineStationTime.startTime))
     }
 }

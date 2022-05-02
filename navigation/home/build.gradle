@@ -15,6 +15,7 @@ dependencies {
     api(project(Feature.COMPLAINT))
     api(project(Feature.SUGGESTION))
     api(project(Feature.DRIVER_REVIEW))
+    api(project(Feature.USER_TICKETS))
 
     api(project(Base.COMMON))
 

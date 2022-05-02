@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.Seat
 import com.englizya.model.model.Trip
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
@@ -36,7 +39,9 @@ class SelectSeatFragment : BaseFragment() {
         val iterator = seatList.iterator()
 
         for (position in 0..64) {
-            val image = ImageView(context).apply {
+            val image = TextView(context).apply {
+                setTextColor(resources.getColor(R.color.white))
+                textSize = 20f
             }
 
             binding.seats.addView(image)
@@ -44,9 +49,9 @@ class SelectSeatFragment : BaseFragment() {
             when (position) {
                 in (0..4) -> {
                     if (position % 5 == 0) {
-                        image.setImageResource(R.drawable.ic_driver_steering_wheel)
+                        image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
                     } else if (position % 5 == 4) {
-                        image.setImageResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_exit)
                     }
                 }
 
@@ -62,27 +67,28 @@ class SelectSeatFragment : BaseFragment() {
         }
     }
 
-    private fun updateSeatView(image: ImageView, seat: Seat) {
+    private fun updateSeatView(image: TextView, seat: Seat) {
         var isSelected = false
         var isAvailable = true
 
+        image.text = seat.seatId.toString()
         when (seat.seatStatus) {
             in arrayListOf("WFR", "WPR", "OFR", "OHR") -> {
-                image.setImageResource(R.drawable.ic_seat_booked)
+                image.setBackgroundResource(R.drawable.ic_seat_booked)
                 isAvailable = false
             }
 
             in arrayListOf("SUS", "UAV") -> {
-                image.setImageResource(R.drawable.ic_seat_suspend)
+                image.setBackgroundResource(R.drawable.ic_seat_suspend)
                 isAvailable = false
             }
 
             "AVL" -> {
-                image.setImageResource(R.drawable.ic_seat_available)
+                image.setBackgroundResource(R.drawable.ic_seat_available)
             }
 
             else -> {
-                image.setImageResource(R.drawable.ic_seat_available)
+                image.setBackgroundResource(R.drawable.ic_seat_available)
             }
         }
 
@@ -91,13 +97,17 @@ class SelectSeatFragment : BaseFragment() {
                 bookingViewModel.setSelectedSeat(seat)
 
                 if (isSelected) {
-                    image.setImageResource(R.drawable.ic_seat_available)
+                    image.setBackgroundResource(R.drawable.ic_seat_available)
                 } else {
-                    image.setImageResource(R.drawable.ic_seat_selected)
+                    image.setBackgroundResource(R.drawable.ic_seat_selected)
                 }
 
                 isSelected = isSelected.not()
             }
+        }
+
+        image.apply {
+            textAlignment = View.TEXT_ALIGNMENT_CENTER
         }
     }
 
@@ -110,19 +120,39 @@ class SelectSeatFragment : BaseFragment() {
         setupListeners()
     }
 
+    private fun updateTimeUI(trip: Trip) {
+        bookingViewModel.destination.value?.let { station ->
+            trip.tripTimes.firstOrNull {
+                station.branchId == it.areaId
+            }?.startTime.let {
+                binding.destinationTimeTV.text = TimeOnly.map(it)
+            }
+        }
+
+        bookingViewModel.source.value?.let { station ->
+            trip.tripTimes.firstOrNull {
+                station.branchId == it.areaId
+            }?.startTime.let {
+                binding.sourceTimeTV.text = TimeOnly.map(it)
+            }
+        }
+    }
+
     private fun setupListeners() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
 
         binding.submit.setOnClickListener {
-            bookingViewModel.book()
+            lifecycleScope.launch {
+                bookingViewModel.requestReservation()
+            }
         }
     }
 
     private fun setupObservers() {
         bookingViewModel.source.observe(viewLifecycleOwner) { branch ->
-            bookingViewModel.trip.value?.tripTimes?.firstOrNull {
+            bookingViewModel.selectedTrip.value?.tripTimes?.firstOrNull {
                 it.areaId == branch.branchId
             }?.let {
                 binding.sourceTimeTV.text = it.startTime
@@ -130,7 +160,7 @@ class SelectSeatFragment : BaseFragment() {
         }
 
         bookingViewModel.destination.observe(viewLifecycleOwner) { branch ->
-            bookingViewModel.trip.value?.tripTimes?.firstOrNull {
+            bookingViewModel.selectedTrip.value?.tripTimes?.firstOrNull {
                 it.areaId == branch.branchId
             }?.let {
                 binding.destinationTimeTV.text = it.startTime
@@ -141,12 +171,13 @@ class SelectSeatFragment : BaseFragment() {
             binding.price.text = it.toString()
         }
 
-        bookingViewModel.trip.observe(viewLifecycleOwner) {
+        bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
             updateUI(it)
+            updateTimeUI(it)
         }
 
         lifecycleScope.launch {
-            bookingViewModel.paymentToken.collect {
+            bookingViewModel.reservationOrder.collect {
                 it?.let {
                     progressToPayment()
                 }
@@ -154,9 +185,15 @@ class SelectSeatFragment : BaseFragment() {
         }
 
         bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
-            binding.submit?.isEnabled = it.isNotEmpty()
+            binding.submit.isEnabled = it.isNotEmpty()
         }
+
+        bookingViewModel.loading.observe(viewLifecycleOwner) {
+            handleLoading(it)
+        }
+
     }
+
 
     private fun progressToPayment() {
         findNavController().navigate(
@@ -168,9 +205,18 @@ class SelectSeatFragment : BaseFragment() {
         )
     }
 
+    private fun updateUI(date: String?) {
+        date?.let {
+            DateOnly.toMonthDate(it).let {
+                binding.tripDate.text = it
+            }
+        }
+    }
+
     private fun updateUI(trip: Trip) {
         trip.reservations.firstOrNull()?.seats?.let {
             insertSeatViews(it)
+            updateUI(date = trip.reservations.firstOrNull()?.date)
         }
     }
 
@@ -183,15 +229,7 @@ class SelectSeatFragment : BaseFragment() {
     private fun restoreValues() {
         binding.source.text = bookingViewModel.source.value?.branchName
 
-        binding.sourceTimeTV.text = bookingViewModel.trip.value?.tripTimes?.firstOrNull {
-            it.areaId == bookingViewModel.source.value?.branchId
-        }?.startTime
-
-
         binding.destination.text = bookingViewModel.destination.value?.branchName
-
-        binding.destinationTimeTV.text = bookingViewModel.trip.value?.tripTimes?.firstOrNull {
-            it.areaId == bookingViewModel.destination.value?.branchId
-        }?.startTime
     }
+
 }

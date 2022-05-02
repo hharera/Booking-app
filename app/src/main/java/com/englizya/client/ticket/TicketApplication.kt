@@ -24,8 +24,9 @@ import com.englizya.user_data.di.module
 import com.englyzia.booking.di.bookingModule
 import com.englyzia.reviewdriver.di.driverReviewModule
 import com.google.firebase.FirebaseApp
-import com.harera.firebase.di.firebaseModule
-import com.harera.firebase.di.firebaseServiceModule
+import com.englizya.firebase.di.firebaseModule
+import com.englizya.firebase.di.firebaseServiceModule
+import com.englizya.user_tickets.di.userTicketModule
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -78,6 +79,7 @@ class TicketApplication : Application(), KoinComponent {
                     splashModule,
                     module,
                     bookingModule,
+                    userTicketModule,
                     profileModule,
                     loginModule,
                     locationViewModel,

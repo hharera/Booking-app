@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -62,7 +61,7 @@ class SelectStationFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        bookingViewModel.trip.observe(viewLifecycleOwner) {
+        bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
             updateUI(it)
         }
     }

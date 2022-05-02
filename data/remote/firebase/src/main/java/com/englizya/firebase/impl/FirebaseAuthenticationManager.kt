@@ -1,8 +1,8 @@
-package com.harera.firebase.impl
+package com.englizya.firebase.impl
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
-import com.harera.firebase.AuthenticationManager
+import com.englizya.firebase.AuthenticationManager
 import java.util.concurrent.TimeUnit
 
 class FirebaseAuthenticationManager constructor(

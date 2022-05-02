@@ -14,6 +14,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_user_tickets"
+        android:name="com.englizya.user_tickets.UserTicketsFragment"
+        tools:layout="@layout/fragment_user_tickets">
+
+        <deepLink app:uri="EnglizyaPay://user-tickets" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_select_trip"
         android:name="com.englizya.select_trip.SelectTripFragment"
         tools:layout="@layout/fragment_select_trip">

@@ -44,6 +44,7 @@ class BookingFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupObservers()
         setupListeners()
+        bookingViewModel.clearTripList()
     }
 
     private fun setupListeners() {

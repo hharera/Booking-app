@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="9dp"
@@ -172,38 +173,16 @@
         </GridLayout>
 
 
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollIndicators="none"
-            android:scrollbars="none"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details">
-
-            <GridLayout
-                android:id="@+id/stations"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:layout_gravity="center"
-                android:rowCount="1">
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="4dp"-->
-<!--                    android:background="@drawable/background_text_station_selected"-->
-<!--                    android:fontFamily="@font/sf"-->
-<!--                    android:gravity="center"-->
-<!--                    android:padding="4dp"-->
-<!--                    android:text="Lorem ipsum\n05:00 am"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-            </GridLayout>
-        </HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/details"
+            tools:listitem="@layout/card_view_stop_station" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"

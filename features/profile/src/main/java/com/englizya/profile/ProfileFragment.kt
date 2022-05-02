@@ -1,5 +1,6 @@
 package com.englizya.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -84,17 +85,22 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun navigateToLogin() {
-        activity?.finish()
-//        startActivity(
-//            Intent(
-//                context,
-//                LoginActivity::class.java
-//            )
-//        )
+        kotlin.runCatching {
+            Class.forName("com.englizya.navigation.login.LoginActivity").let {
+                Intent(context, it).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(this)
+                }
+            }
+        }
     }
 
     private fun checkClickItem(item: NavigationItem) {
         when (item) {
+            is UserTickets -> {
+                navigateToUserTickets()
+            }
+
             is Settings -> {
                 navigateToSettings()
             }
@@ -131,6 +137,17 @@ class ProfileFragment : BaseFragment() {
                 navigateReviewDriver()
             }
         }
+    }
+
+    private fun navigateToUserTickets() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                     Domain.ENGLIZYA_PAY,
+                    Destination.USER_TICKETS,
+                    false
+                )
+            )
     }
 
     private fun navigateToComplaint() {

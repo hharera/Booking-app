@@ -6,8 +6,8 @@ import com.englizya.model.request.ComplaintRequest
 import com.englizya.repository.SupportRepository
 import com.englizya.repository.di.repositoryModule
 import com.google.common.truth.Truth
-import com.harera.firebase.di.firebaseModule
-import com.harera.firebase.di.firebaseServiceModule
+import com.englizya.firebase.di.firebaseModule
+import com.englizya.firebase.di.firebaseServiceModule
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
