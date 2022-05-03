@@ -83,7 +83,9 @@ dependencies {
     androidTestImplementation(EspressoTesting.TEST_RUNNER)
     androidTestImplementation(EspressoTesting.RULES)
     androidTestImplementation(EspressoTesting.ESPRESSO)
-    androidTestImplementation(EspressoTesting.ESPRESSO_INTENT)
+//    androidTestImplementation(EspressoTesting.ESPRESSO_TRIB) {
+//        exclude(group = "org.checkerframework", module = "checker")
+//    }
 
     androidTestImplementation(Mock.UI_MOCK)
 

@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
-apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 apply from: "$rootDir/${CommonBuild.FIREBASE_MODULE}"
 
@@ -44,6 +44,7 @@ android {
 
 dependencies {
     api project(Base.COMMON)
+    api project(Base.COMMON_TEST)
     api project(Data.REPOSITORY)
     api project(Data.datastore)
 
