@@ -1,6 +1,7 @@
 package com.englizya.select_seat
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,8 +41,9 @@ class SelectSeatFragment : BaseFragment() {
 
         for (position in 0..64) {
             val image = TextView(context).apply {
-                setTextColor(resources.getColor(R.color.seat_no_color))
-                textSize = 20f
+                setTextColor(resources.getColor(R.color.white))
+                gravity = Gravity.CENTER
+                textSize = 16f
             }
 
             binding.seats.addView(image)

@@ -1,0 +1,31 @@
+import groovyjarjarantlr.Version
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from:"$rootDir/$CommonBuild.COMPOSE_MODULE"
+
+android {
+    compileSdkVersion DefaultConfig.compileSdk
+
+    defaultConfig {
+        minSdkVersion DefaultConfig.minSdk
+        targetSdkVersion DefaultConfig.targetSdk
+        versionCode Releases.versionCode
+        versionName Releases.versionName
+
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Compose.compose_version
+        kotlinCompilerVersion = Versions.kotlin
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+dependencies {
+}

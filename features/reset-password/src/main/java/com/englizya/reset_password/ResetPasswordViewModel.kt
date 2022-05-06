@@ -35,12 +35,12 @@ class ResetPasswordViewModel constructor(
     val operationSuccess: LiveData<Boolean> = _operationSuccess
 
     fun setPassword(password: String) {
-        _password.postValue(password)
+        _password.value = (password)
         checkValidity()
     }
 
     fun setConfirmPassword(password: String) {
-        _confirmPassword.postValue(password)
+        _confirmPassword.value = (password)
         checkValidity()
     }
 

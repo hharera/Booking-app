@@ -124,14 +124,13 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun showUserTickets() {
-        findNavController()
-            .navigate(
-                NavigationUtils.getUriNavigation(
-                    Domain.ENGLIZYA_PAY,
-                    Destination.USER_TICKETS,
-                    false
-                )
-            )
+        requireActivity().apply {
+            startActivity(
+                Intent(this, UserTicketsActivity::class.java)
+            ).also {
+                finish()
+            }
+        }
     }
 
     private fun updateUI(data: List<Seat>) {

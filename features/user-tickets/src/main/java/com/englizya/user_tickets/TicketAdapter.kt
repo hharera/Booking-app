@@ -46,8 +46,9 @@ class TicketAdapter(
             binding.destination.text = ticket.destination
             binding.destinationTimeTV.text = TimeOnly.map(ticket.destinationTime)
 
-//            binding.tripDate.text = DateOnly.toMonthDate(ticket.tripDate)
-//            binding.serviceDegree.text = (ticket.serviceType)
+            binding.tripDate.text = DateOnly.toMonthDate(ticket.tripDate)
+            binding.seatNo.text = (ticket.seatNo).toString()
+            binding.serviceDegree.text = (ticket.serviceType)
 
             setupStationsAdapter(ticket.sourceOfficeList)
 

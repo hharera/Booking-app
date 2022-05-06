@@ -5,7 +5,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.englizya.repository.TripRepository
 import com.englizya.trips.di.tripsModule
@@ -32,7 +35,7 @@ class TripsFragmentTest : KoinTest {
                 single { tripRepository }
             }
 
-            loadKoinModules(tripsModule)
+            loadKoinModules(bookingModule)
         }
     }
 
@@ -40,6 +43,19 @@ class TripsFragmentTest : KoinTest {
         stopKoin()
     }
 
+
+    @Test
+    fun test_to_show_app_bar() {
+        coEvery { tripRepository.searchTrips(any()) } returns kotlin.runCatching { TRIP_LIST }
+        launchFragment()
+
+
+        Espresso.onView(withId(R.id.from))
+            .check(ViewAssertions.matches(withText("Lorem ipsum")))
+
+        Espresso.onView(withId(R.id.from))
+            .check(ViewAssertions.matches(withText("Lorem ipsum")))
+    }
 
     @Test
     fun test_to_show_trips_with_2_elements() {
@@ -52,11 +68,6 @@ class TripsFragmentTest : KoinTest {
         Espresso.onView(withId(R.id.trips))
             .perform(ViewActions.scrollTo())
 
-//
-//        Espresso.onView(ViewMatchers.withId(com.google.android.material.R.id.snackbar_text))
-//            .check(ViewAssertions.matches(withText(R.string.an_error_happened)))
-//        Espresso.onView(withId(R.id.fragment_home_rv))
-//            .check(RecyclerViewItemCountAssertion.withItemCount(3))
     }
 
     private fun launchFragment(): NavController {

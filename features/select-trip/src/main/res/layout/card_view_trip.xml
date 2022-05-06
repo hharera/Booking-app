@@ -173,7 +173,7 @@
         </GridLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/stations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
