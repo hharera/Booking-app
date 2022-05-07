@@ -3,6 +3,7 @@ package com.englizya.select_trip
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.englizya.common.utils.time.TimeOnly
@@ -14,8 +15,7 @@ class StopStationAdapter(
     private val onItemClicked: (LineStationTime) -> Unit,
 ) : RecyclerView.Adapter<StopStationAdapter.StopViewHolder>() {
 
-    private var selectedPosition = -100
-    private var selectedStation: LineStationTime? = null
+    private var selectedBookingOfficeId = -100
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StopViewHolder {
         val bind = CardViewStopStationBinding.inflate(
@@ -50,9 +50,9 @@ class StopStationAdapter(
                     binding.textViewStopStationName.text = it
                 }
 
-            Log.d(Companion.TAG, "updateUI: $stopStation")
 
-            if (selectedStation == stopStation) {
+            if (selectedBookingOfficeId == stopStation.bookingOffice?.officeId) {
+                Log.d(Companion.TAG, "stopStation: $selectedBookingOfficeId")
                 binding
                     .root
                     .setCardBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.colorPrimary))
@@ -77,8 +77,9 @@ class StopStationAdapter(
         private fun setupListener(stopStation: LineStationTime) {
             binding.root.setOnClickListener {
                 Log.d(TAG, "setupListener: ")
-                selectedPosition = layoutPosition
-                selectedStation = stopStation
+                stopStation.bookingOffice?.officeId?.let {
+                    selectedBookingOfficeId = it
+                }
                 onItemClicked(stopStation)
 
                 binding

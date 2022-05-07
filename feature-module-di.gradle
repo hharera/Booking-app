@@ -48,7 +48,6 @@ android {
 dependencies {
     api project(Base.COMMON)
     api project(Base.COMMON_TEST)
-    api project(Base.COMMON_COMPOSE)
     api project(Data.REPOSITORY)
     api project(Data.datastore)
 

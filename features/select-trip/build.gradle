@@ -1,16 +1,5 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
-android{
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs += [
-                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
-                "-Xuse-experimental=androidx.compose.ui.unit.ExperimentalUnitApi",
-                "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
-                "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"]
-    }
-}
 
 dependencies {
     api project(UiComponents.BOOKING)

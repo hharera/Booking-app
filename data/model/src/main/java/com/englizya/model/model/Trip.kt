@@ -18,5 +18,5 @@ data class Trip(
     @SerialName("tripTimes") var tripTimes: ArrayList<LineStationTime> = arrayListOf(),
     @SerialName("plan") var plan: Plan? = Plan(),
     @SerialName("reservations") var reservations: ArrayList<Reservations> = arrayListOf(),
-    @SerialName("serviceDegree") var service: ServiceDegree? = null
+    @SerialName("service") var service: ServiceDegree? = null
 )

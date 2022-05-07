@@ -1,28 +1,25 @@
 package com.englizya.select_trip
 
+import android.util.TypedValue
+import android.view.Gravity.CENTER
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.core.view.setMargins
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import com.astritveliu.boom.utils.BoomUtils
-import com.englizya.common.compose.theme.PrimaryColor
-import com.englizya.common.compose.theme.White
 import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.time.TimeOnly
+import com.englizya.model.model.BookingOffice
 import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
+import java.util.ArrayList
 
-@OptIn(ExperimentalMaterialApi::class)
 class TripAdapter(
     private var trips: List<Trip>,
     private val source: Station?,
@@ -81,43 +78,16 @@ class TripAdapter(
                 it.source == source?.branchId && it.destination == destination?.branchId
             }?.vipPrice.toString()
 
-            binding.serviceDegree.text = trip.serviceDegree?.serviceDegreeName
+            binding.serviceDegree.text = trip.service?.serviceDegreeName
 
             boomBook(trip)
         }
 
         private fun updateStopStationsUI(tripTimes: ArrayList<LineStationTime>) {
-            binding.stations.apply {
-                setContent {
-                    Column {
-                        tripTimes.forEach {
-
-                            Card {
-                                var isClicked by remember { mutableStateOf(false) }
-
-                                Card(
-                                    backgroundColor = if (isClicked)
-                                        PrimaryColor
-                                    else
-                                        Color.White,
-                                    onClick = {
-                                        isClicked = true
-                                    },
-                                ) {
-                                    it.bookingOffice?.officeName?.let { officeName ->
-                                        Text(
-                                            text = officeName,
-                                            color = if (isClicked)
-                                                White
-                                            else
-                                                PrimaryColor,
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            StopStationAdapter(tripTimes){
+//                TODO update UI
+            }.let {
+                binding.stations.adapter = it
             }
         }
 

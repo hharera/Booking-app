@@ -18,6 +18,7 @@ import com.englizya.model.model.Seat
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
+import com.harera.user_tickets.UserTicketsActivity
 import com.payment.paymentsdk.PaymentSdkActivity
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import com.payment.paymentsdk.integrationmodels.PaymentSdkError
