@@ -4,8 +4,10 @@
     android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:padding="6dp"
-    app:cardBackgroundColor="@color/grey_100"
-    app:cardCornerRadius="4dp">
+    android:id="@+id/card"
+    android:layout_margin="4dp"
+    android:backgroundTint="@color/grey_100"
+    android:elevation="0dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +24,7 @@
             android:gravity="center"
             android:padding="4dp"
             android:text="Lorem Lorem Lorem \n05:00 am"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/blue_500"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

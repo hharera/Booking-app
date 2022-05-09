@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:fontFamily="@font/sf"
-                android:text="@string/line_stations"
+                android:text="@string/select_riding_station"
                 android:textColor="#303030"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/back"

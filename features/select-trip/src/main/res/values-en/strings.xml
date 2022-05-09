@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="we_are_sorry">We are sorry, but we can\'t find any trips that match your search criteria. Please try again.</string>
+    <string name="riding_station">Riding Station</string>
+    <string name="riding_time">Riding Time</string>
+    <string name="exit_time">Exit Time</string>
 </resources>

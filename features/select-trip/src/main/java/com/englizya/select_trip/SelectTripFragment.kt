@@ -10,6 +10,7 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.FragmentSelectTripBinding
 import com.englyzia.booking.BookingViewModel
@@ -50,11 +51,15 @@ class SelectTripFragment : BaseFragment() {
         adapter = TripAdapter(
             emptyList(),
             bookingViewModel.source.value,
-            bookingViewModel.destination.value
-        ) {
-            progressToSelectSeats(it)
-        }
-
+            bookingViewModel.destination.value,
+            onItemClicked = {
+                progressToSelectSeats(it)
+            },
+            onOfficeClicked = {
+                bookingViewModel.setSelectedBookingOffice(it)
+            },
+            selectedStationTime = bookingViewModel.bookingOffice.value
+        )
         binding.trips.adapter = adapter
     }
 
@@ -63,9 +68,17 @@ class SelectTripFragment : BaseFragment() {
             handleLoading(it)
         }
 
+        bookingViewModel.bookingOffice.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
+
         bookingViewModel.trips.observe(viewLifecycleOwner) {
             updateUI(it)
         }
+    }
+
+    private fun updateUI(office: LineStationTime?) {
+        adapter.setOffice(office)
     }
 
     private fun updateUI(list: List<Trip>) {

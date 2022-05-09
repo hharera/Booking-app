@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    api project(Data.datastore)
+    api project(Data.DATA_STORE)
     api project(Data.model)
 
     implementation(Animation.LOTTIE)

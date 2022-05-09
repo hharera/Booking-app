@@ -104,6 +104,9 @@ class BookingViewModel constructor(
     private var _transactionRef = MutableLiveData<String?>()
     val transactionRef: LiveData<String?> = _transactionRef
 
+    private var _bookingOffice = MutableLiveData<LineStationTime?>()
+    val bookingOffice: LiveData<LineStationTime?> = _bookingOffice
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             fetchUser()
@@ -159,11 +162,17 @@ class BookingViewModel constructor(
             .onSuccess {
                 updateLoading(false)
                 _stations.postValue(it)
+                updateData(it)
             }
             .onFailure {
                 updateLoading(false)
                 handleException(it)
             }
+    }
+
+    private fun updateData(list: List<Station>) {
+        _source.postValue(list.firstOrNull())
+        _destination.postValue(list.lastOrNull())
     }
 
     private fun checkFormValidity() {
@@ -219,6 +228,11 @@ class BookingViewModel constructor(
 
     fun setSelectedTrip(trip: Trip) {
         _selectedTrip.value = trip
+        updateBookingOffice(trip)
+    }
+
+    private fun updateBookingOffice(trip: Trip) {
+        _bookingOffice.value = trip.tripTimes.firstOrNull()
     }
 
     fun setSelectedSeat(seat: Seat) {
@@ -428,6 +442,10 @@ class BookingViewModel constructor(
                 destinationBranchId = destination.value!!.branchId,
             )
         }
+    }
+
+    fun setSelectedBookingOffice(stationTime: LineStationTime?) {
+        _bookingOffice.value = stationTime
     }
 
 }

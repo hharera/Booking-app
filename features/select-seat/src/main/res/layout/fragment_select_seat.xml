@@ -319,20 +319,20 @@
                     android:text="@string/booked" />
 
                 <ImageView
-                    android:id="@+id/semiBookedIV"
+                    android:id="@+id/unavailable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
-                    android:src="@drawable/ic_semi_booked" />
+                    android:src="@drawable/ic_unavailable" />
 
                 <TextView
-                    android:id="@+id/semiBookedTV"
+                    android:id="@+id/unavailableTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
-                    android:text="@string/semi_booked" />
+                    android:text="@string/unavailable" />
             </LinearLayout>
 
             <LinearLayout

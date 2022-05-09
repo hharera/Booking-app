@@ -5,7 +5,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -43,7 +42,7 @@ class SelectSeatFragment : BaseFragment() {
             val image = TextView(context).apply {
                 setTextColor(resources.getColor(R.color.white))
                 gravity = Gravity.CENTER
-                textSize = 16f
+                textSize = 14f
             }
 
             binding.seats.addView(image)

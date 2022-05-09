@@ -1,6 +1,5 @@
-package com.englizya.common.compose.theme
+package com.harera.compose.common_compose
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.graphics.Color
 
 val Blue130 = Color(0xA60A88F2)

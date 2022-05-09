@@ -1,4 +1,4 @@
-package com.englizya.common.compose.theme
+package com.harera.compose.common_compose
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

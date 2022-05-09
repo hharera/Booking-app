@@ -16,7 +16,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_round_bus"
+            android:src="@drawable/ic_unselected_station"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/sf"
-            android:text="@string/next_station"
+            android:text="@string/station"
             android:textColor="#171B24"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
@@ -50,7 +50,7 @@
             android:layout_margin="4dp"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/sf"
-            android:text="@string/from"
+            android:text="@string/enter_time"
             android:textColor="#171B24"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/station" />
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:fontFamily="@font/sf"
-            android:text="@string/to"
+            android:text="@string/exit_time"
             android:textColor="#171B24"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/station" />

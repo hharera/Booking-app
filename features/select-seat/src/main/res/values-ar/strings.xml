@@ -2,4 +2,5 @@
 <resources>
     <string name="payment_cancelled">Payment canceled</string>
     <string name="payment_failed">Payment failed</string>
+    <string name="unavailable">Unavailable</string>
 </resources>

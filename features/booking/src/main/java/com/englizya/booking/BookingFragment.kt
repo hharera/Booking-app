@@ -98,6 +98,18 @@ class BookingFragment : BaseFragment() {
             binding.date.text = DateStringMapper.map(it)
         }
 
+        bookingViewModel.source.observe(viewLifecycleOwner) {
+            it.branchName?.let {
+                binding.destination.setText(it)
+            }
+        }
+
+        bookingViewModel.destination.observe(viewLifecycleOwner) {
+            it.branchName?.let {
+                binding.source.setText(it)
+            }
+        }
+
         bookingViewModel.stations.observe(viewLifecycleOwner) {
             updateUI(it)
         }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_time">Enter Time</string>
+    <string name="exit_time">Exit Time</string>
+    <string name="select_riding_station">Select Riding Station</string>
+    <string name="station">Station</string>
+</resources>

@@ -32,6 +32,10 @@
             android:exported="true" />
 
         <activity
+            android:name="com.harera.user_tickets.UserTicketsActivity"
+            android:exported="true" />
+
+        <activity
             android:name="com.englizya.navigation.booking.BookingActivity"
             android:exported="true" />
 

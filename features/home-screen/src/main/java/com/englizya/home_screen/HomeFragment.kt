@@ -17,10 +17,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +30,7 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupListeners()
+        setupObservers()
     }
 
     private fun setupObservers() {
@@ -48,16 +45,6 @@ class HomeFragment : BaseFragment() {
                 NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.PROFILE, false)
             )
         }
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        restoreValues()
-    }
-
-    private fun restoreValues() {
 
     }
 }

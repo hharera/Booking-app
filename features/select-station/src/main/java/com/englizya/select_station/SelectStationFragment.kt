@@ -32,7 +32,6 @@ class SelectStationFragment : BaseFragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,20 +60,25 @@ class SelectStationFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
+        bookingViewModel.bookingOffice.observe(viewLifecycleOwner) {
+            binding.pay.isEnabled = it != null
+        }
+
         bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
             updateUI(it)
         }
     }
 
     private fun updateUI(trip: Trip) {
-        val stationAdapter = StationAdapter(trip.stations) {
-
+        val stationAdapter = StationAdapter(trip.tripTimes) {
+            bookingViewModel.setSelectedBookingOffice(it)
         }
 
         binding.stations.adapter = stationAdapter
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
+        bookingViewModel.setSelectedBookingOffice(null)
     }
 }

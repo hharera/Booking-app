@@ -2,7 +2,7 @@ apply from: "$rootDir/${CommonBuild.DATA_MODULE}"
 
 dependencies {
     api project(Data.model)
-    api project(Data.datastore)
+    api project(Data.DATA_STORE)
     implementation Ktor.ktorClientSerialization
 
     api(WebSocket.ANDROID_STOMP)

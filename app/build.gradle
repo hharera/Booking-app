@@ -4,7 +4,6 @@ plugins {
     id 'com.google.gms.google-services'
 }
 apply plugin: 'kotlin-kapt'
-apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 
 android {
@@ -43,15 +42,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
 }
 
 dependencies {
@@ -79,15 +69,6 @@ dependencies {
     implementation(Libs.liveData)
     implementation(Libs.viewModels)
     kapt(Libs.lifeCycleCompiler)
-
-    androidTestImplementation(EspressoTesting.TEST_RUNNER)
-    androidTestImplementation(EspressoTesting.RULES)
-    androidTestImplementation(EspressoTesting.ESPRESSO)
-//    androidTestImplementation(EspressoTesting.ESPRESSO_TRIB) {
-//        exclude(group = "org.checkerframework", module = "checker")
-//    }
-
-    androidTestImplementation(Mock.UI_MOCK)
 
     def appCenterSdkVersion = '4.3.1'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"

@@ -134,19 +134,6 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
     }
 
-    private fun updateUI(data: List<Seat>) {
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        restoreValues()
-    }
-
-    private fun restoreValues() {
-
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d(TAG, "onActivityResult: $data")
         if (null == data)

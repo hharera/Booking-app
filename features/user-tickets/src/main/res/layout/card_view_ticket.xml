@@ -182,6 +182,17 @@
                 android:padding="8dp"
                 android:text="Seat 100004"
                 android:textColor="@color/blue_500" />
+
+            <TextView
+                android:id="@+id/trio_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/background_text_service"
+                android:fontFamily="@font/sf"
+                android:padding="8dp"
+                android:text="Trip 100004"
+                android:textColor="@color/blue_500" />
         </GridLayout>
 
 

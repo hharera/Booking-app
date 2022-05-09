@@ -35,8 +35,7 @@
         android:name="com.englizya.select_station.SelectStationFragment"
         tools:layout="@layout/fragment_select_station">
 
-        <argument android:name="arg" />
-        <deepLink app:uri="EnglizyaPay://select-station/{arg}" />
+        <deepLink app:uri="EnglizyaPay://select-station" />
     </fragment>
 
     <fragment

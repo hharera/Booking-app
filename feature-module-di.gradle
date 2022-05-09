@@ -18,9 +18,8 @@ android {
     }
     buildFeatures{
         viewBinding true
+//        compose = true
     }
-
-    kotlinOptions.jvmTarget = "1.8"
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -37,19 +36,27 @@ android {
         exclude 'META-INF/proguard/androidx-annotations.pro'
     }
 
-    kotlin.sourceSets.all {
-        languageSettings.useExperimentalAnnotation("kotlin.RequiresOptIn")
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Compose.compose_version
-    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = Compose.compose_version
+//        kotlinCompilerVersion = Versions.kotlin
+//    }
+//
+//    kotlinOptions {
+//        jvmTarget = "1.8"
+//        freeCompilerArgs += [
+//                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+//                "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
+//                "-Xuse-experimental=androidx.compose.ui.unit.ExperimentalUnitApi",
+//                "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
+//                "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"]
+//    }
 }
 
 dependencies {
     api project(Base.COMMON)
     api project(Base.COMMON_TEST)
     api project(Data.REPOSITORY)
-    api project(Data.datastore)
+    api project(Data.DATA_STORE)
 
     implementation(Libs.coroutinesCore)
 

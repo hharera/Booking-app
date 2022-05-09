@@ -6,5 +6,5 @@ object Data {
     const val remoteApi = ":data:remote:api"
     const val remoteFirebase = ":data:remote:firebase"
     const val REMOTE_SOCKET = ":data:remote:socket"
-    const val datastore = ":datastore"
+    const val DATA_STORE = ":datastore"
 }
