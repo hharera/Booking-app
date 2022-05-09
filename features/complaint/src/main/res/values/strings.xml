@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="empty_title_error">Title is required</string>
-    <string name="invalid_title_error">Invalid title error</string>
-    <string name="empty_desc_error">Descrption is required</string>
-    <string name="invalid_desc_error">Invalid description error</string>
-    <string name="description">Description</string>
-    <string name="title">Title</string>
-    <string name="complaint_image">Your complaint image</string>
-    <string name="complaint_attachment">Your complaint attachment</string>
-    <string name="complaint_feedback">Complaint feedback</string>
+    <string name="empty_title_error">العنوان مطلوب</string>
+    <string name="invalid_title_error">خطأ عنوان غير صالح</string>
+    <string name="empty_desc_error">الوصف مطلوب</string>
+    <string name="invalid_desc_error">خطأ في الوصف غير صالح</string>
+    <string name="description">الوصف</string>
+    <string name="title">العنوان</string>
+    <string name="complaint_image">صورة الشكوى الخاصة بك</string>
+    <string name="complaint_attachment">مرفق الشكوى الخاص بك</string>
+    <string name="complaint_feedback">ملاحظات الشكوى</string>
 </resources>

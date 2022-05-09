@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="empty_title_error">Title is required</string>
-    <string name="invalid_title_error">Invalid title error</string>
-    <string name="empty_desc_error">Descrption is required</string>
-    <string name="invalid_desc_error">Invalid description error</string>
-    <string name="description">Description</string>
-    <string name="title">Title</string>
-    <string name="complaint_image">Your complaint image</string>
-    <string name="rate">Rate</string>
-    <string name="rate_message">Rate message</string>
-    <string name="driver_code">Driver code</string>
-    <string name="rate_driver">Rate the driver</string>
-    <string name="review_image">Review image</string>
-    <string name="image_attachment">Image attachment</string>
-    <string name="invalid_driver_code">"Invalid driver code "</string>
-    <string name="required_rating">Your rate is required</string>
-    <string name="review_driver">Driver review</string>
+    <string name="empty_title_error">العنوان مطلوب</string>
+    <string name="invalid_title_error">خطأ عنوان غير صالح</string>
+    <string name="empty_desc_error">الوصف مطلوب</string>
+    <string name="invalid_desc_error">خطأ في الوصف غير صالح</string>
+    <string name="description">الوصف</string>
+    <string name="title">العنوان</string>
+    <string name="complaint_image">صورة الشكوى الخاصة بك</string>
+    <string name="rate">معدل</string>
+    <string name="rate_message">تقييم الرسالة</string>
+    <string name="driver_code">كود برنامج التشغيل</string>
+    <string name="rate_driver">قيم السائق</string>
+    <string name="review_image">مراجعة الصورة</string>
+    <string name="image_attachment">مرفق الصورة</string>
+    <string name="invalid_driver_code">" رمز برنامج التشغيل غير صالح "</string>
+    <string name="required_rating">السعر المطلوب</string>
+    <string name="review_driver">مراجعة برنامج التشغيل</string>
 </resources>

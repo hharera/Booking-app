@@ -2,7 +2,7 @@
 <resources>
     <string name="empty_title_error">Title is required</string>
     <string name="invalid_title_error">Invalid title error</string>
-    <string name="empty_desc_error">Descrption is required</string>
+    <string name="empty_desc_error">Description is required</string>
     <string name="invalid_desc_error">Invalid description error</string>
     <string name="description">Description</string>
     <string name="title">Title</string>
