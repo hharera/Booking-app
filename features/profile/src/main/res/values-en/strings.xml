@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="contact_us">Contact Us</string>
     <string name="my_tickets">My tickets</string>
     <string name="review_driver">Review driver</string>
 </resources>

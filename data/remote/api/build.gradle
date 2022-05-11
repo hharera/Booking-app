@@ -8,3 +8,7 @@ dependencies {
     implementation Testing.testRunner
     implementation Ktor.ktorClientSerialization
 }
+
+android {
+    namespace 'com.englizya.api'
+}

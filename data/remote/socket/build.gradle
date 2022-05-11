@@ -11,3 +11,7 @@ dependencies {
     api(Reactive.RxKotlin)
     api(Reactive.RxJava)
 }
+
+android {
+    namespace 'com.englizya.car_socket'
+}

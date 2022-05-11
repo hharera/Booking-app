@@ -14,3 +14,7 @@ dependencies {
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)
 }
+
+android {
+    namespace 'com.englizya.feature.ticket.navigation.booking'
+}

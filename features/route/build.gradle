@@ -4,3 +4,7 @@ dependencies {
     api project(UiComponents.UPCOMING_FEATURE)
 
 }
+
+android {
+    namespace 'com.englizya.route'
+}

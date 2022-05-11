@@ -26,21 +26,17 @@ class ProfileFragment : BaseFragment() {
         DriverReview,
         SuggestIdea,
         Settings,
-//        AboutUs,
-//        TermsAndPolicy,
-//        UpcomingFeatures,
-//        PaymentCards,
+        AboutUs,
+        ContactUs,
+        TermsAndConditions,
     )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentProfileBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -109,8 +105,8 @@ class ProfileFragment : BaseFragment() {
 
             }
 
-            is TermsAndPolicy -> {
-
+            is TermsAndConditions -> {
+                navigateToTermsAndConditions()
             }
 
             is PaymentHistory -> {
@@ -126,17 +122,53 @@ class ProfileFragment : BaseFragment() {
             }
 
             is AboutUs -> {
-
             }
 
             is UpcomingFeatures -> {
 
             }
 
+            is ContactUs -> {
+                navigateToContactUs()
+            }
+
             is DriverReview -> {
                 navigateReviewDriver()
             }
         }
+    }
+
+    private fun navigateToAboutUs() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.AboutUs,
+                    false
+                )
+            )
+    }
+
+    private fun navigateToContactUs() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.ContactUs,
+                    false
+                )
+            )
+    }
+
+    private fun navigateToTermsAndConditions() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.TERMS_AND_CONDITIONS,
+                    false
+                )
+            )
     }
 
     private fun navigateToUserTickets() {

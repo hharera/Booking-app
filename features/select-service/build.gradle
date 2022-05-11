@@ -6,3 +6,7 @@ dependencies {
     api project(Navigation.BOOKING)
     api project(Navigation.HOME)
 }
+
+android {
+    namespace 'com.englizya.select_service'
+}

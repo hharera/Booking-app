@@ -6,3 +6,7 @@ dependencies {
     implementation Ktor.ktorClientAndroid
     api project(Data.REMOTE_SOCKET)
 }
+
+android {
+    namespace 'com.englizya.location_update'
+}

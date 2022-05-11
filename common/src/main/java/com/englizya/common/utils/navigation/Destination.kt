@@ -1,6 +1,9 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val AboutUs = "about-us"
+    const val ContactUs = "contact-us"
+    const val TERMS_AND_CONDITIONS = "terms-and-conditions"
     const val USER_TICKETS = "user-tickets"
     const val PAYMENT_HISTORY = "payment-history"
     const val PROFILE = "profile"

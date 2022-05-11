@@ -4,3 +4,7 @@ dependencies {
     api project(Core.PAY_TABS)
 
 }
+
+android {
+    namespace 'com.englyzia.booking'
+}

@@ -13,3 +13,7 @@ dependencies {
 
     implementation(UI.TEXT_WRITER)
 }
+
+android {
+    namespace 'com.englizya.splash'
+}

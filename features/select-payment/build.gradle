@@ -2,3 +2,7 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
 }
+
+android {
+    namespace 'com.englizya.select_payment'
+}

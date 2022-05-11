@@ -4,3 +4,7 @@ dependencies {
     api project(UiComponents.BOOKING)
     implementation(UI.BOOM)
 }
+
+android {
+    namespace 'com.englizya.select_trip'
+}

@@ -7,3 +7,7 @@ dependencies {
     api project(Navigation.SIGNUP)
     api project(Navigation.FORGE_PASSWORD)
 }
+
+android {
+    namespace 'com.englizya.login'
+}

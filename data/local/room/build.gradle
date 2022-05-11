@@ -1,4 +1,5 @@
 apply from:"$rootDir/${CommonBuild.DATA_MODULE}"
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     api project(Data.model)
@@ -8,4 +9,8 @@ dependencies {
 
 
     implementation(Libs.truth)
+}
+
+android {
+    namespace 'com.englizya.local'
 }

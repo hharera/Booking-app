@@ -7,12 +7,12 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath(Libs.gradleTools)
+        classpath('com.android.tools.build:gradle:7.2.0')
         classpath(Libs.kotlinPlugin)
         classpath(Libs.navigationSafeArgsPlugin)
         classpath "com.google.gms:google-services:4.3.10"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
         classpath "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21'
     }
 }

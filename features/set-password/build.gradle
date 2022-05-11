@@ -3,3 +3,7 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 dependencies {
     api(project(Feature.SEND_OTP))
 }
+
+android {
+    namespace 'com.englizya.feature.set_password'
+}

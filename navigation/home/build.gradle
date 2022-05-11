@@ -16,6 +16,8 @@ dependencies {
     api(project(Feature.SUGGESTION))
     api(project(Feature.DRIVER_REVIEW))
     api(project(Feature.USER_TICKETS))
+    api(project(Feature.TERMS_AND_CONDITIONS))
+    api(project(Feature.CONTACT_US))
 
     api(project(Base.COMMON))
 
@@ -24,4 +26,8 @@ dependencies {
 
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)
+}
+
+android {
+    namespace 'com.englizya.feature.ticket.navigation.home'
 }

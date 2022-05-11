@@ -5,3 +5,7 @@ dependencies {
     implementation Libs.playServicesTasks
     api(UI.SSPICKER)
 }
+
+android {
+    namespace 'com.englizya.driver_review'
+}
