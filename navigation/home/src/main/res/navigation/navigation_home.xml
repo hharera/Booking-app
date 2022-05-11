@@ -40,7 +40,10 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.englizya.app_settings.AppSettingsFragment"
-        tools:layout="@layout/fragment_app_settings" />
+        tools:layout="@layout/fragment_app_settings" >
+
+        <deepLink app:uri="EnglizyaPay://settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_user_tickets"
