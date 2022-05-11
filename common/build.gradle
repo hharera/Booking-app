@@ -53,5 +53,7 @@ dependencies {
     testImplementation(Testing.coroutinesTest)
     testImplementation(Testing.androidCoreTesting)
 
+    implementation(Libs.navigationFragment)
+
     api(Libs.jodaTime)
 }
