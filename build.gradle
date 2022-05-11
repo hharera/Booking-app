@@ -7,6 +7,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
+        classpath("${Plugins.DOKKA}")
         classpath('com.android.tools.build:gradle:7.2.0')
         classpath(Libs.kotlinPlugin)
         classpath(Libs.navigationSafeArgsPlugin)

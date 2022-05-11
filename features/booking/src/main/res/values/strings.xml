@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="round_trip">Round trip</string>
+    <string name="one_way">ذهاب</string>
 </resources>

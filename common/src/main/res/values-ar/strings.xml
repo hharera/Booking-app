@@ -230,5 +230,4 @@
     <string name="transaction_rejected">تم رفض المعاملة</string>
     <string name="user_tickets">سجل التذاكر</string>
     <string name="add_complaint">إضافة شكوى</string>
-    <string name="one_way">ذهاب</string>
 </resources>

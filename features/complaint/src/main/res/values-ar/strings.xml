@@ -9,4 +9,5 @@
     <string name="complaint_image">صورة الشكوى الخاصة بك</string>
     <string name="complaint_attachment">مرفق الشكوى الخاص بك</string>
     <string name="complaint_feedback">ملاحظات الشكوى</string>
+    <string name="your_feedback">رائيك يهمنا</string>
 </resources>

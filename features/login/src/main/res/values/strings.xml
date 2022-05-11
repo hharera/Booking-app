@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="log_in_to_your_existing_account">Log in to your existing account</string>
+    <string name="welcome_back">مرحبًا بك مرة أخرى!</string>
+    <string name="log_in_to_your_existing_account">سجل دخول الي حسابك الحالي</string>
+    <string name="phone_number">رقم الهاتف</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="feedback">Complaint and Suggestions</string>
     <string name="submit">تأكيد</string>
     <string name="suggestions">الأقتراحات</string>
 </resources>

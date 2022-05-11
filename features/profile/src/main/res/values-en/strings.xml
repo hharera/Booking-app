@@ -4,4 +4,6 @@
     <string name="contact_us">Contact Us</string>
     <string name="my_tickets">My tickets</string>
     <string name="review_driver">Review driver</string>
+    <string name="support_payment_services">We support payment with Visa &amp; Mastercard</string>
+    <string name="suggestions_and_complaints">Suggestions and Complaints</string>
 </resources>

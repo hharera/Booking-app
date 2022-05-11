@@ -82,4 +82,20 @@
         <deepLink app:uri="EnglizyaPay://contact-us" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_about_us"
+        android:name="com.englizya.about_us.AboutUsFragment"
+        tools:layout="@layout/fragment_about_us">
+
+        <deepLink app:uri="EnglizyaPay://about-us" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_suggestion"
+        android:name="com.englizya.suggestions.SuggestionFragment"
+        tools:layout="@layout/fragment_suggestion">
+
+        <deepLink app:uri="EnglizyaPay://suggest-idea" />
+    </fragment>
+
 </navigation>

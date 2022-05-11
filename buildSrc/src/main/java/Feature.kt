@@ -1,6 +1,7 @@
 object Feature {
     const val USER_TICKETS = ":features:user-tickets"
     const val CONTACT_US = ":features:contact-us"
+    const val ABOUT_US = ":features:about-us"
     const val TERMS_AND_CONDITIONS = ":features:terms-conditions"
     const val BOOKING_PAYMENT = ":features:booking-payment"
     const val ADD_PAYMENT = ":features:add-payment"

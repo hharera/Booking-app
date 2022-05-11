@@ -22,13 +22,13 @@ class ProfileFragment : BaseFragment() {
     private val navigationItemList = arrayListOf(
         UserTickets,
         PaymentHistory,
-        ReportProblem,
+        SuggestionsAndComplaint,
         DriverReview,
-        SuggestIdea,
         Settings,
         AboutUs,
         ContactUs,
         TermsAndConditions,
+        LogOut,
     )
 
     override fun onCreateView(
@@ -74,9 +74,7 @@ class ProfileFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        binding.logout.setOnClickListener {
-            profileViewModel.logout()
-            navigateToLogin()
+        binding.charge.setOnClickListener {
         }
     }
 
@@ -113,7 +111,7 @@ class ProfileFragment : BaseFragment() {
 
             }
 
-            is ReportProblem -> {
+            is SuggestionsAndComplaint -> {
                 navigateToComplaint()
             }
 
@@ -122,6 +120,7 @@ class ProfileFragment : BaseFragment() {
             }
 
             is AboutUs -> {
+                navigateToAboutUs()
             }
 
             is UpcomingFeatures -> {
@@ -134,6 +133,11 @@ class ProfileFragment : BaseFragment() {
 
             is DriverReview -> {
                 navigateReviewDriver()
+            }
+
+            is LogOut -> {
+                profileViewModel.logout()
+                navigateToLogin()
             }
         }
     }
