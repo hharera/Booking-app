@@ -1,18 +1,15 @@
-package com.englizya.about_us
+package com.englizya.privacy_policy;
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.englizya.about_us.databinding.FragmentAboutUsBinding
 import com.englizya.common.base.BaseFragment
+import com.englizya.privacy_policy.databinding.FragmentPrivacyPolicyBinding
 
 class PrivacyPolicyFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentAboutUsBinding
+    private lateinit var binding: FragmentB\l
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +17,7 @@ class PrivacyPolicyFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentAboutUsBinding.inflate(layoutInflater)
+        binding = FragmentPrivacyPolicyBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -31,30 +28,7 @@ class PrivacyPolicyFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
-        binding.web.setOnClickListener {
-            Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(WEB)
-                startActivity(this)
-            }
-        }
 
-        binding.facebook.setOnClickListener {
-            Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(FACEBOOK)
-                startActivity(this)
-            }
-        }
-
-        binding.linkedin.setOnClickListener {
-            Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(LINKEDIN)
-                startActivity(this)
-            }
-        }
-
-        binding.back.setOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 
 }

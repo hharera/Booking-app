@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="privacy_policy">Privacy Policy
+    <string name="privacy_policy_details">Privacy Policy
 Last updated: May 11, 2022
 
 This Privacy Policy describes Our policies and procedures on the collection,
@@ -341,4 +341,5 @@ If you have any questions about this Privacy Policy, You can contact us:
 
   * By phone number: +20 122 451 8411
 </string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>

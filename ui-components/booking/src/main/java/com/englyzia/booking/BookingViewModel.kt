@@ -162,7 +162,6 @@ class BookingViewModel constructor(
             .onSuccess {
                 updateLoading(false)
                 _stations.postValue(it)
-                updateData(it)
             }
             .onFailure {
                 updateLoading(false)

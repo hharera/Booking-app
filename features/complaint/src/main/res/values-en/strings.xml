@@ -8,6 +8,7 @@
     <string name="title">Title</string>
     <string name="complaint_image">Your complaint image</string>
     <string name="complaint_attachment">Your complaint attachment</string>
+    <string name="complaint_and_suggestions">Suggestions and Complaints</string>
     <string name="complaint_feedback">Complaint feedback</string>
     <string name="your_feedback">Your Feedback</string>
 </resources>

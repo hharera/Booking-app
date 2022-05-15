@@ -6,11 +6,9 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import com.englizya.common.R
 import com.englizya.common.ui.DoneDialog
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
-import androidx.navigation.fragment.findNavController
 
 open class BaseFragment : Fragment() {
 
@@ -35,12 +33,14 @@ open class BaseFragment : Fragment() {
         }
     }
 
+    fun onBackPressed(onBackPressed: () -> Unit) {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            onBackPressed()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        activity?.onBackPressedDispatcher?.addCallback {
-            findNavController().popBackStack()
-        }
     }
 
     private fun showLoading() {
