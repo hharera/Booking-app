@@ -38,9 +38,6 @@ open class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.onBackPressedDispatcher?.addCallback {
-            findNavController().popBackStack()
-        }
     }
 
     private fun showLoading() {
