@@ -98,7 +98,7 @@ class TripAdapter(
             stationTime?.let {
                 binding.station.text = stationTime.bookingOffice?.officeName
                 binding.ridingTime.text = TimeOnly.map(stationTime.startTime)
-                binding.exitTime.text = TimeOnly.map(stationTime.startTime)
+                binding.exitTime.text = TimeOnly.map(stationTime.endTime)
             }
         }
 

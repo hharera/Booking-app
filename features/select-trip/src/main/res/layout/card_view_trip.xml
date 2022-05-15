@@ -187,12 +187,13 @@
             android:id="@+id/selected_station"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginTop="4dp"
             android:backgroundTint="@color/grey_100"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stations"
-            tools:layout_editor_absoluteX="16dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stations">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -248,7 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     android:fontFamily="@font/sf"
-                    android:text="00:00"
+                    android:text="15:99"
                     android:textColor="@color/blue_500"
                     app:layout_constraintBottom_toBottomOf="@+id/textView56"
                     app:layout_constraintStart_toEndOf="@+id/textView56"

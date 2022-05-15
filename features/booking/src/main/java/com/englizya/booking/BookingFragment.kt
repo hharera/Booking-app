@@ -24,7 +24,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class BookingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentBookingBinding
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var destinationAdapter: ArrayAdapter<String>
+    private lateinit var sourceAdapter: ArrayAdapter<String>
     private val bookingViewModel: BookingViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,13 +101,13 @@ class BookingFragment : BaseFragment() {
 
         bookingViewModel.source.observe(viewLifecycleOwner) {
             it.branchName?.let {
-                binding.destination.setText(it)
+                binding.source.setText(it)
             }
         }
 
         bookingViewModel.destination.observe(viewLifecycleOwner) {
             it.branchName?.let {
-                binding.source.setText(it)
+                binding.destination.setText(it)
             }
         }
 
@@ -116,15 +117,22 @@ class BookingFragment : BaseFragment() {
     }
 
     private fun updateUI(it: List<Station>) {
-        adapter = ArrayAdapter<String>(
+        sourceAdapter = ArrayAdapter<String>(
             requireContext(),
             R.layout.card_view_station,
             R.id.station,
             it.map { it.branchName }
         )
 
-        binding.source.setAdapter(adapter)
-        binding.destination.setAdapter(adapter)
+        destinationAdapter = ArrayAdapter<String>(
+            requireContext(),
+            R.layout.card_view_station,
+            R.id.station,
+            it.map { it.branchName }
+        )
+
+        binding.source.setAdapter(sourceAdapter)
+        binding.destination.setAdapter(destinationAdapter)
     }
 
     override fun onResume() {
