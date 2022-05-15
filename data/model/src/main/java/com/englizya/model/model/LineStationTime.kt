@@ -16,6 +16,8 @@ class LineStationTime {
     var stationType: Int? = null
     @SerialName("startTime")
     var startTime: String? = null
+    @SerialName("endTime")
+    var endTime: String? = null
     @SerialName("bookingOffice")
     var bookingOffice: BookingOffice? = BookingOffice()
 }
