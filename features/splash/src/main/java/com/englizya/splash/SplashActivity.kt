@@ -43,10 +43,6 @@ class SplashActivity : BaseActivity() {
     private fun setupListeners() {
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     private fun checkLoginState(loginState: Boolean) {
         if (loginState) {
             selectService()

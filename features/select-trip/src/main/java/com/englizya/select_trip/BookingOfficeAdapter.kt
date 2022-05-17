@@ -2,7 +2,6 @@ package com.englizya.select_trip
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.LineStationTime

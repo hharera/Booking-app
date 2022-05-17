@@ -2,7 +2,6 @@ package com.englizya.model.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class Trip(

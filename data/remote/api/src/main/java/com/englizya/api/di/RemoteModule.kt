@@ -42,4 +42,8 @@ val remoteModule = module {
     single<SupportService> {
         SupportServiceImpl(get())
     }
+
+    single<WalletService> {
+        WalletServiceImpl(get())
+    }
 }

@@ -13,6 +13,7 @@ sealed class NavigationItem(
     object PaymentCards : NavigationItem(R.drawable.ic_payment_card, R.string.payment_cards)
     object Settings : NavigationItem(R.drawable.ic_settings, R.string.settings)
     object SuggestIdea : NavigationItem(R.drawable.ic_bulb, R.string.suggest_idea)
+    object PrivacyPolicy : NavigationItem(R.drawable.ic_privacy_policy, R.string.privacy_policy)
 
     object SuggestionsAndComplaint :
         NavigationItem(R.drawable.ic_bulb, R.string.suggestions_and_complaints)

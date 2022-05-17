@@ -5,6 +5,7 @@ import com.englizya.api.di.clientModule
 import com.englizya.api.di.remoteModule
 import com.englizya.car_socket.di.socketModule
 import com.englizya.car_socket.di.stompModule
+import com.englizya.charging.di.rechargingModule
 import com.englizya.common.di.baseModule
 import com.englizya.complaint.di.complaintModule
 import com.englizya.datastore.di.dataStoreModule
@@ -87,6 +88,7 @@ class TicketApplication : Application(), KoinComponent {
                     remoteModule,
                     homeModule,
                     driverReviewModule,
+                    rechargingModule,
                 )
             )
         }

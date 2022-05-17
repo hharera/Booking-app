@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="charging">شحن الرصيد</string>
+    <string name="amount">القيمة</string>
+    <string name="charging_amount_empty">قيمة الشحن مطلوب</string>
+    <string name="invalid_amount_empty">الرجاء إدخال مبلغ صالح مثل 100</string>
+</resources>

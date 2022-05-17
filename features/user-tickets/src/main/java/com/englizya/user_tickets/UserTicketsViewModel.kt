@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.UserTicket
 import com.englizya.repository.TicketRepository
 import kotlinx.coroutines.launch

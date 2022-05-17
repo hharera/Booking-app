@@ -24,11 +24,16 @@
         <activity
             android:name="com.paymob.acceptsdk.PayActivity"
             android:exported="true"
-            android:noHistory="true"
+            android:noHistory="false"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 
         <activity
             android:name="com.englizya.select_service.SelectServiceActivity"
+            android:exported="true" />
+
+        <activity
+            android:noHistory="false"
+            android:name="com.payment.paymentsdk.PaymentSdkActivity"
             android:exported="true" />
 
         <activity

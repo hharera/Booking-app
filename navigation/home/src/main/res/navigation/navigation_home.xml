@@ -101,4 +101,20 @@
         <deepLink app:uri="EnglizyaPay://suggest-idea" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_privacy_policy"
+        android:name="com.englizya.privacy_policy.PrivacyPolicyFragment"
+        tools:layout="@layout/fragment_privacy_policy">
+
+        <deepLink app:uri="EnglizyaPay://privacy-policy" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_recharging"
+        android:name="com.englizya.charging.RechargingFragment"
+        tools:layout="@layout/fragment_recharging">
+
+        <deepLink app:uri="EnglizyaPay://recharging" />
+    </fragment>
+
 </navigation>

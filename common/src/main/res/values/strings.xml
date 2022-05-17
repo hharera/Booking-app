@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ENGLIZYA BUS</string>
     <string name="enter_information_to_create_account">أدخل المعلومات التالية لإنشاء حساب جديد</string>
@@ -36,7 +37,7 @@
     <string name="enter_code">ادخل الكود</string>
     <string name="wrong_code">كود خاطئ</string>
     <string name="company_name">الإنجليزية</string>
-    <string name="privacy_policy">لقد قرأت نص الخصوصية والأمان وأوافق عليه</string>
+    <string name="privacy_policy">وثيقة الخصوصية</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
     <string name="_3">3</string>

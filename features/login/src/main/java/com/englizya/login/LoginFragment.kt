@@ -5,16 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
 import com.englizya.navigation.signup.SignupActivity
 import com.englizya.select_service.SelectServiceActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment() {
@@ -22,29 +18,18 @@ class LoginFragment : BaseFragment() {
     private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var bind: FragmentLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        getExtras()
-    }
-
-    private fun getExtras() {
-        arguments?.let {
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         bind = FragmentLoginBinding.inflate(layoutInflater)
         return bind.root
     }
 
     override fun onResume() {
         super.onResume()
-
         restoreValues()
     }
 
@@ -59,6 +44,7 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
     }
@@ -126,9 +112,7 @@ class LoginFragment : BaseFragment() {
         }
 
         bind.login.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
                 loginViewModel.login()
-            }
             bind.login.isEnabled = false
         }
     }

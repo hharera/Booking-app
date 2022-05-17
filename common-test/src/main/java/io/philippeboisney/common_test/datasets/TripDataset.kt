@@ -1,7 +1,6 @@
 package io.philippeboisney.common_test.datasets
 
 import com.englizya.model.model.Trip
-import java.util.*
 
 object TripDataset {
 

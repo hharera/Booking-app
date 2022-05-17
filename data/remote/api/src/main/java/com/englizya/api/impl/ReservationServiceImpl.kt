@@ -12,13 +12,11 @@ import com.englizya.model.response.ReservationOrder
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.util.*
 
 class ReservationServiceImpl constructor(
     private val client: HttpClient
 ) : ReservationService {
 
-    @OptIn(InternalAPI::class)
     override suspend fun bookSeats(
         paymentRequest: PaymentRequest,
         token: String
@@ -30,19 +28,17 @@ class ReservationServiceImpl constructor(
             body = paymentRequest
         }
 
-    @OptIn(InternalAPI::class)
     override suspend fun requestReservation(
         reservationRequest: ReservationRequest,
         token: String
     ): ReservationOrder =
         client.post(REQUEST_RESERVATION) {
-            headers.append(HttpHeaders.Authorization, "Bearer ${token}")
+            headers.append(HttpHeaders.Authorization, "Bearer $token")
 
             contentType(ContentType.Application.Json)
             body = reservationRequest
         }
 
-    @OptIn(InternalAPI::class)
     override suspend fun confirmReservation(
         request: ReservationConfirmationRequest,
         token: String

@@ -1,0 +1,11 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
+
+android{
+    namespace 'com.englizya.charging'
+}
+
+dependencies {
+    api project(Core.PAY_TABS)
+}

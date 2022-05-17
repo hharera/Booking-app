@@ -11,10 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
-import com.englizya.common.utils.navigation.Destination
-import com.englizya.common.utils.navigation.Domain
-import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.model.model.Seat
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
@@ -46,11 +42,13 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBookingPaymentBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupListeners()
     }
@@ -86,6 +84,10 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun setupObservers() {
+        activity?.onBackPressedDispatcher?.addCallback {
+            findNavController().popBackStack()
+        }
+
         lifecycleScope.launch {
             bookingViewModel.billingDetails.collect {
                 it?.let {

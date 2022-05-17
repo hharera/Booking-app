@@ -6,6 +6,8 @@ apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 apply from: "$rootDir/${CommonBuild.FIREBASE_MODULE}"
+apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
+apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
 
 android {
     compileSdkVersion DefaultConfig.compileSdk

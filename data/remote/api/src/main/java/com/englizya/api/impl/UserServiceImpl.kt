@@ -34,7 +34,6 @@ class UserServiceImpl constructor(
             body = request
         }
 
-    @OptIn(InternalAPI::class)
     override suspend fun getUser(token: String): User =
         client.post {
             url(FETCH_USER)

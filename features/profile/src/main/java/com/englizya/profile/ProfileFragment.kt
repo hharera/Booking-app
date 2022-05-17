@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -12,22 +13,26 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.profile.NavigationItem.*
 import com.englizya.profile.databinding.FragmentProfileBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var adapter: NavigationAdapter
     private val profileViewModel: ProfileViewModel by viewModel()
 
     private val navigationItemList = arrayListOf(
         UserTickets,
-        PaymentHistory,
+//        PaymentHistory,
         SuggestionsAndComplaint,
         DriverReview,
         Settings,
         AboutUs,
         ContactUs,
         TermsAndConditions,
+        PrivacyPolicy,
         LogOut,
     )
 
@@ -42,31 +47,31 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
         setupRecyclerViewAdapter()
     }
 
     private fun setupObservers() {
+        lifecycleScope.launch {
+            profileViewModel.userBalance.collectLatest {
+                binding.balance.text = it.toString()
+            }
+        }
 
+        profileViewModel.user.observe(viewLifecycleOwner) {
+
+        }
     }
 
     private fun setupRecyclerViewAdapter() {
-        val adapter =
-            NavigationAdapter(navigationItemList) {
-                checkClickItem(it)
-            }
-
-        binding.navigationMenu.adapter = adapter
-    }
-
-    override fun onResume() {
-        super.onResume()
-        restoreValues()
-    }
-
-    private fun restoreValues() {
-
+        NavigationAdapter(navigationItemList) {
+            checkClickItem(it)
+        }.let { navigationAdapter ->
+            adapter = navigationAdapter
+            binding.navigationMenu.adapter = navigationAdapter
+        }
     }
 
     private fun setupListeners() {
@@ -75,6 +80,7 @@ class ProfileFragment : BaseFragment() {
         }
 
         binding.charge.setOnClickListener {
+            navigateToRecharging()
         }
     }
 
@@ -127,6 +133,10 @@ class ProfileFragment : BaseFragment() {
 
             }
 
+            is PrivacyPolicy -> {
+                navigateToPrivacyPolicy()
+            }
+
             is ContactUs -> {
                 navigateToContactUs()
             }
@@ -140,6 +150,17 @@ class ProfileFragment : BaseFragment() {
                 navigateToLogin()
             }
         }
+    }
+
+    private fun navigateToPrivacyPolicy() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.PRIVACY_POLICY,
+                    false
+                )
+            )
     }
 
     private fun navigateToAboutUs() {
@@ -197,6 +218,16 @@ class ProfileFragment : BaseFragment() {
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
                 Destination.PAYMENT_HISTORY,
+                false
+            )
+        )
+    }
+
+    private fun navigateToRecharging() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.RECHARGING,
                 false
             )
         )

@@ -3,14 +3,16 @@ package com.englizya.login
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity.Companion.passwordIsValid
 import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
 import com.englizya.common.utils.code.CountryCode
+import com.englizya.model.request.LoginRequest
 import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
-import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
+import kotlinx.coroutines.launch
 
 class LoginViewModel constructor(
     private val userRepository: UserRepository,
@@ -67,7 +69,7 @@ class LoginViewModel constructor(
         _redirectRouting.postValue(redirect)
     }
 
-    suspend fun login() {
+    fun login() = viewModelScope.launch {
         phoneNumber.value?.let { phoneNumber ->
             password.value?.let { password ->
                 login(LoginRequest(CountryCode.EgyptianCode.code.plus(phoneNumber), password))

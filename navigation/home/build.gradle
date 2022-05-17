@@ -4,6 +4,7 @@ apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
 
 dependencies {
     api(project(Feature.HOME))
+    api(project(Feature.PRIVACY_POLICY))
     api(project(Feature.LINE_MAP))
     api(project(Feature.ROUTE))
     api(project(Feature.TICKET))
@@ -19,6 +20,7 @@ dependencies {
     api(project(Feature.TERMS_AND_CONDITIONS))
     api(project(Feature.CONTACT_US))
     api(project(Feature.ABOUT_US))
+    api(project(Feature.RECHARGING))
 
     api(project(Base.COMMON))
 

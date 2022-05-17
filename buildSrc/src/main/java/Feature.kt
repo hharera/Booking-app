@@ -20,6 +20,8 @@ object Feature {
     const val EDIT_PROFILE = ":features:edit-profile"
     const val ROUTE = ":features:route"
     const val LINE_MAP = ":features:line-map"
+    const val PRIVACY_POLICY = ":features:privacy-policy"
+    const val RECHARGING = ":features:charging"
     const val HOME = ":features:home-screen"
     const val MAP = ":features:map"
     const val SCAN_QR = ":features:scan-qr"

@@ -1,15 +1,10 @@
 package com.englyzia.paytabs
 
-import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.englizya.model.model.User
 import com.englyzia.paytabs.utils.CountryCode.EG
 import com.englyzia.paytabs.utils.Currency
-import com.payment.paymentsdk.PaymentSdkActivity.Companion.startCardPayment
 import com.payment.paymentsdk.PaymentSdkConfigBuilder
 import com.payment.paymentsdk.integrationmodels.*
-import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
 
 class PayTabsService {
 
@@ -117,6 +112,35 @@ class PayTabsService {
                 zip = "123456",
                 city = "Cairo",
             )
+        }
+
+        fun createPaymentConfigData(
+            user: User,
+            amount: Double,
+            cartId: Int,
+        ): PaymentSdkConfigurationDetails {
+            return PaymentSdkConfigBuilder(
+                "94307",
+                "SJJNDG62RM-JDHRGDH6LT-2Z6MDWGW6R",
+                "CKKMBP-9DRH6D-HRTDHG-6NKGKQ",
+                amount,
+                Currency.EG
+            )
+                .setCartId(cartId = cartId.toString())
+                .setCartDescription(createCartDescription(amount))
+                .setLanguageCode(PaymentSdkLanguageCode.EN)
+                .setBillingData(createBillingInfo(user))
+                .setMerchantCountryCode(EG)
+                .setTransactionType(PaymentSdkTransactionType.SALE)
+                .showBillingInfo(false)
+                .showShippingInfo(false)
+                .forceShippingInfo(false)
+                .setScreenTitle("Englizya Payment")
+                .build()
+        }
+
+        fun createCartDescription(amount: Double): String {
+            return "Recharging wallet with $amount EGP"
         }
     }
 }

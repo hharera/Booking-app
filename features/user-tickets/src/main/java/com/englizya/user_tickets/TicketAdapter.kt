@@ -3,7 +3,6 @@ package com.englizya.user_tickets
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.TripTimes
 import com.englizya.model.response.UserTicket

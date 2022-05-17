@@ -4,4 +4,6 @@
     <string name="transaction_error">Transaction error</string>
     <string name="payment_cancelled">Payment canceled</string>
     <string name="payment_failed">Payment failed</string>
+    <string name="card_payment">ادفع ببطاقة الائتمان / الخصم</string>
+    <string name="wallet_payment">ادفع باستخدام محفظتك</string>
 </resources>

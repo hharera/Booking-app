@@ -100,18 +100,10 @@ class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
                 driverReviewViewModel.insertDriverReview()
             }
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-
-        restoreValues()
-    }
-
-    private fun restoreValues() {
-        binding.message.setText(driverReviewViewModel.message.value)
-        binding.image.setImageBitmap(driverReviewViewModel.image.value)
-        binding.driverCode.setText(driverReviewViewModel.driverCode.value)
+        binding.cancel.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun onImageClicked() {

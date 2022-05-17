@@ -40,11 +40,13 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentComplaintBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
     }
@@ -95,6 +97,10 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
             lifecycleScope.launch {
                 complaintViewModel.insertComplaint()
             }
+        }
+
+        binding.cancel.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

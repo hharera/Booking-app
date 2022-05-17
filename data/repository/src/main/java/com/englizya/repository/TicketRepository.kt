@@ -1,7 +1,6 @@
 package com.englizya.repository
 
 import com.englizya.api.TicketService
-import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.UserTicket
 
 interface TicketRepository {
