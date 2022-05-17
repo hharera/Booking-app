@@ -72,9 +72,7 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
 
         lifecycleScope.launch {
             chargingViewModel.rechargingOperationState.collectLatest { state ->
-                if (state == true) {
-                    showDoneDialog()
-                }
+                state?.let { checkOperationState(it) }
             }
         }
     }

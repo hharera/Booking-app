@@ -72,4 +72,18 @@ open class BaseFragment : Fragment() {
     fun showDoneDialog() {
         doneDialog.show(childFragmentManager, TAG)
     }
+
+    fun checkOperationState(state: Boolean) {
+        if (state) {
+            dismissDoneDialog()
+        } else {
+            showErrorDialog()
+        }
+    }
+
+    private fun showErrorDialog() {}
+
+    private fun dismissDoneDialog() {
+        doneDialog.dismiss()
+    }
 }
