@@ -17,6 +17,7 @@ data class ReservationConfirmationRequest(
     var pathType: Int,
     var reservationId: Int,
     var destinationBranchId: Int,
+    var selectedBookingOffice: Int,
     var sourceBranchId: Int,
     var seats: Set<Int> = HashSet()
 )

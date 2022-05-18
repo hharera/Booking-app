@@ -104,8 +104,8 @@ class BookingViewModel constructor(
     private var _transactionRef = MutableLiveData<String?>()
     val transactionRef: LiveData<String?> = _transactionRef
 
-    private var _bookingOffice = MutableLiveData<LineStationTime?>()
-    val bookingOffice: LiveData<LineStationTime?> = _bookingOffice
+    private var _selectedBookingOffice = MutableLiveData<LineStationTime?>()
+    val selectedBookingOffice: LiveData<LineStationTime?> = _selectedBookingOffice
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -208,7 +208,7 @@ class BookingViewModel constructor(
         checkFormValidity()
     }
 
-    suspend fun searchTrips() {
+    fun searchTrips() = viewModelScope.launch {
         updateLoading(true)
         tripsRepository.searchTrips(
             TripSearchRequest(
@@ -217,6 +217,7 @@ class BookingViewModel constructor(
                 destinationStationId = destination.value!!.branchId
             )
         ).onSuccess {
+            setDefualtOffice(it)
             updateLoading(false)
             _trips.postValue(it)
         }.onFailure {
@@ -225,13 +226,16 @@ class BookingViewModel constructor(
         }
     }
 
+    private fun setDefualtOffice(it: List<Trip>) {
+    }
+
     fun setSelectedTrip(trip: Trip) {
         _selectedTrip.value = trip
         updateBookingOffice(trip)
     }
 
     private fun updateBookingOffice(trip: Trip) {
-        _bookingOffice.value = trip.tripTimes.firstOrNull()
+        _selectedBookingOffice.value = trip.tripTimes.firstOrNull()
     }
 
     fun setSelectedSeat(seat: Seat) {
@@ -421,7 +425,7 @@ class BookingViewModel constructor(
             reservationRepository.confirmReservation(request, dataStore.getToken())
                 .onSuccess {
                     updateLoading(false)
-                    _onlineTickets.postValue(it)
+                    _reservationTickets.postValue(it)
                 }
                 .onFailure {
                     updateLoading(false)
@@ -439,12 +443,21 @@ class BookingViewModel constructor(
                 seats = selectedSeats.value!!.map { it.seatId!! }.toSet(),
                 sourceBranchId = source.value!!.branchId,
                 destinationBranchId = destination.value!!.branchId,
+                selectedBookingOffice = getSelectedBookingOffice(),
             )
         }
     }
 
+    private fun getSelectedBookingOffice(): Int {
+        if (selectedBookingOffice.value == null) {
+            return source.value!!.bookingOfficeList!!.first().officeId!!
+        } else {
+            return selectedBookingOffice.value!!.bookingOffice!!.officeId!!
+        }
+    }
+
     fun setSelectedBookingOffice(stationTime: LineStationTime?) {
-        _bookingOffice.value = stationTime
+        _selectedBookingOffice.value = stationTime
     }
 
 }

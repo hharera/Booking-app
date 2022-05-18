@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -14,7 +13,6 @@ import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.FragmentSelectTripBinding
 import com.englyzia.booking.BookingViewModel
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SelectTripFragment : BaseFragment() {
@@ -42,9 +40,7 @@ class SelectTripFragment : BaseFragment() {
         setupObservers()
         setupUI()
 
-        lifecycleScope.launch {
-            bookingViewModel.searchTrips()
-        }
+        bookingViewModel.searchTrips()
     }
 
     private fun setupUI() {
@@ -58,7 +54,7 @@ class SelectTripFragment : BaseFragment() {
             onOfficeClicked = {
                 bookingViewModel.setSelectedBookingOffice(it)
             },
-            selectedStationTime = bookingViewModel.bookingOffice.value
+            selectedStationTime = bookingViewModel.selectedBookingOffice.value
         )
         binding.trips.adapter = adapter
     }
@@ -68,7 +64,7 @@ class SelectTripFragment : BaseFragment() {
             handleLoading(it)
         }
 
-        bookingViewModel.bookingOffice.observe(viewLifecycleOwner) {
+        bookingViewModel.selectedBookingOffice.observe(viewLifecycleOwner) {
             updateUI(it)
         }
 

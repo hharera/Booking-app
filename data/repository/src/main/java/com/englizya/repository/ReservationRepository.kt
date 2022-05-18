@@ -21,5 +21,5 @@ interface ReservationRepository {
     suspend fun confirmReservation(
         request: ReservationConfirmationRequest,
         token: String
-    ): Result<List<OnlineTicket>>
+    ): Result<List<ReservationTicket>>
 }

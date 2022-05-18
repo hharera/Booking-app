@@ -63,9 +63,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.pay.setOnClickListener {
-            lifecycleScope.launch {
                 bookingViewModel.cratePaymentConfigurationDetails()
-            }
         }
     }
 
@@ -116,7 +114,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             binding.destinationTimeTV.text = it.branchName
         }
 
-        bookingViewModel.onlineTickets.observe(viewLifecycleOwner) {
+        bookingViewModel.reservationTickets.observe(viewLifecycleOwner) {
             showUserTickets()
         }
 

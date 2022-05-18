@@ -5,7 +5,6 @@ import com.englizya.model.model.ReservationTicket
 import com.englizya.model.request.PaymentRequest
 import com.englizya.model.request.ReservationConfirmationRequest
 import com.englizya.model.request.ReservationRequest
-import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.ReservationRepository
 
@@ -32,7 +31,7 @@ class ReservationRepositoryImpl constructor(
     override suspend fun confirmReservation(
         request: ReservationConfirmationRequest,
         token: String
-    ): Result<List<OnlineTicket>> = kotlin.runCatching {
+    ): Result<List<ReservationTicket>> = kotlin.runCatching {
         reservationService
             .confirmReservation(request, token)
     }

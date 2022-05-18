@@ -7,7 +7,6 @@ import com.englizya.model.model.ReservationTicket
 import com.englizya.model.request.PaymentRequest
 import com.englizya.model.request.ReservationConfirmationRequest
 import com.englizya.model.request.ReservationRequest
-import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.ReservationOrder
 import io.ktor.client.*
 import io.ktor.client.request.*
@@ -42,7 +41,7 @@ class ReservationServiceImpl constructor(
     override suspend fun confirmReservation(
         request: ReservationConfirmationRequest,
         token: String
-    ): List<OnlineTicket> =
+    ): List<ReservationTicket> =
         client.post(Routing.CONFIRM_RESERVATION) {
             with(headers) { append(HttpHeaders.Authorization, "Bearer $token") }
             contentType(ContentType.Application.Json)
