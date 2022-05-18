@@ -2,10 +2,6 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
     api 'com.paytabs:payment-sdk:6.2.2'
-//
-//    def kotlin_coroutinesVersion = "1.6.0"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutinesVersion"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutinesVersion"
 }
 configurations.all { resolutionStrategy { exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug" } }
 
