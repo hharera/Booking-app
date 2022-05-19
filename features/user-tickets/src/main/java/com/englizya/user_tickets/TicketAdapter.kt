@@ -49,7 +49,7 @@ class TicketAdapter(
             binding.seatNo.text = (ticket.seatNo).toString()
             binding.serviceDegree.text = (ticket.serviceType)
 
-            setupStationsAdapter(ticket.sourceOfficeList)
+//            setupStationsAdapter(ticket.sourceOfficeList)
 
             val barcodeEncoder = BarcodeEncoder()
             barcodeEncoder.encodeBitmap(
