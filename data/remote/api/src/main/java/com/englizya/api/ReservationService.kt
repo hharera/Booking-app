@@ -4,6 +4,7 @@ import com.englizya.model.model.ReservationTicket
 import com.englizya.model.request.PaymentRequest
 import com.englizya.model.request.ReservationConfirmationRequest
 import com.englizya.model.request.ReservationRequest
+import com.englizya.model.request.ReservationWithWalletRequest
 import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.ReservationOrder
 
@@ -20,5 +21,10 @@ interface ReservationService {
     suspend fun confirmReservation(
         request: ReservationConfirmationRequest,
         token: String
-    ) : List<OnlineTicket>
+    ) : List<ReservationTicket>
+
+    suspend fun confirmReservation(
+        request: ReservationWithWalletRequest,
+        token: String
+    ) : List<ReservationTicket>
 }

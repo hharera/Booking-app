@@ -60,7 +60,7 @@ class SelectStationFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        bookingViewModel.bookingOffice.observe(viewLifecycleOwner) {
+        bookingViewModel.selectedBookingOffice.observe(viewLifecycleOwner) {
             binding.pay.isEnabled = it != null
         }
 

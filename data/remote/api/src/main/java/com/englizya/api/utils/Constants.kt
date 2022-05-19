@@ -5,6 +5,7 @@ import io.ktor.http.*
 
 object Routing {
     const val REQUEST_RECHARGE = "${Domain.ENGLIZYA_PAY}api/wallet/request-recharge"
+    const val RESERVE_WITH_WALLET = "${Domain.ENGLIZYA_PAY}api/wallet/book-seats"
     const val RECHARGE_BALANCE = "${Domain.ENGLIZYA_PAY}api/wallet/recharge"
     const val GET_BALANCE = "${Domain.ENGLIZYA_PAY}api/wallet/balance"
 
@@ -53,6 +54,10 @@ object AuthenticationParameters {
 
 object Constants {
     const val TOKEN = "token"
+}
+
+object TIME_OUT {
+    const val MILLIS = (30 * 1000).toLong()
 }
 
 val HttpHeaders.BEARER

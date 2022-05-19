@@ -53,6 +53,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupListeners()
+        bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
     }
 
     private fun setupListeners() {
@@ -76,6 +77,10 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         binding.englizyaWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.EnglizyaWallet)
             updateSelectedMethodUI(it.id)
+        }
+
+        binding.pay.setOnClickListener {
+            bookingViewModel.whenPayButtonClicked()
         }
     }
 
@@ -140,8 +145,17 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             showUserTickets()
         }
 
+
+        bookingViewModel.reservationTickets.observe(viewLifecycleOwner) {
+            showUserTickets()
+        }
+
         bookingViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
+        }
+
+        bookingViewModel.reservationWithWalletRequest.observe(viewLifecycleOwner) {
+            bookingViewModel.confirmReservation(it)
         }
 
     }
