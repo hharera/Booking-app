@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
+import com.englizya.common.utils.extension.clearHistory
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
@@ -221,6 +222,8 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             requireActivity(),
             paymentSdkConfigurationDetails,
             this
-        )
+        ).also {
+            activity?.clearHistory()
+        }
     }
 }

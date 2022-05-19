@@ -55,5 +55,9 @@ object Constants {
     const val TOKEN = "token"
 }
 
+object TIME_OUT {
+    const val MILLIS = (30 * 1000).toLong()
+}
+
 val HttpHeaders.BEARER
     get() = "Bearer"

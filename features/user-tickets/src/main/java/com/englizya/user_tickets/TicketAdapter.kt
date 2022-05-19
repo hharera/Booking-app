@@ -1,10 +1,11 @@
 package com.englizya.user_tickets
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.time.TimeOnly
-import com.englizya.model.model.TripTimes
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.CardViewTicketBinding
 import com.google.zxing.BarcodeFormat
@@ -37,7 +38,6 @@ class TicketAdapter(
         private val binding: CardViewTicketBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-
         fun updateUI(ticket: UserTicket) {
             binding.source.text = ticket.source
             binding.sourceTimeTV.text = TimeOnly.map(ticket.sourceTime)
@@ -45,31 +45,33 @@ class TicketAdapter(
             binding.destination.text = ticket.destination
             binding.destinationTimeTV.text = TimeOnly.map(ticket.destinationTime)
 
-//            binding.tripDate.text = DateOnly.toMonthDate(ticket.tripDate)
-            binding.seatNo.text = (ticket.seatNo).toString()
-            binding.serviceDegree.text = (ticket.serviceType)
+            binding.tripDate.text = DateOnly.toMonthDate(ticket.reservationDate)
+            binding.seatNo.text = (ticket.seatNo).toString().let { "#Seat $it" }
+            binding.trioId.text = (ticket.ticketId).toString().let { "#Ticket $it" }
 
-//            setupStationsAdapter(ticket.sourceOfficeList)
+            binding.serviceDegree.text = ticket.serviceType
 
-            val barcodeEncoder = BarcodeEncoder()
-            barcodeEncoder.encodeBitmap(
+            createTicketQr(ticket).let {
+                binding.ticketQr.setImageBitmap(it)
+            }
+
+            setupListener(ticket)
+            updateBookingOfficeUI(ticket)
+        }
+
+        private fun createTicketQr(ticket: UserTicket): Bitmap {
+            return BarcodeEncoder().encodeBitmap(
                 ticket.ticketQr,
                 BarcodeFormat.QR_CODE,
                 400,
                 400
-            ).let {
-                binding.ticketQr.setImageBitmap(it)
-            }
-
-
-            setupListener(ticket)
+            )
         }
 
-        private fun setupStationsAdapter(sourceOfficeList: List<TripTimes>) {
-            val adapter = StopStationAdapter(sourceOfficeList){
-
-            }
-            binding.stations.adapter = adapter
+        private fun updateBookingOfficeUI(ticket: UserTicket) {
+            binding.station.text = ticket.bookingOfficeName
+            binding.ridingTime.text = TimeOnly.map(ticket.bookingOfficeRidingTime)
+            binding.exitTime.text = TimeOnly.map(ticket.bookingOfficeMovingTime)
         }
 
         private fun setupListener(ticket: UserTicket) {

@@ -1,6 +1,7 @@
 package com.englizya.api
 
 import com.englizya.api.utils.Routing
+import com.englizya.api.utils.TIME_OUT
 import com.englizya.model.response.UserTicket
 import com.google.common.net.HttpHeaders
 import io.ktor.client.*
@@ -19,7 +20,7 @@ class TicketServiceImpl constructor(
     override suspend fun getTickets(token: String): List<UserTicket> =
         client.get(Routing.GET_TICKETS) {
             timeout {
-                requestTimeoutMillis = org.joda.time.Period.seconds(30).millis.toLong()
+                requestTimeoutMillis = TIME_OUT.MILLIS
             }
             headers{
                 append(HttpHeaders.AUTHORIZATION, "Bearer $token")
