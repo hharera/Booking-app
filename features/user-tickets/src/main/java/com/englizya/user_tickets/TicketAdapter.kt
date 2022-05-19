@@ -46,8 +46,9 @@ class TicketAdapter(
             binding.destinationTimeTV.text = TimeOnly.map(ticket.destinationTime)
 
             binding.tripDate.text = DateOnly.toMonthDate(ticket.reservationDate)
+            binding.trioId.text = (ticket.tripId).toString().let { "#Trip $it" }
             binding.seatNo.text = (ticket.seatNo).toString().let { "#Seat $it" }
-            binding.trioId.text = (ticket.ticketId).toString().let { "#Ticket $it" }
+            binding.ticketId.text = (ticket.ticketId).toString().let { "#Ticket $it" }
 
             binding.serviceDegree.text = ticket.serviceType
 

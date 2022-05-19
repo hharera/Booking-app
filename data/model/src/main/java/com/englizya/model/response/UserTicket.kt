@@ -1,7 +1,6 @@
 package com.englizya.model.response
 
 import kotlinx.serialization.Serializable
-import java.util.*
 
 @Serializable
 data class UserTicket(
@@ -20,5 +19,6 @@ data class UserTicket(
     val bookingOfficeRidingTime: String?,
     val bookingOfficeName: String,
     val reservationDate: String,
+    val tripId: Int,
 )
 
