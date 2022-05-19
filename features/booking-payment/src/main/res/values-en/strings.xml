@@ -6,4 +6,8 @@
     <string name="payment_failed">Payment failed</string>
     <string name="card_payment">Pay With Credit/Debit Card</string>
     <string name="wallet_payment">Pay With Your Wallet</string>
+    <string name="summary">Recipt Summary</string>
+    <string name="cards_method">Credit Or Debit Card</string>
+    <string name="englizya_wallet">Englizya Wallet</string>
+    <string name="payment_methods">Payment Methods</string>
 </resources>

@@ -16,6 +16,7 @@ import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.*
+import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.paytabs.PayTabsService
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
@@ -106,6 +107,9 @@ class BookingViewModel constructor(
 
     private var _bookingOffice = MutableLiveData<LineStationTime?>()
     val bookingOffice: LiveData<LineStationTime?> = _bookingOffice
+
+    private var _selectedPaymentMethod = MutableLiveData<PaymentMethod>()
+    val selectedPaymentMethod: LiveData<PaymentMethod> = _selectedPaymentMethod
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -362,7 +366,7 @@ class BookingViewModel constructor(
         }
     }
 
-    fun cratePaymentConfigurationDetails() {
+    private fun createPaymentConfigurationDetails() {
         updateLoading(true)
         encapsulatePaymentConfigurationDetails()
             .onFailure {
@@ -373,6 +377,18 @@ class BookingViewModel constructor(
                 updateLoading(false)
                 _billingDetails.value = it
             }
+    }
+
+    fun whenPayButtonClicked() {
+        when (selectedPaymentMethod.value) {
+            PaymentMethod.Card -> {
+                createPaymentConfigurationDetails()
+            }
+
+            PaymentMethod.EnglizyaWallet -> {
+//                TODO("not implemented") //To change body of created functions use
+            }
+        }
     }
 
     private fun encapsulatePaymentConfigurationDetails() =
@@ -447,4 +463,7 @@ class BookingViewModel constructor(
         _bookingOffice.value = stationTime
     }
 
+    fun setSelectedPaymentMethod(method: PaymentMethod) {
+        _selectedPaymentMethod.value = method
+    }
 }

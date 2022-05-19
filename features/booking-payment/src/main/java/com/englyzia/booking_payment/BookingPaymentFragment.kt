@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.core.view.forEach
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.BookingViewModel.Companion.ACCEPT_PAYMENT_REQUEST
+import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
 import com.harera.user_tickets.UserTicketsActivity
 import com.payment.paymentsdk.PaymentSdkActivity
@@ -63,8 +65,26 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.pay.setOnClickListener {
-            lifecycleScope.launch {
-                bookingViewModel.cratePaymentConfigurationDetails()
+            bookingViewModel.whenPayButtonClicked()
+        }
+
+        binding.cardMethodCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
+            updateSelectedMethodUI(it.id)
+        }
+
+        binding.englizyaWalletCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.EnglizyaWallet)
+            updateSelectedMethodUI(it.id)
+        }
+    }
+
+    private fun updateSelectedMethodUI(id: Int) {
+        binding.methodsGL.forEach {
+            if (it.id == id) {
+                it.setBackgroundResource(R.drawable.background_button_payment_method_selected)
+            } else {
+                it.setBackgroundResource(R.drawable.background_button_payment_method)
             }
         }
     }
