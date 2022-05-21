@@ -5,15 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.view.children
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
-import com.englizya.common.utils.code.CodeHandler.appendCode
-import com.englizya.common.utils.code.CountryCode
-import com.englizya.common.utils.navigation.Arguments.PHONE_NUMBER
-import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.send_otp.databinding.FragmentSendOtpBinding
@@ -21,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 class SendOtpFragment : BaseFragment() {
@@ -29,21 +21,6 @@ class SendOtpFragment : BaseFragment() {
     private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private val sendOtpViewModel: SendOtpViewModel by sharedViewModel()
     private lateinit var bind: FragmentSendOtpBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        getPhoneNumberArgument()
-    }
-
-    private fun getPhoneNumberArgument() {
-        arguments?.also {
-            it.getString(PHONE_NUMBER)?.let { phoneNumber ->
-                Log.d(TAG, "getPhoneNumberArgument: $phoneNumber")
-                sendOtpViewModel.setPhoneNumber(appendCode(phoneNumber, CountryCode.EgyptianCode))
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,20 +36,6 @@ class SendOtpFragment : BaseFragment() {
 
         setupObservers()
         setupListeners()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        restoreValues()
-    }
-
-    private fun restoreValues() {
-        sendOtpViewModel.code.value?.let {
-            bind.otpGrid.children.forEachIndexed { index, view ->
-                (view as TextView).text = it[index].toString()
-            }
-        }
     }
 
     private fun setupNumberListeners() {
