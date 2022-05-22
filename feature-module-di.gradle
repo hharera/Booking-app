@@ -38,20 +38,9 @@ android {
         exclude 'META-INF/proguard/androidx-annotations.pro'
     }
 
-//    composeOptions {
-//        kotlinCompilerExtensionVersion = Compose.compose_version
-//        kotlinCompilerVersion = Versions.kotlin
-//    }
-//
-//    kotlinOptions {
-//        jvmTarget = "1.8"
-//        freeCompilerArgs += [
-//                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-//                "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
-//                "-Xuse-experimental=androidx.compose.ui.unit.ExperimentalUnitApi",
-//                "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
-//                "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"]
-//    }
+    defaultConfig {
+        testInstrumentationRunner "io.philippeboisney.common_test.FakeRunner"
+    }
 }
 
 dependencies {

@@ -79,11 +79,23 @@ class SignupFragment : BaseFragment() {
                 bind.phoneNumber.error = getString(it.phoneNumberError!!)
             }
         }
+
+        signupViewModel.termsAccepted.observe(viewLifecycleOwner) {
+            if (it) {
+                bind.acceptPolicy.setImageResource(R.drawable.ic_accepted)
+            } else {
+                bind.acceptPolicy.setImageResource(R.drawable.background_button_accept)
+            }
+        }
     }
 
     private fun setupListeners() {
         bind.phoneNumber.afterTextChanged { phoneNumber ->
             signupViewModel.setPhoneNumber(phoneNumber)
+        }
+
+        bind.acceptPolicy.setOnClickListener {
+            signupViewModel.whenAcceptedClicked()
         }
 
         bind.signup.setOnClickListener {

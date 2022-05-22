@@ -6,9 +6,7 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity
 import com.englizya.repository.UserRepository
 
-class SignupViewModel constructor(
-    private val userRepository: UserRepository,
-) : BaseViewModel() {
+class SignupViewModel : BaseViewModel() {
 
     private var _phoneNumber = MutableLiveData<String>()
     val phoneNumber: LiveData<String> = _phoneNumber
@@ -18,6 +16,9 @@ class SignupViewModel constructor(
 
     private var _redirectRouting = MutableLiveData<String>()
     val redirectRouting: LiveData<String> = _redirectRouting
+
+    private var _termsAccepted = MutableLiveData<Boolean>(false)
+    val termsAccepted: LiveData<Boolean> = _termsAccepted
 
     fun setPhoneNumber(phoneNumber: String) {
         _phoneNumber.value = phoneNumber
@@ -36,5 +37,9 @@ class SignupViewModel constructor(
 
     fun setRedirectRouting(redirect: String) {
         _redirectRouting.postValue(redirect)
+    }
+
+    fun whenAcceptedClicked() {
+        _termsAccepted.value = termsAccepted.value!!.not()
     }
 }
