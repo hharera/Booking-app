@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.ui.QrDialog
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.model.model.User
 import com.englizya.profile.NavigationItem.*
 import com.englizya.profile.databinding.FragmentProfileBinding
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -61,8 +65,16 @@ class ProfileFragment : BaseFragment() {
         }
 
         profileViewModel.user.observe(viewLifecycleOwner) {
-
+            updateUI(it)
         }
+    }
+
+    private fun updateUI(user: User) {
+        BarcodeEncoder().encodeBitmap(user.uid, BarcodeFormat.QR_CODE, 48, 48).let {
+            binding.profileQr.setImageBitmap(it)
+        }
+
+        binding.profileName.text = getString(R.string.profile_name, user.name)
     }
 
     private fun setupRecyclerViewAdapter() {
@@ -82,6 +94,14 @@ class ProfileFragment : BaseFragment() {
         binding.charge.setOnClickListener {
             navigateToRecharging()
         }
+
+        binding.profileQr.setOnClickListener {
+            viewQrDialog()
+        }
+    }
+
+    private fun viewQrDialog() {
+        QrDialog(profileViewModel.user.value?.uid).show(childFragmentManager, "QrDialog")
     }
 
     private fun navigateToLogin() {
