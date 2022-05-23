@@ -7,7 +7,9 @@
     <string name="card_payment">Pay With Credit/Debit Card</string>
     <string name="wallet_payment">Pay With Your Wallet</string>
     <string name="summary">Recipt Summary</string>
-    <string name="cards_method">Credit Or Debit Card</string>
+    <string name="cards_method">Bank Card</string>
     <string name="englizya_wallet">Englizya Wallet</string>
     <string name="payment_methods">Payment Methods</string>
+    <string name="off_percentage">20%\nOFF</string>
+    <string name="off_details">Get 20% off your tickets \nusing Englizya Wallet</string>
 </resources>

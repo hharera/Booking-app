@@ -4,26 +4,6 @@ dependencies {
     api project(UiComponents.BOOKING)
     api project(Core.PAY_TABS)
     api project(Navigation.USER_TICKETS)
-
-    api project(":core:paymob")
-
-    api 'com.pnikosis:materialish-progress:1.7'
-    api 'com.squareup.retrofit2:retrofit:2.9.0'
-    api 'com.squareup.retrofit2:converter-gson:2.9.0'
-    api 'com.squareup.okhttp3:logging-interceptor:4.9.0'
-    api 'com.google.android.gms:play-services-base:18.0.1'
-
-    api 'com.pnikosis:materialish-progress:1.7'
-    api 'com.squareup.retrofit2:retrofit:2.9.0'
-    api 'com.squareup.retrofit2:converter-gson:2.9.0'
-    api 'com.squareup.okhttp3:logging-interceptor:4.9.0'
-    api 'com.google.android.gms:play-services-base:18.0.1'
-
-    api 'morxander.editcard:EditCard:1.0.1'
-    api 'androidx.appcompat:appcompat:1.4.1'
-    api 'com.google.android.material:material:1.5.0'
-    api 'androidx.constraintlayout:constraintlayout:2.1.3'
-    api 'com.android.volley:volley:1.2.1'
 }
 
 android {
