@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity
-import com.englizya.repository.UserRepository
 
 class SignupViewModel : BaseViewModel() {
 
@@ -30,6 +29,8 @@ class SignupViewModel : BaseViewModel() {
             _formValidity.postValue(SignupFormState(phoneNumberError = R.string.empty_phone_error))
         } else if (Validity.phoneNumberIsValid(phoneNumber.value!!).not()) {
             _formValidity.postValue(SignupFormState(phoneNumberError = R.string.phone_number_not_valid))
+        } else if (_termsAccepted.value!!.not()) {
+            _formValidity.postValue(SignupFormState(termsAcceptanceError = R.string.must_accept_terms))
         } else {
             _formValidity.postValue(SignupFormState(isValid = true))
         }
@@ -40,6 +41,12 @@ class SignupViewModel : BaseViewModel() {
     }
 
     fun whenAcceptedClicked() {
-        _termsAccepted.value = termsAccepted.value!!.not()
+        _termsAccepted.value = _termsAccepted.value!!.not()
+        checkFormValidity()
+    }
+
+    fun whenAccept() {
+        _termsAccepted.value = true
+        checkFormValidity()
     }
 }

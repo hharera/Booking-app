@@ -6,6 +6,7 @@ import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.mockk
@@ -103,8 +104,16 @@ class SignupFragmentTest : KoinTest {
     }
 
     @Test
-    fun test_to_show_trips_with_2_elements() {
+    fun test_to_show_term_and_conditions_when_clicked() {
+        launchFragment()
 
+        Espresso.onView(withId(R.id.terms_and_conditionsTV))
+            .perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.accept))
+            .perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.accept_policy))
     }
 
     private fun launchFragment(): NavController {

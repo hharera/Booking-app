@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutName"
+        android:id="@+id/text_input_layout_phone_number"
         style="@style/MainInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,14 +86,13 @@
         android:background="@drawable/background_button_accept"
         android:src="@drawable/ic_accepted"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName" />
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_phone_number" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/terms_and_conditionsTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="@string/i_accept_terms_and_conditions"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/accept_policy"
         app:layout_constraintStart_toEndOf="@+id/accept_policy"
