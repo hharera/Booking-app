@@ -36,6 +36,7 @@ class ProfileFragment : BaseFragment() {
         AboutUs,
         ContactUs,
         TermsAndConditions,
+        RefundPolicy,
         PrivacyPolicy,
         LogOut,
     )
@@ -165,11 +166,26 @@ class ProfileFragment : BaseFragment() {
                 navigateReviewDriver()
             }
 
+            is RefundPolicy -> {
+                navigateRefundPolicy()
+            }
+
             is LogOut -> {
                 profileViewModel.logout()
                 navigateToLogin()
             }
         }
+    }
+
+    private fun navigateRefundPolicy() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.REFUND_POLICY,
+                    false
+                )
+            )
     }
 
     private fun navigateToPrivacyPolicy() {

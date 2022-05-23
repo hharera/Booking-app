@@ -14,6 +14,7 @@ sealed class NavigationItem(
     object Settings : NavigationItem(R.drawable.ic_settings, R.string.settings)
     object SuggestIdea : NavigationItem(R.drawable.ic_bulb, R.string.suggest_idea)
     object PrivacyPolicy : NavigationItem(R.drawable.ic_privacy_policy, R.string.privacy_policy)
+    object RefundPolicy : NavigationItem(R.drawable.ic_refund, R.string.refund_policy)
 
     object SuggestionsAndComplaint :
         NavigationItem(R.drawable.ic_bulb, R.string.suggestions_and_complaints)

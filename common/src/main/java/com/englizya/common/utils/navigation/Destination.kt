@@ -25,4 +25,5 @@ object Destination {
     const val SEND_OTP = "send-otp"
     const val PRIVACY_POLICY = "privacy-policy"
     const val RECHARGING = "recharging"
+    const val REFUND_POLICY = "refund-policy"
 }

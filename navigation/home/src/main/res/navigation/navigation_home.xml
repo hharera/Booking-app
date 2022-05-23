@@ -117,4 +117,12 @@
         <deepLink app:uri="EnglizyaPay://recharging" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_refund_policy"
+        android:name="com.englizya.terms_conditions.RefundFragment"
+        tools:layout="@layout/fragment_refund">
+
+        <deepLink app:uri="EnglizyaPay://refund-policy" />
+    </fragment>
+
 </navigation>
