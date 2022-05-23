@@ -105,7 +105,7 @@ class SignupFragment : BaseFragment() {
             if (it.phoneNumberError != null) {
                 bind.textInputLayoutPhoneNumber.error = getString(it.phoneNumberError!!)
             } else {
-                bind.phoneNumber.error = null
+                bind.textInputLayoutPhoneNumber.error = null
             }
 
             if (it.termsAcceptanceError != null) {

@@ -67,9 +67,15 @@ class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
             binding.submit.isEnabled = it.formIsValid
 
             if (it.driverCodeError != null) {
-                binding.driverCode.error = getString(it.driverCodeError!!)
-            } else if (it.reviewMessageError != null) {
-                binding.message.error = getString(it.reviewMessageError!!)
+                binding.textInputLayoutDriverCode.error = getString(it.driverCodeError!!)
+            } else {
+                binding.textInputLayoutDriverCode.error = null
+            }
+
+            if (it.reviewMessageError != null) {
+                binding.textInputLayoutReviewMessage.error = getString(it.reviewMessageError!!)
+            } else {
+                binding.textInputLayoutReviewMessage.error = null
             }
         }
     }

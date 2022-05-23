@@ -69,7 +69,9 @@ class SetPasswordFragment : BaseFragment() {
             bind.pay.isEnabled = it.isValid
 
             if (it.passwordError != null) {
-                bind.password.error = getString(it.passwordError!!)
+                bind.textInputLayoutPassword.error = getString(it.passwordError!!)
+            } else {
+                bind.textInputLayoutPassword.error = null
             }
         }
     }

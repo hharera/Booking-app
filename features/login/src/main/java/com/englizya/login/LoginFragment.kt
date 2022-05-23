@@ -66,9 +66,15 @@ class LoginFragment : BaseFragment() {
             bind.login.isEnabled = it.formIsValid
 
             if (it.phoneNumberError != null) {
-                bind.phoneNumber.error = getString(it.phoneNumberError!!)
-            } else if (it.passwordError != null) {
-                bind.password.error = getString(it.passwordError!!)
+                bind.textInputLayoutPhoneNumber.error = getString(it.phoneNumberError!!)
+            } else {
+                bind.textInputLayoutPhoneNumber.error = null
+            }
+
+            if (it.passwordError != null) {
+                bind.textInputLayoutPassword.error = getString(it.passwordError!!)
+            } else {
+                bind.textInputLayoutPassword.error = null
             }
         }
     }

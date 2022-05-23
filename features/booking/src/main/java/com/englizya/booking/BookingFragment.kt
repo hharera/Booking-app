@@ -83,15 +83,15 @@ class BookingFragment : BaseFragment() {
             binding.search.isEnabled = it.formIsValid
 
             if (null != it.sourceError) {
-                binding.source.setError(getString(it.sourceError!!))
+                binding.inputLayoutSource.error = getString(it.sourceError!!)
             } else {
-                binding.source.error = null
+                binding.inputLayoutSource.error = null
             }
 
             if (null != it.destinationError) {
-                binding.destination.setError(getString(it.destinationError!!))
+                binding.inputLayoutDestination.error = getString(it.destinationError!!)
             } else {
-                binding.destination.error = null
+                binding.inputLayoutDestination.error = null
             }
         }
 

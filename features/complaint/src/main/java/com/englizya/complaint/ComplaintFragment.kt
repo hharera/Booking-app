@@ -69,9 +69,15 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
             binding.submit.isEnabled = it.formIsValid
 
             if (it.descriptionError != null) {
-                binding.desc.error = getString(it.descriptionError!!)
-            } else if (it.titleError != null) {
-                binding.title.error = getString(it.titleError!!)
+                binding.textInputLayoutDesc.error = getString(it.descriptionError!!)
+            } else {
+                binding.textInputLayoutDesc.error = null
+            }
+
+            if (it.titleError != null) {
+                binding.textInputLayoutTitle.error = getString(it.titleError!!)
+            } else {
+                binding.textInputLayoutTitle.error = null
             }
         }
     }
