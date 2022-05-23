@@ -114,6 +114,10 @@ class BookingFragment : BaseFragment() {
         bookingViewModel.stations.observe(viewLifecycleOwner) {
             updateUI(it)
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
     private fun updateUI(it: List<Station>) {

@@ -80,6 +80,10 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
                 binding.textInputLayoutTitle.error = null
             }
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
     private fun setupListeners() {

@@ -62,6 +62,10 @@ class LoginFragment : BaseFragment() {
             checkLoginState(state)
         }
 
+        connectionLiveData.observe(viewLifecycleOwner) { state ->
+            showInternetSnackBar(bind.root, state)
+        }
+
         loginViewModel.formValidity.observe(viewLifecycleOwner) {
             bind.login.isEnabled = it.formIsValid
 

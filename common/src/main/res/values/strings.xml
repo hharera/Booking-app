@@ -94,7 +94,7 @@
     <string name="our_location">موقعنا</string>
     <string name="similar_products">منجات مماثلة:</string>
     <string name="top_categories">الاقسام الرئيسييه</string>
-    <string name="no_internet">لا يوجد اتصال بالإنترنت \ n الرجاء التحقق من الإنترنت</string>
+    <string name="no_internet">غير متصل</string>
     <string name="addCategory">إضافة قسم</string>
     <string name="addProduct">إضافة منتج</string>
     <string name="addOffer">إضافة عرض</string>

@@ -78,6 +78,10 @@ class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
                 binding.textInputLayoutReviewMessage.error = null
             }
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
     private fun setupListeners() {

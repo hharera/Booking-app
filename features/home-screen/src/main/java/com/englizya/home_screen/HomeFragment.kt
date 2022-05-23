@@ -34,6 +34,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
+
         homeViewModel.user.observe(viewLifecycleOwner) {
             binding.userNameTV.text = it.name
         }

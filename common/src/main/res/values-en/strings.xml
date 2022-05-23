@@ -72,7 +72,7 @@
     <string name="select_medicine_image">Add medication image</string>
     <string name="internet_problem_message">There was a connection problem</string>
     <string name="try_again">Try again</string>
-    <string name="back_connected">backlink</string>
+    <string name="back_connected">Back Online</string>
     <string name="sort">arrange</string>
     <string name="filter">filter</string>
     <string name="price_ascending">Price: Low to High</string>
@@ -91,7 +91,7 @@
     <string name="our_location">Our location</string>
     <string name="similar_products">Similar products:</string>
     <string name="top_categories">Main Sections</string>
-    <string name="no_internet">No internet connection \ n Please check internet</string>
+    <string name="no_internet">No internet connection</string>
     <string name="addCategory">Add Section</string>
     <string name="addProduct">Add Product</string>
     <string name="addOffer">Add Offer</string>

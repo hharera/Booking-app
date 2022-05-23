@@ -75,6 +75,10 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
                 state?.let { checkOperationState(it) }
             }
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
     private fun setupListeners() {

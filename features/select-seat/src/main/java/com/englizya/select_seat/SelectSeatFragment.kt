@@ -193,6 +193,9 @@ class SelectSeatFragment : BaseFragment() {
             handleLoading(it)
         }
 
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
 

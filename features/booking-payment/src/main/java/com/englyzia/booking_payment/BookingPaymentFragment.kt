@@ -149,6 +149,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             bookingViewModel.confirmReservation(it)
         }
 
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
+
     }
 
     private fun showUserTickets() {

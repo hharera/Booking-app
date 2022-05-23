@@ -68,6 +68,10 @@ class ProfileFragment : BaseFragment() {
         profileViewModel.user.observe(viewLifecycleOwner) {
             updateUI(it)
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
     private fun updateUI(user: User) {

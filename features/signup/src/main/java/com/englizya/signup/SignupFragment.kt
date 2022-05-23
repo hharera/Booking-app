@@ -122,6 +122,10 @@ class SignupFragment : BaseFragment() {
                 bind.acceptPolicy.setImageResource(R.drawable.background_button_accept)
             }
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(bind.root, it)
+        }
     }
 
     private fun setupListeners() {

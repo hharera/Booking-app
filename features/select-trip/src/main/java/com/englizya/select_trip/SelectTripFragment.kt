@@ -21,10 +21,6 @@ class SelectTripFragment : BaseFragment() {
     private lateinit var adapter: TripAdapter
     private val bookingViewModel: BookingViewModel by sharedViewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

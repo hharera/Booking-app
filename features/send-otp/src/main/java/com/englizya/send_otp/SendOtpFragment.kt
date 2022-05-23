@@ -104,6 +104,10 @@ class SendOtpFragment : BaseFragment() {
         sendOtpViewModel.verificationCode.observe(viewLifecycleOwner) { verificationCode ->
             promptCode()
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(bind.root, it)
+        }
     }
 
     private fun updateCodeUI(code: String) {

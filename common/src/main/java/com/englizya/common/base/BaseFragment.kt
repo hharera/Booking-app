@@ -1,12 +1,17 @@
 package com.englizya.common.base
 
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.englizya.common.R
 import com.englizya.common.ui.DoneDialog
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
+import com.google.android.material.snackbar.Snackbar
 
 open class BaseFragment : Fragment() {
 
@@ -85,5 +90,17 @@ open class BaseFragment : Fragment() {
 
     private fun dismissDoneDialog() {
         doneDialog.dismiss()
+    }
+
+    fun showInternetSnackBar(view: View, internetState : Boolean) {
+        val snackbar = Snackbar.make(
+            view,
+            if (internetState)
+                R.string.back_connected
+            else
+                R.string.no_internet,
+            Snackbar.LENGTH_SHORT
+        )
+        snackbar.show()
     }
 }

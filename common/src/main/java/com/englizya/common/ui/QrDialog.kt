@@ -29,8 +29,10 @@ class QrDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        BarcodeEncoder().encodeBitmap(data, BarcodeFormat.QR_CODE, 150, 150).let {
-            binding.qr.setImageBitmap(it)
+        data?.let {
+            BarcodeEncoder().encodeBitmap(data, BarcodeFormat.QR_CODE, 150, 150).let {
+                binding.qr.setImageBitmap(it)
+            }
         }
 
         isCancelable = true
