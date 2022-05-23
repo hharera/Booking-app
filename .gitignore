@@ -6,6 +6,7 @@
 /app/release
 /app/debug
 /captures
+/release
 .externalNativeBuild
 .cxx
 local.properties
