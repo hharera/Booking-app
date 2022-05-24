@@ -7,6 +7,7 @@ import com.englizya.datastore.utils.KEY
 import com.englizya.datastore.utils.Language
 import com.englizya.datastore.utils.SharedPreferences
 import com.englizya.datastore.utils.Value.NULL_STRING
+import java.util.*
 
 class UserDataStore(context: Context) {
 
@@ -23,7 +24,6 @@ class UserDataStore(context: Context) {
     fun getToken(): String =
         driverSharedPreferences.getString(KEY.TOKEN, NULL_STRING)!!
 
-    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     fun setLanguage(language: Language) {
         when (language) {
             is Language.Arabic -> {
@@ -37,7 +37,7 @@ class UserDataStore(context: Context) {
     }
 
     fun getLanguage(): String =
-        driverSharedPreferences.getString(KEY.LANGUAGE, NULL_STRING)!!
+        driverSharedPreferences.getString(KEY.LANGUAGE, Locale.getDefault().displayLanguage)!!
 
     fun setUserName(name: String) {
         driverSharedPreferences.edit().putString(KEY.NAME, name).apply()

@@ -1,13 +1,17 @@
 package com.englizya.client.ticket
 
 import android.app.Application
+import android.content.res.Configuration
+import android.content.res.Resources
 import com.englizya.api.di.clientModule
 import com.englizya.api.di.remoteModule
+import com.englizya.app_settings.di.settingsModule
 import com.englizya.car_socket.di.socketModule
 import com.englizya.car_socket.di.stompModule
 import com.englizya.charging.di.rechargingModule
 import com.englizya.common.di.baseModule
 import com.englizya.complaint.di.complaintModule
+import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.di.dataStoreModule
 import com.englizya.feature.set_password.di.setPasswordModule
 import com.englizya.forgetpassword.di.forgetPasswordModule
@@ -46,6 +50,18 @@ class TicketApplication : Application(), KoinComponent {
 
         setupKoin()
         setupAppCenter()
+        setupLanguage()
+    }
+
+    private fun setupLanguage() {
+        val locale = Locale.Builder().setLanguage(UserDataStore(this).getLanguage()).build()
+        Locale.setDefault(locale)
+        val resources: Resources = resources
+        val config = Configuration(resources.configuration)
+        config.setLocale(locale)
+        config.setLayoutDirection(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        createConfigurationContext(config)
     }
 
     private fun setupAppCenter() {
@@ -89,6 +105,7 @@ class TicketApplication : Application(), KoinComponent {
                     homeModule,
                     driverReviewModule,
                     rechargingModule,
+                    settingsModule,
                 )
             )
         }
