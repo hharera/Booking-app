@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.ui.DoneDialog
-import com.englizya.common.utils.navigation.Arguments.PHONE_NUMBER
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils.getUriNavigation

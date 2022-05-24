@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="welcome_back">Welcome Back</string>
-    <string name="log_in_to_your_existing_account">Log in to your existing account</string>
-    <string name="phone_number">phone number</string>
+    <string name="log_in_to_your_existing_account">Login to your existing account</string>
+    <string name="contact_phone_number">Phone Number</string>
+    <string name="log_in">تسجيل الدخول</string>
+    <string name="phone_number_not_valid">Invalid number must start with 01 and consist of 11 digits</string>
+    <string name="not_have_an_account">"Do not have an account? "</string>
+    <string name="forget_password">"Forgot your password? "</string>
+    <string name="signup">signup</string>
+    <string name="password_should_be_not_empty">Password Required</string>
+    <string name="password_not_vlid">Password Must be between 8 and 40 characters</string>
+    <string name="create_new_account">Create a new account</string>
 </resources>

@@ -46,22 +46,24 @@ class TicketApplication : Application(), KoinComponent {
 
     override fun onCreate() {
         super.onCreate()
+        setupLanguage()
         TimeZone.setDefault(TimeZone.getTimeZone("EET"));
 
         setupKoin()
         setupAppCenter()
-        setupLanguage()
     }
 
     private fun setupLanguage() {
-        val locale = Locale.Builder().setLanguage(UserDataStore(this).getLanguage()).build()
-        Locale.setDefault(locale)
-        val resources: Resources = resources
-        val config = Configuration(resources.configuration)
-        config.setLocale(locale)
-        config.setLayoutDirection(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-        createConfigurationContext(config)
+        synchronized(this) {
+            val locale = Locale.Builder().setLanguage(UserDataStore(this).getLanguage()).build()
+            Locale.setDefault(locale)
+            val resources: Resources = resources
+            val config: Configuration = resources.configuration
+            config.setLocale(locale)
+            config.setLayoutDirection(locale)
+            resources.updateConfiguration(config, resources.displayMetrics)
+            createConfigurationContext(config)
+        }
     }
 
     private fun setupAppCenter() {

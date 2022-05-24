@@ -23,4 +23,15 @@
     <string name="travelling_instructions">تعليمات السفر</string>
     <string name="accept">قبول</string>
     <string name="must_accept_terms">يجب عليك قبول الشروط والأحكام</string>
+    <string name="log_in_to_your_existing_account">سجل دخول الي حسابك الحالي</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="welcome_back">مرحبًا بك مرة أخرى!</string>
+    <string name="log_in">تسجيل الدخول</string>
+    <string name="phone_number_not_valid">رقم غير صحيح يجب ان يبدأ ب 01 ويتكون من 11 رقم</string>
+    <string name="not_have_an_account">ليس لديك حساب؟</string>
+    <string name="forget_password">هل نسيت كلمة المرور؟</string>
+    <string name="signup">تسجيل</string>
+    <string name="password_should_be_not_empty">كلمة المرور مطلوبة</string>
+    <string name="password_not_vlid">كلمة المرور غير صالحة</string>
+    <string name="create_new_account">إنشاء حساب جديد</string>
 </resources>

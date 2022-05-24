@@ -43,10 +43,8 @@ class SetPasswordViewModel constructor(
     }
 
     private fun checkFormValidity() {
-        if (password.value.isNullOrBlank()) {
-            _formValidity.postValue(PasswordFormState(passwordError = R.string.password_should_be_not_empty))
-        } else if (Validity.passwordIsValid(password.value!!).not()) {
-            _formValidity.postValue(PasswordFormState(passwordError = R.string.password_not_vlid))
+        if (Validity.passwordIsValid(password.value!!).not()) {
+            _formValidity.postValue(PasswordFormState(passwordError = R.string.password_not_valid))
         } else {
             _formValidity.postValue(PasswordFormState(isValid = true))
         }

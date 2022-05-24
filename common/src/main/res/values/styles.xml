@@ -13,6 +13,7 @@
         <item name="android:windowBackground">@color/grey_100</item>
         <item name="android:statusBarColor">@color/grey_100</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:layoutDirection">locale</item>
     </style>
 
     <style name="FragmentStyle">

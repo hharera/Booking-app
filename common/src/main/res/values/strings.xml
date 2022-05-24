@@ -151,15 +151,6 @@
     <string name="add_payment_card">إضافة بطاقة دفع</string>
     <string name="payment_cards">بطاقات الدفع</string>
     <string name="add_card">إضافة بطاقة</string>
-    <string name="welcome_back">مرحبًا بك مرة أخرى!</string>
-    <string name="log_in">تسجيل الدخول</string>
-    <string name="dont_have_an_account">أليس لديك حساب؟</string>
-    <string name="forget_password">هل نسيت كلمة المرور؟</string>
-    <string name="signup">الخدمة</string>
-    <string name="phone_number_not_valid">رقم الهاتف غير صالح</string>
-    <string name="password_should_be_not_empty">كلمة المرور مطلوبة</string>
-    <string name="password_not_vlid">كلمة المرور غير صالحة</string>
-    <string name="create_new_account">إنشاء حساب جديد</string>
     <string name="sending_otp_message">%1$s لقد أرسلنا رمز تأكيد إلى</string>
     <string name="enter_confirmation_code">أدخل رمز التجهيز</string>
     <string name="map">خريطة</string>

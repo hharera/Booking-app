@@ -1,7 +1,11 @@
 package com.englizya.login
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +51,28 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+        setupSignupSpannable()
+    }
+
+    private fun setupSignupSpannable() {
+        val notHaveAccount = getString(R.string.not_have_an_account)
+        val signup = getString(R.string.signup)
+
+        val spannable: Spannable = SpannableString(signup + notHaveAccount)
+        spannable.setSpan(
+            ForegroundColorSpan(Color.BLACK),
+            0,
+            notHaveAccount.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannable.setSpan(
+            ForegroundColorSpan(Color.BLUE),
+            notHaveAccount.length,
+            signup.length + notHaveAccount.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        bind.signup.text = spannable
     }
 
     private fun setupObservers() {

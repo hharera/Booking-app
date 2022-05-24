@@ -112,10 +112,6 @@
     <string name="empty_phone_error">phone number is required</string>
     <string name="invalid_password_error">Invalid password</string>
     <string name="empty_image_error">Image is required</string>
-    <string name="phone_number_not_valid">Invalid Phone Number</string>
-    <string name="password_should_be_not_empty">Password is required</string>
-    <string name="password_not_vlid">Password is not valid</string>
-    <string name="create_new_account">Create new account</string>
     <string name="sending_otp_message">We have sent a confirmation code to %1$s Change Number</string>
     <string name="enter_confirmation_code">Enter the confirmation code</string>
     <string name="map">Map</string>
@@ -160,11 +156,6 @@
     <string name="add_payment_card">Add payment card</string>
     <string name="payment_cards">Payment cards</string>
     <string name="add_card">Add card</string>
-    <string name="welcome_back">Welcome Back!</string>
-    <string name="log_in">LOG IN</string>
-    <string name="dont_have_an_account">Don\'t have an account?</string>
-    <string name="forget_password">Forget password?</string>
-    <string name="signup">Signup</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="reset_password">Reset password</string>
     <string name="please_enter_your_new_password">please enter your new password</string>

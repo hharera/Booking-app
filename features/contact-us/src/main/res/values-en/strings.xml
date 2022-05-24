@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="contact_us">Contact Us</string>
-    <string name="phone_number">+20 122 451 8411</string>
+    <string name="contact_phone_number">+20 122 451 8411</string>
     <string name="email_1">info@englizya.com</string>
     <string name="email_2">support@englizya.com</string>
     <string name="location">1 Al-Toukhi Street - Shubra Al-Balad - Qalyubia - Egypt</string>
