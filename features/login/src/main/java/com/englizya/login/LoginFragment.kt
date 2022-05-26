@@ -58,7 +58,7 @@ class LoginFragment : BaseFragment() {
         val notHaveAccount = getString(R.string.not_have_an_account)
         val signup = getString(R.string.signup)
 
-        val spannable: Spannable = SpannableString(signup + notHaveAccount)
+        val spannable: Spannable = SpannableString( notHaveAccount.plus(signup))
         spannable.setSpan(
             ForegroundColorSpan(Color.BLACK),
             0,

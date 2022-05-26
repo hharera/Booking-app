@@ -73,7 +73,7 @@ class SignupFragment : BaseFragment() {
         val termsAndConditions = getString(R.string.terms_and_conditions)
         val accept = getString(R.string.read_and_accept)
 
-        val spannable: Spannable = SpannableString(accept + termsAndConditions)
+        val spannable: Spannable = SpannableString(accept.plus(termsAndConditions))
         spannable.setSpan(
             ForegroundColorSpan(Color.BLACK),
             0,

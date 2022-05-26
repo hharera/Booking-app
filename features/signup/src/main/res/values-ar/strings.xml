@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="read_and_accept">" لقد قرأت وقبلت"</string>
+    <string name="read_and_accept">" لقد قرأت وقبلت "</string>
     <string name="terms_and_conditions">الشروط والأحكام</string>
     <string name="reservation_instructions">تعليمات الحجز</string>
     <string name="reservation_time_change_terms">تعديل موعد او إلغاء السفر</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="terms_and_conditions">الشروط والأحكام</string>
-    <string name="read_and_accept"> لقد قرأت وقبلت</string>
+    <string name="read_and_accept"> لقد قرأت وقبلت </string>
     <string name="reservation_instructions">تعليمات الحجز</string>
     <string name="reservation_time_change_terms">تعديل موعد او إلغاء السفر</string>
     <string name="payment_conditions">الحجز و الدفع الإلكتروني</string>

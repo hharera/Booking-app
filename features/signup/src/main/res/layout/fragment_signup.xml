@@ -16,9 +16,9 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
+        android:layout_marginHorizontal="23dp"
         android:layout_marginTop="19dp"
         android:fontFamily="@font/sf"
         android:text="@string/create_new_account"
@@ -43,9 +43,9 @@
 
     <TextView
         android:id="@+id/textViewPhoneNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
+        android:layout_marginHorizontal="23dp"
         android:layout_marginTop="18dp"
         android:fontFamily="@font/sf"
         android:text="@string/phone_number"
