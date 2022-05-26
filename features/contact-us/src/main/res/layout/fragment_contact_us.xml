@@ -57,7 +57,7 @@
             android:layout_height="70dp"
             android:layout_margin="4dp"
             android:enabled="false"
-            android:text="@string/phone_number"
+            android:text="@string/contact_phone_number"
             android:textAllCaps="false"
             android:textColor="@color/blue_500"
             app:icon="@drawable/ic_call_incoming"

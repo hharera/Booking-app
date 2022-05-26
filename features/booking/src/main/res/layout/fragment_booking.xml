@@ -112,7 +112,7 @@
             android:id="@+id/fromTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_arabic"
             android:text="@string/from"
@@ -125,9 +125,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayoutSource"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
+            android:layout_marginHorizontal="25dp"
             android:imeActionId="@integer/btm_to"
             android:paddingVertical="4dp"
             android:textCursorDrawable="@color/blue_600"
@@ -135,19 +135,18 @@
             app:boxStrokeWidthFocused="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
                 android:id="@+id/source"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:layout_margin="8dp"
                 android:fontFamily="@font/montserrat_arabic"
                 android:lines="1"
                 android:maxLines="1"
+                android:layout_marginHorizontal="@dimen/_6sdp"
                 android:singleLine="true"
-                android:text="القاهرة"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -167,7 +166,7 @@
             android:id="@+id/toTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_arabic"
             android:text="@string/to"
@@ -182,7 +181,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
+            android:layout_marginHorizontal="30dp"
             android:imeActionId="@integer/btm_to"
             android:paddingVertical="4dp"
             android:textCursorDrawable="@color/blue_600"
@@ -190,19 +189,21 @@
             app:boxStrokeWidthFocused="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
                 android:id="@+id/destination"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:layout_margin="8dp"
+                android:layout_gravity="center"
                 android:fontFamily="@font/montserrat_arabic"
                 android:lines="1"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="الزقازيق"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
         </com.google.android.material.textfield.TextInputLayout>

@@ -96,9 +96,15 @@ class TripAdapter(
 
         private fun updateUI(stationTime: LineStationTime?) {
             stationTime?.let {
-                binding.station.text = stationTime.bookingOffice?.officeName
-                binding.ridingTime.text = TimeOnly.map(stationTime.startTime)
-                binding.exitTime.text = TimeOnly.map(stationTime.endTime)
+                binding.station.text = binding.root.context.getString(R.string.riding_station)
+                    .plus(" ")
+                    .plus(stationTime.bookingOffice?.officeName)
+                binding.ridingTime.text = binding.root.context.getString(R.string.riding_time)
+                    .plus(" ")
+                    .plus(TimeOnly.map(stationTime.startTime) ?: "")
+                binding.exitTime.text = binding.root.context.getString(R.string.exit_time)
+                    .plus(" ")
+                    .plus(TimeOnly.map(stationTime.endTime) ?: "")
             }
         }
 

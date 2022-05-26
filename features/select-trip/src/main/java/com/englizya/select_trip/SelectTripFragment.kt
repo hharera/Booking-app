@@ -26,7 +26,9 @@ class SelectTripFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentSelectTripBinding.inflate(layoutInflater)
+        changeStatusBarColor(R.color.grey_100)
         return binding.root
     }
 

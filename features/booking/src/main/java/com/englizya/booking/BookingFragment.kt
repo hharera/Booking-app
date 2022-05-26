@@ -37,8 +37,9 @@ class BookingFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBookingBinding.inflate(layoutInflater)
-        changeStatusBarColor(R.color.grey_100)
+        changeStatusBarColor(R.color.blue_600)
         return binding.root
     }
 
