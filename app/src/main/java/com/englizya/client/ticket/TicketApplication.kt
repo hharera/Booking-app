@@ -14,6 +14,8 @@ import com.englizya.complaint.di.complaintModule
 import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.di.dataStoreModule
 import com.englizya.feature.set_password.di.setPasswordModule
+import com.englizya.firebase.di.firebaseModule
+import com.englizya.firebase.di.firebaseServiceModule
 import com.englizya.forgetpassword.di.forgetPasswordModule
 import com.englizya.home_screen.di.homeModule
 import com.englizya.local.di.databaseModule
@@ -26,12 +28,10 @@ import com.englizya.send_otp.di.sendOtpModule
 import com.englizya.signup.di.signupModule
 import com.englizya.splash.splashModule
 import com.englizya.user_data.di.module
+import com.englizya.user_tickets.di.userTicketModule
 import com.englyzia.booking.di.bookingModule
 import com.englyzia.reviewdriver.di.driverReviewModule
 import com.google.firebase.FirebaseApp
-import com.englizya.firebase.di.firebaseModule
-import com.englizya.firebase.di.firebaseServiceModule
-import com.englizya.user_tickets.di.userTicketModule
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -54,7 +54,6 @@ class TicketApplication : Application(), KoinComponent {
     }
 
     private fun setupLanguage() {
-        synchronized(this) {
             val locale = Locale.Builder().setLanguage(UserDataStore(this).getLanguage()).build()
             Locale.setDefault(locale)
             val resources: Resources = resources
@@ -63,7 +62,6 @@ class TicketApplication : Application(), KoinComponent {
             config.setLayoutDirection(locale)
             resources.updateConfiguration(config, resources.displayMetrics)
             createConfigurationContext(config)
-        }
     }
 
     private fun setupAppCenter() {
