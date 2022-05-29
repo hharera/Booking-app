@@ -222,4 +222,5 @@
     <string name="transaction_rejected">Transaction rejected</string>
     <string name="user_tickets">Ticket history</string>
     <string name="add_complaint">Add Complaint</string>
+    <string name="wallet_otp">Wallet OTP</string>
 </resources>

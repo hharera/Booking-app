@@ -106,7 +106,12 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun viewQrDialog() {
-        QrDialog(profileViewModel.user.value?.uid).show(childFragmentManager, "QrDialog")
+        QrDialog(
+            profileViewModel.user.value,
+        ).show(
+            childFragmentManager,
+            "QrDialog"
+        )
     }
 
     private fun navigateToLogin() {

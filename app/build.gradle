@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 }
 apply plugin: 'kotlin-kapt'
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
@@ -16,6 +17,12 @@ android {
         versionCode Releases.versionCode
         versionName Releases.versionName
 
+        def secretsPropertiesFile = rootProject.file("secrets.properties")
+        def secretsProperties = new Properties()
+        secretsProperties.load(new FileInputStream(secretsPropertiesFile))
+        defaultConfig {
+            buildConfigField("String", "SECRET_KEY", secretsProperties['SECRET_KEY'])
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

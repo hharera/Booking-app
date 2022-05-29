@@ -11,5 +11,6 @@ object TestUser {
         username = "test",
         password = "test",
         phoneNumber = "123456789",
+        walletOtp = "123456",
     )
 }

@@ -35,11 +35,14 @@ import com.google.firebase.FirebaseApp
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
+import org.jasypt.util.text.AES256TextEncryptor
+import org.jasypt.util.text.TextEncryptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import java.util.*
+import javax.crypto.Cipher.SECRET_KEY
 
 
 class TicketApplication : Application(), KoinComponent {
@@ -106,6 +109,13 @@ class TicketApplication : Application(), KoinComponent {
                     driverReviewModule,
                     rechargingModule,
                     settingsModule,
+                    module {
+                        single<TextEncryptor> {
+                            AES256TextEncryptor().apply {
+                                setPassword(BuildConfig.SECRET_KEY)
+                            }
+                        }
+                    },
                 )
             )
         }
