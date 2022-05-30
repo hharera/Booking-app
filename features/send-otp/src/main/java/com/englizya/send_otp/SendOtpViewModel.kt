@@ -112,4 +112,8 @@ class SendOtpViewModel constructor(
     fun setRedirectToSignupCompletion() {
         _redirect.value = Destination.SET_PASSWORD
     }
+
+    fun clearData() {
+        _verificationState.value = false
+    }
 }

@@ -49,7 +49,6 @@ class TicketApplication : Application(), KoinComponent {
 
     override fun onCreate() {
         super.onCreate()
-        setupLanguage()
         TimeZone.setDefault(TimeZone.getTimeZone("EET"));
 
         setupKoin()

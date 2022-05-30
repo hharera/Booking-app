@@ -27,6 +27,7 @@ class SendOtpFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         bind = FragmentSendOtpBinding.inflate(layoutInflater)
         return bind.root
     }
@@ -34,6 +35,7 @@ class SendOtpFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sendOtpViewModel.clearData()
         setupObservers()
         setupListeners()
     }
