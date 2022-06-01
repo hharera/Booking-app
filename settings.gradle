@@ -7,7 +7,7 @@ dependencyResolutionManagement {
         jcenter()
     }
 }
-rootProject.name = "Ticket-Client"
+rootProject.name = "Englizya-Bus"
 
 
 include ':app'
