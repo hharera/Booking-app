@@ -16,6 +16,8 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.Seat
 import com.englizya.model.model.Trip
+import com.englizya.select_seat.BusSeats.BUS_TYPE_33_SEATS
+import com.englizya.select_seat.BusSeats.BUS_TYPE_64_SEATS
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
 import kotlinx.coroutines.launch
@@ -36,6 +38,48 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun insertSeatViews(seatList: List<Seat>) {
+        if (seatList.size == BUS_TYPE_64_SEATS) {
+            spreadBusSeatsView(seatList)
+        } else if (seatList.size == BUS_TYPE_33_SEATS) {
+            spreadMiniBusSeatsView(seatList)
+        }
+    }
+
+    private fun spreadMiniBusSeatsView(seatList: List<Seat>) {
+        val iterator = seatList.iterator()
+
+        for (position in 0..45) {
+            val image = TextView(context).apply {
+                setTextColor(resources.getColor(R.color.white))
+                gravity = Gravity.CENTER
+                textSize = 14f
+            }
+
+            binding.seats.addView(image)
+
+            when (position) {
+                in (0..4) -> {
+                    if (position % 5 == 0) {
+                        image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 4) {
+                        image.setBackgroundResource(R.drawable.ic_exit)
+                    }
+                }
+
+                in (5..32) -> {
+                    if (position % 5 != 2) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                else -> {
+                    updateSeatView(image, iterator.next())
+                }
+            }
+        }
+    }
+
+    private fun spreadBusSeatsView(seatList: List<Seat>) {
         val iterator = seatList.iterator()
 
         for (position in 0..64) {
