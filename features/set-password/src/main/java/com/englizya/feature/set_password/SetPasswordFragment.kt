@@ -8,12 +8,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
-import com.englizya.common.ui.DoneDialog
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils.getUriNavigation
 import com.englizya.feature.set_password.databinding.FragmentSetPasswordBinding
 import com.englizya.send_otp.SendOtpViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -23,7 +23,6 @@ class SetPasswordFragment : BaseFragment() {
 
     private val setPasswordViewModel: SetPasswordViewModel by viewModel()
     private val sendOtpViewModel: SendOtpViewModel by sharedViewModel()
-    private val doneDialog: DoneDialog by lazy { DoneDialog() }
     private lateinit var bind: FragmentSetPasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,14 +83,13 @@ class SetPasswordFragment : BaseFragment() {
     }
 
     private fun updateSignupUI() {
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.Main) {
             showDoneDialog()
 
             delay(1000)
 
-            doneDialog.dismiss()
+            dismissDoneDialog()
 
-//            navigateToPaymentInfo()
             activity?.finish()
         }
     }
