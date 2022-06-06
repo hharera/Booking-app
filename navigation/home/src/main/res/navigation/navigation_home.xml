@@ -125,4 +125,12 @@
         <deepLink app:uri="EnglizyaPay://refund-policy" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_ticket_details"
+        android:name="com.englizya.feature.ticket.TicketDetailsFragment"
+        tools:layout="@layout/fragment_ticket_details">
+
+        <deepLink app:uri="EnglizyaPay://ticket-details" />
+    </fragment>
+
 </navigation>

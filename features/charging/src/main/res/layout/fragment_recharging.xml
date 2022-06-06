@@ -81,8 +81,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCharge"
-        app:placeholderText="@string/amount"
-        app:startIconDrawable="@drawable/ic_dollar">
+        app:suffixText="@string/pound"
+        app:suffixTextColor="@color/grey_300"
+        app:expandedHintEnabled="false"
+        app:placeholderText="@string/amount">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amount"
@@ -91,7 +93,11 @@
             android:imeActionId="@integer/btm_to"
             android:inputType="number"
             android:lines="1"
+
             android:textColor="@color/black" />
+
+
     </com.google.android.material.textfield.TextInputLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

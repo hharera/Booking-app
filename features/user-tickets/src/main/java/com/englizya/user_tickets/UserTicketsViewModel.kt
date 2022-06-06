@@ -17,6 +17,7 @@ class UserTicketsViewModel constructor(
     val tickets: MutableLiveData<List<UserTicket>>
         get() = _tickets
 
+
     init {
         getUserTickets()
     }
@@ -34,4 +35,6 @@ class UserTicketsViewModel constructor(
                 handleException(it)
             }
     }
+
+
 }

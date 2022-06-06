@@ -1,10 +1,14 @@
 package com.englizya.user_tickets
 
 import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.englizya.common.utils.date.DateOnly
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.CardViewTicketBinding
@@ -28,6 +32,7 @@ class TicketAdapter(
 
     override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
         holder.updateUI(ticketList.get(position))
+
     }
 
     override fun getItemCount(): Int {
@@ -50,7 +55,10 @@ class TicketAdapter(
             binding.seatNo.text = (ticket.seatNo).toString().let { "#Seat $it" }
             binding.ticketId.text = (ticket.ticketId).toString().let { "#Ticket $it" }
 
+
+
             binding.serviceDegree.text = ticket.serviceType
+
 
             createTicketQr(ticket).let {
                 binding.ticketQr.setImageBitmap(it)
@@ -59,6 +67,8 @@ class TicketAdapter(
             setupListener(ticket)
             updateBookingOfficeUI(ticket)
         }
+
+
 
         private fun createTicketQr(ticket: UserTicket): Bitmap {
             return BarcodeEncoder().encodeBitmap(
@@ -77,7 +87,10 @@ class TicketAdapter(
 
         private fun setupListener(ticket: UserTicket) {
             binding.root.setOnClickListener {
-                onItemClicked(ticket)
+                Log.d("navigateToTicketDetails", ticket.ticketQr)
+
+              NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY,Destination.TICKET_DETAILS,null)
+                //onItemClicked(ticket)
             }
         }
 

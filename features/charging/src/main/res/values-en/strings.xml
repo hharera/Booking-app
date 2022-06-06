@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources >
     <string name="charging">Recharging</string>
     <string name="amount">Amount</string>
     <string name="charging_amount_empty">Charging amount is required</string>
     <string name="invalid_amount_empty">Please enter a vlid amount e.g 100</string>
+    <string name="pound">LE</string>
+
 </resources>

@@ -223,4 +223,5 @@
     <string name="user_tickets">سجل التذاكر</string>
     <string name="add_complaint">إضافة شكوى</string>
     <string name="wallet_otp">رمز التأكيد</string>
+    <string name="showToDriverTxt">لحجز تذكرة اعرض الكود على السائق</string>
 </resources>

@@ -161,8 +161,7 @@ class BookingViewModel constructor(
 
     suspend fun getBookingOffices() {
         updateLoading(true)
-        stationRepository
-            .getAllStations()
+        stationRepository.getAllStations()
             .onSuccess {
                 updateLoading(false)
                 _stations.postValue(it)

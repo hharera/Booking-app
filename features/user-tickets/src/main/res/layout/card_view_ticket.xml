@@ -4,11 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="9dp"
+    app:cardCornerRadius="15dp"
+
+    app:cardElevation="6dp"
     android:backgroundTint="@color/grey_100">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/ic_background_ticket"
         android:padding="16dp">
 

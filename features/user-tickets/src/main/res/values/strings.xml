@@ -5,4 +5,6 @@
     <string name="riding_station">محطة الركوب</string>
     <string name="riding_time">وقت الركوب</string>
     <string name="exit_time">وقت التحرك</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

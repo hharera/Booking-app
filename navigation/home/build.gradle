@@ -22,6 +22,7 @@ dependencies {
     api(project(Feature.ABOUT_US))
     api(project(Feature.RECHARGING))
 
+
     api(project(Base.COMMON))
 
     api(project(UiComponents.NAVIGATION))

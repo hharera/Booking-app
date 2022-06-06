@@ -65,6 +65,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qrTV2" />
+        <TextView
+            android:id="@+id/showToDriver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf"
+            android:text="@string/showToDriverTxt"
+            android:letterSpacing="0.5"
+            android:textColor="@color/grey_300"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/walletOtp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
