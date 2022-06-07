@@ -1,3 +1,12 @@
 <resources>
     <string name="ticket_details">تفاصيل التذكرة</string>
+    <string name="trip_number">رقم الرحلة</string>
+    <string name="trip_date">التاريخ</string>
+    <string name="trip_source">من</string>
+    <string name="trip_destination">إلى</string>
+    <string name="number_of_tickets">عدد التذاكر</string>
+    <string name="tickets_price">سعر التذاكر</string>
+    <string name="client_name">الاسم</string>
+    <string name="client_phone">رقم التليفون</string>
+
 </resources>

@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.navigation.Destination
@@ -89,7 +90,8 @@ class TicketAdapter(
             binding.root.setOnClickListener {
                 Log.d("navigateToTicketDetails", ticket.ticketQr)
 
-              NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY,Destination.TICKET_DETAILS,null)
+             it.findNavController().navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY,Destination.TICKET_DETAILS,false)
+)
                 //onItemClicked(ticket)
             }
         }

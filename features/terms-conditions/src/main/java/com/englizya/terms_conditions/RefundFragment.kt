@@ -18,7 +18,7 @@ class RefundFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentRefundBinding.inflate(layoutInflater)
         return binding.root
