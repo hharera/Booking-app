@@ -27,6 +27,8 @@ object Routing {
     const val GET_ALL_TRIPS = "${Domain.ENGLIZYA_PAY}api/trip/all"
 
     const val GET_TICKETS = "${Domain.ENGLIZYA_PAY}api/ticket/all"
+    const val GET_TICKET_DETAILS = "${Domain.ENGLIZYA_PAY}api/ticket/"
+
 }
 
 object Request {

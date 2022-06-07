@@ -143,6 +143,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView8" />
 
             <TextView
+                android:id="@+id/trip_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -196,6 +197,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView9" />
 
             <TextView
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -251,6 +253,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView10" />
 
             <TextView
+                android:id="@+id/source"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -304,6 +307,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView11" />
 
             <TextView
+                android:id="@+id/destination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -358,6 +362,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView12" />
 
             <TextView
+                android:id="@+id/ticket_numbers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -411,6 +416,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView13" />
 
             <TextView
+                android:id="@+id/ticket_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -464,6 +470,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView14" />
 
             <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -517,6 +524,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView15" />
 
             <TextView
+                android:id="@+id/user_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"

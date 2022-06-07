@@ -14,6 +14,7 @@ import com.englizya.complaint.di.complaintModule
 import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.di.dataStoreModule
 import com.englizya.feature.set_password.di.setPasswordModule
+import com.englizya.feature.ticket.di.ticketDetailsModule
 import com.englizya.firebase.di.firebaseModule
 import com.englizya.firebase.di.firebaseServiceModule
 import com.englizya.forgetpassword.di.forgetPasswordModule
@@ -99,6 +100,7 @@ class TicketApplication : Application(), KoinComponent {
                     module,
                     bookingModule,
                     userTicketModule,
+                    ticketDetailsModule,
                     profileModule,
                     loginModule,
                     locationViewModel,

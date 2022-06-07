@@ -11,6 +11,8 @@ import java.time.Period
 
 interface TicketService {
     suspend fun getTickets(token: String): List<UserTicket>
+    suspend fun getTicketDetails(token: String , ticketId : String): UserTicket
+
 }
 
 class TicketServiceImpl constructor(
@@ -19,6 +21,16 @@ class TicketServiceImpl constructor(
 
     override suspend fun getTickets(token: String): List<UserTicket> =
         client.get(Routing.GET_TICKETS) {
+            timeout {
+                requestTimeoutMillis = TIME_OUT.MILLIS
+            }
+            headers{
+                append(HttpHeaders.AUTHORIZATION, "Bearer $token")
+            }
+        }
+
+    override suspend fun getTicketDetails(token: String , ticketId : String): UserTicket =
+        client.get(Routing.GET_TICKET_DETAILS+ticketId.toInt()) {
             timeout {
                 requestTimeoutMillis = TIME_OUT.MILLIS
             }

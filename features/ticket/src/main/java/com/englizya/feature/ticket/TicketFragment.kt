@@ -24,4 +24,6 @@ class TicketFragment : BaseFragment() {
         binding = FragmentTicketMainBinding.inflate(layoutInflater)
         return binding.root
     }
+
+
 }

@@ -130,7 +130,8 @@
         android:name="com.englizya.feature.ticket.TicketDetailsFragment"
         tools:layout="@layout/fragment_ticket_details">
 
-        <deepLink app:uri="EnglizyaPay://ticket-details" />
+        <argument android:name="ticketId"/>
+        <deepLink app:uri="EnglizyaPay://ticket-details/{ticketId}" />
     </fragment>
 
 </navigation>

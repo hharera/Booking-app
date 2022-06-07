@@ -7,4 +7,5 @@ object Arguments {
     const val PASSWORD: String = "password"
     const val SELECTED_LOCATION: String = "selectedLocation"
     const val REDIRECT= "redirect"
+    const val TICKET_ID = "ticketId"
 }

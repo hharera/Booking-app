@@ -6,6 +6,8 @@ import com.englizya.model.response.UserTicket
 interface TicketRepository {
 
     suspend fun getUserTickets(token: String): Result<List<UserTicket>>
+    suspend fun getTicketDetails(token: String , ticketId : String): Result<UserTicket>
+
 }
 
 class TicketRepositoryImpl constructor(
@@ -14,5 +16,10 @@ class TicketRepositoryImpl constructor(
 
     override suspend fun getUserTickets(token: String) = kotlin.runCatching {
         ticketService.getTickets(token)
+    }
+
+
+    override suspend fun getTicketDetails(token: String , ticketId : String) = kotlin.runCatching {
+        ticketService.getTicketDetails(token , ticketId)
     }
 }

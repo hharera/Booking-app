@@ -88,9 +88,10 @@ class TicketAdapter(
 
         private fun setupListener(ticket: UserTicket) {
             binding.root.setOnClickListener {
-                Log.d("navigateToTicketDetails", ticket.ticketQr)
+                Log.d("navigateToTicketDetails", ticket.ticketId.toString())
 
-             it.findNavController().navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY,Destination.TICKET_DETAILS,false)
+             it.findNavController().navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY,Destination.TICKET_DETAILS,ticket.ticketId.toString())
+
 )
                 //onItemClicked(ticket)
             }
