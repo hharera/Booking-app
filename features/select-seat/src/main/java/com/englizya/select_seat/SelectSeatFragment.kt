@@ -16,8 +16,9 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.Seat
 import com.englizya.model.model.Trip
-import com.englizya.select_seat.BusSeats.BUS_TYPE_33_SEATS
-import com.englizya.select_seat.BusSeats.BUS_TYPE_64_SEATS
+import com.englizya.select_seat.BusSeats.BUS_TYPE_28_SEATS
+import com.englizya.select_seat.BusSeats.BUS_TYPE_32_SEATS
+import com.englizya.select_seat.BusSeats.BUS_TYPE_49_SEATS
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
 import kotlinx.coroutines.launch
@@ -38,17 +39,19 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun insertSeatViews(seatList: List<Seat>) {
-        if (seatList.size == BUS_TYPE_64_SEATS) {
-            spreadBusSeatsView(seatList)
-        } else if (seatList.size == BUS_TYPE_33_SEATS) {
-            spreadMiniBusSeatsView(seatList)
+        if (seatList.size == BUS_TYPE_49_SEATS) {
+            spreadBus_49_SeatsView(seatList)
+        } else if (seatList.size == BUS_TYPE_32_SEATS) {
+            spreadMiniBus_32_SeatsView(seatList)
+        } else if (seatList.size == BUS_TYPE_28_SEATS) {
+            spreadMiniBus_28_SeatsView(seatList)
         }
     }
 
-    private fun spreadMiniBusSeatsView(seatList: List<Seat>) {
+    private fun spreadMiniBus_32_SeatsView(seatList: List<Seat>) {
         val iterator = seatList.iterator()
 
-        for (position in 0..45) {
+        for (position in 0..44) {
             val image = TextView(context).apply {
                 setTextColor(resources.getColor(R.color.white))
                 gravity = Gravity.CENTER
@@ -62,11 +65,21 @@ class SelectSeatFragment : BaseFragment() {
                     if (position % 5 == 0) {
                         image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
                     } else if (position % 5 == 4) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                in (5..9) -> {
+                    if (position % 5 == 0) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 1) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 4) {
                         image.setBackgroundResource(R.drawable.ic_exit)
                     }
                 }
 
-                in (5..32) -> {
+                in (10..40) -> {
                     if (position % 5 != 2) {
                         updateSeatView(image, iterator.next())
                     }
@@ -79,7 +92,51 @@ class SelectSeatFragment : BaseFragment() {
         }
     }
 
-    private fun spreadBusSeatsView(seatList: List<Seat>) {
+    private fun spreadMiniBus_28_SeatsView(seatList: List<Seat>) {
+        val iterator = seatList.iterator()
+
+        for (position in 0..39) {
+            val image = TextView(context).apply {
+                setTextColor(resources.getColor(R.color.white))
+                gravity = Gravity.CENTER
+                textSize = 14f
+            }
+
+            binding.seats.addView(image)
+
+            when (position) {
+                in (0..4) -> {
+                    if (position % 5 == 0) {
+                        image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 4) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                in (5..9) -> {
+                    if (position % 5 == 0) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 1) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 4) {
+                        image.setBackgroundResource(R.drawable.ic_exit)
+                    }
+                }
+
+                in (10..35) -> {
+                    if (position % 5 != 2) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                else -> {
+                    updateSeatView(image, iterator.next())
+                }
+            }
+        }
+    }
+
+    private fun spreadBus_49_SeatsView(seatList: List<Seat>) {
         val iterator = seatList.iterator()
 
         for (position in 0..64) {
