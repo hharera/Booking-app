@@ -86,7 +86,7 @@ open class BaseFragment : Fragment() {
 
     private fun showErrorDialog() {}
 
-    private fun dismissDoneDialog() {
+    fun dismissDoneDialog() {
         doneDialog.dismiss()
     }
 
