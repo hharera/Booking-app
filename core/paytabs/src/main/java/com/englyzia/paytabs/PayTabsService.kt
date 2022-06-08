@@ -83,8 +83,8 @@ class PayTabsService {
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
                 "94307",
-                "SJJNDG62RM-JDHRGDH6LT-2Z6MDWGW6R",
-                "CKKMBP-9DRH6D-HRTDHG-6NKGKQ",
+                "S2JNDG62RG-JDMRR2WH9L-JZRBTJHNZL",
+                "C9KMBP-9DMT6D-NRRMVH-DD27MN",
                 amount,
                 Currency.EG
             )
