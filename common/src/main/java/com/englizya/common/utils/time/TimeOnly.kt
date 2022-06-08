@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 object TimeOnly {
 
     private const val DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
-    private const val TIME_FORMAT = "HH:mm"
+    private const val TIME_FORMAT = "hh:mm aa"
 
     fun map(dateTime: String?): String? {
         dateTime ?: return null
