@@ -88,7 +88,6 @@ class TicketAdapter(
 
         private fun setupListener(ticket: UserTicket) {
             binding.root.setOnClickListener {
-                Log.d("navigateToTicketDetails", ticket.ticketId.toString())
                 onItemClicked(ticket)
             }
         }

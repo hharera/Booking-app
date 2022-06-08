@@ -7,11 +7,14 @@
     android:elevation="0dp"
     app:cardBackgroundColor="@color/grey_100"
     app:cardElevation="0dp"
+    android:layoutDirection="ltr"
+    android:layout_gravity="center"
     android:layout_marginTop="9dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:background="@drawable/background_ticket"
+        android:layoutDirection="ltr"
         android:layout_height="wrap_content"
         android:padding="16dp">
 

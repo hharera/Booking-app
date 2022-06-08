@@ -1,11 +1,14 @@
 package com.englizya.model.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 
 @Serializable
+@Entity(tableName = "User")
 data class User(
-    val uid: String,
+    @PrimaryKey  val uid: String,
     val username: String,
     val password: String,
     val phoneNumber: String,

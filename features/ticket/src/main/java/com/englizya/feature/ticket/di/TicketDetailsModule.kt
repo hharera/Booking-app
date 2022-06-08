@@ -8,7 +8,7 @@ import org.koin.dsl.module
 val ticketDetailsModule = module {
 
     viewModel {
-       TicketDetailsViewModel(get(), get())
+       TicketDetailsViewModel(get(), get(),get())
     }
 
 }

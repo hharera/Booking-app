@@ -1,5 +1,4 @@
 package com.englizya.select_trip
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +12,7 @@ class BookingOfficeAdapter(
     private val onItemClicked: (LineStationTime) -> Unit,
 ) : RecyclerView.Adapter<BookingOfficeAdapter.BookingOfficeViewHolder>() {
 
+  //  var isClicked = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingOfficeViewHolder {
         val bind = CardViewBookingOfficeBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -55,6 +55,9 @@ class BookingOfficeAdapter(
         private fun setupListener(stopStation: LineStationTime) {
             binding.root.setOnClickListener {
                 onItemClicked(stopStation)
+//                isClicked =true
+//                changeCardStyle()
+//                isClicked = isClicked.not()
 
                 stopStation.bookingOffice?.officeId?.let {
                     selectedBookingOfficeId = it
@@ -62,6 +65,21 @@ class BookingOfficeAdapter(
             }
         }
 
+//        fun changeCardStyle(){
+//            if (isClicked){
+//
+//               // binding.card.setCardForegroundColor(ColorStateList.valueOf(Color.parseColor("#8D1812")))
+//                binding.root.background.setTint(R.color.red_200)
+//                binding.cardConstraintLayout.setBackgroundColor(R.color.red_200)
+//                    //.setBackgroundResource(R.color.red_200)
+//
+//                isClicked = isClicked.not()
+//
+//            }else{
+//                binding.root.setBackgroundColor(R.color.grey_100)
+//
+//            }
+//        }
 //        fun updateUI(isClicked: Boolean) {
 //            if (isClicked) {
 //

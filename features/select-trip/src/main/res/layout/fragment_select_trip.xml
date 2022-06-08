@@ -78,6 +78,7 @@
         android:orientation="vertical"
         android:paddingHorizontal="23dp"
         android:paddingTop="7dp"
+        android:layoutDirection="ltr"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"

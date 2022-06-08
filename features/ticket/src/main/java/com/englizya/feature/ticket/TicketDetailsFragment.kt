@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.feature.ticket.databinding.FragmentTicketDetailsBinding
+import com.englizya.model.model.User
 import com.englizya.model.response.UserTicket
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -56,26 +57,42 @@ class TicketDetailsFragment : BaseFragment() {
         ticketDetailsViewModel.ticket.observe(viewLifecycleOwner) {
             updateUI(it)
         }
+        ticketDetailsViewModel.user.observe(viewLifecycleOwner){
+            updateUI(it)
+        }
     }
 
-    private fun updateUI(it: UserTicket?) {
-        it.let { BarcodeEncoder()
-                .encodeBitmap(
-                    it?.ticketQr,
-                    BarcodeFormat.QR_CODE,
-                    150,
-                    150
-                ).also {
-                    binding.ticketDetailQr.setImageBitmap(it)
-                } }
-        it?.tripId?.let { it1 -> binding.tripId.setText(it1) }
-        it?.reservationDate?.let { it1 -> binding.date.setText(it1) }
-        it?.source?.let { it1 -> binding.source.setText(it1) }
-        it?.destination?.let { it1 -> binding.destination.setText(it1) }
-        it?.uid?.let { it1 -> binding.userName.setText(it1) }
-// Phone - No of Ticket -  price
+    private  fun updateUI(ticket: UserTicket?) {
+        if (ticket != null) {
+            ticket.let {
+                BarcodeEncoder()
+                    .encodeBitmap(
+                        ticket.ticketQr,
+                        BarcodeFormat.QR_CODE,
+                        150,
+                        150
+                    ).also { ticket ->
+                        binding.ticketDetailQr.setImageBitmap(ticket)
+                    }
+            }
+            binding.tripId.setText(ticket.tripId)
+            binding.date.setText(ticket.reservationDate)
+            binding.source.setText(ticket.source)
+            binding.destination.setText(ticket.destination)
+            binding.seatNo.setText(ticket.seatNo)
+            binding.serviceType.setText(ticket.serviceType)
+            binding.bookingOfficeName.setText(ticket.bookingOfficeName)
+            binding.ticketTime.setText(ticket.ticketingTime)
+        }
+
 
     }
+    private  fun updateUI(user: User?) {
+        Log.d("UserInfo" , user?.phoneNumber +user?.password)
+        binding.userPhoneNumber.setText(user?.phoneNumber)
+        binding.userName.setText(user?.name)
+    }
+
 
     override fun onResume() {
         super.onResume()
