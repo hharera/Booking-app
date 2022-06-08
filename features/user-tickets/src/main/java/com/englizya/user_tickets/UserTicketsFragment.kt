@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.FragmentUserTicketsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -47,6 +50,13 @@ class UserTicketsFragment : BaseFragment() {
 
     private fun showFullTicket(it: UserTicket) {
 
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.TICKET_DETAILS,
+                it.ticketId.toString()
+            )
+        )
     }
 
     private fun setupObservers() {

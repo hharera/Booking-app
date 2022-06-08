@@ -19,30 +19,28 @@ class TicketDetailsViewModel constructor(
 ) : BaseViewModel() {
 
 
+    private val _ticketId = MutableLiveData<String?>()
+    val ticketId: MutableLiveData<String?>
+        get() = _ticketId
+
     private val _ticket = MutableLiveData<UserTicket>()
     val ticket: MutableLiveData<UserTicket>
         get() = _ticket
 
 
-
-    init {
-
-
-        Log.d("Ticket Details" , ticket.value?.ticketId.toString())
-        getTicketDetails()
-    }
-
-    fun getTicketDetails() = viewModelScope.launch {
+    fun getTicketDetails(ticketId : String?) = viewModelScope.launch {
         updateLoading(true)
-        ticketRepository
-            .getTicketDetails(userDataStore.getToken(),ticket.value?.ticketId.toString())
-            .onSuccess {
-                updateLoading(false)
-                _ticket.value = it
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
+        if (ticketId != null) {
+            ticketRepository
+                .getTicketDetails(userDataStore.getToken(),ticketId)
+                .onSuccess {
+                    updateLoading(false)
+                    _ticket.value = it
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
     }
 }

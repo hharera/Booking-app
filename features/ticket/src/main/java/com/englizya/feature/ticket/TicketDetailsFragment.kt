@@ -1,6 +1,7 @@
 package com.englizya.feature.ticket
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +21,6 @@ class TicketDetailsFragment : BaseFragment() {
     private val ticketDetailsViewModel: TicketDetailsViewModel by viewModel()
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +29,14 @@ class TicketDetailsFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentTicketDetailsBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.getString("ticketId").let {
+            ticketDetailsViewModel.ticketId.value = it
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,15 +59,15 @@ class TicketDetailsFragment : BaseFragment() {
     }
 
     private fun updateUI(it: UserTicket?) {
-it.let { BarcodeEncoder()
-    .encodeBitmap(
-        it?.ticketQr,
-        BarcodeFormat.QR_CODE,
-        150,
-        150
-    ).also {
-        binding.ticketDetailQr.setImageBitmap(it)
-    } }
+        it.let { BarcodeEncoder()
+                .encodeBitmap(
+                    it?.ticketQr,
+                    BarcodeFormat.QR_CODE,
+                    150,
+                    150
+                ).also {
+                    binding.ticketDetailQr.setImageBitmap(it)
+                } }
         it?.tripId?.let { it1 -> binding.tripId.setText(it1) }
         it?.reservationDate?.let { it1 -> binding.date.setText(it1) }
         it?.source?.let { it1 -> binding.source.setText(it1) }
@@ -72,6 +79,6 @@ it.let { BarcodeEncoder()
 
     override fun onResume() {
         super.onResume()
-        ticketDetailsViewModel.getTicketDetails()
+        ticketDetailsViewModel.getTicketDetails(arguments?.get("ticketId").toString())
     }
 }
