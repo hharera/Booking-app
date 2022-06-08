@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.layoutDirection
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -14,6 +15,7 @@ import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.FragmentSelectTripBinding
 import com.englyzia.booking.BookingViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 class SelectTripFragment : BaseFragment() {
 
@@ -29,6 +31,7 @@ class SelectTripFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentSelectTripBinding.inflate(layoutInflater)
         changeStatusBarColor(R.color.grey_100)
+        binding.root.layoutDirection = Locale.getDefault().layoutDirection
         return binding.root
     }
 

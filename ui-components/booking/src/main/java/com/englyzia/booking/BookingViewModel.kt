@@ -56,7 +56,7 @@ class BookingViewModel constructor(
      * Trips Result Screen
      */
 
-    private var _trips = MutableLiveData<List<Trip>>()
+    private var _trips = MutableLiveData<List<Trip>>(null)
     val trips: LiveData<List<Trip>> = _trips
 
     private var _selectedTrip = MutableLiveData<Trip>()
