@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ListPopupWindow
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navDeepLink
 import com.englizya.booking.databinding.FragmentBookingBinding
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
@@ -50,19 +53,19 @@ class BookingFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
-        binding.source.setOnItemClickListener { adapterView, view, i, l ->
-            adapterView.adapter.getItem(i).toString().let {
-                Log.d(TAG, "setupListeners: $it")
-                bookingViewModel.setSource(it)
-            }
-        }
+//        binding.source.setOnItemClickListener { adapterView, view, i, l ->
+//            adapterView.adapter.getItem(i).toString().let {
+//                Log.d(TAG, "setupListeners: $it")
+//                bookingViewModel.setSource(it)
+//            }
+//        }
 
-        binding.destination.setOnItemClickListener { adapterView, view, i, l ->
-            adapterView.adapter.getItem(i).toString().let {
-                Log.d(TAG, "setupListeners: $it")
-                bookingViewModel.setDestination(it)
-            }
-        }
+//        binding.destination.setOnItemClickListener { adapterView, view, i, l ->
+//            adapterView.adapter.getItem(i).toString().let {
+//                Log.d(TAG, "setupListeners: $it")
+//                bookingViewModel.setDestination(it)
+//            }
+//        }
 
         binding.dateConstraintLayout.setOnClickListener {
             showDatePickerDialog()
@@ -82,18 +85,6 @@ class BookingFragment : BaseFragment() {
     private fun setupObservers() {
         bookingViewModel.formValidity.observe(viewLifecycleOwner) {
             binding.search.isEnabled = it.formIsValid
-
-            if (null != it.sourceError) {
-                binding.inputLayoutSource.error = getString(it.sourceError!!)
-            } else {
-                binding.inputLayoutSource.error = null
-            }
-
-            if (null != it.destinationError) {
-                binding.inputLayoutDestination.error = getString(it.destinationError!!)
-            } else {
-                binding.inputLayoutDestination.error = null
-            }
         }
 
         bookingViewModel.date.observe(viewLifecycleOwner) {
@@ -136,8 +127,13 @@ class BookingFragment : BaseFragment() {
             it.map { it.branchName }
         )
 
-        binding.source.setAdapter(sourceAdapter)
-        binding.destination.setAdapter(destinationAdapter)
+        binding.fromConstraintLayout.setOnClickListener {
+            showSourceMenu(it)
+        }
+
+        binding.constraintLayout.setOnClickListener {
+            showDestinationMenu(it)
+        }
     }
 
     override fun onResume() {
@@ -161,5 +157,37 @@ class BookingFragment : BaseFragment() {
             bookingViewModel.setDate(time)
         }
         datePicker.show(childFragmentManager, "DATE")
+    }
+
+    private fun showDestinationMenu(view: View) {
+        ListPopupWindow(context!!).apply {
+            setAdapter(destinationAdapter)
+            anchorView = view
+
+            setOnItemClickListener { adapterView, view, i, l ->
+                adapterView.adapter.getItem(i).toString().let {
+                    bookingViewModel.setDestination(it)
+                }
+                dismiss()
+            }
+
+            show()
+        }
+    }
+
+    private fun showSourceMenu(view: View) {
+        ListPopupWindow(context!!).apply {
+            setAdapter(destinationAdapter)
+            anchorView = view
+
+            setOnItemClickListener { adapterView, view, i, l ->
+                adapterView.adapter.getItem(i).toString().let {
+                    bookingViewModel.setSource(it)
+                }
+                dismiss()
+            }
+
+            show()
+        }
     }
 }
