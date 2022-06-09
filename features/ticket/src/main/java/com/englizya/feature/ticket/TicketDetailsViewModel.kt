@@ -13,6 +13,7 @@ import com.englizya.local.UserDatabase
 import com.englizya.model.model.User
 import com.englizya.model.response.UserTicket
 import com.englizya.repository.TicketRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TicketDetailsViewModel constructor(
@@ -32,17 +33,19 @@ class TicketDetailsViewModel constructor(
 
     private val _user = MutableLiveData<User>()
     val user: MutableLiveData<User>
-        get() = user
+        get() = _user
 
-    fun getTicketDetails(ticketId : String?) = viewModelScope.launch {
+    fun getTicketDetails(ticketId : String?) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         if (ticketId != null) {
             ticketRepository
                 .getTicketDetails(userDataStore.getToken(),ticketId)
                 .onSuccess {
                     updateLoading(false)
-                    _ticket.value = it
-                    _user.value = userDatabase.getMarketDao().getUser()
+                    _ticket.postValue(it)
+                    _user.postValue( userDatabase.getMarketDao().getUser().first())
+              //      Log.d("User Info", _user.value!!.phoneNumber)
+
                 }
                 .onFailure {
                     updateLoading(false)

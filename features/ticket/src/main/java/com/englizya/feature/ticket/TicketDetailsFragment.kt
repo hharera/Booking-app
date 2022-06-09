@@ -2,18 +2,22 @@ package com.englizya.feature.ticket
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.date.DateOnly
+import com.englizya.common.utils.time.TimeOnly
 import com.englizya.feature.ticket.databinding.FragmentTicketDetailsBinding
 import com.englizya.model.model.User
 import com.englizya.model.response.UserTicket
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import org.joda.time.DateTime
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.joda.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.ofPattern
 
 class TicketDetailsFragment : BaseFragment() {
 
@@ -75,22 +79,23 @@ class TicketDetailsFragment : BaseFragment() {
                         binding.ticketDetailQr.setImageBitmap(ticket)
                     }
             }
-            binding.tripId.setText(ticket.tripId)
-            binding.date.setText(ticket.reservationDate)
-            binding.source.setText(ticket.source)
-            binding.destination.setText(ticket.destination)
-            binding.seatNo.setText(ticket.seatNo)
-            binding.serviceType.setText(ticket.serviceType)
-            binding.bookingOfficeName.setText(ticket.bookingOfficeName)
-            binding.ticketTime.setText(ticket.ticketingTime)
+            binding.tripId.text = ticket.tripId.toString()
+            binding.date.text = DateOnly.toMonthDate(ticket.reservationDate)
+            binding.source.text = ticket.source
+            binding.destination.text = ticket.destination
+            binding.seatNo.text = ticket.seatNo.toString()
+            binding.serviceType.text = ticket.serviceType
+            binding.bookingOfficeName.text = ticket.bookingOfficeName
+
+            binding.ticketTime.text = TimeOnly.ToTime(ticket.ticketingTime).toString()
+
+
         }
-
-
     }
     private  fun updateUI(user: User?) {
         Log.d("UserInfo" , user?.phoneNumber +user?.password)
-        binding.userPhoneNumber.setText(user?.phoneNumber)
-        binding.userName.setText(user?.name)
+        binding.userPhoneNumber.text = user?.phoneNumber
+        binding.userName.text = user?.name
     }
 
 

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.englizya.model.model.User
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
@@ -13,6 +14,6 @@ interface UserDao {
 
 
 
-    @Query(value = "SELECT * from User")
-    fun getUser(): User
+    @Query(value = "SELECT * from User ")
+    fun getUser(): List<User?>
 }

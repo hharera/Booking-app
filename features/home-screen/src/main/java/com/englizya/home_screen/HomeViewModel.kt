@@ -34,7 +34,8 @@ class HomeViewModel constructor(
     val user: LiveData<User> = _user
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+
             fetchUser()
         }
     }
@@ -45,9 +46,8 @@ class HomeViewModel constructor(
             .fetchUser(dataStore.getToken())
             .onSuccess {
 
-              withContext(Dispatchers.IO){
                   userDatabase.getMarketDao().insertUser(it)
-              }
+
 
 
                 _user.postValue(it)
