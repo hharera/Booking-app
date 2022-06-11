@@ -419,16 +419,70 @@ class BookingViewModel constructor(
         }
 
     private fun calculateAmount(): Double {
-        return selectedTrip.value?.let {
-            it.plan?.seatPrices?.first {
-                it.source == source.value?.branchId &&
-                        it.destination == destination.value?.branchId
-            }?.vipPrice!! * selectedSeats.value!!.size
-        }!!.toDouble()
+        return when (selectedTrip.value?.service?.serviceId) {
+            1 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.vipPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            2 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.economicPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            3 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.pullmanPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            4 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.pullmanPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            7 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.royalGoldPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            8 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.miniGoldPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            else -> {
+                0.0
+            }
+        }
+
     }
 
     fun clearTripList() {
-        _trips.postValue(emptyList())
+        _trips.postValue(null)
     }
 
     fun setTransactionRef(transactionReference: String?) {

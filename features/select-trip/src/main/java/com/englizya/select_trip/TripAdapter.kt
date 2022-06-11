@@ -75,13 +75,73 @@ class TripAdapter(
                 TimeOnly.map(it.startTime)
             }
 
-            binding.price.text = trip.plan?.seatPrices?.firstOrNull {
-                it.source == source?.branchId && it.destination == destination?.branchId
-            }?.vipPrice.toString()
+            binding.price.text = getTripPrice(trip).toString()
 
             binding.serviceDegree.text = trip.service?.serviceDegreeName
 
             boomBook(trip)
+        }
+
+        private fun getTripPrice(selectedTrip: Trip): Double? {
+            return when (selectedTrip.service?.serviceId) {
+                1 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.vipPrice!!
+                    }!!.toDouble()
+                }
+
+                2 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.economicPrice!!
+                    }!!.toDouble()
+                }
+
+                3 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.pullmanPrice!!
+                    }!!.toDouble()
+                }
+
+                4 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.pullmanPrice!!
+                    }!!.toDouble()
+                }
+
+                7 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.royalGoldPrice!!
+                    }!!.toDouble()
+                }
+
+                8 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.miniGoldPrice!!
+                    }!!.toDouble()
+                }
+
+                else -> {
+                    0.0
+                }
+            }
         }
 
         private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
