@@ -8,13 +8,15 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.date.DateOnly
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.*
+import com.englizya.model.payment.FawryInvoice
+import com.englyzia.paytabs.PayTabsService
 import com.englizya.model.request.*
+import com.englizya.model.response.FawryPaymentResponse
 import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.*
 import com.englyzia.booking.utils.PaymentMethod
-import com.englyzia.paytabs.PayTabsService
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +24,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
-
 class BookingViewModel constructor(
     private val stationRepository: StationRepository,
     private val tripsRepository: TripRepository,
@@ -110,6 +111,9 @@ class BookingViewModel constructor(
 
     private var _reservationWithWalletRequest = MutableLiveData<ReservationWithWalletRequest>()
     val reservationWithWalletRequest: LiveData<ReservationWithWalletRequest> = _reservationWithWalletRequest
+
+    private var _fawryPaymentResponse = MutableLiveData<FawryPaymentResponse>()
+    val fawryPaymentResponse: LiveData<FawryPaymentResponse> = _fawryPaymentResponse
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -392,7 +396,81 @@ class BookingViewModel constructor(
             PaymentMethod.EnglizyaWallet -> {
                 createReservationWithWalletRequest()
             }
+
+            PaymentMethod.FawryPayment -> {
+                requestFawryPaymentOrder()
+            }
         }
+    }
+
+    private fun requestFawryPaymentOrder() {
+        updateLoading(true)
+
+        encapsulateFawryPaymentOrderRequest()
+            .onSuccess {
+                updateLoading(false)
+                requestFawryPaymentOrder(it)
+            }.onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private fun encapsulateFawryPaymentOrderRequest(): Result<FawryPaymentOrderRequest> =
+        kotlin.runCatching {
+            FawryPaymentOrderRequest(orderId = reservationOrder.value!!.orderId)
+        }
+
+    private fun requestFawryPaymentOrder(request: FawryPaymentOrderRequest) =
+        viewModelScope.launch(Dispatchers.IO) {
+            updateLoading(true)
+            paymentRepository
+                .requestFawryPaymentOrder(request, dataStore.getToken())
+                .onSuccess {
+                    updateLoading(false)
+                    requestFawryPayment()
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
+
+    private fun createFawryInvoice() = kotlin.runCatching {
+        PayTabsService.createFawryInvoice(
+            user.value!!,
+            selectedTrip.value!!.tripName!!,
+            calculateAmount(),
+            reservationOrder.value!!.orderId,
+            selectedSeats.value!!.size
+        )
+    }
+
+    private fun requestFawryPayment() {
+        updateLoading(true)
+        createFawryInvoice()
+            .onSuccess {
+                updateLoading(false)
+                requestFawryPayment(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private fun requestFawryPayment(fawryInvoice: FawryInvoice) = viewModelScope.launch {
+        updateLoading(true)
+        paymentRepository
+            .requestFawryPayment(request = fawryInvoice)
+            .onSuccess {
+                updateLoading(false)
+                _fawryPaymentResponse.postValue(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
     }
 
     private fun createReservationWithWalletRequest() {
@@ -521,3 +599,4 @@ class BookingViewModel constructor(
         _selectedPaymentMethod.value = method
     }
 }
+
