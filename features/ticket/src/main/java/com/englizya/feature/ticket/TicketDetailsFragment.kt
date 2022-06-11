@@ -33,6 +33,7 @@ class TicketDetailsFragment : BaseFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentTicketDetailsBinding.inflate(layoutInflater)
+       // binding.root.visibility = View.INVISIBLE
         return binding.root
     }
 
@@ -45,6 +46,7 @@ class TicketDetailsFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.root.visibility = View.INVISIBLE
         setupListeners()
         setupObservers()
     }
@@ -59,6 +61,7 @@ class TicketDetailsFragment : BaseFragment() {
         }
 
         ticketDetailsViewModel.ticket.observe(viewLifecycleOwner) {
+            binding.root.visibility = View.VISIBLE
             updateUI(it)
         }
         ticketDetailsViewModel.user.observe(viewLifecycleOwner){

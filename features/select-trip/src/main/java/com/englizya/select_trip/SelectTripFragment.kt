@@ -67,6 +67,7 @@ class SelectTripFragment : BaseFragment() {
         }
 
         bookingViewModel.trips.observe(viewLifecycleOwner) {
+
             updateUI(it)
         }
     }
