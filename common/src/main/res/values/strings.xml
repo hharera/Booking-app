@@ -224,5 +224,7 @@
     <string name="add_complaint">إضافة شكوى</string>
     <string name="wallet_otp">رمز التأكيد</string>
     <string name="showToDriverTxt">لحجز تذكرة اعرض الكود على السائق</string>
+    <string name="refund_ticket_txt">الغاء</string>
+
 
 </resources>

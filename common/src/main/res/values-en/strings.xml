@@ -224,5 +224,7 @@
     <string name="add_complaint">Add Complaint</string>
     <string name="wallet_otp">Wallet OTP</string>
     <string name="showToDriverTxt">Please Show The QR Code To The Driver To Reserve a Ticket</string>
+    <string name="refund_ticket_txt">Cancel</string>
+
 
 </resources>
