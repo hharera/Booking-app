@@ -1,5 +1,6 @@
 package com.englizya.user_tickets
 
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 class TicketAdapter(
     private val ticketList: List<UserTicket>,
     private val onItemClicked: (UserTicket) -> Unit,
+    private val onCancelledClicked:(String) -> Unit,
 ) : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
@@ -55,12 +57,7 @@ class TicketAdapter(
             binding.trioId.text = (ticket.tripId).toString().let { "#Trip $it" }
             binding.seatNo.text = (ticket.seatNo).toString().let { "#Seat $it" }
             binding.ticketId.text = (ticket.ticketId).toString().let { "#Ticket $it" }
-
-
-
             binding.serviceDegree.text = ticket.serviceType
-
-
             createTicketQr(ticket).let {
                 binding.ticketQr.setImageBitmap(it)
             }
@@ -90,10 +87,20 @@ class TicketAdapter(
             binding.root.setOnClickListener {
                 Log.d("navigateToTicketDetails", ticket.ticketId.toString())
 
-             it.findNavController().navigate(NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY,Destination.TICKET_DETAILS,ticket.ticketId.toString())
+                it.findNavController().navigate(
+                    NavigationUtils.getUriNavigation(
+                        Domain.ENGLIZYA_PAY,
+                        Destination.TICKET_DETAILS,
+                        ticket.ticketId.toString()
+                    )
 
-)
+                )
                 //onItemClicked(ticket)
+            }
+
+            binding.cancelBtn.setOnClickListener {
+                Log.d("Cancelling Ticket" , "Cancelling")
+                onCancelledClicked(ticket.ticketId.toString())
             }
         }
 

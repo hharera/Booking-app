@@ -32,17 +32,28 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun setupAdapter() {
-        adapter = TicketAdapter(emptyList()) {
-            showFullTicket(it)
-        }
+        adapter = TicketAdapter(emptyList(),
+            onCancelledClicked = {
+                cancelTicket(it)
+            }, onItemClicked = {
+                showFullTicket(it)
+            })
         binding.tickets.adapter = adapter
     }
 
     private fun setupAdapter(tickets: List<UserTicket>) {
-        adapter = TicketAdapter(tickets) {
+        adapter = TicketAdapter(tickets, onItemClicked = {
             showFullTicket(it)
-        }
+        }, onCancelledClicked = {
+            cancelTicket(it)
+        })
         binding.tickets.adapter = adapter
+    }
+
+    private fun cancelTicket(it: String) {
+
+
+        userTicketViewModel.cancelTicket(it)
     }
 
     private fun showFullTicket(it: UserTicket) {
@@ -57,6 +68,20 @@ class UserTicketsFragment : BaseFragment() {
         userTicketViewModel.tickets.observe(viewLifecycleOwner) {
             setupAdapter(it)
         }
+
+        userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
+    }
+
+    private fun updateUI(cancellingStatus: Boolean?) {
+        if(cancellingStatus == true){
+            showToast("Ticket deleted successfully")
+            onResume()
+        }else{
+            showToast("Ticket can't be cancelled")
+        }
+
     }
 
     private fun setupListeners() {

@@ -12,6 +12,8 @@ import java.time.Period
 interface TicketService {
     suspend fun getTickets(token: String): List<UserTicket>
     suspend fun getTicketDetails(token: String , ticketId : String): UserTicket
+    suspend fun cancelTicket(token: String , ticketId : String): Boolean
+
 
 }
 
@@ -38,4 +40,8 @@ class TicketServiceImpl constructor(
                 append(HttpHeaders.AUTHORIZATION, "Bearer $token")
             }
         }
+
+    override suspend fun cancelTicket(token: String, ticketId: String): Boolean =
+        TODO("Not yet implemented")
+
 }

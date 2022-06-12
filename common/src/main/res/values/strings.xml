@@ -225,6 +225,11 @@
     <string name="wallet_otp">رمز التأكيد</string>
     <string name="showToDriverTxt">لحجز تذكرة اعرض الكود على السائق</string>
     <string name="refund_ticket_txt">الغاء</string>
+    <string name="message">هل تريد الغاء حجز التذكرة ؟</string>
+    <string name="yes_txt">نعم</string>
+    <string name="no_txt">لا</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

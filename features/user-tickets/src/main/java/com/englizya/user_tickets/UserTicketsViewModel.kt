@@ -17,6 +17,10 @@ class UserTicketsViewModel constructor(
     val tickets: MutableLiveData<List<UserTicket>>
         get() = _tickets
 
+    private val _cancelTicketStatus = MutableLiveData<Boolean>()
+    val cancelTicketStatus: MutableLiveData<Boolean>
+        get() = _cancelTicketStatus
+
 
     init {
         getUserTickets()
@@ -34,6 +38,22 @@ class UserTicketsViewModel constructor(
                 updateLoading(false)
                 handleException(it)
             }
+    }
+
+    fun cancelTicket(ticketId:String)= viewModelScope.launch {
+        updateLoading(true)
+        ticketRepository
+            .cancelTicket(userDataStore.getToken() , ticketId)
+            .onSuccess {
+                updateLoading(false)
+                _cancelTicketStatus.value = it
+
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+
     }
 
 

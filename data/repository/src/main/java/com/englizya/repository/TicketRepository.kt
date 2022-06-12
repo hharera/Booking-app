@@ -7,6 +7,8 @@ interface TicketRepository {
 
     suspend fun getUserTickets(token: String): Result<List<UserTicket>>
     suspend fun getTicketDetails(token: String , ticketId : String): Result<UserTicket>
+    suspend fun cancelTicket(token: String , ticketId : String): Result<Boolean>
+
 
 }
 
@@ -21,5 +23,9 @@ class TicketRepositoryImpl constructor(
 
     override suspend fun getTicketDetails(token: String , ticketId : String) = kotlin.runCatching {
         ticketService.getTicketDetails(token , ticketId)
+    }
+
+    override suspend fun cancelTicket(token: String, ticketId: String)= kotlin.runCatching {
+        ticketService.cancelTicket(token , ticketId)
     }
 }
