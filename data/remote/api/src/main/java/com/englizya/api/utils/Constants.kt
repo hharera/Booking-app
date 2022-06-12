@@ -8,7 +8,7 @@ object Routing {
      *
      */
     const val REQUEST_FAWRY_PAYMENT_ORDER = "${Domain.ENGLIZYA_BUS}api/payment/fawry/request-payment"
-    const val REQUEST_FAWRY_PAYMENT = "https://secure.paytabs.com/payment/new/invoice"
+    const val REQUEST_FAWRY_PAYMENT = "https://secure-egypt.paytabs.com/payment/new/invoice"
 
     const val REQUEST_RECHARGE = "${Domain.ENGLIZYA_BUS}api/wallet/request-recharge"
     const val RESERVE_WITH_WALLET = "${Domain.ENGLIZYA_BUS}api/wallet/book-seats"

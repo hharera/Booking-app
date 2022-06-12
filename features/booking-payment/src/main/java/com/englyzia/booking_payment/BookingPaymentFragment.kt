@@ -153,7 +153,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun redirect(fawryPaymentResponse: FawryPaymentResponse) {
-        startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(fawryPaymentResponse.redirectUrl) })
+        startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(fawryPaymentResponse.invoiceLink) })
     }
 
     private fun showUserTickets() {

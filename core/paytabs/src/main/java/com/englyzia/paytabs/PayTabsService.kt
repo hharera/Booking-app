@@ -45,9 +45,9 @@ class PayTabsService {
                     extraCharges = 0,
                     extraDiscount = 0,
                     total = amount.toInt(),
-                    activationDate = Date().toString(),
-                    expiryDate = DateTime.now().plusHours(2).toDate().toString(),
-                    dueDate = DateTime.now().plusHours(3).toDate().toString(),
+                    activationDate = DateTime.now().plusSeconds(30).toString(),
+                    expiryDate = DateTime.now().plusHours(2).toString(),
+                    dueDate = DateTime.now().plusHours(1).toString(),
                     lineItems = arrayListOf(
                         LineItems(
                             "1",
@@ -66,6 +66,7 @@ class PayTabsService {
                 ),
                 "${Domain.FAWRY_CALLBACK}/$cartId",
                 "${Domain.FAWRY_CALLBACK}/$cartId",
+                paymentMethods = arrayListOf("fawry"),
             )
         }
 

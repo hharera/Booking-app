@@ -17,5 +17,6 @@ data class FawryInvoice(
     @SerialName("customer_details") var customerDetails: CustomerDetails? = CustomerDetails(),
     @SerialName("invoice") var invoice: Invoice? = Invoice(),
     @SerialName("callback") var callback: String? = null,
-    @SerialName("return") var ret: String? = null
+    @SerialName("return") var ret: String? = null,
+    @SerialName("payment_methods") var paymentMethods: List<String>
 )
