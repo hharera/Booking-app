@@ -9,7 +9,6 @@ import com.englizya.common.utils.date.DateOnly
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.*
 import com.englizya.model.payment.FawryInvoice
-import com.englyzia.paytabs.PayTabsService
 import com.englizya.model.request.*
 import com.englizya.model.response.FawryPaymentResponse
 import com.englizya.model.response.OnlineTicket
@@ -17,6 +16,7 @@ import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.*
 import com.englyzia.booking.utils.PaymentMethod
+import com.englyzia.paytabs.PayTabsService
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+
 class BookingViewModel constructor(
     private val stationRepository: StationRepository,
     private val tripsRepository: TripRepository,
@@ -400,7 +401,24 @@ class BookingViewModel constructor(
             PaymentMethod.FawryPayment -> {
                 requestFawryPaymentOrder()
             }
+
+            PaymentMethod.MeezaPayment -> {
+                requestMeezaPaymentOrder()
+            }
         }
+    }
+
+    private fun requestMeezaPaymentOrder() {
+        updateLoading(true)
+
+        encapsulateFawryPaymentOrderRequest()
+            .onSuccess {
+                updateLoading(false)
+                requestFawryPaymentOrder(it)
+            }.onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
     }
 
     private fun requestFawryPaymentOrder() {
@@ -436,19 +454,20 @@ class BookingViewModel constructor(
                 }
         }
 
-    private fun createFawryInvoice() = kotlin.runCatching {
+    private fun createInvoice(paymentMethod: PaymentMethod?) = kotlin.runCatching {
         PayTabsService.createFawryInvoice(
             user.value!!,
             selectedTrip.value!!.tripName!!,
             calculateAmount(),
             reservationOrder.value!!.orderId,
-            selectedSeats.value!!.size
+            selectedSeats.value!!.size,
+            paymentMethod
         )
     }
 
     private fun requestFawryPayment() {
         updateLoading(true)
-        createFawryInvoice()
+        createInvoice(selectedPaymentMethod.value)
             .onSuccess {
                 updateLoading(false)
                 requestFawryPayment(it)

@@ -77,6 +77,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             updateSelectedMethodUI(it.id)
         }
 
+        binding.meezaCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.MeezaPayment)
+            updateSelectedMethodUI(it.id)
+        }
+
         binding.pay.setOnClickListener {
             bookingViewModel.whenPayButtonClicked()
         }
