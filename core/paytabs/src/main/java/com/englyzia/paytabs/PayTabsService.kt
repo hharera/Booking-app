@@ -1,90 +1,85 @@
 package com.englyzia.paytabs
 
 import com.englizya.model.model.User
+import com.englizya.model.payment.CustomerDetails
+import com.englizya.model.payment.FawryInvoice
+import com.englizya.model.payment.Invoice
+import com.englizya.model.payment.LineItems
 import com.englyzia.paytabs.utils.CountryCode.EG
 import com.englyzia.paytabs.utils.Currency
+import com.englyzia.paytabs.utils.Domain
 import com.payment.paymentsdk.PaymentSdkConfigBuilder
 import com.payment.paymentsdk.integrationmodels.*
+import org.joda.time.DateTime
+import java.util.*
 
 class PayTabsService {
 
-//    //    create
-//    private val TAG = "MainActivity"
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        val profileId = "94307"
-//        val serverKey = "SJJNDG62RM-JDHRGDH6LT-2Z6MDWGW6R"
-//        val clientLey = "CKKMBP-9DRH6D-HRTDHG-6NKGKQ"
-//        val locale = PaymentSdkLanguageCode.EN
-//        val screenTitle = "Test SDK"
-//        val cartId = "123456"
-//        val cartDesc = "cart description"
-//        val currency = Currency.EG
-//        val amount = 20.0
-//        val tokeniseType = PaymentSdkTokenise.NONE
-//
-//        val tokenFormat = PaymentSdkTokenFormat.Hex32Format()
-//        val billingData = PaymentSdkBillingDetails(
-//            "Beba",
-//            countryCode = "EG",
-//            email = "hassan.harera@gmail.com",
-//            "Hassan Harera",
-//            "01062227714",
-//            "Beni Suef",
-//            addressLine = "Beni Suef",
-//            "62611"
-//        )
-//
-//        val configData =
-//            PaymentSdkConfigBuilder(
-//                profileId,
-//                serverKey,
-//                clientLey,
-//                amount,
-//                currency
-//            )
-//                .setCartDescription(cartDesc)
-//                .setLanguageCode(locale)
-//                .setBillingData(billingData)
-//                .setMerchantCountryCode("EG")
-//                .setCartId(cartId)
-//                .setTransactionType(PaymentSdkTransactionType.SALE)
-//                .showBillingInfo(false)
-//                .showShippingInfo(false)
-//                .forceShippingInfo(false)
-//                .setScreenTitle(screenTitle)
-//                .build()
-//
-//        startCardPayment(this, configData, this)
-//    }
-//
-//    override fun onError(error: PaymentSdkError) {
-//        Log.d(TAG, "onError: " + error.msg)
-//    }
-//
-//    override fun onPaymentCancel() {
-//        Log.d(TAG, "onPaymentCancel: ")
-//    }
-//
-//    override fun onPaymentFinish(paymentSdkTransactionDetails: PaymentSdkTransactionDetails) {
-//        paymentSdkTransactionDetails.token?.let {
-//            Log.d(TAG, "onPaymentFinish: $it")
-//        }
-//    }
-
     companion object {
+        fun createFawryInvoice(
+            user: User,
+            tripName: String,
+            amount: Double,
+            cartId: Int,
+            seatsCount: Int,
+        ): FawryInvoice {
+            return FawryInvoice(
+                "98492",
+                tranType = PaymentSdkTransactionType.SALE.name,
+                tranClass = PaymentSdkTransactionClass.ECOM.name,
+                cartCurrency = Currency.EG,
+                cartAmount = amount.toString(),
+                cartId = cartId.toString(),
+                cartDescription = "حجز $seatsCount مقعد/مثاعد علي $tripName",
+                hideShipping = true,
+                customerRef = user.username,
+                customerDetails = CustomerDetails(
+                    user.name,
+                    user.phoneNumber.plus("@englizya.com"),
+                    user.address,
+                    user.address,
+                    "Egypt",
+                ),
+                invoice = Invoice(
+                    shippingCharges = 0,
+                    extraCharges = 0,
+                    extraDiscount = 0,
+                    total = amount.toInt(),
+                    activationDate = DateTime.now().plusSeconds(30).toString(),
+                    expiryDate = DateTime.now().plusHours(2).toString(),
+                    dueDate = DateTime.now().plusHours(1).toString(),
+                    lineItems = arrayListOf(
+                        LineItems(
+                            "1",
+                            "حجز مقعد/مقاعد علي رحلة".plus(tripName),
+                            "englizya.com",
+                            amount,
+                            1,
+                            amount,
+                            0,
+                            0,
+                            0,
+                            0,
+                            amount
+                        )
+                    ),
+                ),
+                "${Domain.FAWRY_CALLBACK}/$cartId",
+                "${Domain.FAWRY_CALLBACK}/$cartId",
+                paymentMethods = arrayListOf("fawry"),
+            )
+        }
+
         fun createPaymentConfigData(
             user: User,
             tripName: String,
             amount: Double,
-            cartId : Int,
+            cartId: Int,
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
-                "94307",
-                "S2JNDG62RG-JDMRR2WH9L-JZRBTJHNZL",
-                "C9KMBP-9DMT6D-NRRMVH-DD27MN",
+                "98492",
+                "SBJNDG62TW-JD96MMMRDT-HZZTJTWDGN",
+                "C7KMBP-9DDG6D-PGNNNR-DDV6TV",
                 amount,
                 Currency.EG
             )
@@ -120,9 +115,9 @@ class PayTabsService {
             cartId: Int,
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
-                "94307",
-                "SJJNDG62RM-JDHRGDH6LT-2Z6MDWGW6R",
-                "CKKMBP-9DRH6D-HRTDHG-6NKGKQ",
+                "98492",
+                "SBJNDG62TW-JD96MMMRDT-HZZTJTWDGN",
+                "C7KMBP-9DDG6D-PGNNNR-DDV6TV",
                 amount,
                 Currency.EG
             )

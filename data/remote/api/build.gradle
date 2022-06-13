@@ -5,6 +5,7 @@ apply from:"$rootDir/${CommonBuild.UI_TESTING_MODULE}"
 dependencies {
     api project(Data.model)
     api project(Data.DATA_STORE)
+    api("com.paytabs:payment-sdk:6.2.2")
     implementation Testing.testRunner
     implementation Ktor.ktorClientSerialization
 }
