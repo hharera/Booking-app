@@ -60,6 +60,7 @@ class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
                     showDoneDialog()
                     findNavController().popBackStack()
                 }
+                else -> {}
             }
         }
 

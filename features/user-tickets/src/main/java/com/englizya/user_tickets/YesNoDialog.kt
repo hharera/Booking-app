@@ -10,9 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.englizya.user_tickets.databinding.DialogYesNoBinding
 
 class YesNoDialog(
-    onPositiveButtonClicked:(ticketId:String)->Unit,
-    onNegativeButtonClicked:(ticketId:String)->Unit,
-    ): DialogFragment() {
+    private val onPositiveButtonClicked: (ticketId: String) -> Unit,
+    private val onNegativeButtonClicked:  ()-> Unit,
+    val ticketId: String,
+) : DialogFragment() {
     private lateinit var binding: DialogYesNoBinding
 
 
@@ -29,26 +30,25 @@ class YesNoDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpListeners()
+        setUpListeners(ticketId)
 
 
     }
-    fun setMessage( message:String?){
 
-        binding.dialogMessage.setText(message)
-    }
-
-    fun setUpListeners(){
+    fun setUpListeners(ticketId: String) {
         binding.yesBtn.setOnClickListener {
+            onPositiveButtonClicked(ticketId)
 
         }
 
         binding.noBtn.setOnClickListener {
-            findNavController().popBackStack()
-
+            onNegativeButtonClicked()
+            dismiss()
         }
 
     }
+
+
 
 
 }

@@ -1,10 +1,10 @@
 package com.englizya.user_tickets
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.model.response.UserTicket
@@ -37,7 +37,15 @@ class UserTicketsFragment : BaseFragment() {
     private fun setupAdapter() {
         adapter = TicketAdapter(emptyList(),
             onCancelledClicked = {
-                cancelTicket(it)
+                YesNoDialog(
+                    onPositiveButtonClicked = {
+                        cancelTicket(it)
+                    },
+                    onNegativeButtonClicked = {
+                        cancelDialog(it)
+                    },
+                    ticketId = it
+                )
             }, onItemClicked = {
                 showFullTicket(it)
             })
@@ -48,23 +56,29 @@ class UserTicketsFragment : BaseFragment() {
         adapter = TicketAdapter(tickets, onItemClicked = {
             showFullTicket(it)
         }, onCancelledClicked = {
-            YesNoDialog(onPositiveButtonClicked = {
-                cancelTicket(it)
-            }, onNegativeButtonClicked = {
-                cancelDialog(it)
-            })
+            YesNoDialog(
+                onPositiveButtonClicked = {
+                    cancelTicket(it)
+                },
+                onNegativeButtonClicked = {
+                    cancelDialog(it)
+                },
+                ticketId = it
+            ).show(childFragmentManager, "Cancelling Ticket")
 
         })
         binding.tickets.adapter = adapter
     }
 
     private fun cancelTicket(it: String) {
+        Log.d("Cancelling from ViewModel", "tickeId " + it)
         userTicketViewModel.cancelTicket(it)
+
     }
 
     private fun cancelDialog(it: String) {
-        Toast.makeText(activity , "Deleting Ticket Cancelled",Toast.LENGTH_LONG).show()
-        findNavController().popBackStack()
+        showToast("Deleting Ticket Cancelled")
+        //  findNavController ().popBackStack()
     }
 
 

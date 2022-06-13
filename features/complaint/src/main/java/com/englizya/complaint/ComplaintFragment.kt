@@ -62,6 +62,7 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
                     showDoneDialog()
                     findNavController().popBackStack()
                 }
+                else -> {}
             }
         }
 

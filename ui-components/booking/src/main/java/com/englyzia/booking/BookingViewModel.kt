@@ -400,6 +400,7 @@ class BookingViewModel constructor(
             PaymentMethod.FawryPayment -> {
                 requestFawryPaymentOrder()
             }
+            else -> {}
         }
     }
 

@@ -183,6 +183,7 @@ class ProfileFragment : BaseFragment() {
                 profileViewModel.logout()
                 navigateToLogin()
             }
+            else -> {}
         }
     }
 
