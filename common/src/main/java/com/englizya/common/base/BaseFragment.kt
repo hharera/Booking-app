@@ -1,20 +1,18 @@
 package com.englizya.common.base
 
-import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.englizya.common.R
 import com.englizya.common.ui.DoneDialog
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
-import com.englizya.datastore.UserDataStore
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
@@ -115,14 +113,24 @@ open class BaseFragment : Fragment() {
         doneDialog.dismiss()
     }
 
-    fun showInternetSnackBar(view: View, internetState : Boolean) {
+    fun showInternetSnackBar(view: View, internetState: Boolean) {
         if (internetState.not())
             Snackbar.make(
                 view,
                 R.string.no_internet,
                 Snackbar.LENGTH_SHORT
             ).apply {
+                setIconToSnackBar(this)
                 show()
             }
     }
+
+    private fun setIconToSnackBar(snackBar: Snackbar) {
+        val sbView: View = snackBar.getView()
+        val sbText: TextView = sbView.findViewById(com.google.android.material.R.id.snackbar_text)
+        sbText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_no_wifi, 0, 0, 0);
+        sbText.setCompoundDrawablePadding(getResources().getDimensionPixelOffset(R.dimen._10sdp));
+
+    }
 }
+
