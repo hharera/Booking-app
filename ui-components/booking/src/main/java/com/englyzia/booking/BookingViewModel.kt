@@ -8,15 +8,17 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.date.DateOnly
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.*
-import com.englizya.model.payment.FawryInvoice
 import com.englizya.model.request.*
-import com.englizya.model.response.FawryPaymentResponse
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.*
 import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.paytabs.PayTabsService
+import com.englyzia.paytabs.dto.Invoice
+import com.englyzia.paytabs.utils.PaymentMethod.Fawry
+import com.englyzia.paytabs.utils.PaymentMethod.Meeza
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+import com.englyzia.paytabs.utils.PaymentMethod as PaytabsUtilsPaymentMethod
 
 class BookingViewModel constructor(
     private val stationRepository: StationRepository,
@@ -113,8 +116,8 @@ class BookingViewModel constructor(
     private var _reservationWithWalletRequest = MutableLiveData<ReservationWithWalletRequest>()
     val reservationWithWalletRequest: LiveData<ReservationWithWalletRequest> = _reservationWithWalletRequest
 
-    private var _fawryPaymentResponse = MutableLiveData<FawryPaymentResponse>()
-    val fawryPaymentResponse: LiveData<FawryPaymentResponse> = _fawryPaymentResponse
+    private var _invoicePaymentResponse = MutableLiveData<InvoicePaymentResponse>()
+    val invoicePaymentResponse: LiveData<InvoicePaymentResponse> = _invoicePaymentResponse
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -399,54 +402,41 @@ class BookingViewModel constructor(
             }
 
             PaymentMethod.FawryPayment -> {
-                requestFawryPaymentOrder()
+                requestInvoicePaymentOrder()
             }
 
             PaymentMethod.MeezaPayment -> {
-                requestMeezaPaymentOrder()
+                requestInvoicePaymentOrder()
             }
         }
     }
 
-    private fun requestMeezaPaymentOrder() {
+    private fun requestInvoicePaymentOrder() {
         updateLoading(true)
 
-        encapsulateFawryPaymentOrderRequest()
+        encapsulateInvoicePaymentOrderRequest()
             .onSuccess {
                 updateLoading(false)
-                requestFawryPaymentOrder(it)
+                requestInvoicePaymentOrder(it)
             }.onFailure {
                 updateLoading(false)
                 handleException(it)
             }
     }
 
-    private fun requestFawryPaymentOrder() {
-        updateLoading(true)
-
-        encapsulateFawryPaymentOrderRequest()
-            .onSuccess {
-                updateLoading(false)
-                requestFawryPaymentOrder(it)
-            }.onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
-
-    private fun encapsulateFawryPaymentOrderRequest(): Result<FawryPaymentOrderRequest> =
+    private fun encapsulateInvoicePaymentOrderRequest(): Result<InvoicePaymentOrderRequest> =
         kotlin.runCatching {
-            FawryPaymentOrderRequest(orderId = reservationOrder.value!!.orderId)
+            InvoicePaymentOrderRequest(orderId = reservationOrder.value!!.orderId)
         }
 
-    private fun requestFawryPaymentOrder(request: FawryPaymentOrderRequest) =
+    private fun requestInvoicePaymentOrder(request: InvoicePaymentOrderRequest) =
         viewModelScope.launch(Dispatchers.IO) {
             updateLoading(true)
             paymentRepository
-                .requestFawryPaymentOrder(request, dataStore.getToken())
+                .requestInvoicePaymentOrder(request, dataStore.getToken())
                 .onSuccess {
                     updateLoading(false)
-                    requestFawryPayment()
+                    requestInvoicePayment()
                 }
                 .onFailure {
                     updateLoading(false)
@@ -454,23 +444,31 @@ class BookingViewModel constructor(
                 }
         }
 
-    private fun createInvoice(paymentMethod: PaymentMethod?) = kotlin.runCatching {
-        PayTabsService.createFawryInvoice(
+    private fun createInvoice() = kotlin.runCatching {
+        PayTabsService.createInvoice(
             user.value!!,
             selectedTrip.value!!.tripName!!,
             calculateAmount(),
             reservationOrder.value!!.orderId,
             selectedSeats.value!!.size,
-            paymentMethod
+            getPaymentMethod()
         )
     }
 
-    private fun requestFawryPayment() {
+    private fun getPaymentMethod(): PaytabsUtilsPaymentMethod {
+        return when (selectedPaymentMethod.value) {
+            PaymentMethod.FawryPayment -> Fawry
+            PaymentMethod.MeezaPayment -> Meeza
+            else -> Fawry
+        }
+    }
+
+    private fun requestInvoicePayment() {
         updateLoading(true)
-        createInvoice(selectedPaymentMethod.value)
+        createInvoice()
             .onSuccess {
                 updateLoading(false)
-                requestFawryPayment(it)
+                requestInvoicePayment(it)
             }
             .onFailure {
                 updateLoading(false)
@@ -478,13 +476,13 @@ class BookingViewModel constructor(
             }
     }
 
-    private fun requestFawryPayment(fawryInvoice: FawryInvoice) = viewModelScope.launch {
+    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch {
         updateLoading(true)
         paymentRepository
-            .requestFawryPayment(request = fawryInvoice)
+            .requestInvoicePayment(request = invoice)
             .onSuccess {
                 updateLoading(false)
-                _fawryPaymentResponse.postValue(it)
+                _invoicePaymentResponse.postValue(it)
             }
             .onFailure {
                 updateLoading(false)

@@ -1,14 +1,14 @@
 package com.englizya.repository.impl
 
 import com.englizya.api.PaymentService
-import com.englizya.model.payment.FawryInvoice
-import com.englizya.model.request.FawryPaymentOrderRequest
+import com.englizya.model.request.InvoicePaymentOrderRequest
 import com.englizya.model.request.PaymentOrderRequest
 import com.englizya.model.request.PaymentRequest
-import com.englizya.model.response.FawryPaymentResponse
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.PaymentOrder
 import com.englizya.repository.PaymentRepository
+import com.englyzia.paytabs.dto.Invoice
 
 class PaymentRepositoryImpl  constructor(
     private val paymentService: PaymentService
@@ -30,13 +30,13 @@ class PaymentRepositoryImpl  constructor(
             paymentService.requestPayment(token, request)
         }
 
-    override suspend fun requestFawryPayment(request: FawryInvoice): Result<FawryPaymentResponse> =
+    override suspend fun requestInvoicePayment(request: Invoice): Result<InvoicePaymentResponse> =
         kotlin.runCatching {
-            paymentService.requestFawryPayment(request)
+            paymentService.requestInvoicePayment(request)
         }
 
-    override suspend fun requestFawryPaymentOrder(request: FawryPaymentOrderRequest, token: String): Result<Any?> =
+    override suspend fun requestInvoicePaymentOrder(request: InvoicePaymentOrderRequest, token: String): Result<Any?> =
         kotlin.runCatching {
-            paymentService.requestFawryPaymentOrder(request, token)
+            paymentService.requestInvoicePaymentOrder(request, token)
         }
 }

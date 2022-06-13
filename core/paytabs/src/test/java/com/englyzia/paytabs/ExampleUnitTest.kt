@@ -1,10 +1,9 @@
 package com.englyzia.paytabs
 
 import com.englizya.model.model.User
-import com.englizya.model.payment.CustomerDetails
-import com.englizya.model.payment.FawryInvoice
-import com.englizya.model.payment.Invoice
-import com.englizya.model.payment.LineItems
+import com.englyzia.paytabs.dto.CustomerDetails
+import com.englyzia.paytabs.dto.InvoiceDetails
+import com.englyzia.paytabs.dto.LineItems
 import com.englyzia.paytabs.utils.Currency
 import com.englyzia.paytabs.utils.Domain
 import com.google.gson.Gson
@@ -34,7 +33,7 @@ class ExampleUnitTest {
             walletOtp = "123456",
         )
 
-        FawryInvoice(
+        InvoiceDetails(
             "98492",
             tranType = PaymentSdkTransactionType.SALE.name,
             tranClass = PaymentSdkTransactionClass.ECOM.name,
@@ -51,7 +50,7 @@ class ExampleUnitTest {
                 user.address,
                 "Egypt",
             ),
-            invoice = Invoice(
+            invoice = InvoiceDetails(
                 shippingCharges = 0,
                 extraCharges = 0,
                 extraDiscount = 0,

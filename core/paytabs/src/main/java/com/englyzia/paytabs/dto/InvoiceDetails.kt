@@ -1,10 +1,10 @@
-package com.englizya.model.payment
+package com.englyzia.paytabs.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Invoice(
+data class InvoiceDetails(
     @SerialName("shipping_charges") var shippingCharges: Int? = null,
     @SerialName("extra_charges") var extraCharges: Int? = null,
     @SerialName("extra_discount") var extraDiscount: Int? = null,

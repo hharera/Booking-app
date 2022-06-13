@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FawryPaymentResponse(
+data class InvoicePaymentResponse(
     @SerialName("invoice_id") var invoiceId: Long? = null,
     @SerialName("invoice_link") var invoiceLink: String? = null,
 )

@@ -3,6 +3,6 @@ package com.englizya.model.request
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FawryPaymentOrderRequest(
+data class InvoicePaymentOrderRequest(
     val orderId: Int
 )
