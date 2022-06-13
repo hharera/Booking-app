@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.model.response.UserTicket
@@ -21,11 +22,13 @@ class UserTicketsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentUserTicketsBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         setupListeners()
         setupObservers()
@@ -45,16 +48,25 @@ class UserTicketsFragment : BaseFragment() {
         adapter = TicketAdapter(tickets, onItemClicked = {
             showFullTicket(it)
         }, onCancelledClicked = {
-            cancelTicket(it)
+            YesNoDialog(onPositiveButtonClicked = {
+                cancelTicket(it)
+            }, onNegativeButtonClicked = {
+                cancelDialog(it)
+            })
+
         })
         binding.tickets.adapter = adapter
     }
 
     private fun cancelTicket(it: String) {
-
-
         userTicketViewModel.cancelTicket(it)
     }
+
+    private fun cancelDialog(it: String) {
+        Toast.makeText(activity , "Deleting Ticket Cancelled",Toast.LENGTH_LONG).show()
+        findNavController().popBackStack()
+    }
+
 
     private fun showFullTicket(it: UserTicket) {
 
@@ -75,10 +87,10 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun updateUI(cancellingStatus: Boolean?) {
-        if(cancellingStatus == true){
+        if (cancellingStatus == true) {
             showToast("Ticket deleted successfully")
             onResume()
-        }else{
+        } else {
             showToast("Ticket can't be cancelled")
         }
 
