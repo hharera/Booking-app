@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.englizya.common.ui.QrWithLogo
+import com.englizya.common.ui.ColoredQr
 import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
@@ -15,8 +15,7 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.CardViewTicketBinding
-import com.google.zxing.BarcodeFormat
-import com.journeyapps.barcodescanner.BarcodeEncoder
+
 
 
 class TicketAdapter(
@@ -67,10 +66,10 @@ class TicketAdapter(
             updateBookingOfficeUI(ticket)
         }
 
-
-
         private fun createTicketQr(ticket: UserTicket): Bitmap {
-            return   QrWithLogo().generateQRCode(ticket.ticketQr)
+            return ColoredQr().generateQRCode(ticket.ticketQr , ticket.isActive)
+
+
 //            BarcodeEncoder().encodeBitmap(
 //                ticket.ticketQr,
 //                BarcodeFormat.QR_CODE,

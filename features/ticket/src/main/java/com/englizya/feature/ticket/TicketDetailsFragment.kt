@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.ui.ColoredQr
 import com.englizya.feature.ticket.databinding.FragmentTicketDetailsBinding
 import com.englizya.model.response.UserTicket
 import com.google.zxing.BarcodeFormat
@@ -18,8 +19,6 @@ class TicketDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentTicketDetailsBinding
 
     private val ticketDetailsViewModel: TicketDetailsViewModel by viewModel()
-
-
 
 
     override fun onCreateView(
@@ -36,11 +35,13 @@ class TicketDetailsFragment : BaseFragment() {
         setupListeners()
         setupObservers()
     }
+
     private fun setupListeners() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
     }
+
     private fun setupObservers() {
         ticketDetailsViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
@@ -51,21 +52,20 @@ class TicketDetailsFragment : BaseFragment() {
         }
     }
 
-    private fun updateUI(it: UserTicket?) {
-it.let { BarcodeEncoder()
-    .encodeBitmap(
-        it?.ticketQr,
-        BarcodeFormat.QR_CODE,
-        150,
-        150
-    ).also {
-        binding.ticketDetailQr.setImageBitmap(it)
-    } }
-        it?.tripId?.let { it1 -> binding.tripId.setText(it1) }
-        it?.reservationDate?.let { it1 -> binding.date.setText(it1) }
-        it?.source?.let { it1 -> binding.source.setText(it1) }
-        it?.destination?.let { it1 -> binding.destination.setText(it1) }
-        it?.uid?.let { it1 -> binding.userName.setText(it1) }
+    private fun updateUI(ticket: UserTicket?) {
+            ticket?.let {
+                ColoredQr().generateQRCode(it.ticketQr , it.isActive)
+                    .also {
+                        binding.ticketDetailQr.setImageBitmap(it)
+                    }
+            }
+
+
+        ticket?.tripId?.let { ticket1 -> binding.tripId.setText(ticket1) }
+        ticket?.reservationDate?.let { ticket1 -> binding.date.setText(ticket1) }
+        ticket?.source?.let { ticket1 -> binding.source.setText(ticket1) }
+        ticket?.destination?.let { ticket1 -> binding.destination.setText(ticket1) }
+        ticket?.uid?.let { ticket1 -> binding.userName.setText(ticket1) }
 // Phone - No of Ticket -  price
 
     }
