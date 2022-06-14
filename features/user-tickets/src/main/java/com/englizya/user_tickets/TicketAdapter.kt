@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.englizya.common.ui.QrWithLogo
 import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
@@ -69,12 +70,13 @@ class TicketAdapter(
 
 
         private fun createTicketQr(ticket: UserTicket): Bitmap {
-            return BarcodeEncoder().encodeBitmap(
-                ticket.ticketQr,
-                BarcodeFormat.QR_CODE,
-                400,
-                400
-            )
+            return   QrWithLogo().generateQRCode(ticket.ticketQr)
+//            BarcodeEncoder().encodeBitmap(
+//                ticket.ticketQr,
+//                BarcodeFormat.QR_CODE,
+//                400,
+//                400
+//            )
         }
 
         private fun updateBookingOfficeUI(ticket: UserTicket) {
