@@ -35,6 +35,7 @@ object Routing {
 
     const val GET_TICKETS = "${Domain.ENGLIZYA_BUS}api/ticket/all"
     const val GET_TICKET_DETAILS = "${Domain.ENGLIZYA_BUS}api/ticket/"
+    const val CANCEL_TICKET  = "${Domain.ENGLIZYA_BUS}api/ticket"
 
 }
 

@@ -1,13 +1,14 @@
 package com.englizya.repository
 
 import com.englizya.api.TicketService
+import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 
 interface TicketRepository {
 
     suspend fun getUserTickets(token: String): Result<List<UserTicket>>
     suspend fun getTicketDetails(token: String , ticketId : String): Result<UserTicket>
-    suspend fun cancelTicket(token: String , ticketId : String): Result<Boolean>
+    suspend fun cancelTicket(token: String , ticketId : String): Result<CancelTicketResponse>
 
 
 }
@@ -25,7 +26,7 @@ class TicketRepositoryImpl constructor(
         ticketService.getTicketDetails(token , ticketId)
     }
 
-    override suspend fun cancelTicket(token: String, ticketId: String)= kotlin.runCatching {
+    override suspend fun cancelTicket(token: String, ticketId: String) = kotlin.runCatching {
         ticketService.cancelTicket(token , ticketId)
     }
 }

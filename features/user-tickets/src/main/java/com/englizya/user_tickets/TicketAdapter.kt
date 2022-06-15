@@ -100,7 +100,7 @@ class TicketAdapter(
             }
 
             binding.cancelBtn.setOnClickListener {
-                Log.d("Cancelling Ticket" , "Cancelling")
+                Log.d("Cancelling Ticket from Adapter" , "Cancelling")
                 onCancelledClicked(ticket.ticketId.toString())
             }
         }

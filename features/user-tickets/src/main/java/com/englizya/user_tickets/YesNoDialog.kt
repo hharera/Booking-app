@@ -12,7 +12,7 @@ import com.englizya.user_tickets.databinding.DialogYesNoBinding
 class YesNoDialog(
     private val onPositiveButtonClicked: (ticketId: String) -> Unit,
     private val onNegativeButtonClicked:  ()-> Unit,
-    val ticketId: String,
+    val ticketId: String?,
 ) : DialogFragment() {
     private lateinit var binding: DialogYesNoBinding
 
@@ -30,14 +30,14 @@ class YesNoDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpListeners(ticketId)
+        setUpListeners()
 
 
     }
 
-    fun setUpListeners(ticketId: String) {
+    private fun setUpListeners() {
         binding.yesBtn.setOnClickListener {
-            onPositiveButtonClicked(ticketId)
+            onPositiveButtonClicked(ticketId!!)
 
         }
 

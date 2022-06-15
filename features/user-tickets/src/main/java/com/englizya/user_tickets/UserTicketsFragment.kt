@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.FragmentUserTicketsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,16 +37,8 @@ class UserTicketsFragment : BaseFragment() {
 
     private fun setupAdapter() {
         adapter = TicketAdapter(emptyList(),
-            onCancelledClicked = {
-                YesNoDialog(
-                    onPositiveButtonClicked = {
-                        cancelTicket(it)
-                    },
-                    onNegativeButtonClicked = {
-                        cancelDialog(it)
-                    },
-                    ticketId = it
-                )
+            onCancelledClicked = { ticketId ->
+                confirmationDialog(ticketId)
             }, onItemClicked = {
                 showFullTicket(it)
             })
@@ -55,28 +48,49 @@ class UserTicketsFragment : BaseFragment() {
     private fun setupAdapter(tickets: List<UserTicket>) {
         adapter = TicketAdapter(tickets, onItemClicked = {
             showFullTicket(it)
-        }, onCancelledClicked = {
-            YesNoDialog(
-                onPositiveButtonClicked = {
-                    cancelTicket(it)
-                },
-                onNegativeButtonClicked = {
-                    cancelDialog(it)
-                },
-                ticketId = it
-            ).show(childFragmentManager, "Cancelling Ticket")
+        }, onCancelledClicked = { ticketId ->
+
+            confirmationDialog(ticketId).show(childFragmentManager, "Cancelling Ticket")
 
         })
         binding.tickets.adapter = adapter
     }
 
-    private fun cancelTicket(it: String) {
-        Log.d("Cancelling from ViewModel", "tickeId " + it)
-        userTicketViewModel.cancelTicket(it)
+    private fun cancelTicket(it: String?) {
+
+        if (it != null) {
+            userTicketViewModel.cancelTicket(it)
+        }
+
+   }
+
+    private fun confirmationDialog(ticketId: String?): YesNoDialog {
+        if (ticketId != null) {
+            return YesNoDialog(
+
+                onPositiveButtonClicked = {
+                    cancelTicket(ticketId)
+                },
+                onNegativeButtonClicked = {
+                    cancelDialog()
+                },
+                ticketId = ticketId
+            )
+        } else{
+            return YesNoDialog(
+                onPositiveButtonClicked = {
+                    cancelDialog()
+                },
+                onNegativeButtonClicked = {
+                    cancelDialog()
+                }
+            ,ticketId = null
+            )
+        }
 
     }
 
-    private fun cancelDialog(it: String) {
+    private fun cancelDialog() {
         showToast("Deleting Ticket Cancelled")
         //  findNavController ().popBackStack()
     }
@@ -100,12 +114,16 @@ class UserTicketsFragment : BaseFragment() {
         }
     }
 
-    private fun updateUI(cancellingStatus: Boolean?) {
-        if (cancellingStatus == true) {
-            showToast("Ticket deleted successfully")
+    private fun updateUI(cancellingStatus: CancelTicketResponse?) {
+        if (cancellingStatus?.status == "Ticket Cancelled") {
+            Log.d("Cancelling from Fragment", cancellingStatus.message)
+
+            confirmationDialog(null).dismiss()
+
             onResume()
         } else {
-            showToast("Ticket can't be cancelled")
+            Log.d("Cancelling from Fragment", cancellingStatus!!.message)
+
         }
 
     }

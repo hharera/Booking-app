@@ -2,6 +2,7 @@ package com.englizya.api
 
 import com.englizya.api.utils.Routing
 import com.englizya.api.utils.TIME_OUT
+import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.google.common.net.HttpHeaders
 import io.ktor.client.*
@@ -12,7 +13,7 @@ import java.time.Period
 interface TicketService {
     suspend fun getTickets(token: String): List<UserTicket>
     suspend fun getTicketDetails(token: String , ticketId : String): UserTicket
-    suspend fun cancelTicket(token: String , ticketId : String): Boolean
+    suspend fun cancelTicket(token: String , ticketId : String): CancelTicketResponse
 
 
 }
@@ -41,7 +42,14 @@ class TicketServiceImpl constructor(
             }
         }
 
-    override suspend fun cancelTicket(token: String, ticketId: String): Boolean =
-        TODO("Not yet implemented")
+    override suspend fun cancelTicket(token: String, ticketId: String): CancelTicketResponse =
+        client.get("${Routing.CANCEL_TICKET}/${ticketId.toInt()}/cancel") {
+            timeout {
+                requestTimeoutMillis = TIME_OUT.MILLIS
+            }
+            headers{
+                append(HttpHeaders.AUTHORIZATION, "Bearer $token")
+            }
+        }
 
 }

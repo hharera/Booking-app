@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
+import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.englizya.repository.TicketRepository
 import kotlinx.coroutines.launch
@@ -17,8 +18,8 @@ class UserTicketsViewModel constructor(
     val tickets: MutableLiveData<List<UserTicket>>
         get() = _tickets
 
-    private val _cancelTicketStatus = MutableLiveData<Boolean>()
-    val cancelTicketStatus: MutableLiveData<Boolean>
+    private val _cancelTicketStatus = MutableLiveData<CancelTicketResponse>()
+    val cancelTicketStatus: MutableLiveData<CancelTicketResponse>
         get() = _cancelTicketStatus
 
 
