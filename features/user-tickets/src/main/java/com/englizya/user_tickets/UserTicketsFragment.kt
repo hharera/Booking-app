@@ -17,6 +17,8 @@ class UserTicketsFragment : BaseFragment() {
     private lateinit var binding: FragmentUserTicketsBinding
     private lateinit var adapter: TicketAdapter
     private val userTicketViewModel: UserTicketsViewModel by viewModel()
+    var yesNoDialog: YesNoDialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +40,16 @@ class UserTicketsFragment : BaseFragment() {
     private fun setupAdapter() {
         adapter = TicketAdapter(emptyList(),
             onCancelledClicked = { ticketId ->
-                confirmationDialog(ticketId)
+
+                yesNoDialog = YesNoDialog(onPositiveButtonClicked = {
+                    cancelTicket(ticketId)
+                },
+                    onNegativeButtonClicked = {
+                        cancelDialog()
+                    },
+                    ticketId = ticketId
+                )
+
             }, onItemClicked = {
                 showFullTicket(it)
             })
@@ -50,7 +61,15 @@ class UserTicketsFragment : BaseFragment() {
             showFullTicket(it)
         }, onCancelledClicked = { ticketId ->
 
-            confirmationDialog(ticketId).show(childFragmentManager, "Cancelling Ticket")
+            yesNoDialog = YesNoDialog(onPositiveButtonClicked = {
+                cancelTicket(ticketId)
+            },
+                onNegativeButtonClicked = {
+                    cancelDialog()
+                },
+                ticketId = ticketId)
+            yesNoDialog?.show(childFragmentManager, "yesNoDialog")
+
 
         })
         binding.tickets.adapter = adapter
@@ -62,7 +81,7 @@ class UserTicketsFragment : BaseFragment() {
             userTicketViewModel.cancelTicket(it)
         }
 
-   }
+    }
 
     private fun confirmationDialog(ticketId: String?): YesNoDialog {
         if (ticketId != null) {
@@ -76,15 +95,14 @@ class UserTicketsFragment : BaseFragment() {
                 },
                 ticketId = ticketId
             )
-        } else{
+        } else {
             return YesNoDialog(
                 onPositiveButtonClicked = {
                     cancelDialog()
                 },
                 onNegativeButtonClicked = {
                     cancelDialog()
-                }
-            ,ticketId = null
+                }, ticketId = null
             )
         }
 
@@ -115,16 +133,18 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
-        if (cancellingStatus?.status == "Ticket Cancelled") {
-            Log.d("Cancelling from Fragment", cancellingStatus.message)
-
-            confirmationDialog(null).dismiss()
-
-            onResume()
-        } else {
-            Log.d("Cancelling from Fragment", cancellingStatus!!.message)
-
-        }
+        yesNoDialog?.dismiss()
+//        if (cancellingStatus?.status == "Ticket Cancelled") {
+//            Log.d("Cancelling from Fragment", cancellingStatus.message)
+//
+//            yesNoDialog?.dismiss()
+//
+//
+//            onResume()
+//        } else {
+//            Log.d("Cancelling from Fragment", cancellingStatus!!.message)
+//
+//        }
 
     }
 

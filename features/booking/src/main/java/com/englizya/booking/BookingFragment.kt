@@ -78,7 +78,7 @@ class BookingFragment : BaseFragment() {
 
     private fun progressToSelectTrip() {
         findNavController().navigate(
-            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.SELECT_TRIP, null)
+            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.SELECT_TRIP, false)
         )
     }
 

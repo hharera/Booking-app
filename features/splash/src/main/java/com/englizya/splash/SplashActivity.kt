@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.common.utils.navigation.Destination
+import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.login.LoginActivity
 import com.englizya.select_service.SelectServiceActivity
 import com.englizya.splash.databinding.ActivitySplashBinding
@@ -64,8 +65,7 @@ class SplashActivity : BaseActivity() {
 
     private fun selectService() {
         val intent =
-            Intent(this@SplashActivity, SelectServiceActivity::class.java)
-                .putExtra(Arguments.DESTINATION, Destination.HOME)
+            Intent(this@SplashActivity, HomeActivity::class.java)
                 .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) }
 
         startActivity(intent)

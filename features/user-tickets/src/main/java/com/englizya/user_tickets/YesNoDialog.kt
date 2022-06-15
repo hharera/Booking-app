@@ -37,7 +37,9 @@ class YesNoDialog(
 
     private fun setUpListeners() {
         binding.yesBtn.setOnClickListener {
-            onPositiveButtonClicked(ticketId!!)
+            if(ticketId != null) {
+                onPositiveButtonClicked(ticketId)
+            }
 
         }
 

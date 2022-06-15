@@ -27,5 +27,6 @@ object Destination {
     const val RECHARGING = "recharging"
     const val REFUND_POLICY = "refund-policy"
     const val TICKET_DETAILS = "ticket-details"
+    const val BOOKING = "booking"
 
 }

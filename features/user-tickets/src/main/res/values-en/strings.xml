@@ -5,4 +5,6 @@
     <string name="riding_time">Riding Time</string>
     <string name="exit_time">Exit Time</string>
     <string name="my_tickets">My Tickets</string>
+    <string name="tickets_info">Show the ticket to the driver so that he can read the QR code and print the ticket</string>
+
 </resources>

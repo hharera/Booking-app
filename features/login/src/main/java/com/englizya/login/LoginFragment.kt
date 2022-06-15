@@ -13,6 +13,7 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
+import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
 import com.englizya.select_service.SelectServiceActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -122,7 +123,7 @@ class LoginFragment : BaseFragment() {
             startActivity(
                 Intent(
                     context,
-                    SelectServiceActivity::class.java
+                    HomeActivity::class.java
                 ).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }

@@ -229,5 +229,6 @@
 
     <string name="yes_txt">نعم</string>
     <string name="no_txt">لا</string>
+    <string name="welcome_back">اهلا مجدداً</string>
 
 </resources>
