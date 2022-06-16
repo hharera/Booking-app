@@ -1,6 +1,7 @@
 package com.englyzia.booking_payment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
@@ -70,6 +72,16 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             updateSelectedMethodUI(it.id)
         }
 
+        binding.fawryWalletCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.FawryPayment)
+            updateSelectedMethodUI(it.id)
+        }
+
+        binding.meezaCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.MeezaPayment)
+            updateSelectedMethodUI(it.id)
+        }
+
         binding.pay.setOnClickListener {
             bookingViewModel.whenPayButtonClicked()
         }
@@ -84,20 +96,6 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             }
         }
     }
-
-//    private fun payWithPayMob(paymentKey: String) {
-//        Intent(context, PayActivity::class.java).apply {
-//            putExtra(PAYMENT_KEY, paymentKey)
-//            putExtra(THREE_D_SECURE_ACTIVITY_TITLE, getString(R.string.payment_checkout))
-//            putExtra(SAVE_CARD_DEFAULT, false)
-//            putExtra(SHOW_SAVE_CARD, false)
-//            putExtra(THEME_COLOR, context?.getColor(R.color.blue_600))
-//            putExtra("ActionBar", true)
-//            putExtra("language", "ar")
-//
-//            startActivityForResult(this, ACCEPT_PAYMENT_REQUEST)
-//        }
-//    }
 
     private fun setupObservers() {
         activity?.onBackPressedDispatcher?.addCallback {
@@ -154,6 +152,13 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             showInternetSnackBar(binding.root, it)
         }
 
+        bookingViewModel.invoicePaymentResponse.observe(viewLifecycleOwner) {
+            redirect(it)
+        }
+    }
+
+    private fun redirect(invoicePaymentResponse: InvoicePaymentResponse) {
+        startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(invoicePaymentResponse.invoiceLink) })
     }
 
     private fun showUserTickets() {
@@ -169,73 +174,6 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     override fun onSaveInstanceState(outState: Bundle) {
 
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        Log.d(TAG, "onActivityResult: $data")
-//        if (null == data)
-//            return
-//
-//        if (null == data.extras)
-//            return
-//
-//        val extras: Bundle = data.extras!!
-//        if (requestCode == BookingViewModel.ACCEPT_PAYMENT_REQUEST) {
-//            when (resultCode) {
-//
-////                IntentConstants.USER_CANCELED -> {
-////                    showToast(R.string.user_canceled)
-////                }
-////
-////                IntentConstants.MISSING_ARGUMENT -> {
-////                    showToast(R.string.missing_argument)
-////                }
-////
-////                IntentConstants.TRANSACTION_ERROR -> {
-////                    showToast(R.string.transaction_error)
-////                }
-////
-////                IntentConstants.TRANSACTION_REJECTED -> {
-////                    showToast(R.string.transaction_rejected)
-////                }
-////
-////                IntentConstants.TRANSACTION_REJECTED_PARSING_ISSUE -> {
-////                    showToast(R.string.transaction_rejected)
-////                }
-////
-////                IntentConstants.TRANSACTION_SUCCESSFUL -> {
-////                    showToast(R.string.successful_transaction)
-////
-////                    extras.getString(PayResponseKeys.SUCCESS)
-////                    extras.getString(PayResponseKeys.ID)
-////
-////                    lifecycleScope.launch {
-////                        bookingViewModel.submitBooking()
-////                    }
-////                }
-////
-////                IntentConstants.TRANSACTION_SUCCESSFUL_PARSING_ISSUE -> {
-////                    showToast(R.string.successful_transaction)
-////
-////                    lifecycleScope.launch {
-////                        bookingViewModel.submitBooking()
-////                    }
-////                }
-////
-////                IntentConstants.TRANSACTION_SUCCESSFUL_CARD_SAVED -> {
-////                }
-////
-////                IntentConstants.USER_CANCELED_3D_SECURE_VERIFICATION -> {
-////                    showToast(R.string.user_canceled)
-////                }
-////
-////                IntentConstants.USER_CANCELED_3D_SECURE_VERIFICATION_PARSING_ISSUE -> {
-////                    showToast(R.string.user_canceled)
-////                }
-//
-//            }
-//        }
-//    }
-
 
     override fun onError(error: PaymentSdkError) {
         Log.d(TAG, "onError: $error")

@@ -1,5 +1,5 @@
 object CommonBuild {
-
+    const val FUNCTION_MODULE = "function-module-di.gradle"
     const val TESTING_MODULE = "testing-module-di.gradle"
     const val UI_TESTING_MODULE = "ui-testing-module-di.gradle"
     const val FIREBASE_MODULE = "firebase-module-di.gradle"

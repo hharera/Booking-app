@@ -1,7 +1,12 @@
 package com.englizya.common.base
 
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -9,7 +14,9 @@ import com.englizya.common.R
 import com.englizya.common.ui.DoneDialog
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
+import com.englizya.datastore.UserDataStore
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 open class BaseFragment : Fragment() {
 
@@ -24,6 +31,24 @@ open class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         connectionLiveData = ConnectionLiveData(requireContext())
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        setupLanguage()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    private fun setupLanguage() {
+        val locale = Locale.getDefault()
+        val config: Configuration = resources.configuration
+        config.setLocale(locale)
+        config.setLayoutDirection(locale)
+
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     fun handleLoading(state: Boolean) {

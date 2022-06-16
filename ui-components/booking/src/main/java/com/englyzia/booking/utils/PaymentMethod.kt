@@ -1,6 +1,8 @@
 package com.englyzia.booking.utils
 
-public sealed class PaymentMethod {
-    object Card : PaymentMethod()
-    object EnglizyaWallet : PaymentMethod()
+sealed class PaymentMethod(val value: String) {
+    object Card : PaymentMethod("card")
+    object EnglizyaWallet : PaymentMethod("englizya_wallet")
+    object FawryPayment : PaymentMethod("fawry_payment")
+    object MeezaPayment : PaymentMethod("meezapayment")
 }

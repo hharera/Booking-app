@@ -9,12 +9,16 @@ import com.englizya.common.utils.date.DateOnly
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.*
 import com.englizya.model.request.*
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.*
 import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.paytabs.PayTabsService
+import com.englyzia.paytabs.dto.Invoice
+import com.englyzia.paytabs.utils.PaymentMethod.Fawry
+import com.englyzia.paytabs.utils.PaymentMethod.Meeza
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+import com.englyzia.paytabs.utils.PaymentMethod as PaytabsUtilsPaymentMethod
 
 class BookingViewModel constructor(
     private val stationRepository: StationRepository,
@@ -56,7 +61,7 @@ class BookingViewModel constructor(
      * Trips Result Screen
      */
 
-    private var _trips = MutableLiveData<List<Trip>>()
+    private var _trips = MutableLiveData<List<Trip>>(null)
     val trips: LiveData<List<Trip>> = _trips
 
     private var _selectedTrip = MutableLiveData<Trip>()
@@ -110,6 +115,9 @@ class BookingViewModel constructor(
 
     private var _reservationWithWalletRequest = MutableLiveData<ReservationWithWalletRequest>()
     val reservationWithWalletRequest: LiveData<ReservationWithWalletRequest> = _reservationWithWalletRequest
+
+    private var _invoicePaymentResponse = MutableLiveData<InvoicePaymentResponse>()
+    val invoicePaymentResponse: LiveData<InvoicePaymentResponse> = _invoicePaymentResponse
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -392,7 +400,94 @@ class BookingViewModel constructor(
             PaymentMethod.EnglizyaWallet -> {
                 createReservationWithWalletRequest()
             }
+
+            PaymentMethod.FawryPayment -> {
+                requestInvoicePaymentOrder()
+            }
+
+            PaymentMethod.MeezaPayment -> {
+                requestInvoicePaymentOrder()
+            }
         }
+    }
+
+    private fun requestInvoicePaymentOrder() {
+        updateLoading(true)
+
+        encapsulateInvoicePaymentOrderRequest()
+            .onSuccess {
+                updateLoading(false)
+                requestInvoicePaymentOrder(it)
+            }.onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private fun encapsulateInvoicePaymentOrderRequest(): Result<InvoicePaymentOrderRequest> =
+        kotlin.runCatching {
+            InvoicePaymentOrderRequest(orderId = reservationOrder.value!!.orderId)
+        }
+
+    private fun requestInvoicePaymentOrder(request: InvoicePaymentOrderRequest) =
+        viewModelScope.launch(Dispatchers.IO) {
+            updateLoading(true)
+            paymentRepository
+                .requestInvoicePaymentOrder(request, dataStore.getToken())
+                .onSuccess {
+                    updateLoading(false)
+                    requestInvoicePayment()
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
+
+    private fun createInvoice() = kotlin.runCatching {
+        PayTabsService.createInvoice(
+            user.value!!,
+            selectedTrip.value!!.tripName!!,
+            calculateAmount(),
+            reservationOrder.value!!.orderId,
+            selectedSeats.value!!.size,
+            getPaymentMethod()
+        )
+    }
+
+    private fun getPaymentMethod(): PaytabsUtilsPaymentMethod {
+        return when (selectedPaymentMethod.value) {
+            PaymentMethod.FawryPayment -> Fawry
+            PaymentMethod.MeezaPayment -> Meeza
+            else -> Fawry
+        }
+    }
+
+    private fun requestInvoicePayment() {
+        updateLoading(true)
+        createInvoice()
+            .onSuccess {
+                updateLoading(false)
+                requestInvoicePayment(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch {
+        updateLoading(true)
+        paymentRepository
+            .requestInvoicePayment(request = invoice)
+            .onSuccess {
+                updateLoading(false)
+                _invoicePaymentResponse.postValue(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
     }
 
     private fun createReservationWithWalletRequest() {
@@ -419,16 +514,70 @@ class BookingViewModel constructor(
         }
 
     private fun calculateAmount(): Double {
-        return selectedTrip.value?.let {
-            it.plan?.seatPrices?.first {
-                it.source == source.value?.branchId &&
-                        it.destination == destination.value?.branchId
-            }?.vipPrice!! * selectedSeats.value!!.size
-        }!!.toDouble()
+        return when (selectedTrip.value?.service?.serviceId) {
+            1 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.vipPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            2 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.economicPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            3 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.pullmanPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            4 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.pullmanPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            7 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.royalGoldPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            8 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.miniGoldPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            else -> {
+                0.0
+            }
+        }
+
     }
 
     fun clearTripList() {
-        _trips.postValue(emptyList())
+        _trips.postValue(null)
     }
 
     fun setTransactionRef(transactionReference: String?) {
@@ -521,3 +670,4 @@ class BookingViewModel constructor(
         _selectedPaymentMethod.value = method
     }
 }
+
