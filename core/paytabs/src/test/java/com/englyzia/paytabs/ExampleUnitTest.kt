@@ -74,8 +74,8 @@ class ExampleUnitTest {
                     )
                 ),
             ),
-            "${Domain.FAWRY_CALLBACK}/cart123",
-            "${Domain.FAWRY_CALLBACK}/cart123",
+            "${Domain.INVOICE_CALLBACK}/cart123",
+            "${Domain.INVOICE_CALLBACK}/cart123",
         ).let{
             println(Gson().toJson(it))
         }

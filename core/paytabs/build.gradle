@@ -1,7 +1,8 @@
 apply from: "$rootDir/${CommonBuild.FUNCTION_MODULE}"
+apply plugin: "kotlinx-serialization"
 
 dependencies {
-    api 'com.paytabs:payment-sdk:6.2.2'
+    api(Payment.PAYMENT_PAY_TABS)
 }
 configurations.all { resolutionStrategy { exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug" } }
 

@@ -12,7 +12,6 @@ import com.englyzia.paytabs.utils.PaymentMethod
 import com.payment.paymentsdk.PaymentSdkConfigBuilder
 import com.payment.paymentsdk.integrationmodels.*
 import org.joda.time.DateTime
-import java.util.*
 
 class PayTabsService {
 
@@ -32,7 +31,7 @@ class PayTabsService {
                 cartCurrency = Currency.EG,
                 cartAmount = amount.toString(),
                 cartId = cartId.toString(),
-                cartDescription = "حجز $seatsCount مقعد/مثاعد علي $tripName",
+                cartDescription = "حجز $seatsCount مقعد/مقاعد علي $tripName",
                 hideShipping = true,
                 customerRef = user.username,
                 customerDetails = CustomerDetails(
@@ -66,8 +65,8 @@ class PayTabsService {
                         )
                     ),
                 ),
-                "${Domain.FAWRY_CALLBACK}/$cartId",
-                "${Domain.FAWRY_CALLBACK}/$cartId",
+                "${Domain.INVOICE_CALLBACK}/$cartId",
+                "${Domain.INVOICE_CALLBACK}/$cartId",
                 paymentMethods = arrayListOf(paymentMethod.name),
             )
         }

@@ -4,10 +4,10 @@ import com.google.common.net.HttpHeaders
 
 object Routing {
     /**
-     * @Fawry
+     * @Invoice
      *
      */
-    const val REQUEST_INVOICE_PAYMENT_ORDER = "${Domain.ENGLIZYA_BUS_LOCAL}api/payment/fawry/request-payment"
+    const val REQUEST_INVOICE_PAYMENT_ORDER = "${Domain.ENGLIZYA_BUS_LOCAL}api/payment/invoice/request-payment"
     const val REQUEST_INVOICE_PAYMENT = "https://secure-egypt.paytabs.com/payment/new/invoice"
 
     const val REQUEST_RECHARGE = "${Domain.ENGLIZYA_BUS_REMOTE}api/wallet/request-recharge"
