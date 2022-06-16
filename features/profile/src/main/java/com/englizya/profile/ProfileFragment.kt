@@ -48,6 +48,7 @@ class ProfileFragment : BaseFragment() {
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentProfileBinding.inflate(layoutInflater)
+        changeStatusBarColor(R.color.grey_100)
         return binding.root
     }
 

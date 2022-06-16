@@ -52,7 +52,7 @@
         android:layout_marginEnd="@dimen/_9sdp"
         android:gravity="center"
         android:padding="@dimen/_9sdp"
-        android:background="@color/white"
+        android:fontFamily="@font/sf"
         android:text="@string/tickets_info"
         android:textColor="@color/black"
         android:textSize="@dimen/_11sdp"

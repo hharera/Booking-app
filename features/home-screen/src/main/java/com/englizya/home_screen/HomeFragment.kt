@@ -23,7 +23,10 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        changeStatusBarColor(R.color.grey_100)
+
         return binding.root
     }
 

@@ -22,6 +22,8 @@ open class BaseViewModel : ViewModel() {
     private val _error: MutableLiveData<Exception?> = MutableLiveData()
     val error: LiveData<Exception?> = _error
 
+    private val _errorThrowable: MutableLiveData<Throwable> = MutableLiveData()
+    val errorThrowable: LiveData<Throwable> = _errorThrowable
     private val _connectivity: MutableLiveData<Boolean> = MutableLiveData(false)
     val connectivity: LiveData<Boolean> = _connectivity
 
@@ -55,10 +57,8 @@ open class BaseViewModel : ViewModel() {
     }
 
     fun handleException(exception: Throwable?) {
-        exception?.let {
-            it.printStackTrace()
-            checkExceptionType(exception)
-        }
+        exception?.printStackTrace()
+        _errorThrowable.postValue(exception)
     }
 
     fun updateConnectivity(connectivity: Boolean) {

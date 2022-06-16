@@ -11,9 +11,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.englizya.common.R
 import com.englizya.common.ui.DoneDialog
+import com.englizya.common.ui.ErrorDialog
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
 import com.google.android.material.snackbar.Snackbar
+import io.ktor.client.features.*
+import io.ktor.http.*
 import java.util.*
 
 open class BaseFragment : Fragment() {
@@ -86,11 +89,24 @@ open class BaseFragment : Fragment() {
 
     fun handleFailure(throwable: Throwable?, messageRes: Int? = null) {
         throwable?.printStackTrace()
-        messageRes?.let { res ->
-            showToast(res)
-        }
+        checkExceptionType(throwable)
     }
 
+    private fun checkExceptionType(throwable: Throwable?) {
+        when (throwable) {
+            is ClientRequestException -> {
+                when(throwable.response.status) {
+                    HttpStatusCode.BadRequest -> showErrorDialog(throwable.message.split("Text:")[1].dropWhile { it == '"' })
+                }
+
+                when (throwable.response.status) {
+                    HttpStatusCode.Forbidden -> showErrorDialog(R.string.not_authorized)
+                }
+            }
+
+//            is HttpRequestTimeoutException -> showInternetSnackBar()
+        }
+    }
     fun changeStatusBarColor(colorRes: Int) {
         activity?.window?.statusBarColor = resources.getColor(colorRes)
     }
@@ -107,8 +123,18 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    private fun showErrorDialog() {}
+    private fun showErrorDialog() {
+        TODO("Not yet implemented")
+    }
 
+    private fun showErrorDialog(messageId: Int) {
+        val dialog = ErrorDialog(getString(messageId))
+        dialog.show(childFragmentManager, "errorDialog")
+    }
+    private fun showErrorDialog(message: String) {
+        val dialog = ErrorDialog(message)
+        dialog.show(childFragmentManager, "errorDialog")
+    }
     fun dismissDoneDialog() {
         doneDialog.dismiss()
     }
@@ -124,6 +150,8 @@ open class BaseFragment : Fragment() {
                 show()
             }
     }
+
+
 
     private fun setIconToSnackBar(snackBar: Snackbar) {
         val sbView: View = snackBar.getView()

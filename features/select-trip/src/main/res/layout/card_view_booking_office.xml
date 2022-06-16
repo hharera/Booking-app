@@ -6,7 +6,6 @@
    android:minHeight="@dimen/_60sdp"
     android:maxHeight="@dimen/_100sdp"
     app:cardElevation="0dp"
-    android:padding="6dp"
     android:id="@+id/card"
     android:layout_margin="4dp"
     android:backgroundTint="@color/grey_100"
@@ -15,18 +14,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:minHeight="@dimen/_60sdp"
+        android:maxHeight="@dimen/_100sdp">
 
         <TextView
             android:id="@+id/textView_stop_station_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="4dp"
             android:fontFamily="@font/sf"
             android:gravity="center"
             android:padding="4dp"
             android:text="Lorem Lorem Lorem \n05:00 am"
+            android:textAlignment="center"
             android:textColor="@color/blue_500"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"

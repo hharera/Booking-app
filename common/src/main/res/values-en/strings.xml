@@ -230,6 +230,7 @@
     <string name="yes_txt">Yes</string>
     <string name="no_txt">No</string>
     <string name="welcome_back">Welcome Back</string>
+    <string name="not_authorized">Not Allowed</string>
 
 
 </resources>

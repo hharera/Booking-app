@@ -45,7 +45,7 @@ class YesNoDialog(
 
         binding.noBtn.setOnClickListener {
             onNegativeButtonClicked()
-            dismiss()
+
         }
 
     }

@@ -229,6 +229,8 @@
     <string name="yes_txt">نعم</string>
     <string name="no_txt">لا</string>
     <string name="welcome_back">مرحبا بك مرة اخرى</string>
+    <string name="not_authorized">غير مسموح</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
 

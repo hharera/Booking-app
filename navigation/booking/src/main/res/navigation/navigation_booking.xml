@@ -26,8 +26,7 @@
         android:name="com.englizya.select_trip.SelectTripFragment"
         tools:layout="@layout/fragment_select_trip">
 
-        <argument android:name="arg" />
-        <deepLink app:uri="EnglizyaPay://select-trip/{arg}" />
+        <deepLink app:uri="EnglizyaPay://select-trip" />
     </fragment>
 
     <fragment
