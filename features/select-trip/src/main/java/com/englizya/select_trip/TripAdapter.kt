@@ -1,5 +1,6 @@
 package com.englizya.select_trip
 
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
+import java.util.*
 
 class TripAdapter(
     private var trips: List<Trip>,
@@ -56,7 +58,7 @@ class TripAdapter(
         fun updateUI(trip: Trip, source: Station?, destination: Station?) {
             updateStopStationsUI(trip.tripTimes)
             updateUI(trip.tripTimes.firstOrNull())
-
+            setupLanguage()
             setTripDate(trip.reservations.first().date)
 
             binding.source.text = source?.branchName
@@ -73,13 +75,73 @@ class TripAdapter(
                 TimeOnly.map(it.startTime)
             }
 
-            binding.price.text = trip.plan?.seatPrices?.firstOrNull {
-                it.source == source?.branchId && it.destination == destination?.branchId
-            }?.vipPrice.toString()
+            binding.price.text = getTripPrice(trip).toString()
 
             binding.serviceDegree.text = trip.service?.serviceDegreeName
 
             boomBook(trip)
+        }
+
+        private fun getTripPrice(selectedTrip: Trip): Double? {
+            return when (selectedTrip.service?.serviceId) {
+                1 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.vipPrice!!
+                    }!!.toDouble()
+                }
+
+                2 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.economicPrice!!
+                    }!!.toDouble()
+                }
+
+                3 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.pullmanPrice!!
+                    }!!.toDouble()
+                }
+
+                4 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.pullmanPrice!!
+                    }!!.toDouble()
+                }
+
+                7 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.royalGoldPrice!!
+                    }!!.toDouble()
+                }
+
+                8 -> {
+                    selectedTrip.let {
+                        it.plan?.seatPrices?.first {
+                            it.source == source?.branchId &&
+                                    it.destination == destination?.branchId
+                        }?.miniGoldPrice!!
+                    }!!.toDouble()
+                }
+
+                else -> {
+                    0.0
+                }
+            }
         }
 
         private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
@@ -118,6 +180,16 @@ class TripAdapter(
 
         private fun setTripDate(date: String?) {
             binding.tripDate.text = date?.let { DateOnly.toMonthDate(it) }
+        }
+
+        private fun setupLanguage() {
+            val resources = binding.root.context.resources
+            val locale = Locale.getDefault()
+            val config: Configuration = resources.configuration
+            config.setLocale(locale)
+            config.setLayoutDirection(locale)
+
+            resources.updateConfiguration(config, resources.displayMetrics)
         }
     }
 }

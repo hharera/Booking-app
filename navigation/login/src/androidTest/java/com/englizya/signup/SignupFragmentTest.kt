@@ -12,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.philippeboisney.common_test.datasets.TripDataset.TRIP_LIST
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.startKoin
@@ -24,6 +25,7 @@ import org.koin.test.KoinTest
 class SignupFragmentTest : KoinTest {
 
 
+    @Before
     fun setUp() {
         startKoin {
             module {
