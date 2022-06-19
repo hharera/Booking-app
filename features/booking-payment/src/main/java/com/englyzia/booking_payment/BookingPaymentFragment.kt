@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
-import com.englizya.model.response.FawryPaymentResponse
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
@@ -74,6 +74,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
         binding.fawryWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.FawryPayment)
+            updateSelectedMethodUI(it.id)
+        }
+
+        binding.meezaCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.MeezaPayment)
             updateSelectedMethodUI(it.id)
         }
 
@@ -147,13 +152,13 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             showInternetSnackBar(binding.root, it)
         }
 
-        bookingViewModel.fawryPaymentResponse.observe(viewLifecycleOwner) {
+        bookingViewModel.invoicePaymentResponse.observe(viewLifecycleOwner) {
             redirect(it)
         }
     }
 
-    private fun redirect(fawryPaymentResponse: FawryPaymentResponse) {
-        startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(fawryPaymentResponse.invoiceLink) })
+    private fun redirect(invoicePaymentResponse: InvoicePaymentResponse) {
+        startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(invoicePaymentResponse.invoiceLink) })
     }
 
     private fun showUserTickets() {

@@ -1,0 +1,17 @@
+package com.englizya.local
+
+import androidx.room.AutoMigration
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.englizya.model.model.User
+
+@Database(
+    version = 1,
+    entities = [User::class],
+    exportSchema = true,
+
+
+)
+abstract class UserDatabase : RoomDatabase() {
+    abstract fun getMarketDao(): UserDao
+}

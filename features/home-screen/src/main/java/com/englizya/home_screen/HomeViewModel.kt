@@ -5,15 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
+import com.englizya.local.UserDatabase
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel constructor(
     private val userRepository: UserRepository,
     private val dataStore: UserDataStore,
+    private val userDatabase: UserDatabase,
 ) : BaseViewModel() {
 
 
@@ -30,16 +34,24 @@ class HomeViewModel constructor(
     val user: LiveData<User> = _user
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+
             fetchUser()
         }
     }
+
 
     private suspend fun fetchUser() {
         userRepository
             .fetchUser(dataStore.getToken())
             .onSuccess {
+
+                  userDatabase.getMarketDao().insertUser(it)
+
+
+
                 _user.postValue(it)
+
             }
             .onFailure {
                 handleException(it)

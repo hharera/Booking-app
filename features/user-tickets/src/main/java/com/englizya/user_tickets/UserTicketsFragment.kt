@@ -1,12 +1,14 @@
 package com.englizya.user_tickets
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.FragmentUserTicketsBinding
@@ -18,7 +20,6 @@ class UserTicketsFragment : BaseFragment() {
     private lateinit var adapter: TicketAdapter
     private val userTicketViewModel: UserTicketsViewModel by viewModel()
     var yesNoDialog: YesNoDialog? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,7 +78,6 @@ class UserTicketsFragment : BaseFragment() {
         })
         binding.tickets.adapter = adapter
     }
-
     private fun cancelTicket(it: String?) {
 
         if (it != null) {
@@ -96,7 +96,13 @@ class UserTicketsFragment : BaseFragment() {
 
 
     private fun showFullTicket(it: UserTicket) {
-
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.TICKET_DETAILS,
+                it.ticketId.toString()
+            )
+        )
     }
 
     private fun setupObservers() {
@@ -124,8 +130,6 @@ class UserTicketsFragment : BaseFragment() {
 
 
         }
-
-
     }
 
     private fun setupListeners() {
@@ -138,6 +142,5 @@ class UserTicketsFragment : BaseFragment() {
         super.onResume()
         userTicketViewModel.getUserTickets()
     }
-
 
 }

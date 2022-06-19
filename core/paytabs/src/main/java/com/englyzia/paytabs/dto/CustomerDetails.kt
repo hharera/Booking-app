@@ -1,4 +1,4 @@
-package com.englizya.model.payment
+package com.englyzia.paytabs.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

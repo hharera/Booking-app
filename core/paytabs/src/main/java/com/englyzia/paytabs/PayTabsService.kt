@@ -1,36 +1,37 @@
 package com.englyzia.paytabs
 
 import com.englizya.model.model.User
-import com.englizya.model.payment.CustomerDetails
-import com.englizya.model.payment.FawryInvoice
-import com.englizya.model.payment.Invoice
-import com.englizya.model.payment.LineItems
+import com.englyzia.paytabs.dto.CustomerDetails
+import com.englyzia.paytabs.dto.Invoice
+import com.englyzia.paytabs.dto.InvoiceDetails
+import com.englyzia.paytabs.dto.LineItems
 import com.englyzia.paytabs.utils.CountryCode.EG
 import com.englyzia.paytabs.utils.Currency
 import com.englyzia.paytabs.utils.Domain
+import com.englyzia.paytabs.utils.PaymentMethod
 import com.payment.paymentsdk.PaymentSdkConfigBuilder
 import com.payment.paymentsdk.integrationmodels.*
 import org.joda.time.DateTime
-import java.util.*
 
 class PayTabsService {
 
     companion object {
-        fun createFawryInvoice(
+        fun createInvoice(
             user: User,
             tripName: String,
             amount: Double,
             cartId: Int,
             seatsCount: Int,
-        ): FawryInvoice {
-            return FawryInvoice(
+            paymentMethod: PaymentMethod,
+        ): Invoice {
+            return Invoice(
                 "98492",
                 tranType = PaymentSdkTransactionType.SALE.name,
                 tranClass = PaymentSdkTransactionClass.ECOM.name,
                 cartCurrency = Currency.EG,
                 cartAmount = amount.toString(),
                 cartId = cartId.toString(),
-                cartDescription = "حجز $seatsCount مقعد/مثاعد علي $tripName",
+                cartDescription = "حجز $seatsCount مقعد/مقاعد علي $tripName",
                 hideShipping = true,
                 customerRef = user.username,
                 customerDetails = CustomerDetails(
@@ -40,7 +41,7 @@ class PayTabsService {
                     user.address,
                     "Egypt",
                 ),
-                invoice = Invoice(
+                invoice = InvoiceDetails(
                     shippingCharges = 0,
                     extraCharges = 0,
                     extraDiscount = 0,
@@ -64,9 +65,9 @@ class PayTabsService {
                         )
                     ),
                 ),
-                "${Domain.FAWRY_CALLBACK}/$cartId",
-                "${Domain.FAWRY_CALLBACK}/$cartId",
-                paymentMethods = arrayListOf("fawry"),
+                "${Domain.INVOICE_CALLBACK}/$cartId",
+                "${Domain.INVOICE_CALLBACK}/$cartId",
+                paymentMethods = arrayListOf(paymentMethod.name),
             )
         }
 

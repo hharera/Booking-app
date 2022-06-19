@@ -5,8 +5,12 @@
     <string name="trip_source">من</string>
     <string name="trip_destination">إلى</string>
     <string name="number_of_tickets">عدد التذاكر</string>
-    <string name="tickets_price">سعر التذاكر</string>
     <string name="client_name">الاسم</string>
     <string name="client_phone">رقم التليفون</string>
+    <string name="seat_no">رقم المقعد</string>
+    <string name="service_type">نوع الخدمة</string>
+    <string name="booking_office_name">مكتب الحجز</string>
+    <string name="trip_time">وقت الحجز</string>
+
 
 </resources>
