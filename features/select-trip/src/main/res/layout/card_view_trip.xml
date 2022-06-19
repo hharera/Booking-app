@@ -8,7 +8,6 @@
     app:cardBackgroundColor="@color/grey_100"
     app:cardElevation="0dp"
     android:layoutDirection="ltr"
-    android:layout_gravity="center"
     android:layout_marginTop="9dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -125,10 +124,9 @@
             android:id="@+id/details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
             android:columnCount="3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/book">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
@@ -262,10 +260,10 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf"
-            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginHorizontal="@dimen/_25sdp"
+            android:fontFamily="@font/sf"
             android:text="100$"
+            app:layout_constraintStart_toEndOf="@+id/guideline2"
             android:textColor="@color/grey_500"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -289,13 +287,14 @@
             android:id="@+id/book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
             android:background="@drawable/background_text_book"
             android:fontFamily="@font/sf"
             android:gravity="center"
-            android:layout_marginTop="@dimen/_6sdp"
             android:text="@string/book"
             android:textColor="@color/blue_500"
             android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />

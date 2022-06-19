@@ -8,7 +8,8 @@
     android:maxHeight="@dimen/_100sdp"
     android:padding="6dp"
     android:id="@+id/card"
-    android:layout_margin="4dp"
+    android:layout_marginVertical="4dp"
+    android:layout_marginEnd="4dp"
     android:backgroundTint="@color/grey_100"
     android:elevation="0dp">
 
