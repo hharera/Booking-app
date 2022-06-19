@@ -1,6 +1,7 @@
 package com.englizya.select_trip
 
 import android.content.res.Configuration
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -44,11 +45,18 @@ class TripAdapter(
     }
 
     fun setTrips(list: List<Trip>) {
-        trips = (list)
+        val sortedList = list.sortedBy {
+            it.tripTimes.sortedBy {
+                TimeOnly.timeIn24TimeSystem(it.startTime)
+            }.firstOrNull()?.let { TimeOnly.timeIn24TimeSystem(it.startTime) }
+        }
+
+        trips = (sortedList)
         notifyDataSetChanged()
     }
 
     fun setOffice(office: LineStationTime?) {
+        Log.d("trips:time", office.toString())
         selectedStationTime = office
     }
 
@@ -65,6 +73,7 @@ class TripAdapter(
             binding.sourceTimeTV.text = trip.tripTimes.firstOrNull {
                 it.areaId == source?.branchId
             }?.let {
+                //  Log.d("trip", TimeOnly.map(it.startTime).toString())
                 TimeOnly.map(it.startTime)
             }
 

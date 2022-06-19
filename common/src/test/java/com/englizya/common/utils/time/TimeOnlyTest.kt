@@ -7,8 +7,16 @@ import org.junit.Test
 internal class TimeOnlyTest{
 
     @Test
-    fun `test if time formatted successfully`(): Unit {
+    fun `test to map time to 12 time system`(): Unit {
         TimeOnly.map("2022-04-01 18:00:00").let {
+            println("====================")
+            println(it)
+        }
+    }
+
+    @Test
+    fun `test to map time to 24 time system`(): Unit {
+        TimeOnly.timeIn24TimeSystem("2022-04-01 18:00:00").let {
             println("====================")
             println(it)
         }
