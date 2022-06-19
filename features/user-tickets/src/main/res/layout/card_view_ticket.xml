@@ -125,7 +125,7 @@
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/cancelBtn">
 
             <GridLayout
                 android:layout_width="wrap_content"
@@ -336,5 +336,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cancelBtn"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@drawable/background_text_cancel"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textAlignment="center"
+            android:textColor="@color/blue_500"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toTopOf="@id/details"
+            app:layout_constraintEnd_toEndOf="@+id/ticket_qr"
+            app:layout_constraintStart_toStartOf="@+id/ticket_qr"
+            app:layout_constraintTop_toBottomOf="@+id/ticket_qr" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
