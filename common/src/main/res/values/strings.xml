@@ -151,7 +151,7 @@
     <string name="add_payment_card">إضافة بطاقة دفع</string>
     <string name="payment_cards">بطاقات الدفع</string>
     <string name="add_card">إضافة بطاقة</string>
-    <string name="sending_otp_message">%1$s لقد أرسلنا رمز تأكيد إلى</string>
+    <string name="sending_otp_message"> %1$s لقد أرسلنا رمز تأكيد إلى </string>
     <string name="enter_confirmation_code">أدخل رمز التجهيز</string>
     <string name="map">خريطة</string>
     <string name="empty_password_error">أدخل كلمة المرور</string>

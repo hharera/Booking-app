@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -34,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sf"
-                android:textSize="18sp"
                 android:text="@string/ticket_details"
                 android:textColor="@color/grey_500"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,54 +43,46 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="23dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/appbar">
 
-
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/ticket_detail_qr"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_margin="@dimen/_10sdp"
+                app:layout_constraintWidth_percent="0.5"
+                android:fontFamily="@font/sf"
+                android:src="@drawable/ic_qr"
+                android:text="@string/per_ticket"
+                android:textColor="@color/grey_500"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/ticket_detail_qr"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:fontFamily="@font/sf"
-                    android:src="@drawable/ic_qr"
-                    android:text="@string/per_ticket"
-                    android:textColor="@color/grey_500"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -100,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/card_view"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -111,7 +102,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintHorizontal_bias="0.062"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
@@ -164,7 +154,6 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="19dp"
                     android:fontFamily="@font/sf"
-                    android:text="2022"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -219,9 +208,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="Lorem ipsum"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView10"
                     app:layout_constraintTop_toBottomOf="@+id/trip_source_txt"
@@ -274,9 +262,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="VIP"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView12"
                     app:layout_constraintTop_toBottomOf="@+id/service_type_txt"
@@ -329,9 +316,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="Lorem ipsum"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView14"
                     app:layout_constraintTop_toBottomOf="@+id/name_txt"
@@ -384,9 +370,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="12:00 AM"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView17"
                     app:layout_constraintTop_toBottomOf="@+id/ticket_time_txt"
@@ -396,9 +381,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="216dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -407,6 +392,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
@@ -451,9 +437,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="11 March"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView9"
                     app:layout_constraintTop_toBottomOf="@+id/trip_date_txt"
@@ -506,9 +491,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="Lorem ipsum"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView11"
                     app:layout_constraintTop_toBottomOf="@+id/trip_destination_txt"
@@ -561,9 +545,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="3"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView13"
                     app:layout_constraintTop_toBottomOf="@+id/seat_no_txt"
@@ -616,9 +599,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/sf"
-                    android:text="0115117727"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView15"
                     app:layout_constraintTop_toBottomOf="@+id/phone_number_txt"
@@ -630,7 +612,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout10"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/constraintLayout7"
@@ -666,15 +648,20 @@
 
                 <TextView
                     android:id="@+id/booking_office_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_120sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="6dp"
                     android:fontFamily="@font/sf"
-                    android:text="عدلى منصور"
+                    android:gravity="left"
+                    android:lines="2"
+                    android:text="ميدان الساحة بلبيس (مسجد الكويتية)"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
+                    android:textDirection="rtl"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.166"
                     app:layout_constraintStart_toEndOf="@+id/imageView16"
                     app:layout_constraintTop_toBottomOf="@+id/booking_office_name_txt"
                     app:layout_constraintVertical_bias="0.0" />

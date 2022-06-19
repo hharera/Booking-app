@@ -31,7 +31,7 @@ class TicketDetailsFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentTicketDetailsBinding.inflate(layoutInflater)
         return binding.root
@@ -50,8 +50,10 @@ class TicketDetailsFragment : BaseFragment() {
         setupObservers()
     }
     private fun setupListeners() {
+
         binding.back.setOnClickListener {
-            findNavController().popBackStack()
+         activity?.onBackPressed()
+//           findNavController().popBackStack()
         }
     }
     private fun setupObservers() {
@@ -67,10 +69,9 @@ class TicketDetailsFragment : BaseFragment() {
             updateUI(it)
         }
     }
-
     private  fun updateUI(ticket: UserTicket?) {
         if (ticket != null) {
-            ticket?.let {
+            ticket.let {
                 ColoredQr().generateQRCode(it.ticketQr , it.isActive)
                     .also {
                         binding.ticketDetailQr.setImageBitmap(it)

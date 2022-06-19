@@ -10,7 +10,7 @@
     <string name="client_name">Name</string>
     <string name="client_phone">Phone Number</string>
     <string name="seat_no">Seat Number</string>
-    <string name="service_type">نوع الخدمة</string>
+    <string name="service_type">Service Type</string>
     <string name="booking_office_name">Booking Office</string>
     <string name="trip_time">Time</string>
 
