@@ -8,8 +8,6 @@ import org.koin.android.ext.android.inject
 
 class NoInternetActivity : BaseActivity() {
 
-    val connectionLiveData: ConnectionLiveData by inject()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_internet)

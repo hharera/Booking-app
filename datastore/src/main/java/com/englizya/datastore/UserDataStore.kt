@@ -54,5 +54,12 @@ class UserDataStore(context: Context) {
     fun getPhoneNumber(): String =
         driverSharedPreferences.getString(KEY.PHONE_NUMBER, NULL_STRING)!!
 
+    fun setFirstOpenState(state: Boolean) {
+        driverSharedPreferences.edit().putBoolean(KEY.FIRST_OPEN, state).apply()
+    }
+
+    fun getFirstOpenState(): Boolean =
+        driverSharedPreferences.getBoolean(KEY.FIRST_OPEN, true)
+
 }
 
