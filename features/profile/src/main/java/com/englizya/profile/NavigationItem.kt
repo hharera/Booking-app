@@ -9,7 +9,7 @@ sealed class NavigationItem(
     object UserTickets : NavigationItem(R.drawable.ic_ticket, R.string.my_tickets)
     object DriverReview : NavigationItem(R.drawable.ic_rate, R.string.review_driver)
     object ContactUs : NavigationItem(R.drawable.ic_phone_contact, R.string.contact_us)
-    object PaymentHistory : NavigationItem(R.drawable.payments_history, R.string.payments_history)
+    object PaymentHistory : NavigationItem(R.drawable.ic_history, R.string.payments_history)
     object PaymentCards : NavigationItem(R.drawable.ic_payment_card, R.string.payment_cards)
     object Settings : NavigationItem(R.drawable.ic_settings, R.string.settings)
     object SuggestIdea : NavigationItem(R.drawable.ic_bulb, R.string.suggest_idea)
