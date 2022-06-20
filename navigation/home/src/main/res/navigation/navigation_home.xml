@@ -114,7 +114,8 @@
         android:name="com.englizya.charging.RechargingFragment"
         tools:layout="@layout/fragment_recharging">
 
-        <deepLink app:uri="EnglizyaPay://recharging" />
+        <argument android:name="redirect" />
+        <deepLink app:uri="EnglizyaPay://recharging/{redirect}" />
     </fragment>
 
     <fragment

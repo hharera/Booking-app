@@ -31,6 +31,7 @@ import com.englizya.splash.splashModule
 import com.englizya.user_data.di.module
 import com.englizya.user_tickets.di.userTicketModule
 import com.englyzia.booking.di.bookingModule
+import com.englyzia.booking_payment.di.bookingPaymentModule
 import com.englyzia.reviewdriver.di.driverReviewModule
 import com.google.firebase.FirebaseApp
 import com.microsoft.appcenter.AppCenter
@@ -102,6 +103,7 @@ class TicketApplication : Application(), KoinComponent {
                     userTicketModule,
                     ticketDetailsModule,
                     profileModule,
+                    bookingPaymentModule,
                     loginModule,
                     locationViewModel,
                     contextModule,

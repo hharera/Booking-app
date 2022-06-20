@@ -13,6 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.InvoicePaymentResponse
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.PaymentMethod
@@ -23,6 +26,7 @@ import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import com.payment.paymentsdk.integrationmodels.PaymentSdkError
 import com.payment.paymentsdk.integrationmodels.PaymentSdkTransactionDetails
 import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -30,6 +34,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
     private lateinit var binding: FragmentBookingPaymentBinding
+    private val bookingPaymentViewModel: BookingPaymentViewModel by sharedViewModel()
     private val bookingViewModel: BookingViewModel by sharedViewModel()
 
     override fun onCreateView(
@@ -50,12 +55,20 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun setupListeners() {
-        requireActivity().onBackPressedDispatcher.addCallback {
-            activity?.finish()
+        binding.charge.setOnClickListener {
+            navigateToRecharging()
         }
 
+//        requireActivity().onBackPressedDispatcher.addCallback {
+//            activity?.onBackPressed()
+//        }
+
         binding.back.setOnClickListener {
-            activity?.finish()
+//            bookingViewModel.clearReservationOrder().let {
+//                activity?.onBackPressed()
+//            }
+            activity?.onBackPressed()
+
         }
 
         binding.pay.setOnClickListener {
@@ -110,6 +123,13 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             }
         }
 
+        lifecycleScope.launch {
+            bookingPaymentViewModel.userBalance.collectLatest {
+                binding.balance.text = it.toString()
+
+            }
+        }
+
         bookingViewModel.total.observe(viewLifecycleOwner) {
             binding.totalTV.text = it.toString()
         }
@@ -158,7 +178,9 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun redirect(invoicePaymentResponse: InvoicePaymentResponse) {
-        startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(invoicePaymentResponse.invoiceLink) })
+        startActivity(Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(invoicePaymentResponse.invoiceLink)
+        })
     }
 
     private fun showUserTickets() {
@@ -195,6 +217,16 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             requireActivity(),
             paymentSdkConfigurationDetails,
             this
+        )
+    }
+
+    private fun navigateToRecharging() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.RECHARGING,
+                Destination.PAYMENT
+            )
         )
     }
 }

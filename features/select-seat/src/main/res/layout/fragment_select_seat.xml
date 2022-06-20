@@ -260,7 +260,23 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/walletDiscountText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="324dp"
+        android:fontFamily="@font/sf"
+        android:gravity="center"
+        android:text="@string/walletDiscount"
+        android:textAlignment="center"
+        android:textColor="@color/grey_300"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSeats"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
@@ -268,7 +284,7 @@
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintTop_toBottomOf="@+id/walletDiscountText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -392,6 +408,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:columnCount="5"
+                    android:layoutDirection="ltr"
                     android:orientation="horizontal"
                     android:padding="5dp"
                     android:rowCount="13"
