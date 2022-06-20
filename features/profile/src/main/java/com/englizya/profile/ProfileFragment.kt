@@ -275,7 +275,7 @@ class ProfileFragment : BaseFragment() {
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
                 Destination.RECHARGING,
-                false
+                Destination.PROFILE
             )
         )
     }

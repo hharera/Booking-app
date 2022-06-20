@@ -198,6 +198,9 @@ class BookingViewModel constructor(
     }
 
 
+    fun clearReservationOrder() {
+        _reservationOrder.value = null
+    }
     fun setDestination(destination: String) {
         _destination.value = stations.value?.firstOrNull {
             it.branchName == destination
