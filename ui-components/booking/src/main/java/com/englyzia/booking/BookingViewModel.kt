@@ -670,5 +670,14 @@ class BookingViewModel constructor(
     fun setSelectedPaymentMethod(method: PaymentMethod) {
         _selectedPaymentMethod.value = method
     }
+
+    fun swapStations() {
+         _source.value?.let { source ->
+             _destination.value?.let { destination ->
+                 _source.value = destination
+                 _destination.value = source
+             }
+         }
+    }
 }
 
