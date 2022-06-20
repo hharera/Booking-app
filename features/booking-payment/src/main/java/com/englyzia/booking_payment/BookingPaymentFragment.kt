@@ -77,21 +77,25 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
         binding.cardMethodCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
+            updateTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
         binding.englizyaWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.EnglizyaWallet)
+            updateTotal(0.2)
             updateSelectedMethodUI(it.id)
         }
 
         binding.fawryWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.FawryPayment)
+            updateTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
         binding.meezaCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.MeezaPayment)
+            updateTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
@@ -100,10 +104,17 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
     }
 
+    private fun updateTotal(discount: Double) {
+
+        binding.discountTV.text = (bookingViewModel.total.value?.times(discount)).toString()
+        binding.totalTV.text = bookingViewModel.total.value?.times(1 - discount).toString()
+    }
+
     private fun updateSelectedMethodUI(id: Int) {
         binding.methodsGL.forEach {
             if (it.id == id) {
                 it.setBackgroundResource(R.drawable.background_button_payment_method_selected)
+
             } else {
                 it.setBackgroundResource(R.drawable.background_button_payment_method)
             }
@@ -131,7 +142,9 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         bookingViewModel.total.observe(viewLifecycleOwner) {
+            binding.subtotalTV.text = it.toString()
             binding.totalTV.text = it.toString()
+
         }
 
         bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
@@ -164,6 +177,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         bookingViewModel.reservationWithWalletRequest.observe(viewLifecycleOwner) {
+
             bookingViewModel.confirmReservation(it)
         }
 
