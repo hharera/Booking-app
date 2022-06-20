@@ -2,19 +2,36 @@ package com.englizya.common.ui
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.fragment.app.DialogFragment
 import com.englizya.common.R
+import com.englizya.common.databinding.DialogErrorBinding
+import com.englizya.common.databinding.DialogLoadingBinding
 
-class LoadingDialog(context: Context) {
-    var dialog: AlertDialog = AlertDialog.Builder(context)
-        .setView(R.layout.loading_dialog)
-        .setCancelable(false)
-        .create()
+class LoadingDialog() : DialogFragment() {
 
-    fun show() {
-        dialog.show()
+    private lateinit var binding: DialogLoadingBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = DialogLoadingBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    fun dismiss() {
-        dialog.cancel()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        activity?.onBackPressedDispatcher?.addCallback {
+            dismiss()
+        }
     }
+
 }

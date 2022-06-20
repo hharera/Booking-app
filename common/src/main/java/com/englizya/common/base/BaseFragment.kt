@@ -26,7 +26,7 @@ open class BaseFragment : Fragment() {
 
     val TAG = this::class.java.name
     private val loadingDialog: LoadingDialog by lazy {
-        LoadingDialog(requireContext())
+        LoadingDialog()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ open class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setupLanguage()
+//        setupLanguage()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -61,11 +61,13 @@ open class BaseFragment : Fragment() {
     }
 
     private fun showLoading() {
-        loadingDialog.show()
+        loadingDialog.show(childFragmentManager, "Loading")
     }
 
     private fun dismissLoading() {
-        loadingDialog.dismiss()
+        if (loadingDialog.isVisible) {
+            loadingDialog.dismiss()
+        }
     }
 
     fun showToast(message: String) {
