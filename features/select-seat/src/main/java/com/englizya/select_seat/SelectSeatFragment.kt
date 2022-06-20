@@ -216,7 +216,7 @@ class SelectSeatFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bookingViewModel.clearSelectSeats()
+       // bookingViewModel.clearSelectSeats()
 
         setupObservers()
         setupListeners()
@@ -324,6 +324,8 @@ class SelectSeatFragment : BaseFragment() {
             updateUI(date = trip.reservations.firstOrNull()?.date)
         }
     }
+
+
 
     override fun onResume() {
         super.onResume()
