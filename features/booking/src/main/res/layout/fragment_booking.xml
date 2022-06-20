@@ -8,7 +8,7 @@
         android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.75"
+        app:layout_constraintHeight_percent="0.87"
         app:layout_constraintVertical_bias="0.0"
         android:src="@drawable/background_layout_booking"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -295,7 +295,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -75,6 +75,7 @@
         android:id="@+id/trips"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:nestedScrollingEnabled="true"
         android:orientation="vertical"
         android:paddingHorizontal="23dp"
         android:paddingTop="7dp"
