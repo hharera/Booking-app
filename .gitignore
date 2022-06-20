@@ -14,4 +14,4 @@ local.properties
 # Project exclude paths
 /buildSrc/build/
 /englizya.jks
-.local.properties
+local.properties
