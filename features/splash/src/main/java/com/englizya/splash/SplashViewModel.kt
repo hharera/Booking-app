@@ -37,7 +37,6 @@ class SplashViewModel constructor(
             }
             .onFailure {
                 handleException(it)
-                _loginState.postValue(false)
             }
     }
 

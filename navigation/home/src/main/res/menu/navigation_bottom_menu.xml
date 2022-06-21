@@ -17,6 +17,7 @@
 <!--        android:title="@string/home" />-->
 
     <item
+        android:id="@+id/navigation_home"
         android:icon="@null"
         android:title="@null" />
 

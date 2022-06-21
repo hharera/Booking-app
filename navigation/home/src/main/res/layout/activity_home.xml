@@ -9,6 +9,7 @@
     tools:openDrawer="end">
 
     <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="100dp">

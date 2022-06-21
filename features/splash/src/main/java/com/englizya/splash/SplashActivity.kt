@@ -89,7 +89,6 @@ class SplashActivity : BaseActivity() {
 
     private fun setupObservers() {
         splashViewModel.loginState.observe(this) { loginState ->
-            Log.d(TAG, "setupObservers: $loginState")
             checkLoginState(loginState)
         }
 
@@ -99,6 +98,10 @@ class SplashActivity : BaseActivity() {
                     when (exception.response.status) {
                         HttpStatusCode.Forbidden -> {
                             goLogin()
+                        }
+
+                        else -> {
+                            goBooking()
                         }
                     }
                 }
