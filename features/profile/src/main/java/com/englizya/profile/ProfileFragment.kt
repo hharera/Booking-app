@@ -119,8 +119,8 @@ class ProfileFragment : BaseFragment() {
         kotlin.runCatching {
             Class.forName("com.englizya.navigation.login.LoginActivity").let {
                 Intent(context, it).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(this)
+                    activity?.finish()
                 }
             }
         }
