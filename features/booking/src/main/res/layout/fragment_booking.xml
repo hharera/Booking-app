@@ -6,13 +6,22 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/background_layout_booking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/swap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_3sdp"
+        android:src="@drawable/ic_swap"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toStartOf="@+id/fromConstraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/fromConstraintLayout" />
 
     <TextView
         android:id="@+id/textView2"
@@ -115,7 +124,7 @@
 
         <TextView
             android:id="@+id/fromTextView"
-            android:layout_width="@dimen/_40sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:fontFamily="@font/montserrat_arabic"
@@ -181,7 +190,7 @@
 
         <TextView
             android:id="@+id/toTextView"
-            android:layout_width="@dimen/_35sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:fontFamily="@font/montserrat_arabic"
@@ -236,9 +245,11 @@
         android:layout_marginHorizontal="@dimen/_30sdp"
         android:layout_marginVertical="@dimen/_8sdp"
         android:background="@drawable/background_date"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -280,6 +291,8 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateConstraintLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

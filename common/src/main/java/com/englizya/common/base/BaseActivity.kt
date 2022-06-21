@@ -17,7 +17,7 @@ open class BaseActivity : AppCompatActivity() {
     lateinit var connectionLiveData: ConnectionLiveData
 
     private val loadingDialog: LoadingDialog by lazy {
-        LoadingDialog(this)
+        LoadingDialog()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        loadingDialog.show()
+        loadingDialog.show(supportFragmentManager, "Loading")
     }
 
     private fun dismissLoading() {

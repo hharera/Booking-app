@@ -9,8 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.ListPopupWindow
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.navigation.navDeepLink
 import com.englizya.booking.databinding.FragmentBookingBinding
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.mapper.DateStringMapper
@@ -60,12 +58,9 @@ class BookingFragment : BaseFragment() {
 //            }
 //        }
 
-//        binding.destination.setOnItemClickListener { adapterView, view, i, l ->
-//            adapterView.adapter.getItem(i).toString().let {
-//                Log.d(TAG, "setupListeners: $it")
-//                bookingViewModel.setDestination(it)
-//            }
-//        }
+        binding.swap.setOnClickListener {
+            bookingViewModel.swapStations()
+        }
 
         binding.dateConstraintLayout.setOnClickListener {
             showDatePickerDialog()
