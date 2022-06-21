@@ -59,17 +59,19 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             navigateToRecharging()
         }
         binding.back.setOnClickListener {
-            bookingViewModel.clearReservationOrder().let {
-                findNavController().popBackStack()
-                bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
-                    it?.forEach { seat ->
-                        bookingViewModel.setSelectedSeat(seat)
-                        Log.d("BookingPaymentFragment", "selected seat: $seat")
-                    }
+            findNavController().popBackStack()
 
-
-                }
-            }
+//            bookingViewModel.clearReservationOrder().let {
+//                findNavController().popBackStack()
+//                bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
+//                    it?.forEach { seat ->
+//                        bookingViewModel.setSelectedSeat(seat)
+//                        Log.d("BookingPaymentFragment", "selected seat: $seat")
+//                    }
+//
+//
+//                }
+//            }
         }
 //        requireActivity().onBackPressedDispatcher.addCallback {
 //            activity?.onBackPressed()
@@ -254,5 +256,10 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
                 Destination.PAYMENT
             )
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bookingPaymentViewModel.getUserBalance()
     }
 }
