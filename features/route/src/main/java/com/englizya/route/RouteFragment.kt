@@ -20,6 +20,7 @@ class RouteFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        changeStatusBarColor(R.color.grey_100)
         return FragmentRouteBinding.inflate(layoutInflater).root
     }
 

@@ -36,7 +36,6 @@ class HomeActivity : BaseActivity() {
 
         getExtras()
         setupBottomNavigation()
-        changeStatusBarColor(R.color.grey_100)
         disableHomeMenuItem()
     }
 
