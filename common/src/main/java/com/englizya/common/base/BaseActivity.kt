@@ -53,7 +53,7 @@ open class BaseActivity : AppCompatActivity() {
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
-    fun handleFailure(exception: Exception?, messageRes: Int? = null) {
+    open fun handleFailure(exception: Exception?, messageRes: Int? = null) {
         exception?.printStackTrace()
         messageRes?.let { res ->
             showToast(res)

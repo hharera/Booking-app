@@ -1,5 +1,6 @@
 package com.englizya.common.base
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.englizya.common.utils.network.ConnectionLiveData
 import com.google.android.material.snackbar.Snackbar
 import io.ktor.client.features.*
 import io.ktor.http.*
+import java.net.ConnectException
 import java.util.*
 
 open class BaseFragment : Fragment() {
@@ -84,31 +86,43 @@ open class BaseFragment : Fragment() {
 
     fun handleFailure(exception: Exception?, messageRes: Int? = null) {
         exception?.printStackTrace()
-        messageRes?.let { res ->
-            showToast(res)
-        }
+        checkExceptionType(exception)
     }
 
     fun handleFailure(throwable: Throwable?, messageRes: Int? = null) {
         throwable?.printStackTrace()
-        checkExceptionType(throwable)
+        checkExceptionType(Exception(throwable))
     }
 
-    private fun checkExceptionType(throwable: Throwable?) {
+    private fun checkExceptionType(throwable: Exception?) {
         when (throwable) {
+            is ConnectException -> {
+                activity?.window?.decorView?.let { showInternetSnackBar(it, false) }
+            }
+
             is ClientRequestException -> {
-                when(throwable.response.status) {
+                when (throwable.response.status) {
                     HttpStatusCode.BadRequest -> showErrorDialog(throwable.message.split("Text:")[1].dropWhile { it == '"' })
                 }
 
                 when (throwable.response.status) {
-                    HttpStatusCode.Forbidden -> showErrorDialog(R.string.not_authorized)
+                    HttpStatusCode.Forbidden -> {
+                        goLogin()
+                    }
                 }
             }
-
-//            is HttpRequestTimeoutException -> showInternetSnackBar()
         }
     }
+
+    private fun goLogin() {
+        Class.forName("com.englizya.navigation.login.LoginActivity").let {
+            Intent(context, it).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(this)
+            }
+        }
+    }
+
     fun changeStatusBarColor(colorRes: Int) {
         activity?.window?.statusBarColor = resources.getColor(colorRes)
     }
@@ -133,10 +147,12 @@ open class BaseFragment : Fragment() {
         val dialog = ErrorDialog(getString(messageId))
         dialog.show(childFragmentManager, "errorDialog")
     }
+
     private fun showErrorDialog(message: String) {
         val dialog = ErrorDialog(message)
         dialog.show(childFragmentManager, "errorDialog")
     }
+
     fun dismissDoneDialog() {
         doneDialog.dismiss()
     }
@@ -152,7 +168,6 @@ open class BaseFragment : Fragment() {
                 show()
             }
     }
-
 
 
     private fun setIconToSnackBar(snackBar: Snackbar) {

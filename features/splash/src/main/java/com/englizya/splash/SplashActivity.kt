@@ -93,24 +93,7 @@ class SplashActivity : BaseActivity() {
         }
 
         splashViewModel.error.observe(this) { exception ->
-            when (exception) {
-                is ClientRequestException -> {
-                    when (exception.response.status) {
-                        HttpStatusCode.Forbidden -> {
-                            goLogin()
-                        }
-
-                        else -> {
-                            goBooking()
-                        }
-                    }
-                }
-
-                is HttpRequestTimeoutException -> {
-                    showInternetSnackBar(window.decorView, false)
-                    goBooking()
-                }
-            }
+            handleFailure(exception)
         }
     }
 
