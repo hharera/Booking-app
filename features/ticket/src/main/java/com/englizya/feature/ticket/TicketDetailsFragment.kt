@@ -52,8 +52,8 @@ class TicketDetailsFragment : BaseFragment() {
     private fun setupListeners() {
 
         binding.back.setOnClickListener {
-         activity?.onBackPressed()
-//           findNavController().popBackStack()
+//         activity?.onBackPressed()
+          findNavController().popBackStack()
         }
     }
     private fun setupObservers() {
