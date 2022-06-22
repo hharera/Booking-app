@@ -8,6 +8,9 @@ import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.utils.Value.NULL_STRING
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
+import io.ktor.client.features.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -36,8 +39,28 @@ class SplashViewModel constructor(
                 _loginState.postValue(true)
             }
             .onFailure {
-                handleException(it)
+                checkException(it)
             }
+    }
+
+    private fun checkException(exception: Throwable) {
+        when (exception) {
+            is ClientRequestException -> {
+                when (exception.response.status) {
+                    HttpStatusCode.Forbidden -> {
+                        _loginState.postValue(false)
+                    }
+
+                    else -> {
+                        _loginState.postValue(true)
+                    }
+                }
+            }
+
+            else -> {
+                _loginState.postValue(true)
+            }
+        }
     }
 
     private fun updateUserDataStore(it: User) {
