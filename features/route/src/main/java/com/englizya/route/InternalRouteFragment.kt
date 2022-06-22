@@ -40,22 +40,20 @@ class InternalRouteFragment : BaseFragment() {
     }
 
     private fun setUpAdapter() {
-        if (binding.internalLV != null) {
-            val listData = data
-            titleList = ArrayList(listData.keys)
-            adapter =
-                CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, listData)
-            binding.internalLV !!.setAdapter(adapter)
-            binding.internalLV !!.setOnGroupExpandListener { groupPosition ->
+        val listData = data
+        titleList = ArrayList(listData.keys)
+        adapter =
+            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, listData)
+        binding.internalLV .setAdapter(adapter)
+        binding.internalLV .setOnGroupExpandListener { groupPosition ->
 
-            }
-            binding.internalLV !!.setOnGroupCollapseListener { groupPosition ->
+        }
+        binding.internalLV .setOnGroupCollapseListener { groupPosition ->
 
-            }
-            binding.internalLV !!.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
+        }
+        binding.internalLV .setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
 
-                false
-            }
+            false
         }
     }
 }

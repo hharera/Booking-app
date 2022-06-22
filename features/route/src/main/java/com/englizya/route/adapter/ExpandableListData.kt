@@ -11,9 +11,15 @@ internal object ExpandableListData {
             firstLine.add("القاهرة")
             firstLine.add("بلبيس")
             firstLine.add("الزقازيق")
+            firstLine.add("القاهرة")
+            firstLine.add("بلبيس")
+            firstLine.add("الزقازيق")
 
 
             val secondLine: MutableList<String> = ArrayList()
+            secondLine.add("القاهرة 1")
+            secondLine.add("بلبيس 1 ")
+            secondLine.add("الزقازيق 1 ")
             secondLine.add("القاهرة 1")
             secondLine.add("بلبيس 1 ")
             secondLine.add("الزقازيق 1 ")
