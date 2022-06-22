@@ -37,11 +37,12 @@
 
                 <ImageView
                     android:id="@+id/imageView8"
-                    android:layout_width="@dimen/_48sdp"
-                    android:layout_height="@dimen/_48sdp"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
                     android:layout_marginStart="8dp"
                     android:padding="4dp"
-                    android:src="@drawable/no_path"
+                    android:tint="@color/blue_500"
+                    android:src="@drawable/ic_profile"
                     app:layout_constraintBottom_toBottomOf="@+id/back"
                     app:layout_constraintStart_toEndOf="@+id/back"
                     app:layout_constraintTop_toTopOf="@+id/back" />
@@ -103,10 +104,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf"
-                    android:text="0"
                     android:textColor="@color/grey_300"
                     android:textSize="34sp"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 

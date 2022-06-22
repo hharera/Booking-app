@@ -1,8 +1,10 @@
 package com.englizya.navigation.home
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.core.view.forEach
+import androidx.core.view.get
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -14,8 +16,6 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.feature.ticket.navigation.home.R
 import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
 import com.englizya.home_screen.HomeViewModel
-import com.englizya.profile.NavigationItem.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
@@ -36,7 +36,11 @@ class HomeActivity : BaseActivity() {
 
         getExtras()
         setupBottomNavigation()
-        changeStatusBarColor(R.color.grey_100)
+        disableHomeMenuItem()
+    }
+
+    private fun disableHomeMenuItem() {
+        binding.bottomNavigation.menu[2].isEnabled = false
     }
 
     private fun setupBottomNavigation() {
@@ -50,7 +54,16 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setupListeners() {
+        binding.home.setOnClickListener {
+            checkHome()
+            navController.navigate(R.id.navigation_home, Bundle(), NavOptions.Builder().setLaunchSingleTop(true).build())
+        }
+    }
 
+    private fun checkHome() {
+        binding.bottomNavigation.menu.forEach {
+            it.isChecked = it.itemId == R.id.navigation_home
+        }
     }
 
     private fun getExtras() {

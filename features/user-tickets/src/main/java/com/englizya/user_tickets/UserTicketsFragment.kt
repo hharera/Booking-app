@@ -117,7 +117,7 @@ class UserTicketsFragment : BaseFragment() {
         userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
             updateUI(it)
         }
-        userTicketViewModel.errorThrowable.observe(viewLifecycleOwner) {
+        userTicketViewModel.error.observe(viewLifecycleOwner) {
             handleFailure(it)
         }
     }

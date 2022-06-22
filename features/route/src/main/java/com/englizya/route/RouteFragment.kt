@@ -16,6 +16,9 @@ class RouteFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRouteBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +26,9 @@ class RouteFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
+
+        changeStatusBarColor(R.color.grey_100)
+
         binding = FragmentRouteBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -77,7 +83,7 @@ class RouteFragment : BaseFragment() {
 
     }
 
-   private fun jumpToInternalRoutes() {
+    private fun jumpToInternalRoutes() {
         binding.viewPager.currentItem = 0
     }
 
@@ -89,12 +95,12 @@ class RouteFragment : BaseFragment() {
         super.onResume()
     }
 
-   private fun setUpListeners(){
-       binding.tabLayout.setOnClickListener(View.OnClickListener {
-           Log.d("Clicked" , "Clicked")
-           binding.viewPager.currentItem = 1
+    private fun setUpListeners(){
+        binding.tabLayout.setOnClickListener(View.OnClickListener {
+            Log.d("Clicked" , "Clicked")
+            binding.viewPager.currentItem = 1
 
-       })
+        })
 
 
     }

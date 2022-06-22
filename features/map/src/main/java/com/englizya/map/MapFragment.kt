@@ -20,6 +20,7 @@ class MapFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        changeStatusBarColor(R.color.grey_100)
         return FragmentMapBinding.inflate(layoutInflater).root
     }
 

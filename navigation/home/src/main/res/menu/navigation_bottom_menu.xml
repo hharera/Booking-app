@@ -2,23 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@id/navigation_home"
-        android:icon="@drawable/ic_home"
-        android:title="@string/home" />
+        android:id="@id/navigation_booking"
+        android:icon="@drawable/ic_bus"
+        android:title="@string/tourism" />
 
     <item
         android:id="@id/navigation_map"
         android:icon="@drawable/ic_map"
         android:title="@string/map" />
 
+<!--    <item-->
+<!--        android:id="@id/navigation_home"-->
+<!--        android:icon="@drawable/ic_home"-->
+<!--        android:title="@string/home" />-->
+
     <item
-        android:id="@id/navigation_qr"
-        android:icon="@drawable/ic_qr"
-        android:title="@string/scan_qr" />
+        android:id="@+id/navigation_home"
+        android:icon="@null"
+        android:title="@null" />
 
     <item
         android:id="@id/navigation_routes"
-        android:icon="@drawable/ic_bus"
+        android:icon="@drawable/ic_route"
         android:title="@string/routes" />
 
     <item

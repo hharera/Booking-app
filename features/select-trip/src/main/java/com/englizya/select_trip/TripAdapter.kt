@@ -12,6 +12,7 @@ import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
+import org.joda.time.DateTime
 import java.util.*
 
 class TripAdapter(
@@ -45,10 +46,10 @@ class TripAdapter(
     }
 
     fun setTrips(list: List<Trip>) {
-        val sortedList = list.sortedBy {
-            it.tripTimes.sortedBy {
-                TimeOnly.timeIn24TimeSystem(it.startTime)
-            }.firstOrNull()?.let { TimeOnly.timeIn24TimeSystem(it.startTime) }
+        val sortedList = list.sortedBy { trip ->
+            trip.tripTimes.firstOrNull {
+                it.areaId == source?.branchId
+            }?.let { TimeOnly.timeIn24TimeSystem(it.startTime) } ?: ""
         }
 
         trips = (sortedList)
