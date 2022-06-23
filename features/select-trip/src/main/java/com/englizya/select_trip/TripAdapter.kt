@@ -155,8 +155,16 @@ class TripAdapter(
         }
 
         private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
+            val arrangedOffices = tripTimes.sortedBy{
+                TimeOnly.timeIn24TimeSystem(it.startTime)
+
+            }
+//            arrangedOffices.forEach{
+//                Log.d("arrangedOfficeTime",it.bookingOffice?.officeName.toString())
+//
+//            }
             BookingOfficeAdapter(
-                tripTimes,
+                arrangedOffices,
                 selectedOfficeId
             ) {
                 onOfficeClicked(it)
