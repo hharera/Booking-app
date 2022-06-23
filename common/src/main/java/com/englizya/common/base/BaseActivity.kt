@@ -34,7 +34,8 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        loadingDialog.show(supportFragmentManager, "Loading")
+        if(!loadingDialog.isAdded)
+            loadingDialog.show(supportFragmentManager, "Loading")
     }
 
     private fun dismissLoading() {
