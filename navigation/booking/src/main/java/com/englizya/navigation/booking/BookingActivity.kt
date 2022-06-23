@@ -21,6 +21,9 @@ class BookingActivity : BaseActivity() {
         setContentView(bind.root)
 
         navController = Navigation.findNavController(this, R.id.navView)
+        navController.enableOnBackPressed(true)
+        navController.setOnBackPressedDispatcher(onBackPressedDispatcher)
+
         setupObservers()
     }
 

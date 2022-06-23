@@ -33,6 +33,8 @@ class HomeActivity : BaseActivity() {
         setContentView(binding.root)
 
         navController = Navigation.findNavController(this, R.id.nav_host)
+        navController.enableOnBackPressed(true)
+        navController.setOnBackPressedDispatcher(onBackPressedDispatcher)
 
         getExtras()
         setupBottomNavigation()
