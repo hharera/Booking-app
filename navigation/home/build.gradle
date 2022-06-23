@@ -10,7 +10,6 @@ dependencies {
     api(project(Feature.TICKET))
     api(project(Feature.MAP))
     api(project(Feature.SCAN_QR))
-    api(project(Feature.BOOKING))
     api(project(Feature.APP_SETTINGS))
     api(project(Feature.PROFILE))
     api(project(Feature.COMPLAINT))
@@ -21,6 +20,8 @@ dependencies {
     api(project(Feature.CONTACT_US))
     api(project(Feature.ABOUT_US))
     api(project(Feature.RECHARGING))
+    api(project(Navigation.BOOKING))
+
 
 
     api(project(Base.COMMON))
