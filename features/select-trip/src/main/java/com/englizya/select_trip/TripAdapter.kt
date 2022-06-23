@@ -224,7 +224,7 @@ class TripAdapter(
         }
 
         private fun setTripDate(date: String?) {
-            binding.tripDate.text = date?.let { DateOnly.toMonthDate(it) }
+            binding.tripDate.text = date?.let { DateOnly.getTripDate(it) }
         }
 
         private fun setupLanguage() {
