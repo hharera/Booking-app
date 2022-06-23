@@ -1,9 +1,23 @@
+@file:OptIn(ExperimentalMaterialApi::class)
+
 package com.englizya.select_trip
 
 import android.content.res.Configuration
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
 import com.astritveliu.boom.utils.BoomUtils
 import com.englizya.common.utils.date.DateOnly
@@ -12,7 +26,8 @@ import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Station
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
-import org.joda.time.DateTime
+import com.englizya.select_trip.ui.theme.Blue500
+import com.englizya.select_trip.ui.theme.Grey100
 import java.util.*
 
 class TripAdapter(
@@ -66,7 +81,6 @@ class TripAdapter(
 
         fun updateUI(trip: Trip, source: Station?, destination: Station?) {
             updateStopStationsUI(trip.tripTimes)
-            updateUI(trip.tripTimes.firstOrNull())
             setupLanguage()
             setTripDate(trip.reservations.first().date)
 
@@ -155,28 +169,46 @@ class TripAdapter(
         }
 
         private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
-            BookingOfficeAdapter(
-                tripTimes,
-                selectedOfficeId
-            ) {
-                onOfficeClicked(it)
-                updateUI(it)
-            }.let {
-                binding.stations.adapter = it
-            }
-        }
+            binding.stations.setContent {
+                var selectedBookingOffice by remember { mutableStateOf<Int?>(null) }
 
-        private fun updateUI(stationTime: LineStationTime?) {
-            stationTime?.let {
-                binding.station.text = binding.root.context.getString(R.string.riding_station)
-                    .plus(" ")
-                    .plus(stationTime.bookingOffice?.officeName)
-                binding.ridingTime.text = binding.root.context.getString(R.string.riding_time)
-                    .plus(" ")
-                    .plus(TimeOnly.map(stationTime.startTime) ?: "")
-                binding.exitTime.text = binding.root.context.getString(R.string.exit_time)
-                    .plus(" ")
-                    .plus(TimeOnly.map(stationTime.endTime) ?: "")
+                LazyRow() {
+                    tripTimes.forEach { stationTime ->
+                        item {
+                            Card(
+                                backgroundColor =
+                                if (stationTime.bookingOffice?.officeId == selectedBookingOffice) {
+                                    Blue500
+                                } else {
+                                    Grey100
+                                },
+                                elevation = 0.dp,
+                                modifier = Modifier.padding(6.dp),
+                                onClick = {
+                                    selectedBookingOffice = stationTime.bookingOffice?.officeId
+                                    onOfficeClicked(stationTime)
+                                }
+                            ) {
+                                Text(
+                                    text = stationTime.bookingOffice?.officeName?.plus(
+                                        "\n".plus(
+                                            TimeOnly.map(
+                                                stationTime.startTime
+                                            )
+                                        )
+                                    ).toString(),
+                                    color = if (stationTime.bookingOffice?.officeId == selectedBookingOffice) {
+                                        Grey100
+                                    } else {
+                                        Blue500
+                                    },
+                                    modifier = Modifier.padding(6.dp),
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
 

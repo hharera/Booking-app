@@ -675,12 +675,17 @@ class BookingViewModel constructor(
     }
 
     fun swapStations() {
-         _source.value?.let { source ->
-             _destination.value?.let { destination ->
-                 _source.value = destination
-                 _destination.value = source
-             }
-         }
+        _source.value?.let { source ->
+            _destination.value?.let { destination ->
+                _source.value = destination
+                _destination.value = source
+            }
+        }
+    }
+
+    fun getStations() = viewModelScope.launch(Dispatchers.IO) {
+        if (stations.value.isNullOrEmpty())
+            getBookingOffices()
     }
 }
 

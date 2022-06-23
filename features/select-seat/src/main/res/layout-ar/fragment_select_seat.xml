@@ -221,7 +221,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.6715" />
+            app:layout_constraintGuide_percent="0.3285" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -237,6 +237,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/sf"
+            android:text="100$"
             android:textColor="@color/grey_500"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -175,7 +175,7 @@
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/stations"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_height="wrap_content"
             android:layout_marginVertical="4dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -190,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.6715" />
+            app:layout_constraintGuide_percent="0.3285" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/serviceGuideline"
