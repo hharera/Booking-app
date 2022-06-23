@@ -57,7 +57,6 @@ class TicketApplication : Application(), KoinComponent {
 
         setupAppCenter()
         setupKoin()
-        setupLanguage()
     }
 
     private fun setupLanguage() {

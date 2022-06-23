@@ -85,7 +85,6 @@ class TripAdapter(
                     TimeOnly.timeIn24TimeSystem(it.startTime)
                 }
             )
-            setupLanguage()
             setTripDate(trip.reservations.first().date)
 
             binding.source.text = source?.branchName

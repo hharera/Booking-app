@@ -31,7 +31,6 @@ class SelectTripFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentSelectTripBinding.inflate(layoutInflater)
         changeStatusBarColor(R.color.grey_100)
-        binding.root.layoutDirection = Locale.getDefault().layoutDirection
         return binding.root
     }
 

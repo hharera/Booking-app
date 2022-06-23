@@ -64,6 +64,8 @@ class SelectSeatFragment : BaseFragment() {
                 in (0..4) -> {
                     if (position % 5 == 0) {
                         image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 3) {
+                        updateSeatView(image, iterator.next())
                     } else if (position % 5 == 4) {
                         updateSeatView(image, iterator.next())
                     }

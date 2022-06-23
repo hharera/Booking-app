@@ -175,7 +175,7 @@
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/stations"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_height="wrap_content"
             android:layout_marginVertical="4dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
