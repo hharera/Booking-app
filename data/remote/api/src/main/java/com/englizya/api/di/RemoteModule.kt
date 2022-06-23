@@ -26,7 +26,9 @@ val remoteModule = module {
     single<StationService> {
         StationServiceImpl(get())
     }
-
+    single<RouteService> {
+        RouteServiceImpl(get())
+    }
     single<BookingOfficeService> {
         BookingOfficeServiceImpl(get())
     }

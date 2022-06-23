@@ -27,7 +27,7 @@ class BookingPaymentViewModel constructor(
     }
 
 
-    private fun getUserBalance() = viewModelScope.launch {
+     fun getUserBalance() = viewModelScope.launch {
         walletRepository
             .getBalance(dataStore.getToken())
             .onSuccess {

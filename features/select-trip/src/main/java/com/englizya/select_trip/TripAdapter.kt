@@ -80,7 +80,11 @@ class TripAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(trip: Trip, source: Station?, destination: Station?) {
-            updateStopStationsUI(trip.tripTimes)
+            updateStopStationsUI(
+                trip.tripTimes.sortedBy {
+                    TimeOnly.timeIn24TimeSystem(it.startTime)
+                }
+            )
             setupLanguage()
             setTripDate(trip.reservations.first().date)
 
