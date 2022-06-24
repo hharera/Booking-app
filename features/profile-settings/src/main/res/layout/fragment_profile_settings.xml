@@ -49,7 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/no_path"
         android:src="@drawable/ic_add_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
