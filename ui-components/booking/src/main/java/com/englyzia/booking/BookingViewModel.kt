@@ -69,8 +69,8 @@ class BookingViewModel constructor(
      * Reservation Data
      */
 
-    private var _reservationOrder = MutableStateFlow<ReservationOrder?>(null)
-    val reservationOrder: StateFlow<ReservationOrder?> get() = _reservationOrder
+    private var _reservationOrder = MutableLiveData<ReservationOrder>()
+    val reservationOrder: LiveData<ReservationOrder> = _reservationOrder
 
     private var _paymentAction = MutableStateFlow<Boolean>(false)
     val paymentAction: StateFlow<Boolean> get() = _paymentAction
@@ -281,7 +281,7 @@ class BookingViewModel constructor(
             .requestReservation(reservationRequest, dataStore.getToken())
             .onSuccess {
                 updateLoading(false)
-                _reservationOrder.value = it
+                _reservationOrder.postValue(it)
             }.onFailure {
                 updateLoading(false)
                 handleException(it)

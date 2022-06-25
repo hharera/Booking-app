@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
@@ -245,7 +244,7 @@ class SelectSeatFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.back.setOnClickListener {
-            findNavController().popBackStack()
+            parentFragmentManager.popBackStack()
         }
 
         binding.submit.setOnClickListener {
@@ -281,11 +280,9 @@ class SelectSeatFragment : BaseFragment() {
             updateTimeUI(it)
         }
 
-        lifecycleScope.launch {
-            bookingViewModel.reservationOrder.collect {
-                it?.let {
-                    progressToPayment()
-                }
+        bookingViewModel.reservationOrder.observe(viewLifecycleOwner) {
+            it?.let {
+                progressToPayment()
             }
         }
 
@@ -332,7 +329,7 @@ class SelectSeatFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
+        bookingViewModel.clearSelectSeats()
         restoreValues()
     }
 

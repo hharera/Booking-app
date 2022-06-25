@@ -3,7 +3,6 @@ package com.englizya.navigation.home
 import android.os.Bundle
 import androidx.core.view.forEach
 import androidx.core.view.get
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -16,17 +15,15 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.feature.ticket.navigation.home.R
 import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
-import com.englizya.home_screen.HomeViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
 
-
-    private val homeViewModel: HomeViewModel by viewModel()
-    private val TAG = "HomeActivity"
+    companion object {
+        const val TAG = "HomeActivity"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +56,57 @@ class HomeActivity : BaseActivity() {
     private fun setupListeners() {
         binding.home.setOnClickListener {
             checkHome()
-            navController.navigate(R.id.navigation_home, Bundle(), NavOptions.Builder().setLaunchSingleTop(true).build())
+            navController.navigate(
+                R.id.navigation_home,
+                Bundle(),
+                NavOptions.Builder().setLaunchSingleTop(true).build()
+            )
+        }
+
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> {
+                    checkHome()
+                    navController.navigate(
+                        R.id.navigation_home,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_profile -> {
+                    navController.navigate(
+                        R.id.navigation_profile,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_booking -> {
+                    navController.navigate(
+                        R.id.navigation_booking,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_map -> {
+                    navController.navigate(
+                        R.id.navigation_map,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_routes -> {
+                    navController.navigate(
+                        R.id.navigation_routes,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+            }
+            true
         }
     }
 
@@ -82,21 +129,11 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        val fm: FragmentManager = supportFragmentManager
-        for (frag in fm.getFragments()) {
-            if (frag.isVisible()) {
-                val childFm: FragmentManager = frag.getChildFragmentManager()
-                if (childFm.getBackStackEntryCount() > 0) {
-                    for (childfragnested in childFm.getFragments()) {
-                        val childFmNestManager: FragmentManager =
-                            childfragnested.getFragmentManager()!!
-                        if (childfragnested.isVisible()) {
-                            childFmNestManager.popBackStack()
-                            return
-                        }
-                    }
-                }
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment.isVisible) {
+                fragment.parentFragmentManager.popBackStack()
             }
         }
-        super.onBackPressed()    }
+        super.onBackPressed()
+    }
 }

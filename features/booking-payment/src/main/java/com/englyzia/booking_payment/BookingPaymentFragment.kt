@@ -60,7 +60,8 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.back.setOnClickListener {
-            findNavController().popBackStack()
+            bookingViewModel.clearReservationOrder()
+            parentFragmentManager.popBackStack()
         }
 
         binding.pay.setOnClickListener {
@@ -93,6 +94,10 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
         binding.pay.setOnClickListener {
             bookingViewModel.whenPayButtonClicked()
+        }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
+            bookingViewModel.clearReservationOrder()
         }
     }
 
