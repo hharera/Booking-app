@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
@@ -64,6 +65,8 @@ class SelectSeatFragment : BaseFragment() {
                 in (0..4) -> {
                     if (position % 5 == 0) {
                         image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 3) {
+                        updateSeatView(image, iterator.next())
                     } else if (position % 5 == 4) {
                         updateSeatView(image, iterator.next())
                     }

@@ -46,9 +46,9 @@ class PayTabsService {
                     extraCharges = 0,
                     extraDiscount = 0,
                     total = amount.toInt(),
-                    activationDate = DateTime.now().plusSeconds(30).toString(),
+                    activationDate = DateTime.now().plusSeconds(3).toString(),
                     expiryDate = DateTime.now().plusHours(2).toString(),
-                    dueDate = DateTime.now().plusHours(1).toString(),
+                    dueDate = DateTime.now().plusHours(2).toString(),
                     lineItems = arrayListOf(
                         LineItems(
                             "1",

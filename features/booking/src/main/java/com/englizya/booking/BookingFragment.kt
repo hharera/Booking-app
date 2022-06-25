@@ -123,10 +123,12 @@ class BookingFragment : BaseFragment() {
         )
 
         binding.fromConstraintLayout.setOnClickListener {
+            bookingViewModel.getStations()
             showSourceMenu(it)
         }
 
         binding.constraintLayout.setOnClickListener {
+            bookingViewModel.getStations()
             showDestinationMenu(it)
         }
     }
