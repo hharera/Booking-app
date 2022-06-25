@@ -3,6 +3,7 @@ package com.englizya.navigation.home
 import android.os.Bundle
 import androidx.core.view.forEach
 import androidx.core.view.get
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -79,4 +80,23 @@ class HomeActivity : BaseActivity() {
             )
         }
     }
+
+    override fun onBackPressed() {
+        val fm: FragmentManager = supportFragmentManager
+        for (frag in fm.getFragments()) {
+            if (frag.isVisible()) {
+                val childFm: FragmentManager = frag.getChildFragmentManager()
+                if (childFm.getBackStackEntryCount() > 0) {
+                    for (childfragnested in childFm.getFragments()) {
+                        val childFmNestManager: FragmentManager =
+                            childfragnested.getFragmentManager()!!
+                        if (childfragnested.isVisible()) {
+                            childFmNestManager.popBackStack()
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        super.onBackPressed()    }
 }
