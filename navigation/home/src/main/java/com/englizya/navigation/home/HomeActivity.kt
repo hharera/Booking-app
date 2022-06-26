@@ -131,7 +131,10 @@ class HomeActivity : BaseActivity() {
     override fun onBackPressed() {
         for (fragment in supportFragmentManager.fragments) {
             if (fragment.isVisible) {
-                fragment.parentFragmentManager.popBackStack()
+                if (fragment.parentFragmentManager.backStackEntryCount > 0) {
+                    fragment.parentFragmentManager.popBackStack()
+                    return
+                }
             }
         }
         super.onBackPressed()
