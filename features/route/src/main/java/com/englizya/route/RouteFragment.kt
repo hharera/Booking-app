@@ -64,8 +64,6 @@ class RouteFragment : BaseFragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val position = tab!!.position
                 binding.viewPager.currentItem = tab.position
-
-
                 Log.d("onTabSelected", "onTabSelected : $position")
 
             }
@@ -95,9 +93,9 @@ class RouteFragment : BaseFragment() {
         super.onResume()
     }
 
-    private fun setUpListeners(){
+    private fun setUpListeners() {
         binding.tabLayout.setOnClickListener(View.OnClickListener {
-            Log.d("Clicked" , "Clicked")
+            Log.d("Clicked", "Clicked")
             binding.viewPager.currentItem = 1
 
         })

@@ -7,15 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
+import com.englizya.model.model.RouteStations
 import com.englizya.route.R
 import java.util.HashMap
 class CustomExpandableListAdapter internal constructor(
     private val context: Context,
     private val lineList: List<String>,
-    private val lineRoutesList: HashMap<String, List<String>>
+    private val lineRoutesList: List<Pair<String, MutableList<List<RouteStations>>>>
 ) : BaseExpandableListAdapter() {
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        return this.lineRoutesList[this.lineList[listPosition]]!![expandedListPosition]
+        (this.lineRoutesList.get(listPosition)).second.map {
+            it.forEach { return it.stationName }
+        }
+        return ""
+//        [this.lineList[listPosition]][expandedListPosition]
     }
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
         return expandedListPosition.toLong()
@@ -39,7 +44,7 @@ class CustomExpandableListAdapter internal constructor(
         return convertView
     }
     override fun getChildrenCount(listPosition: Int): Int {
-        return this.lineRoutesList[this.lineList[listPosition]]!!.size
+        return this.lineRoutesList.get(listPosition).second.size
     }
     override fun getGroup(listPosition: Int): Any {
         return this.lineList[listPosition]

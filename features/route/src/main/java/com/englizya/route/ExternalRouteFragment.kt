@@ -1,13 +1,15 @@
 package com.englizya.route
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import com.englizya.common.base.BaseFragment
-import com.englizya.model.model.LineDetails
+import com.englizya.model.model.Routes
 import com.englizya.route.adapter.CustomExpandableListAdapter
+import com.englizya.route.adapter.ExpandableListData
 import com.englizya.route.adapter.ExpandableListData1
 import com.englizya.route.databinding.FragmentExternalRoutesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,7 +36,7 @@ class ExternalRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      //  setUpAdapter()
+        //  setUpAdapter()
         externalRoutesViewModel.getExternalRoutes()
         setupObservers()
 
@@ -51,24 +53,26 @@ class ExternalRouteFragment : BaseFragment() {
 
         externalRoutesViewModel.externalLines.observe(viewLifecycleOwner) {
             setData(it)
+            setUpAdapter()
+
         }
         externalRoutesViewModel.error.observe(viewLifecycleOwner) {
             handleFailure(it)
         }
     }
 
-    private fun setData(lineList: List<LineDetails>?) {
-        lineList?.forEach {
-            ExpandableListData1.setData(it.lineName , it.linePath.branch?.branchName.toString())
-        }
-
-        setUpAdapter()
+    private fun setData(lineList: List<Routes>?) {
+        ExpandableListData1.setData(lineList)
+        Log.d("External Routes", lineList.toString())
 
     }
 
+
     private fun setUpAdapter() {
-        val listData = ExpandableListData1.getData()
-        titleList = ArrayList(listData.keys)
+        val listData = ExpandableListData1.data1
+        titleList = listData.map {
+            it.first
+        }
         adapter =
             CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, listData)
         binding.externalLV.setAdapter(adapter)
@@ -83,6 +87,5 @@ class ExternalRouteFragment : BaseFragment() {
             false
         }
     }
-
 
 }
