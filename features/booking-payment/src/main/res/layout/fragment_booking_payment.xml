@@ -100,7 +100,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
             <TextView
                 android:id="@+id/summaryTV"
                 android:layout_width="match_parent"
@@ -352,7 +351,6 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
 
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
@@ -395,8 +393,8 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
 
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <View
                         android:id="@+id/view3"
                         android:layout_width="match_parent"
@@ -434,7 +432,6 @@
                             android:textSize="16sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -520,10 +517,10 @@
 
                     <ImageView
                         android:id="@+id/englizyaWalletIV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_margin="6dp"
-                        android:src="@drawable/ic_englizya_wallet"
+                        android:src="@drawable/app_logo"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

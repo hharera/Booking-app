@@ -15,17 +15,15 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.feature.ticket.navigation.home.R
 import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
-import com.englizya.home_screen.HomeViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
 
-
-    private val homeViewModel: HomeViewModel by viewModel()
-    private val TAG = "HomeActivity"
+    companion object {
+        const val TAG = "HomeActivity"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +31,8 @@ class HomeActivity : BaseActivity() {
         setContentView(binding.root)
 
         navController = Navigation.findNavController(this, R.id.nav_host)
+        navController.enableOnBackPressed(true)
+        navController.setOnBackPressedDispatcher(onBackPressedDispatcher)
 
         getExtras()
         setupBottomNavigation()
@@ -56,7 +56,57 @@ class HomeActivity : BaseActivity() {
     private fun setupListeners() {
         binding.home.setOnClickListener {
             checkHome()
-            navController.navigate(R.id.navigation_home, Bundle(), NavOptions.Builder().setLaunchSingleTop(true).build())
+            navController.navigate(
+                R.id.navigation_home,
+                Bundle(),
+                NavOptions.Builder().setLaunchSingleTop(true).build()
+            )
+        }
+
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> {
+                    checkHome()
+                    navController.navigate(
+                        R.id.navigation_home,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_profile -> {
+                    navController.navigate(
+                        R.id.navigation_profile,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_booking -> {
+                    navController.navigate(
+                        R.id.navigation_booking,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_map -> {
+                    navController.navigate(
+                        R.id.navigation_map,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+
+                R.id.navigation_routes -> {
+                    navController.navigate(
+                        R.id.navigation_routes,
+                        Bundle(),
+                        NavOptions.Builder().setLaunchSingleTop(true).build()
+                    )
+                }
+            }
+            true
         }
     }
 
@@ -76,5 +126,17 @@ class HomeActivity : BaseActivity() {
                 )
             )
         }
+    }
+
+    override fun onBackPressed() {
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment.isVisible) {
+                if (fragment.parentFragmentManager.backStackEntryCount > 0) {
+                    fragment.parentFragmentManager.popBackStack()
+                    return
+                }
+            }
+        }
+        super.onBackPressed()
     }
 }

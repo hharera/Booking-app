@@ -33,7 +33,6 @@
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorPrimaryVariant">@color/blue_600</item>
         <item name="errorTextColor">@color/blue_600</item>
-        <item name="errorIconDrawable">@drawable/error</item>
         <item name="background">@color/grey_100</item>
         <item name="android:background">@color/grey_100</item>
         <item name="android:statusBarColor">@color/blue_600</item>

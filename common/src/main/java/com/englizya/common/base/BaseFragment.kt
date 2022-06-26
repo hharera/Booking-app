@@ -63,7 +63,8 @@ open class BaseFragment : Fragment() {
     }
 
     private fun showLoading() {
-        loadingDialog.show(childFragmentManager, "Loading")
+        if (loadingDialog.isAdded.not())
+            loadingDialog.show(childFragmentManager, "Loading")
     }
 
     private fun dismissLoading() {

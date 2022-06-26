@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListPopupWindow
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.booking.databinding.FragmentBookingBinding
@@ -51,12 +52,9 @@ class BookingFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
-//        binding.source.setOnItemClickListener { adapterView, view, i, l ->
-//            adapterView.adapter.getItem(i).toString().let {
-//                Log.d(TAG, "setupListeners: $it")
-//                bookingViewModel.setSource(it)
-//            }
-//        }
+        activity?.onBackPressedDispatcher?.addCallback {
+            activity?.viewModelStore?.clear()
+        }
 
         binding.swap.setOnClickListener {
             bookingViewModel.swapStations()

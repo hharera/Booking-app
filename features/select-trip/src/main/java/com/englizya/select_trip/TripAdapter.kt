@@ -85,7 +85,6 @@ class TripAdapter(
                     TimeOnly.timeIn24TimeSystem(it.startTime)
                 }
             )
-            setupLanguage()
             setTripDate(trip.reservations.first().date)
             updateTripDetails(trip)
 
@@ -231,7 +230,7 @@ class TripAdapter(
         }
 
         private fun setTripDate(date: String?) {
-            binding.tripDate.text = date?.let { DateOnly.toMonthDate(it) }
+            binding.tripDate.text = date?.let { DateOnly.getTripDate(it) }
         }
 
         private fun setupLanguage() {

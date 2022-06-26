@@ -15,7 +15,7 @@ class UserTicketsActivity : BaseActivity() {
         setContentView(binding.root)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onBackPressed() {
+        finish()
     }
 }

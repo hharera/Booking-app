@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.common.utils.date.DateOnly
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.*
 import com.englizya.model.request.*
@@ -25,7 +24,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
 import com.englyzia.paytabs.utils.PaymentMethod as PaytabsUtilsPaymentMethod
 
 class BookingViewModel constructor(
@@ -71,8 +69,8 @@ class BookingViewModel constructor(
      * Reservation Data
      */
 
-    private var _reservationOrder = MutableStateFlow<ReservationOrder?>(null)
-    val reservationOrder: StateFlow<ReservationOrder?> get() = _reservationOrder
+    private var _reservationOrder = MutableLiveData<ReservationOrder>()
+    val reservationOrder: LiveData<ReservationOrder> = _reservationOrder
 
     private var _paymentAction = MutableStateFlow<Boolean>(false)
     val paymentAction: StateFlow<Boolean> get() = _paymentAction
@@ -128,11 +126,7 @@ class BookingViewModel constructor(
     }
 
     private fun setDefaultDate() {
-        DateOnly.toMonthDate(
-            DateTime(DateTimeZone.UTC)
-        ).let {
-            _date.postValue(DateTime(it))
-        }
+        _date.value = (DateTime.now())
     }
 
     private suspend fun fetchUser() {
@@ -287,7 +281,7 @@ class BookingViewModel constructor(
             .requestReservation(reservationRequest, dataStore.getToken())
             .onSuccess {
                 updateLoading(false)
-                _reservationOrder.value = it
+                _reservationOrder.postValue(it)
             }.onFailure {
                 updateLoading(false)
                 handleException(it)
