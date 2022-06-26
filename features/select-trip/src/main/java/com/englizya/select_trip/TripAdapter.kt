@@ -87,6 +87,7 @@ class TripAdapter(
             )
             setupLanguage()
             setTripDate(trip.reservations.first().date)
+            updateTripDetails(trip)
 
             binding.source.text = source?.branchName
             binding.sourceTimeTV.text = trip.tripTimes.firstOrNull {
@@ -108,6 +109,11 @@ class TripAdapter(
             binding.serviceDegree.text = trip.service?.serviceDegreeName
 
             boomBook(trip)
+        }
+
+        private fun updateTripDetails(trip: Trip) {
+            binding.tripName.text = trip.tripName
+            binding.tripCode.text = "#".plus(trip.tripId)
         }
 
         private fun getTripPrice(selectedTrip: Trip): Double? {

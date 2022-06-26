@@ -119,58 +119,84 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <GridLayout
-            android:id="@+id/details"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/detailsSV"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_4sdp"
             android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:layout_marginTop="3dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/book">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <GridLayout
+                android:id="@+id/details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_text_service"
-                android:padding="4dp">
+                android:rowCount="1">
 
-                <ImageView
-                    android:id="@+id/imageView4"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_text_service"
+                    android:padding="4dp">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/trip_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf"
+                        android:padding="4dp"
+                        android:textColor="@color/blue_500"
+                        app:background="@drawable/background_text_service"
+                        app:icon="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/service_degree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_calendar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/background_text_service"
+                    android:fontFamily="@font/sf"
+                    android:padding="8dp"
+                    android:textColor="@color/blue_500" />
 
                 <TextView
-                    android:id="@+id/trip_date"
+                    android:id="@+id/trip_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/background_text_service"
                     android:fontFamily="@font/sf"
-                    android:padding="4dp"
-                    android:text="11 March 2022"
-                    android:textColor="@color/blue_500"
-                    app:background="@drawable/background_text_service"
-                    app:icon="@drawable/ic_calendar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:padding="8dp"
+                    android:textColor="@color/blue_500" />
 
-            <TextView
-                android:id="@+id/service_degree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="6dp"
-                android:background="@drawable/background_text_service"
-                android:fontFamily="@font/sf"
-                android:padding="8dp"
-                android:text="VIP"
-                android:textColor="@color/blue_500" />
-        </GridLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/trip_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/background_text_service"
+                    android:fontFamily="@font/sf"
+                    android:padding="8dp"
+                    android:textColor="@color/blue_500" />
+            </GridLayout>
+        </HorizontalScrollView>
 
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/stations"
@@ -182,7 +208,7 @@
             app:layout_constraintBottom_toTopOf="@+id/serviceGuideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details"
+            app:layout_constraintTop_toBottomOf="@+id/detailsSV"
             tools:listitem="@layout/card_view_booking_office" />
 
         <androidx.constraintlayout.widget.Guideline
