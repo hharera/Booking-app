@@ -48,10 +48,10 @@ class TicketAdapter(
 
         fun updateUI(ticket: UserTicket) {
             binding.source.text = ticket.source
-//            binding.sourceTimeTV.text = TimeOnly.map(ticket.sourceTime)
+            binding.sourceTimeTV.text = TimeOnly.map(ticket.sourceTime)
 
             binding.destination.text = ticket.destination
-//            binding.destinationTimeTV.text = TimeOnly.map(ticket.destinationTime)
+            binding.destinationTimeTV.text = TimeOnly.map(ticket.destinationTime)
 
             binding.tripDate.text = DateOnly.toMonthDate(ticket.reservationDate)
             binding.trioId.text = (ticket.tripId).toString().let { "#Trip $it" }

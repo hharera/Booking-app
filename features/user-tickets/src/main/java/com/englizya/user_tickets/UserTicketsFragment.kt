@@ -134,7 +134,7 @@ class UserTicketsFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.back.setOnClickListener {
-            findNavController().popBackStack()
+            activity?.onBackPressed()
         }
     }
 

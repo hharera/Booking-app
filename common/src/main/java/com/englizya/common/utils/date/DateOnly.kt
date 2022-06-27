@@ -1,6 +1,7 @@
 package com.englizya.common.utils.date
 
 import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,5 +25,15 @@ object DateOnly {
 
         simpleDateFormat = SimpleDateFormat(MONTH_DATE)
         return simpleDateFormat.format(format)
+    }
+
+    fun getTripDate(dateTime: String): String {
+        return DateTime.parse(dateTime).let {
+            DateTime(
+                it.toInstant(), DateTimeZone.forTimeZone(
+                    TimeZone.getTimeZone("EET")
+                )
+            )
+        }.toString ("dd MMM yyyy")
     }
 }

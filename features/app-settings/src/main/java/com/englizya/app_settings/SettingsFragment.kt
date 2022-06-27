@@ -65,7 +65,6 @@ class SettingsFragment : BaseFragment() {
         binding.save.setOnClickListener {
             settingsViewModel.saveSelectedLanguage()
             binding.save.isEnabled = false
-            updateLanguage()
             activity?.onBackPressed()
         }
 

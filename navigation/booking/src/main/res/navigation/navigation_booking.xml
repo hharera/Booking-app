@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_booking"
         android:name="com.englizya.booking.BookingFragment"
-        tools:layout="@layout/fragment_booking">
+        tools:layout="@layout/fragment_booking_navigation">
 
         <deepLink app:uri="EnglizyaPay://booking" />
     </fragment>

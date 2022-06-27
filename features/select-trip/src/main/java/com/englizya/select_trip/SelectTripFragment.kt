@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.text.layoutDirection
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
@@ -31,7 +32,6 @@ class SelectTripFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentSelectTripBinding.inflate(layoutInflater)
         changeStatusBarColor(R.color.grey_100)
-        binding.root.layoutDirection = Locale.getDefault().layoutDirection
         return binding.root
     }
 

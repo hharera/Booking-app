@@ -124,7 +124,6 @@
         android:textColor="@color/blue_600"
         android:textSize="14sp"
         app:backgroundTint="@color/white"
-        app:icon="@drawable/add"
         app:iconGravity="textStart"
         app:iconTint="@color/blue_500"
         app:layout_constraintEnd_toEndOf="parent"

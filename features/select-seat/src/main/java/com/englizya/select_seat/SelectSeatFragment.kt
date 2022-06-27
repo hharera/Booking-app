@@ -64,6 +64,8 @@ class SelectSeatFragment : BaseFragment() {
                 in (0..4) -> {
                     if (position % 5 == 0) {
                         image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 3) {
+                        updateSeatView(image, iterator.next())
                     } else if (position % 5 == 4) {
                         updateSeatView(image, iterator.next())
                     }
@@ -242,7 +244,7 @@ class SelectSeatFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.back.setOnClickListener {
-            findNavController().popBackStack()
+            parentFragmentManager.popBackStack()
         }
 
         binding.submit.setOnClickListener {
@@ -278,11 +280,9 @@ class SelectSeatFragment : BaseFragment() {
             updateTimeUI(it)
         }
 
-        lifecycleScope.launch {
-            bookingViewModel.reservationOrder.collect {
-                it?.let {
-                    progressToPayment()
-                }
+        bookingViewModel.reservationOrder.observe(viewLifecycleOwner) {
+            it?.let {
+                progressToPayment()
             }
         }
 
@@ -329,7 +329,7 @@ class SelectSeatFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
+        bookingViewModel.clearSelectSeats()
         restoreValues()
     }
 
