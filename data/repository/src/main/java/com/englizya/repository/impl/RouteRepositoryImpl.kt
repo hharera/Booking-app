@@ -2,6 +2,7 @@ package com.englizya.repository.impl
 
 import com.englizya.api.RouteService
 import com.englizya.model.model.LineDetails
+import com.englizya.model.model.Routes
 import com.englizya.repository.RouteRepository
 
 class RouteRepositoryImpl constructor(
@@ -9,7 +10,7 @@ class RouteRepositoryImpl constructor(
 ) :RouteRepository{
 
 
-    override suspend fun getExternalLines(token: String): Result<List<LineDetails>>  = kotlin.runCatching {
+    override suspend fun getExternalLines(): Result<List<Routes>>  = kotlin.runCatching {
         routeService.getExternalLines()
     }
 

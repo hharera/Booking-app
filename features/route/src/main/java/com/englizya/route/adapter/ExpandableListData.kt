@@ -1,55 +1,40 @@
 package com.englizya.route.adapter
 
+import android.util.Log
+import com.englizya.model.model.RouteStations
+import com.englizya.model.model.Routes
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-object ExpandableListData1{
-    private val expandableListDetail = HashMap<String, List<String>>()
-
-    fun getData() : HashMap<String, List<String>>{
-        return expandableListDetail
-
-    }
-    fun setData(title : String,station:String){
-        val titleList : MutableList<String> = ArrayList()
-        titleList.add(title)
-
-        val stationList : MutableList<String> = ArrayList()
-        stationList.add(station)
-
-
-        titleList.forEach {
-            expandableListDetail[it] = stationList
-        }
-
-
-    }
-}
 internal object ExpandableListData {
-    val data: HashMap<String, List<String>>
+    var title:
+            List<String> = emptyList()
         get() {
-            val expandableListDetail = HashMap<String, List<String>>()
-            val firstLine: MutableList<String> =
-                ArrayList()
-            firstLine.add("القاهرة")
-            firstLine.add("بلبيس")
-            firstLine.add("الزقازيق")
-            firstLine.add("القاهرة")
-            firstLine.add("بلبيس")
-            firstLine.add("الزقازيق")
-
-
-            val title : MutableList<String> = ArrayList()
-            title.add("firstLine")
-            title.add("secondLine")
-
-            title.forEach {
-                expandableListDetail[it] = firstLine
-
-            }
-//            expandableListDetail[] = firstLine
-//            expandableListDetail["Second Line"] = secondLine
-            return expandableListDetail
+            return field
         }
+
+    var routeDetails:
+            MutableList<List<RouteStations>> = ArrayList()
+        get() {
+            return field
+        }
+
+    fun setData(routeList: List<Routes>?) {
+        val titleList: MutableList<String> = ArrayList()
+        val stations: MutableList<List<RouteStations>> = ArrayList()
+        routeList?.forEach { route ->
+            titleList.add(route.routeName)
+
+           stations.add(route.routeStations.sortedBy { it.stationOrder })
+
+        }
+
+        Log.d("Station ", stations.toString())
+
+        title = titleList
+        routeDetails = stations
+
+    }
 }
+

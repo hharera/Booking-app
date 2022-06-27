@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
-import android.widget.Toast
 import com.englizya.common.base.BaseFragment
 import com.englizya.route.adapter.CustomExpandableListAdapter
-import com.englizya.route.adapter.ExpandableListData.data
 import com.englizya.route.databinding.FragmentInternalRoutesBinding
 
 class InternalRouteFragment : BaseFragment() {
@@ -32,28 +30,30 @@ class InternalRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpAdapter()
+//        setUpAdapter()
     }
 
     override fun onResume() {
         super.onResume()
     }
 
-    private fun setUpAdapter() {
-        val listData = data
-        titleList = ArrayList(listData.keys)
-        adapter =
-            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, listData)
-        binding.internalLV .setAdapter(adapter)
-        binding.internalLV .setOnGroupExpandListener { groupPosition ->
-
-        }
-        binding.internalLV .setOnGroupCollapseListener { groupPosition ->
-
-        }
-        binding.internalLV .setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-
-            false
-        }
-    }
+//    private fun setUpAdapter() {
+//        val listData = data
+//       titleList =  listData.map{
+//            it.first
+//        }
+//        adapter =
+//            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, listData)
+//        binding.internalLV .setAdapter(adapter)
+//        binding.internalLV .setOnGroupExpandListener { groupPosition ->
+//
+//        }
+//        binding.internalLV .setOnGroupCollapseListener { groupPosition ->
+//
+//        }
+//        binding.internalLV .setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
+//
+//            false
+//        }
+//    }
 }

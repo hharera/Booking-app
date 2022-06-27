@@ -5,16 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.englizya.common.base.BaseFragment
 import com.englizya.route.adapter.PagerAdapter
 import com.englizya.route.databinding.FragmentRouteBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RouteFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRouteBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,16 +61,11 @@ class RouteFragment : BaseFragment() {
         }
         )
 
-
-
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val position = tab!!.position
                 binding.viewPager.currentItem = tab.position
-
-
                 Log.d("onTabSelected", "onTabSelected : $position")
-
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -83,25 +81,16 @@ class RouteFragment : BaseFragment() {
 
     }
 
-    private fun jumpToInternalRoutes() {
-        binding.viewPager.currentItem = 0
-    }
-
-    private fun jumpToExternalRoutes() {
-        binding.viewPager.currentItem = 1
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    private fun setUpListeners(){
+    private fun setUpListeners() {
         binding.tabLayout.setOnClickListener(View.OnClickListener {
-            Log.d("Clicked" , "Clicked")
+            Log.d("Clicked", "Clicked")
             binding.viewPager.currentItem = 1
 
         })
 
+        binding.back.setOnClickListener(View.OnClickListener {
+            findNavController().popBackStack()
+        })
 
     }
 
