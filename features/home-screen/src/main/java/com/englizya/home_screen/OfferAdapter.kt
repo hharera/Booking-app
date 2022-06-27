@@ -7,6 +7,7 @@ import com.englizya.common.utils.time.TimeOnly
 import com.englizya.home_screen.databinding.CardViewOfferBinding
 import com.englizya.model.model.Offer
 import com.englizya.model.model.Trip
+import com.squareup.picasso.Picasso
 
 class OfferAdapter(
     private var offers: List<Offer>,
@@ -17,7 +18,8 @@ class OfferAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(offer: Offer) {
-            binding.offerTitle.setText(offer.offerTitle)
+          //  binding.offerTitle.setText(offer.offerTitle)
+            Picasso.get().load(offer.offerImageUrl).into(binding.offerImage)
         }
     }
 
