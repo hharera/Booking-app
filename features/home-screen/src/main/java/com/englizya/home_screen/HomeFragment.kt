@@ -2,6 +2,7 @@ package com.englizya.home_screen
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var adapter: OfferAdapter
+
     private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
@@ -35,6 +38,13 @@ class HomeFragment : BaseFragment() {
 
         setupListeners()
         setupObservers()
+        setupUI()
+    }
+    private fun setupUI(){
+        adapter = OfferAdapter(
+            emptyList(),
+        )
+        binding.recyclerView.adapter = adapter
     }
 
     private fun setupObservers() {
@@ -44,6 +54,14 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.user.observe(viewLifecycleOwner) {
             binding.userNameTV.text = it.name
+        }
+
+        homeViewModel.offers.observe(viewLifecycleOwner) {
+            if(it != null){
+                adapter.setOffers(it)
+
+            }
+            Log.d("offers", it.toString())
         }
     }
 
@@ -64,9 +82,9 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun progressToBookingActivity() {
-     findNavController().navigate(
-         NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.BOOKING, false)
-     )
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.BOOKING, false)
+        )
     }
 
     private fun progressToHomeActivity() {
