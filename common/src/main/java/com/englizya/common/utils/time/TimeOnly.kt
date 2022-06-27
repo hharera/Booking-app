@@ -1,6 +1,12 @@
 package com.englizya.common.utils.time
 
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.DateTimeFormatterBuilder
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 object TimeOnly {
 
@@ -11,17 +17,17 @@ object TimeOnly {
     private const val TIME_FORMAT_24 = "HH:mm"
 
     fun map(dateTime: String?): String? {
-        dateTime ?: return null
-        val simpleDateFormat = SimpleDateFormat(DATE_TIME_FORMAT);
-        val parsed = simpleDateFormat.parse(dateTime)
-        return SimpleDateFormat(TIME_FORMAT_12).format(parsed);
+        if (dateTime == null) {
+            return ""
+        }
+        return DateTime.parse(dateTime).toLocalDateTime().toString(TIME_FORMAT_12)
     }
 
     fun timeIn24TimeSystem(dateTime: String?): String? {
-        dateTime ?: return null
-        val simpleDateFormat = SimpleDateFormat(DATE_TIME_FORMAT);
-        val parsed = simpleDateFormat.parse(dateTime)
-        return SimpleDateFormat(TIME_FORMAT_24).format(parsed);
+        if (dateTime == null) {
+            return ""
+        }
+        return DateTime.parse(dateTime).toLocalDateTime().toString(TIME_FORMAT_24)
     }
 
 
