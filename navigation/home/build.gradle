@@ -19,6 +19,8 @@ dependencies {
     api(project(Feature.TERMS_AND_CONDITIONS))
     api(project(Feature.CONTACT_US))
     api(project(Feature.ABOUT_US))
+    api(project(Feature.OFFERS))
+
     api(project(Feature.RECHARGING))
     api(project(Navigation.BOOKING))
 

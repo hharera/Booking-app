@@ -85,7 +85,16 @@ class HomeFragment : BaseFragment() {
             progressToBookingActivity()
         }
 
+        binding.offerSeeMore.setOnClickListener {
+            progressToOffers()
+        }
+
     }
+
+    private fun progressToOffers() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.OFFERS, false)
+        )    }
 
     private fun progressToBookingActivity() {
         findNavController().navigate(

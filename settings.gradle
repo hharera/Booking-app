@@ -37,6 +37,7 @@ include ':features:line-map'
 include ':features:user-data'
 include ':features:driver-review'
 
+
 include ':ui-components'
 include ':ui-components:no-internet'
 include ':ui-components:payment-card'
@@ -83,3 +84,4 @@ include ':features:contact-us'
 include ':features:about-us'
 include ':features:privacy-policy'
 include ':features:charging'
+include ':features:offers'

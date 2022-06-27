@@ -102,6 +102,13 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_offers"
+        android:name="com.englizya.offers.OffersFragment"
+        tools:layout="@layout/fragment_offers">
+
+        <deepLink app:uri="EnglizyaPay://offers" />
+    </fragment>
+    <fragment
         android:id="@+id/navigation_recharging"
         android:name="com.englizya.charging.RechargingFragment"
         tools:layout="@layout/fragment_recharging">
