@@ -10,7 +10,6 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.model.model.Routes
 import com.englizya.route.adapter.CustomExpandableListAdapter
 import com.englizya.route.adapter.ExpandableListData
-import com.englizya.route.adapter.ExpandableListData1
 import com.englizya.route.databinding.FragmentExternalRoutesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,9 +19,7 @@ class ExternalRouteFragment : BaseFragment() {
 
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String>? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +39,11 @@ class ExternalRouteFragment : BaseFragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        externalRoutesViewModel.getExternalRoutes()
+//
+//    }
 
     private fun setupObservers() {
         externalRoutesViewModel.loading.observe(viewLifecycleOwner) {
@@ -62,19 +61,18 @@ class ExternalRouteFragment : BaseFragment() {
     }
 
     private fun setData(lineList: List<Routes>?) {
-        ExpandableListData1.setData(lineList)
+        ExpandableListData.setData(lineList)
         Log.d("External Routes", lineList.toString())
 
     }
 
 
+
     private fun setUpAdapter() {
-        val listData = ExpandableListData1.data1
-        titleList = listData.map {
-            it.first
-        }
+        val routeDetails = ExpandableListData.routeDetails
+        titleList = ExpandableListData.title
         adapter =
-            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, listData)
+            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, routeDetails)
         binding.externalLV.setAdapter(adapter)
         binding.externalLV.setOnGroupExpandListener { groupPosition ->
 

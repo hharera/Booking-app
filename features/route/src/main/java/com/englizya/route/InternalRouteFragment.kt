@@ -8,7 +8,6 @@ import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import com.englizya.common.base.BaseFragment
 import com.englizya.route.adapter.CustomExpandableListAdapter
-import com.englizya.route.adapter.ExpandableListData.data
 import com.englizya.route.databinding.FragmentInternalRoutesBinding
 
 class InternalRouteFragment : BaseFragment() {

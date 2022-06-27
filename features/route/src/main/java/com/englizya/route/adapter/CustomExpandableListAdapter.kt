@@ -2,6 +2,7 @@ package com.englizya.route.adapter
 
 import android.content.Context
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +13,11 @@ import com.englizya.route.R
 import java.util.HashMap
 class CustomExpandableListAdapter internal constructor(
     private val context: Context,
-    private val lineList: List<String>,
-    private val lineRoutesList: List<Pair<String, MutableList<List<RouteStations>>>>
+    private val titleList: List<String>,
+    private val RoutesList: MutableList<List<RouteStations>>
 ) : BaseExpandableListAdapter() {
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        (this.lineRoutesList.get(listPosition)).second.map {
-            it.forEach { return it.stationName }
-        }
-        return ""
+        return RoutesList[listPosition][expandedListPosition].stationName
 //        [this.lineList[listPosition]][expandedListPosition]
     }
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -44,13 +42,13 @@ class CustomExpandableListAdapter internal constructor(
         return convertView
     }
     override fun getChildrenCount(listPosition: Int): Int {
-        return this.lineRoutesList.get(listPosition).second.size
+        return this.RoutesList[listPosition].size
     }
     override fun getGroup(listPosition: Int): Any {
-        return this.lineList[listPosition]
+        return this.titleList[listPosition]
     }
     override fun getGroupCount(): Int {
-        return this.lineList.size
+        return this.titleList.size
     }
     override fun getGroupId(listPosition: Int): Long {
         return listPosition.toLong()
