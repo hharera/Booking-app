@@ -12,12 +12,15 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.home_screen.databinding.FragmentHomeBinding
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
+import com.smarteist.autoimageslider.SliderAnimations
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: OfferAdapter
+//    private lateinit var adapter: OfferAdapter
+    private lateinit var offerSliderAdapter: OfferSliderAdapter
 
     private val homeViewModel: HomeViewModel by viewModel()
 
@@ -41,10 +44,13 @@ class HomeFragment : BaseFragment() {
         setupUI()
     }
     private fun setupUI(){
-        adapter = OfferAdapter(
+        offerSliderAdapter = OfferSliderAdapter(
             emptyList(),
         )
-        binding.recyclerView.adapter = adapter
+        binding.imageSlider.setSliderAdapter(offerSliderAdapter)
+        binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM)
+        binding.imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
+        binding.imageSlider.startAutoCycle()
     }
 
     private fun setupObservers() {
@@ -58,7 +64,7 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.offers.observe(viewLifecycleOwner) {
             if(it != null){
-                adapter.setOffers(it)
+                offerSliderAdapter.setOffers(it)
 
             }
             Log.d("offers", it.toString())

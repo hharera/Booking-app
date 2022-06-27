@@ -11,7 +11,6 @@ import com.squareup.picasso.Picasso
 
 class OfferAdapter(
     private var offers: List<Offer>,
-
     ) : RecyclerView.Adapter<OfferAdapter.NavigationItemViewHolder>() {
 
     inner class NavigationItemViewHolder(private val binding: CardViewOfferBinding) :

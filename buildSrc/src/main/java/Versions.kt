@@ -10,6 +10,8 @@ object Versions {
     const val CIRCLE_IMAGE = "3.1.0"
     const val ESPRESSO = "3.4"
     const val ROOM_VERSION = "2.3.0"
+    const val SLIDER_VERSION = "1.4.0"
+
 
     const val material = "1.2.1"
     const val koin = "2.0.1"
