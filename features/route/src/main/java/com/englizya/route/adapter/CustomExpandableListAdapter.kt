@@ -67,7 +67,7 @@ class CustomExpandableListAdapter internal constructor(
             convertView = layoutInflater.inflate(R.layout.card_view_route_category, null)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.lineTitleTxt)
-        listTitleTextView.setTypeface(null, Typeface.BOLD)
+        listTitleTextView.setTypeface(listTitleTextView.typeface, Typeface.BOLD)
         listTitleTextView.text = listTitle
         return convertView
     }
