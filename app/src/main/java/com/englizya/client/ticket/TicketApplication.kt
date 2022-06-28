@@ -35,6 +35,7 @@ import com.englizya.user_tickets.di.userTicketModule
 import com.englyzia.booking.di.bookingModule
 import com.englyzia.booking_payment.di.bookingPaymentModule
 import com.englyzia.reviewdriver.di.driverReviewModule
+import com.englizya.offers.di.offersModule
 import com.google.firebase.FirebaseApp
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
@@ -46,7 +47,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import java.util.*
-import javax.crypto.Cipher.SECRET_KEY
 
 
 class TicketApplication : Application(), KoinComponent {
@@ -106,6 +106,7 @@ class TicketApplication : Application(), KoinComponent {
                     externalRoute,
                     internalRoute,
                     ticketDetailsModule,
+                    offersModule,
                     profileModule,
                     bookingPaymentModule,
                     loginModule,
