@@ -26,7 +26,6 @@ import com.englizya.profile.di.profileModule
 import com.englizya.repository.di.repositoryModule
 import com.englizya.reset_password.di.resetPasswordModule
 import com.englizya.route.di.externalRoute
-import com.englizya.route.di.internalRoute
 import com.englizya.send_otp.di.sendOtpModule
 import com.englizya.signup.di.signupModule
 import com.englizya.splash.splashModule
@@ -104,7 +103,6 @@ class TicketApplication : Application(), KoinComponent {
                     bookingModule,
                     userTicketModule,
                     externalRoute,
-                    internalRoute,
                     ticketDetailsModule,
                     profileModule,
                     bookingPaymentModule,

@@ -33,17 +33,11 @@ class ExternalRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //  setUpAdapter()
         externalRoutesViewModel.getExternalRoutes()
         setupObservers()
 
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        externalRoutesViewModel.getExternalRoutes()
-//
-//    }
 
     private fun setupObservers() {
         externalRoutesViewModel.loading.observe(viewLifecycleOwner) {
@@ -65,7 +59,6 @@ class ExternalRouteFragment : BaseFragment() {
         Log.d("External Routes", lineList.toString())
 
     }
-
 
 
     private fun setUpAdapter() {

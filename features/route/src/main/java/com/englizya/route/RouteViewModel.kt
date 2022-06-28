@@ -42,7 +42,7 @@ class RouteViewModel constructor(
             .getInternalLines()
             .onSuccess {
                 updateLoading(false)
-                _externalLines.value = it
+                _internalLines.value = it
             }
             .onFailure {
                 updateLoading(false)
