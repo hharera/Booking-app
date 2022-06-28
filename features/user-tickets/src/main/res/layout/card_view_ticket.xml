@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    app:cardElevation="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="9dp"
     app:cardBackgroundColor="@color/grey_100">
@@ -215,6 +216,7 @@
             android:id="@+id/selected_station"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             android:layout_marginTop="4dp"
             android:backgroundTint="@color/grey_100"
             app:cardCornerRadius="8dp"
