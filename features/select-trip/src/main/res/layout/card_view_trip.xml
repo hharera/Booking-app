@@ -122,7 +122,8 @@
         <HorizontalScrollView
             android:id="@+id/detailsSV"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:scrollbars="none"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/book">
