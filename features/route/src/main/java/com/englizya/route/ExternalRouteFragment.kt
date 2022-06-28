@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExternalRouteFragment : BaseFragment() {
     private lateinit var binding: FragmentExternalRoutesBinding
-    private val externalRoutesViewModel: ExternalRouteViewModel by viewModel()
+    private val externalRoutesViewModel: RouteViewModel by viewModel()
 
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String>? = null

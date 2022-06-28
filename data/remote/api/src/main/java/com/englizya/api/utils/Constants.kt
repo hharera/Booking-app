@@ -37,7 +37,7 @@ object Routing {
     const val GET_TICKET_DETAILS = "${Domain.ENGLIZYA_BUS_REMOTE}api/ticket/"
     const val CANCEL_TICKET  = "${Domain.ENGLIZYA_BUS_REMOTE}api/ticket"
     const val GET_EXTERNAL_LINES  = "${Domain.ENGLIZYA_BUS_REMOTE}api/route/all/path"
-
+    const val GET_INTERNAL_LINES  = "${Domain.ENGLIZYA_BUS_REMOTE}api/route/short/all/path"
 
 }
 

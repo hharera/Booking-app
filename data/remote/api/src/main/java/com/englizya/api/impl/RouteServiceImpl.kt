@@ -14,4 +14,7 @@ class RouteServiceImpl constructor(
     override suspend fun getExternalLines(): List<Routes> =
         client.get(Routing.GET_EXTERNAL_LINES)
 
+    override suspend fun getInternalLines(): List<Routes> =
+        client.get(Routing.GET_INTERNAL_LINES)
+
 }

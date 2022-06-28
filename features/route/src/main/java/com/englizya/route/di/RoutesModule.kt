@@ -1,7 +1,6 @@
 package com.englizya.route.di
 
 import com.englizya.route.ExternalRouteViewModel
-import com.englizya.route.InternalRouteViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
