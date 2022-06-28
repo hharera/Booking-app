@@ -19,8 +19,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
-//    private lateinit var adapter: OfferAdapter
     private lateinit var offerSliderAdapter: OfferSliderAdapter
+//    private lateinit var announcementSliderAdapter: AnnouncementSliderAdapter
+    private lateinit var announcementAdapter: AnnouncementAdapter
+
 
     private val homeViewModel: HomeViewModel by viewModel()
 
@@ -43,7 +45,8 @@ class HomeFragment : BaseFragment() {
         setupObservers()
         setupUI()
     }
-    private fun setupUI(){
+
+    private fun setupUI() {
         offerSliderAdapter = OfferSliderAdapter(
             emptyList(),
         )
@@ -51,6 +54,17 @@ class HomeFragment : BaseFragment() {
         binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM)
         binding.imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
         binding.imageSlider.startAutoCycle()
+        announcementAdapter = AnnouncementAdapter(
+            emptyList(),
+        )
+        binding.announcementRecyclerView.adapter = announcementAdapter
+//        announcementSliderAdapter = AnnouncementSliderAdapter(
+//            emptyList(),
+//        )
+//        binding.imageSliderAnnouncement.setSliderAdapter(offerSliderAdapter)
+//        binding.imageSliderAnnouncement.setIndicatorAnimation(IndicatorAnimationType.WORM)
+//        binding.imageSliderAnnouncement.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
+//        binding.imageSliderAnnouncement.startAutoCycle()
     }
 
     private fun setupObservers() {
@@ -63,11 +77,16 @@ class HomeFragment : BaseFragment() {
         }
 
         homeViewModel.offers.observe(viewLifecycleOwner) {
-            if(it != null){
+            if (it != null) {
                 offerSliderAdapter.setOffers(it)
-
             }
             Log.d("offers", it.toString())
+        }
+        homeViewModel.announcements.observe(viewLifecycleOwner) {
+            if (it != null) {
+                announcementAdapter.setAnnouncements(it)
+            }
+            Log.d("Announcements", it.toString())
         }
     }
 
@@ -89,12 +108,20 @@ class HomeFragment : BaseFragment() {
             progressToOffers()
         }
 
+        binding.announcementSeeMore.setOnClickListener {
+            progressToAnnouncements()
+        }
+    }
+
+    private fun progressToAnnouncements() {
+        TODO("Not yet implemented")
     }
 
     private fun progressToOffers() {
         findNavController().navigate(
             NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.OFFERS, false)
-        )    }
+        )
+    }
 
     private fun progressToBookingActivity() {
         findNavController().navigate(
