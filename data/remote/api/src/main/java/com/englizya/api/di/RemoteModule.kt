@@ -32,6 +32,9 @@ val remoteModule = module {
     single<BookingOfficeService> {
         BookingOfficeServiceImpl(get())
     }
+    single<OfferService> {
+        OfferServiceImpl(get())
+    }
 
     single<TripService> {
         TripServiceImpl(get())

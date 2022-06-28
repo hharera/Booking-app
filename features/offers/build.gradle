@@ -1,11 +1,11 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
+
     implementation(Libs.picasso)
-    implementation(Libs.slider)
 
 }
 
 android {
-    namespace 'com.englizya.home_screen'
+    namespace 'com.englizya.offers'
 }

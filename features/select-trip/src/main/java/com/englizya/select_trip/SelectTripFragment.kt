@@ -49,6 +49,7 @@ class SelectTripFragment : BaseFragment() {
             emptyList(),
             bookingViewModel.source.value,
             bookingViewModel.destination.value,
+            selectedOfficeId = bookingViewModel.selectedBookingOffice.value?.bookingOffice?.officeId,
             onItemClicked = {
                 progressToSelectSeats(it)
             },

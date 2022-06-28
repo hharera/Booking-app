@@ -3,6 +3,7 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 dependencies {
     api(project(Base.COMMON))
     api(project(Feature.BOOKING))
+    api(project(Feature.OFFERS))
     api(project(Feature.SELECT_TRIP))
     api(project(Feature.SELECT_STATION))
     api(project(Feature.SELECT_SEAT))

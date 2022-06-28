@@ -22,6 +22,7 @@ import com.englizya.home_screen.di.homeModule
 import com.englizya.local.di.databaseModule
 import com.englizya.location_update.di.locationViewModel
 import com.englizya.login.di.loginModule
+import com.englizya.offers.di.offersModule
 import com.englizya.profile.di.profileModule
 import com.englizya.repository.di.repositoryModule
 import com.englizya.reset_password.di.resetPasswordModule
@@ -45,7 +46,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import java.util.*
-import javax.crypto.Cipher.SECRET_KEY
 
 
 class TicketApplication : Application(), KoinComponent {
@@ -104,6 +104,7 @@ class TicketApplication : Application(), KoinComponent {
                     userTicketModule,
                     externalRoute,
                     ticketDetailsModule,
+                    offersModule,
                     profileModule,
                     bookingPaymentModule,
                     loginModule,

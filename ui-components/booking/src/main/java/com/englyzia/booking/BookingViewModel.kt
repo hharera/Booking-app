@@ -225,7 +225,7 @@ class BookingViewModel constructor(
                 destinationStationId = destination.value!!.branchId
             )
         ).onSuccess {
-            setDefualtOffice(it)
+            setDefaultOffice(it)
             updateLoading(false)
             _trips.postValue(it)
         }.onFailure {
@@ -234,7 +234,8 @@ class BookingViewModel constructor(
         }
     }
 
-    private fun setDefualtOffice(it: List<Trip>) {
+    private fun setDefaultOffice(it: List<Trip>) {
+        _selectedBookingOffice.postValue(it.firstOrNull()?.tripTimes?.firstOrNull())
     }
 
     fun setSelectedTrip(trip: Trip) {
@@ -252,14 +253,7 @@ class BookingViewModel constructor(
         } else {
             _selectedSeats.value = selectedSeats.value?.plus(seat)
         }
-
-        _total.value = selectedTrip.value?.plan?.seatPrices?.firstOrNull {
-            it.source == source.value?.branchId && it.destination == destination.value?.branchId
-        }?.vipPrice?.let {
-            selectedSeats.value?.size?.times(
-                it
-            )
-        }
+        _total.value = calculateAmount().toInt()
     }
 
     suspend fun requestReservation() {
@@ -568,7 +562,7 @@ class BookingViewModel constructor(
             }
 
             else -> {
-                0.0
+                Double.MAX_VALUE
             }
         }
 

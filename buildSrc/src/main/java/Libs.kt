@@ -12,6 +12,7 @@ object Libs {
 
     //Image Loader
     const val picasso = "com.squareup.picasso:picasso:${Versions.PICASSO_VERSION}"
+    const val slider =   "com.github.smarteist:autoimageslider:${Versions.SLIDER_VERSION}"
 
     //Room
     const val roomRunTime = "androidx.room:room-runtime:${Versions.ROOM_VERSION}"

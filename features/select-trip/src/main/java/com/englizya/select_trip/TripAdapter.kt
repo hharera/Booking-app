@@ -36,7 +36,7 @@ class TripAdapter(
     private val destination: Station?,
     private val onItemClicked: (Trip) -> Unit,
     private val onOfficeClicked: (LineStationTime) -> Unit,
-    private val selectedOfficeId: Int = 0,
+    private val selectedOfficeId: Int?,
     private var selectedStationTime: LineStationTime? = null,
 ) : RecyclerView.Adapter<TripAdapter.NavigationItemViewHolder>() {
 
@@ -179,7 +179,7 @@ class TripAdapter(
 
         private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
             binding.stations.setContent {
-                var selectedBookingOffice by remember { mutableStateOf<Int?>(null) }
+                var selectedBookingOffice by remember { mutableStateOf<Int?>(selectedOfficeId) }
 
                 LazyRow() {
                     tripTimes.forEach { stationTime ->
