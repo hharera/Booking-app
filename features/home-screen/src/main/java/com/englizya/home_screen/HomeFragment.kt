@@ -114,8 +114,9 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun progressToAnnouncements() {
-        TODO("Not yet implemented")
-    }
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.ANNOUNCEMENT, false)
+        )    }
 
     private fun progressToOffers() {
         findNavController().navigate(

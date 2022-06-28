@@ -29,6 +29,8 @@ object Destination {
     const val TICKET_DETAILS = "ticket-details"
     const val BOOKING = "booking"
     const val OFFERS = "offers"
+    const val ANNOUNCEMENT = "announcement"
+
 
 
 }

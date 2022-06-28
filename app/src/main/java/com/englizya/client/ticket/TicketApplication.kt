@@ -3,6 +3,7 @@ package com.englizya.client.ticket
 import android.app.Application
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.englizya.announcement.di.announcementModule
 import com.englizya.api.di.clientModule
 import com.englizya.api.di.remoteModule
 import com.englizya.app_settings.di.settingsModule
@@ -105,6 +106,7 @@ class TicketApplication : Application(), KoinComponent {
                     externalRoute,
                     ticketDetailsModule,
                     offersModule,
+                    announcementModule,
                     profileModule,
                     bookingPaymentModule,
                     loginModule,

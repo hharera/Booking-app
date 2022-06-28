@@ -32,5 +32,7 @@ object Feature {
     const val SELECT_SEAT = ":features:select-seat"
     const val SELECT_TRIP = ":features:select-trip"
     const val OFFERS = ":features:offers"
+    const val ANNOUNCEMENT = ":features:announcement"
+
 
 }
