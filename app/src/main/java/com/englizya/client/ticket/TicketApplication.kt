@@ -22,6 +22,7 @@ import com.englizya.home_screen.di.homeModule
 import com.englizya.local.di.databaseModule
 import com.englizya.location_update.di.locationViewModel
 import com.englizya.login.di.loginModule
+import com.englizya.offers.di.offersModule
 import com.englizya.profile.di.profileModule
 import com.englizya.repository.di.repositoryModule
 import com.englizya.reset_password.di.resetPasswordModule
@@ -35,7 +36,6 @@ import com.englizya.user_tickets.di.userTicketModule
 import com.englyzia.booking.di.bookingModule
 import com.englyzia.booking_payment.di.bookingPaymentModule
 import com.englyzia.reviewdriver.di.driverReviewModule
-import com.englizya.offers.di.offersModule
 import com.google.firebase.FirebaseApp
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
