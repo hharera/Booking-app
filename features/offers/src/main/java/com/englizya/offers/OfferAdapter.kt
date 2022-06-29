@@ -3,25 +3,28 @@ package com.englizya.offers
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.offers.databinding.OfferItemBinding
 import com.squareup.picasso.Picasso
 
 class OfferAdapter(
     private var offers: List<Offer>,
-    ) : RecyclerView.Adapter<OfferAdapter.NavigationItemViewHolder>() {
+    private val onItemClicked: (Offer) -> Unit,
+) : RecyclerView.Adapter<OfferAdapter.NavigationItemViewHolder>() {
 
     inner class NavigationItemViewHolder(private val binding: OfferItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(offer: Offer) {
             Picasso.get().load(offer.offerImageUrl).into(binding.offerImage)
-            itemView.setOnClickListener{
-                NavigateToOfferDetails(offer.offerId)
+            itemView.setOnClickListener {
+                navigateToOfferDetails(offer)
             }
         }
 
-        private fun NavigateToOfferDetails(offerId: Int) {
+        private fun navigateToOfferDetails(offer: Offer) {
+            onItemClicked(offer)
 
         }
     }

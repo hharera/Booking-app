@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/announcementImg"
+        android:id="@+id/offerImg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_220sdp"
         android:src="@drawable/app_logo"
@@ -31,10 +31,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/announcementImg">
+        app:layout_constraintTop_toBottomOf="@+id/offerImg">
 
         <TextView
-            android:id="@+id/announcementTitle"
+            android:id="@+id/offerTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -46,7 +46,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/announcementDetails"
+            android:id="@+id/offerDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -56,7 +56,43 @@
             android:inputType="textMultiLine"
             android:textColor="@color/grey_300"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/announcementTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/offerTitle" />
+
+        <TextView
+            android:id="@+id/offerStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sf"
+            android:textColor="@color/grey_300"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/offerDetails" />
+
+        <TextView
+            android:id="@+id/offerEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sf"
+            android:textColor="@color/grey_300"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/offerStartDate" />
+
+        <TextView
+            android:id="@+id/offerDiscount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sf"
+            android:textColor="@color/grey_300"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/offerDiscount" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

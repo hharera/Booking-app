@@ -54,6 +54,9 @@ class AnnouncementFragment : BaseFragment() {
             showInternetSnackBar(binding.root, it)
         }
 
+        announcementViewModel.loading.observe(viewLifecycleOwner) {
+            handleLoading(it)
+        }
         announcementViewModel.announcements.observe(viewLifecycleOwner) {
             if (it != null) {
                 adapter.setAnnouncements(it)

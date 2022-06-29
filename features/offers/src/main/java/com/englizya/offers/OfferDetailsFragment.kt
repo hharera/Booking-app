@@ -1,4 +1,4 @@
-package com.englizya.announcement
+package com.englizya.offers
 
 import android.os.Bundle
 import android.util.Log
@@ -6,23 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.englizya.announcement.databinding.FragmentAnnouncementBinding
-import com.englizya.announcement.databinding.FragmentAnnouncementDetailsBinding
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.date.DateOnly
 import com.englizya.model.model.Announcement
+import com.englizya.model.model.Offer
+import com.englizya.offers.databinding.FragmentOfferDetailsBinding
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AnnouncementDetailsFragment : BaseFragment() {
-    private lateinit var binding: FragmentAnnouncementDetailsBinding
-    private val announcementViewModel: AnnouncementViewModel by viewModel()
+class OfferDetailsFragment : BaseFragment() {
+    private lateinit var binding: FragmentOfferDetailsBinding
+    private val offersViewModel: OffersViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentAnnouncementDetailsBinding.inflate(layoutInflater)
+        binding = FragmentOfferDetailsBinding.inflate(layoutInflater)
         changeStatusBarColor(R.color.grey_100)
         return binding.root
     }
@@ -30,8 +31,8 @@ class AnnouncementDetailsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.getString("announcementId").let {
-            announcementViewModel.announcementsId.value = it
+        arguments?.getString("offerId").let {
+            offersViewModel.offersId.value = it
         }
     }
 
@@ -44,26 +45,31 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
     }
 
-    private fun updateUI(announcement: Announcement) {
-        Picasso.get().load(announcement.announcementImageUrl).into(binding.announcementImg)
-        binding.announcementDetails.text = announcement.announcementDescription
-        binding.announcementTitle.text = announcement.announcementTitle
+    private fun updateUI(offer: Offer) {
+        Picasso.get().load(offer.offerImageUrl).into(binding.offerImg)
+        binding.offerDetails.text = offer.offerDescription
+        binding.offerTitle.text = offer.offerTitle
+        binding.offerStartDate.text = DateOnly.toMonthDate(offer.startDate)
+        binding.offerEndDate.text = DateOnly.toMonthDate(offer.endDate)
+        binding.offerDiscount.text = offer.discount.toString()
+
+
     }
 
     private fun setupObservers() {
         connectionLiveData.observe(viewLifecycleOwner) {
             showInternetSnackBar(binding.root, it)
         }
-        announcementViewModel.loading.observe(viewLifecycleOwner) {
+        offersViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
 
-        announcementViewModel.announcementsDetails.observe(viewLifecycleOwner) {
+        offersViewModel.offersDetails.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.root.visibility = View.VISIBLE
                 updateUI(it)
             }
-            Log.d("announcement", it.toString())
+            Log.d("offer", it.toString())
         }
     }
 
@@ -76,6 +82,6 @@ class AnnouncementDetailsFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        announcementViewModel.getAnnouncementDetails(arguments?.get("announcementId").toString())
+        offersViewModel.getOfferDetails(arguments?.get("offerId").toString())
     }
 }

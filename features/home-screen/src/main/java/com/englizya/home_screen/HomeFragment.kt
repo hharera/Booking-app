@@ -1,6 +1,5 @@
 package com.englizya.home_screen
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.home_screen.databinding.FragmentHomeBinding
 import com.englizya.model.model.Announcement
+import com.englizya.model.model.Offer
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,7 +21,8 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var offerSliderAdapter: OfferSliderAdapter
-//    private lateinit var announcementSliderAdapter: AnnouncementSliderAdapter
+
+    //    private lateinit var announcementSliderAdapter: AnnouncementSliderAdapter
     private lateinit var announcementAdapter: AnnouncementAdapter
 
 
@@ -50,6 +51,9 @@ class HomeFragment : BaseFragment() {
     private fun setupUI() {
         offerSliderAdapter = OfferSliderAdapter(
             emptyList(),
+            onItemClicked = {
+                navigateToOfferDetails(it)
+            }
         )
         binding.imageSlider.setSliderAdapter(offerSliderAdapter)
         binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM)
@@ -69,6 +73,16 @@ class HomeFragment : BaseFragment() {
 //        binding.imageSliderAnnouncement.setIndicatorAnimation(IndicatorAnimationType.WORM)
 //        binding.imageSliderAnnouncement.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
 //        binding.imageSliderAnnouncement.startAutoCycle()
+    }
+
+    private fun navigateToOfferDetails(offer: Offer) {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.OFFER_DETAILS,
+                offer.offerId.toString()
+            )
+        )
     }
 
     private fun navigateToAnnouncementDetails(announcement: Announcement) {
@@ -130,7 +144,8 @@ class HomeFragment : BaseFragment() {
     private fun progressToAnnouncements() {
         findNavController().navigate(
             NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.ANNOUNCEMENT, false)
-        )    }
+        )
+    }
 
     private fun progressToOffers() {
         findNavController().navigate(

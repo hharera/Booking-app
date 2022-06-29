@@ -31,6 +31,7 @@ object Destination {
     const val OFFERS = "offers"
     const val ANNOUNCEMENT = "announcement"
     const val ANNOUNCEMENT_DETAILS = "announcement-details"
+    const val OFFER_DETAILS = "offer-details"
 
 
 

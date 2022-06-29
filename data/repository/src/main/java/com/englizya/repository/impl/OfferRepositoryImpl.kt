@@ -10,4 +10,8 @@ class OfferRepositoryImpl constructor(
     override suspend fun getAllOffers(): Result<List<Offer>> = kotlin.runCatching {
         offerService.getAllOffers()
     }
+
+    override suspend fun getOfferDetails(offerId: String): Result<Offer> = kotlin.runCatching {
+        offerService.getOfferDetails(offerId)
+    }
 }
