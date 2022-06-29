@@ -12,6 +12,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.home_screen.databinding.FragmentHomeBinding
+import com.englizya.model.model.Announcement
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,6 +57,9 @@ class HomeFragment : BaseFragment() {
         binding.imageSlider.startAutoCycle()
         announcementAdapter = AnnouncementAdapter(
             emptyList(),
+            onItemClicked = {
+                navigateToAnnouncementDetails(it)
+            }
         )
         binding.announcementRecyclerView.adapter = announcementAdapter
 //        announcementSliderAdapter = AnnouncementSliderAdapter(
@@ -65,6 +69,16 @@ class HomeFragment : BaseFragment() {
 //        binding.imageSliderAnnouncement.setIndicatorAnimation(IndicatorAnimationType.WORM)
 //        binding.imageSliderAnnouncement.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
 //        binding.imageSliderAnnouncement.startAutoCycle()
+    }
+
+    private fun navigateToAnnouncementDetails(announcement: Announcement) {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.ANNOUNCEMENT_DETAILS,
+                announcement.announcementId.toString()
+            )
+        )
     }
 
     private fun setupObservers() {

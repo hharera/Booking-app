@@ -30,6 +30,8 @@ object Destination {
     const val BOOKING = "booking"
     const val OFFERS = "offers"
     const val ANNOUNCEMENT = "announcement"
+    const val ANNOUNCEMENT_DETAILS = "announcement-details"
+
 
 
 

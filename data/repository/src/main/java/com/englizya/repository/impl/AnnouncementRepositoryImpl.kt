@@ -11,4 +11,8 @@ class AnnouncementRepositoryImpl  constructor(
         announcementService.getAnnouncements()
     }
 
+    override suspend fun getAnnouncementDetails(announcementId: String): Result<Announcement> =kotlin.runCatching {
+        announcementService.getAnnouncementDetails(announcementId)
+    }
+
 }

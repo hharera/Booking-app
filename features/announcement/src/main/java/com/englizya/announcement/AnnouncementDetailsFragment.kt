@@ -6,18 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.englizya.announcement.R
 import com.englizya.announcement.databinding.FragmentAnnouncementBinding
+import com.englizya.announcement.databinding.FragmentAnnouncementDetailsBinding
 import com.englizya.common.base.BaseFragment
-import com.englizya.common.utils.navigation.Destination
-import com.englizya.common.utils.navigation.Domain
-import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Announcement
+import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AnnouncementFragment : BaseFragment() {
-    private lateinit var binding: FragmentAnnouncementBinding
-    private lateinit var adapter: AnnouncementAdapter
+class AnnouncementDetailsFragment : BaseFragment() {
+    private lateinit var binding: FragmentAnnouncementDetailsBinding
     private val announcementViewModel: AnnouncementViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,28 +22,32 @@ class AnnouncementFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentAnnouncementBinding.inflate(layoutInflater)
+        binding = FragmentAnnouncementDetailsBinding.inflate(layoutInflater)
         changeStatusBarColor(R.color.grey_100)
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.getString("announcementId").let {
+            announcementViewModel.announcementsId.value = it
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.visibility = View.INVISIBLE
+
         setupListeners()
         setupObservers()
-        setupUI()
 
     }
 
-    private fun setupUI() {
-        adapter = AnnouncementAdapter(
-            emptyList(),
-            onItemClicked = {
-                navigateToAnnouncementDetails(it)
-            }
-        )
-        binding.announcementRecyclerView.adapter = adapter
-
+    private fun updateUI(announcement: Announcement) {
+        Picasso.get().load(announcement.announcementImageUrl).into(binding.announcementImg)
+        binding.announcementDetails.text = announcement.announcementDescription
+        binding.announcementTitle.text = announcement.announcementTitle
     }
 
     private fun setupObservers() {
@@ -54,23 +55,13 @@ class AnnouncementFragment : BaseFragment() {
             showInternetSnackBar(binding.root, it)
         }
 
-        announcementViewModel.announcements.observe(viewLifecycleOwner) {
+        announcementViewModel.announcementsDetails.observe(viewLifecycleOwner) {
             if (it != null) {
-                adapter.setAnnouncements(it)
+                binding.root.visibility = View.VISIBLE
+                updateUI(it)
             }
-            Log.d("offers", it.toString())
+            Log.d("announcement", it.toString())
         }
-    }
-
-    private fun navigateToAnnouncementDetails(announcement: Announcement) {
-
-        findNavController().navigate(
-            NavigationUtils.getUriNavigation(
-                Domain.ENGLIZYA_PAY,
-                Destination.ANNOUNCEMENT_DETAILS,
-                announcement.announcementId.toString()
-            )
-        )
     }
 
     private fun setupListeners() {
@@ -78,5 +69,10 @@ class AnnouncementFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        announcementViewModel.getAnnouncementDetails(arguments?.get("announcementId").toString())
     }
 }

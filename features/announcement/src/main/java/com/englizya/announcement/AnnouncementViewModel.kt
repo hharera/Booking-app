@@ -12,17 +12,25 @@ import kotlinx.coroutines.launch
 
 class AnnouncementViewModel constructor(
     private val announcementRepository: AnnouncementRepository,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private var _announcements = MutableLiveData<List<Announcement>>()
     val announcements: LiveData<List<Announcement>> = _announcements
+
+    private var _announcementsDetails = MutableLiveData<Announcement>()
+    val announcementsDetails: LiveData<Announcement> = _announcementsDetails
+
+
+    private val _announcementsId = MutableLiveData<String?>()
+    val announcementsId: MutableLiveData<String?>
+        get() = _announcementsId
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
-
-
             getAnnouncements()
         }
     }
+
     fun getAnnouncements() = viewModelScope.launch {
         updateLoading(true)
         announcementRepository
@@ -36,4 +44,21 @@ class AnnouncementViewModel constructor(
                 handleException(it)
             }
     }
+
+    fun getAnnouncementDetails(announcementId: String?) = viewModelScope.launch {
+        updateLoading(true)
+        if (announcementId != null){
+            announcementRepository
+                .getAnnouncementDetails(announcementId)
+                .onSuccess {
+                    updateLoading(false)
+                    _announcementsDetails.value = it
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
+        }
+
 }
