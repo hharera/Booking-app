@@ -46,6 +46,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:nestedScrollingEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/pay"
         app:layout_constraintTop_toBottomOf="@+id/appbar">
 
@@ -375,14 +376,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf"
-                            android:text="@string/discount_txt"
+                            android:text="@string/wallet_discount_txt"
                             android:textColor="@color/blue_600"
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/discountTV"
+                            android:id="@+id/walletDiscountTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf"
@@ -394,14 +395,54 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/grey_100"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout16" />
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view4">
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf"
+                            android:text="@string/round_discount_txt"
+                            android:textColor="@color/blue_600"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/roundDiscountTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf"
+                            android:text="0.0"
+                            android:textColor="@color/blue_600"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <View
                         android:id="@+id/view3"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_marginTop="4dp"
                         android:background="@color/grey_100"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout16" />
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout18" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

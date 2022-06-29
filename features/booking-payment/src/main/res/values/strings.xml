@@ -12,7 +12,9 @@
     <string name="payment_methods" >طرق الدفع</string>
     <string name="off_percentage">20%\nخصم</string>
     <string name="off_details">احصل على خصم 20٪ على التذاكر\n عند استخدام محفظة الاشتراكات</string>
-    <string name="discount_txt">قيمة الخصم</string>
+    <string name="wallet_discount_txt">قيمة خصم المحفظة</string>
+    <string name="round_discount_txt">خصم الذهاب و العودة</string>
+
     <string name="total">الإجمالي</string>
     <string name="sub_total">الإجمالى قبل الخصم</string>
 

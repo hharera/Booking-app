@@ -18,6 +18,7 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.InvoicePaymentResponse
 import com.englyzia.booking.BookingViewModel
+import com.englyzia.booking.utils.BookingType
 import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.booking_payment.databinding.FragmentBookingPaymentBinding
 import com.harera.user_tickets.UserTicketsActivity
@@ -52,6 +53,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         setupObservers()
         setupListeners()
         bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
+        updateTotalBasedOnBookingType()
     }
 
     private fun setupListeners() {
@@ -70,25 +72,29 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
         binding.cardMethodCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
-            updateTotal(0.0)
+//            updateTotalBasedOnBookingType()
+            updateWalletTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
         binding.englizyaWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.EnglizyaWallet)
-            updateTotal(0.2)
+            updateWalletTotal(0.2)
             updateSelectedMethodUI(it.id)
         }
 
         binding.fawryWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.FawryPayment)
-            updateTotal(0.0)
+//            updateTotalBasedOnBookingType()
+            updateWalletTotal(0.0)
+
             updateSelectedMethodUI(it.id)
         }
 
         binding.meezaCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.MeezaPayment)
-            updateTotal(0.0)
+//            updateTotalBasedOnBookingType()
+            updateWalletTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
@@ -101,9 +107,29 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
     }
 
-    private fun updateTotal(discount: Double) {
+    private fun updateTotalBasedOnBookingType() {
+        if (bookingViewModel.bookingType.value == BookingType.RoundBooking) {
+            updateRoundTotal(0.1)
 
-        binding.discountTV.text = (bookingViewModel.total.value?.times(discount)).toString()
+        } else {
+            updateRoundTotal(0.0)
+        }
+    }
+
+    private fun updateRoundTotal(discount: Double) {
+        if(discount == 0.0){
+            binding.subtotalTV.text = bookingViewModel.total.value.toString()
+            binding.totalTV.text =bookingViewModel.total.value.toString()
+        }else{
+            binding.subtotalTV.text = (bookingViewModel.total.value?.times(2).toString())
+            binding.roundDiscountTV.text = (java.lang.Double.parseDouble(binding.subtotalTV.text.toString()).times(discount)).toString()
+            binding.totalTV.text = (java.lang.Double.parseDouble(binding.subtotalTV.text.toString())).times(1 - discount).toString()
+        }
+
+    }
+
+    private fun updateWalletTotal(discount: Double) {
+        binding.walletDiscountTV.text = (bookingViewModel.total.value?.times(discount)).toString()
         binding.totalTV.text = bookingViewModel.total.value?.times(1 - discount).toString()
     }
 
@@ -139,8 +165,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         bookingViewModel.total.observe(viewLifecycleOwner) {
-            binding.subtotalTV.text = it.toString()
-            binding.totalTV.text = it.toString()
+          updateTotalBasedOnBookingType()
 
         }
 
