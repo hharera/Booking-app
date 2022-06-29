@@ -1,17 +1,24 @@
 package com.englizya.route
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import com.englizya.common.base.BaseFragment
+import com.englizya.model.model.Routes
 import com.englizya.route.adapter.CustomExpandableListAdapter
+import com.englizya.route.adapter.ExpandableListData
+import com.englizya.route.databinding.FragmentExternalRoutesBinding
 import com.englizya.route.databinding.FragmentInternalRoutesBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InternalRouteFragment : BaseFragment() {
-    private lateinit var binding : FragmentInternalRoutesBinding
+    private lateinit var binding: FragmentInternalRoutesBinding
+    private val internalRouteViewModel: RouteViewModel by viewModel()
+
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,30 +37,45 @@ class InternalRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        setUpAdapter()
+        internalRouteViewModel.getInternalRoutes()
+        setupObservers()
+    }
+    private fun setupObservers() {
+        internalRouteViewModel.loading.observe(viewLifecycleOwner) {
+            handleLoading(it)
+        }
+
+        internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {
+            setData(it)
+            setUpAdapter()
+
+        }
+        internalRouteViewModel.error.observe(viewLifecycleOwner) {
+            handleFailure(it)
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun setData(lineList: List<Routes>?) {
+        ExpandableListData.setData(lineList)
+        Log.d("Internal Routes", lineList.toString())
+
+    }
+    private fun setUpAdapter() {
+        val routeDetails = ExpandableListData.routeDetails
+        titleList = ExpandableListData.title
+        adapter =
+            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, routeDetails)
+        binding.internalLV.setAdapter(adapter)
+        binding.internalLV.setOnGroupExpandListener { groupPosition ->
+
+        }
+        binding.internalLV.setOnGroupCollapseListener { groupPosition ->
+
+        }
+        binding.internalLV.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
+
+            false
+        }
     }
 
-//    private fun setUpAdapter() {
-//        val listData = data
-//       titleList =  listData.map{
-//            it.first
-//        }
-//        adapter =
-//            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, listData)
-//        binding.internalLV .setAdapter(adapter)
-//        binding.internalLV .setOnGroupExpandListener { groupPosition ->
-//
-//        }
-//        binding.internalLV .setOnGroupCollapseListener { groupPosition ->
-//
-//        }
-//        binding.internalLV .setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-//
-//            false
-//        }
-//    }
 }

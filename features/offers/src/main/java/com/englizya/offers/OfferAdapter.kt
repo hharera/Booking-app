@@ -15,12 +15,14 @@ class OfferAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(offer: Offer) {
-            binding.offerTitle.text = offer.offerTitle
-            binding.offerDescription.text = offer.offerDescription
-            binding.offerEndDate.text = offer.endDate
-            binding.offerStartDate.text = offer.startDate
-            binding.offerDiscount.text = offer.discount.toString()
             Picasso.get().load(offer.offerImageUrl).into(binding.offerImage)
+            itemView.setOnClickListener{
+                NavigateToOfferDetails(offer.offerId)
+            }
+        }
+
+        private fun NavigateToOfferDetails(offerId: Int) {
+
         }
     }
 

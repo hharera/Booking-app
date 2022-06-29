@@ -14,4 +14,9 @@ class RouteRepositoryImpl constructor(
         routeService.getExternalLines()
     }
 
+    override suspend fun getInternalLines(): Result<List<Routes>>  = kotlin.runCatching {
+        routeService.getInternalLines()
+    }
+
+
 }

@@ -5,5 +5,6 @@ import com.englizya.model.model.Routes
 
 interface RouteRepository {
     suspend fun getExternalLines(): Result<List<Routes>>
+    suspend fun getInternalLines(): Result<List<Routes>>
 
 }
