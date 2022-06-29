@@ -4,5 +4,5 @@
     <string name="payment_failed">Payment failed</string>
     <string name="unavailable">غير متاح</string>
     <string name="walletDiscount"> عند شرائك التذاكر باستخدام محفظة الانجليزية سيتم خصم 20% من قيمة التذاكر</string>
-
+    <string name="total">الإجمالي</string>
 </resources>

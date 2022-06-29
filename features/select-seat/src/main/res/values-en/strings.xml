@@ -4,5 +4,5 @@
     <string name="payment_failed">Payment failed</string>
     <string name="unavailable">Unavailable</string>
     <string name="walletDiscount"> When buying tickets using Englizya Wallet , you will take a 20% discount on these tickets</string>
-
+    <string name="total">Total</string>
 </resources>
