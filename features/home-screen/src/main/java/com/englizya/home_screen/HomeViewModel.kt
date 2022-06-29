@@ -9,6 +9,7 @@ import com.englizya.local.UserDatabase
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.model.model.User
+import com.englizya.repository.AnnouncementRepository
 import com.englizya.repository.OfferRepository
 import com.englizya.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,7 @@ import kotlinx.coroutines.withContext
 class HomeViewModel constructor(
     private val userRepository: UserRepository,
     private val offerRepository: OfferRepository,
+    private val announcementRepository: AnnouncementRepository,
     private val dataStore: UserDataStore,
     private val userDatabase: UserDatabase,
 ) : BaseViewModel() {
@@ -40,6 +42,7 @@ class HomeViewModel constructor(
 
             fetchUser()
             getOffers()
+            getAnnouncements()
         }
     }
 
@@ -70,6 +73,21 @@ class HomeViewModel constructor(
                 handleException(it)
             }
     }
+
+    fun getAnnouncements() = viewModelScope.launch {
+        updateLoading(true)
+        announcementRepository
+            .getAllAnnouncement()
+            .onSuccess {
+                updateLoading(false)
+                _announcements.value = it
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
 
     fun getOffers(offers: List<Offer>) {
         _offers.value = offers

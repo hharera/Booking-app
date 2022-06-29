@@ -9,13 +9,23 @@ import com.squareup.picasso.Picasso
 
 class OfferSliderAdapter(
     private var offers: List<Offer>,
-) : SliderViewAdapter<OfferSliderAdapter.Holder>() {
+    private val onItemClicked: (Offer) -> Unit,
+
+    ) : SliderViewAdapter<OfferSliderAdapter.Holder>() {
 
     inner class Holder(private val binding: CardViewOfferBinding) :
         SliderViewAdapter.ViewHolder(binding.root) {
         fun updateUI(offer: Offer) {
             //  binding.offerTitle.setText(offer.offerTitle)
             Picasso.get().load(offer.offerImageUrl).into(binding.offerImage)
+            itemView.setOnClickListener{
+                navigateToOfferDetails(offer)
+            }
+        }
+
+        private fun navigateToOfferDetails(offer: Offer) {
+            onItemClicked(offer)
+
         }
 
     }

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="offers">العروض</string>
+    <string name="offerStartDate">تاريخ بداية العرض : </string>
+    <string name="offerEndDate">تاريخ نهاية العرض : </string>
+    <string name="offerDiscount">الخصم : </string>
 
 </resources>

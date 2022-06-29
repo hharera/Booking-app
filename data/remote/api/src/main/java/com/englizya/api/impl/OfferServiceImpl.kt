@@ -11,4 +11,7 @@ class OfferServiceImpl constructor(
 ): OfferService{
     override suspend fun getAllOffers(): List<Offer>  =
         client.get(Routing.GET_OFFERS)
+
+    override suspend fun getOfferDetails(offerId: String): Offer =
+        client.get(Routing.GET_OFFER_DETAILS+offerId.toInt())
 }

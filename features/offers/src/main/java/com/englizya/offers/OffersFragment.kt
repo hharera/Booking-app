@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.model.model.Offer
 import com.englizya.offers.databinding.FragmentOffersBinding
 
 
@@ -39,9 +43,22 @@ class OffersFragment : BaseFragment() {
     private fun setupUI(){
         adapter = OfferAdapter(
             emptyList(),
+            onItemClicked = {
+                navigateToOfferDetails(it)
+            }
         )
         binding.offersRecyclerView.adapter = adapter
 
+    }
+
+    private fun navigateToOfferDetails(offer: Offer) {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.OFFER_DETAILS,
+                offer.offerId.toString()
+            )
+        )
     }
 
     private fun setupObservers() {
@@ -50,7 +67,9 @@ class OffersFragment : BaseFragment() {
         }
 
 
-
+        offersViewModel.loading.observe(viewLifecycleOwner){
+            handleLoading(it)
+        }
         offersViewModel.offers.observe(viewLifecycleOwner) {
             if(it != null){
                 adapter.setOffers(it)

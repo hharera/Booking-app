@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.englizya.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
 
         <deepLink app:uri="EnglizyaPay://profile" />
     </fragment>
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.englizya.app_settings.SettingsFragment"
-        tools:layout="@layout/fragment_app_settings" >
+        tools:layout="@layout/fragment_app_settings">
 
         <deepLink app:uri="EnglizyaPay://settings" />
     </fragment>
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/navigation_driver_review"
         android:name="com.englyzia.reviewdriver.DriverReviewFragment"
-        tools:layout="@layout/fragment_driver_review" >
+        tools:layout="@layout/fragment_driver_review">
 
         <deepLink app:uri="EnglizyaPay://review-driver" />
     </fragment>
@@ -108,6 +108,29 @@
 
         <deepLink app:uri="EnglizyaPay://offers" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_offers_details"
+        android:name="com.englizya.offers.OfferDetailsFragment"
+        tools:layout="@layout/fragment_offer_details">
+        <argument android:name="offerId" />
+        <deepLink app:uri="EnglizyaPay://offer-details/{offerId}" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_announcement"
+        android:name="com.englizya.announcement.AnnouncementFragment"
+        tools:layout="@layout/fragment_announcement">
+
+        <deepLink app:uri="EnglizyaPay://announcement" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_announcement_details"
+        android:name="com.englizya.announcement.AnnouncementDetailsFragment"
+        tools:layout="@layout/fragment_announcement_details">
+        <argument android:name="announcementId" />
+
+        <deepLink app:uri="EnglizyaPay://announcement-details/{announcementId}" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_recharging"
         android:name="com.englizya.charging.RechargingFragment"
@@ -130,7 +153,7 @@
         android:name="com.englizya.feature.ticket.TicketDetailsFragment"
         tools:layout="@layout/fragment_ticket_details">
 
-        <argument android:name="ticketId"/>
+        <argument android:name="ticketId" />
         <deepLink app:uri="EnglizyaPay://ticket-details/{ticketId}" />
     </fragment>
 
