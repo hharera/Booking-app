@@ -49,9 +49,9 @@ class OfferDetailsFragment : BaseFragment() {
         Picasso.get().load(offer.offerImageUrl).into(binding.offerImg)
         binding.offerDetails.text = offer.offerDescription
         binding.offerTitle.text = offer.offerTitle
-        binding.offerStartDate.text = DateOnly.toMonthDate(offer.startDate)
-        binding.offerEndDate.text = DateOnly.toMonthDate(offer.endDate)
-        binding.offerDiscount.text = offer.discount.toString()
+        binding.offerStartDate.text = getString(R.string.offerStartDate).plus(" ").plus(DateOnly.toMonthDate(offer.startDate))
+        binding.offerEndDate.text = getString(R.string.offerEndDate).plus(" ").plus(DateOnly.toMonthDate(offer.endDate))
+        binding.offerDiscount.text = getString(R.string.offerDiscount).plus(" ").plus(offer.discount.toString())
 
 
     }
