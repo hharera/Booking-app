@@ -15,6 +15,8 @@ class AnnouncementAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(announcement: Announcement) {
+            binding.announcementName.text = announcement.announcementTitle
+            binding.announcementDetails.text = announcement.announcementDescription
             Picasso.get().load(announcement.announcementImageUrl).into(binding.announcementImage)
             itemView.setOnClickListener{
                 NavigateToAnnouncementDetails(announcement.announcementId)

@@ -19,12 +19,12 @@
             android:id="@+id/announcementImage"
             android:layout_width="@dimen/_112sdp"
             android:layout_height="match_parent"
-            android:scaleType="fitStart"
+            android:scaleType="fitCenter"
             android:src="@drawable/app_logo" />
 
         <LinearLayout
             android:layout_marginStart="@dimen/_8sdp"
-            android:layout_width="@dimen/_170sdp"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -34,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf"
                 android:inputType="textMultiLine"
-                android:text="اسم الاعلان : ننينمتنمتبنبتبتننلت"
                 android:textColor="@color/grey_300"
                 android:textSize="13sp" />
 
@@ -44,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf"
                 android:inputType="textMultiLine"
-                android:text=" تفاصيل الاعلان : ننينمتنمتبنبتبتننلت"
                 android:textColor="@color/grey_200"
                 android:textSize="11sp" />
 
