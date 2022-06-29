@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.englizya.home_screen.databinding.CardViewAnnouncementBinding
 import com.englizya.model.model.Announcement
-import com.englizya.model.model.Offer
 import com.squareup.picasso.Picasso
 
 class AnnouncementAdapter(
@@ -16,6 +15,8 @@ class AnnouncementAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(announcement: Announcement) {
+            binding.announcementName.text = announcement.announcementTitle
+            binding.announcementDetails.text = announcement.announcementDescription
             Picasso.get().load(announcement.announcementImageUrl).into(binding.announcementImage)
             itemView.setOnClickListener{
                 NavigateToAnnouncementDetails(announcement.announcementId)
