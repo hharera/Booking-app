@@ -13,6 +13,7 @@ import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.*
+import com.englyzia.booking.utils.BookingType
 import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.paytabs.PayTabsService
 import com.englyzia.paytabs.dto.Invoice
@@ -112,10 +113,14 @@ class BookingViewModel constructor(
     val selectedPaymentMethod: LiveData<PaymentMethod> = _selectedPaymentMethod
 
     private var _reservationWithWalletRequest = MutableLiveData<ReservationWithWalletRequest>()
-    val reservationWithWalletRequest: LiveData<ReservationWithWalletRequest> = _reservationWithWalletRequest
+    val reservationWithWalletRequest: LiveData<ReservationWithWalletRequest> =
+        _reservationWithWalletRequest
 
     private var _invoicePaymentResponse = MutableLiveData<InvoicePaymentResponse>()
     val invoicePaymentResponse: LiveData<InvoicePaymentResponse> = _invoicePaymentResponse
+
+    private var _bookingType = MutableLiveData<BookingType>(BookingType.OneWayBooking)
+    val bookingType: LiveData<BookingType> = _bookingType
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -440,11 +445,23 @@ class BookingViewModel constructor(
         PayTabsService.createInvoice(
             user.value!!,
             selectedTrip.value!!.tripName!!,
-            calculateAmount(),
+            checkRoundReservation(calculateAmount()),
             reservationOrder.value!!.orderId,
             selectedSeats.value!!.size,
             getPaymentMethod()
         )
+    }
+
+    private fun checkRoundReservation(amount: Double) : Double {
+        return when(bookingType.value) {
+            is BookingType.RoundBooking -> {
+                amount.times(2)
+            }
+
+            else -> {
+                amount
+            }
+        }
     }
 
     private fun getPaymentMethod(): PaytabsUtilsPaymentMethod {
@@ -500,7 +517,7 @@ class BookingViewModel constructor(
             PayTabsService.createPaymentConfigData(
                 user = reservationOrder.value!!.user,
                 tripName = selectedTrip.value!!.tripName!!,
-                amount = calculateAmount(),
+                amount = checkRoundReservation(calculateAmount()),
                 cartId = reservationOrder.value!!.orderId
             )
         }
@@ -674,6 +691,10 @@ class BookingViewModel constructor(
     fun getStations() = viewModelScope.launch(Dispatchers.IO) {
         if (stations.value.isNullOrEmpty())
             getBookingOffices()
+    }
+
+    fun setBookingType(bookingType: BookingType) {
+        _bookingType.value = bookingType
     }
 }
 

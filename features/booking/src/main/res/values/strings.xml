@@ -2,4 +2,7 @@
 <resources>
     <string name="round_trip">ذهاب واياب</string>
     <string name="one_way">ذهاب</string>
+    <string name="round_discount_percentage">10%\nخصم</string>
+    <string name="round_discount_details">ستحصل على خصم 10٪ على التذاكر\n عند حجز الذهاب والعودة معاََ</string>
+    <string name="round_booking_note">احجز رحلة الذهاب وقيمة تذكرة العودة هتفضل في المحفظة وتقدر تحجز بيها وانت راجع أو تستخدمها في حجز رحلات اخري</string>
 </resources>

@@ -15,6 +15,7 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.Seat
+import com.englizya.model.model.ServiceDegree
 import com.englizya.model.model.Trip
 import com.englizya.select_seat.BusSeats.BUS_TYPE_28_SEATS
 import com.englizya.select_seat.BusSeats.BUS_TYPE_32_SEATS
@@ -322,9 +323,13 @@ class SelectSeatFragment : BaseFragment() {
         trip.reservations.firstOrNull()?.seats?.let {
             insertSeatViews(it)
             updateUI(date = trip.reservations.firstOrNull()?.date)
+            updateUI(trip.service)
         }
     }
 
+    private fun updateUI(service: ServiceDegree?) {
+        binding.serviceDegree.text = service?.serviceDegreeName.toString()
+    }
 
 
     override fun onResume() {

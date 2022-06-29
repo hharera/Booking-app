@@ -19,6 +19,7 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
+import com.englyzia.booking.utils.BookingType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -29,6 +30,9 @@ class BookingFragment : BaseFragment() {
     private lateinit var destinationAdapter: ArrayAdapter<String>
     private lateinit var sourceAdapter: ArrayAdapter<String>
     private val bookingViewModel: BookingViewModel by sharedViewModel()
+    private val roundDiscountDialog: RoundDiscountDialog by lazy {
+        RoundDiscountDialog()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +71,36 @@ class BookingFragment : BaseFragment() {
         binding.search.setOnClickListener {
             progressToSelectTrip()
         }
+
+        binding.oneWayTrip.setOnClickListener {
+            bookingViewModel.setBookingType(BookingType.OneWayBooking)
+            updateUI(BookingType.OneWayBooking)
+        }
+
+        binding.roundTrip.setOnClickListener {
+            bookingViewModel.setBookingType(BookingType.RoundBooking)
+            updateUI(BookingType.RoundBooking)
+        }
+    }
+
+    private fun updateUI(bookingType: BookingType) {
+        when (bookingType) {
+            BookingType.RoundBooking -> {
+                binding.oneWayTrip.setBackgroundResource(R.drawable.background_unselected_reservation_type)
+                binding.roundTrip.setBackgroundResource(R.drawable.background_selected_reservation_type)
+                showRoundDiscountDialog()
+            }
+
+            BookingType.OneWayBooking -> {
+                binding.roundTrip.setBackgroundResource(R.drawable.background_unselected_reservation_type)
+                binding.oneWayTrip.setBackgroundResource(R.drawable.background_selected_reservation_type)
+            }
+        }
+    }
+
+    private fun showRoundDiscountDialog() {
+        if (roundDiscountDialog.isAdded.not())
+            roundDiscountDialog.show(childFragmentManager, "RoundDialog")
     }
 
     private fun progressToSelectTrip() {

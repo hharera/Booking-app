@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/oneWayTrip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -97,7 +97,7 @@
             app:layout_constraintWidth_percent="0.45" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/roundTrip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="round_trip">Round Trip</string>
+    <string name="round_trip">Round</string>
     <string name="one_way">One Way</string>
+    <string name="round_discount_percentage">10%\nDiscount</string>
+    <string name="round_discount_details">Get 10% off your tickets \nwhen booking a round trip</string>
+    <string name="round_booking_note">Book the outbound trip, the value of the return ticket will be saved in the wallet and you can book it while you are back or use it to book other trips</string>
 </resources>
