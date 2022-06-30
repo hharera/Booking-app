@@ -3,7 +3,8 @@
     <string name="charging">Recharging</string>
     <string name="amount">Amount</string>
     <string name="charging_amount_empty">Charging amount is required</string>
-    <string name="invalid_amount_empty">Please enter a vlid amount e.g 100</string>
+    <string name="invalid_amount_empty">Please enter a valid amount e.g 100</string>
     <string name="pound">LE</string>
+    <string name="invalid_amount">Please enter an amount equals or larger than 50</string>
 
 </resources>

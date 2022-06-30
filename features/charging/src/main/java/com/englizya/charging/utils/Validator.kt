@@ -14,4 +14,9 @@ object Validator {
         return amount.matches("^[0-9]{1,4}$".toRegex()) == true
 
     }
+
+    fun isValidAmount(amount :Double) : Boolean{
+        return amount >= 50.0
+    }
+
 }

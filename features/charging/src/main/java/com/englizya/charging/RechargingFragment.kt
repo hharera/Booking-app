@@ -51,12 +51,33 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
             handleLoading(it)
         }
 
-        lifecycleScope.launch {
-            chargingViewModel.formValidity.collectIndexed { index, value ->
-                Log.d(TAG, "setupObservers: $value")
-                binding.next.isEnabled = value?.formIsValid == true
+
+        chargingViewModel.formValidity.observe(viewLifecycleOwner) {
+            binding.next.isEnabled = it.formIsValid
+            if (it.amountRes != null) {
+                if (it.amountRes == R.string.charging_amount_empty) {
+                    binding.textInputLayoutCharge.error = getString(R.string.charging_amount_empty)
+
+                } else if (it.amountRes == R.string.invalid_amount_empty) {
+                    binding.textInputLayoutCharge.error = getString(R.string.invalid_amount_empty)
+
+                } else if (it.amountRes == R.string.invalid_amount) {
+                    binding.textInputLayoutCharge.error = getString(R.string.invalid_amount)
+
+                }
+
+            } else {
+                binding.textInputLayoutCharge.error = null
+
             }
+
         }
+//        lifecycleScope.launch {
+//            chargingViewModel.formValidity.collectIndexed { index, value ->
+//                Log.d(TAG, "setupObservers: $value")
+//                binding.next.isEnabled = value?.formIsValid == true
+//            }
+//        }
 
         lifecycleScope.launch {
             chargingViewModel.paymentOrder.collectLatest {
