@@ -36,7 +36,7 @@ class HomeActivity : BaseActivity() {
 
         getExtras()
         setupBottomNavigation()
-        disableHomeMenuItem()
+//        disableHomeMenuItem()
     }
 
     private fun disableHomeMenuItem() {
@@ -54,14 +54,14 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setupListeners() {
-        binding.home.setOnClickListener {
-            checkHome()
-            navController.navigate(
-                R.id.navigation_home,
-                Bundle(),
-                NavOptions.Builder().setLaunchSingleTop(true).build()
-            )
-        }
+//        binding.home.setOnClickListener {
+//            checkHome()
+//            navController.navigate(
+//                R.id.navigation_home,
+//                Bundle(),
+//                NavOptions.Builder().setLaunchSingleTop(true).build()
+//            )
+//        }
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
