@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf"
+
                 android:inputType="textMultiLine"
                 android:textColor="@color/grey_200"
                 android:textSize="11sp" />

@@ -265,6 +265,7 @@ class BookingViewModel constructor(
         }
         _totalAfterDiscount.value = updateAmount()
         _total.value = calculateAmount()
+        Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
     }
 
     private fun updateAmount(): Double {
@@ -470,7 +471,9 @@ class BookingViewModel constructor(
     private fun checkRoundReservation(amount: Double): Double {
         return when (bookingType.value) {
             is BookingType.RoundBooking -> {
-                amount.times(2)
+                amount.minus(amount * 0.1)*2
+
+              //  amount.times(2)
             }
 
             else -> {
