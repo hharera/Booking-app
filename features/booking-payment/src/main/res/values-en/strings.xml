@@ -12,7 +12,8 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="off_percentage">20%\nOFF</string>
     <string name="off_details">Get 20% off your tickets \nusing Englizya Wallet</string>
-    <string name="discount_txt">Discount Value</string>
+    <string name="wallet_discount_txt">Wallet Discount Value</string>
+    <string name="round_discount_txt">Round Trip Discount Value</string>
     <string name="sub_total">Sub-Total</string>
 
     <string name="total">Total</string>

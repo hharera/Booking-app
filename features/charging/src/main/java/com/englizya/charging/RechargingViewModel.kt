@@ -1,6 +1,8 @@
 package com.englizya.charging
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.charging.utils.Validator.isValidAmount
 import com.englizya.common.base.BaseViewModel
@@ -37,9 +39,8 @@ class RechargingViewModel constructor(
     val paymentOrder: StateFlow<PaymentOrder?>
         get() = _paymentOrder
 
-    private val _formValidity = MutableStateFlow<RechargingFormState?>(null)
-    val formValidity: StateFlow<RechargingFormState?>
-        get() = _formValidity
+    private var _formValidity = MutableLiveData<RechargingFormState>()
+    val formValidity: LiveData<RechargingFormState> = _formValidity
 
     private var _billingDetails = MutableStateFlow<PaymentSdkConfigurationDetails?>(null)
     val billingDetails: StateFlow<PaymentSdkConfigurationDetails?> get() = this._billingDetails
@@ -65,11 +66,13 @@ class RechargingViewModel constructor(
 
     private fun checkFormValidity() {
         if (amount.value == null) {
-            _formValidity.value = RechargingFormState(amountRes = R.string.charging_amount_empty)
+            _formValidity.postValue( RechargingFormState(amountRes = R.string.charging_amount_empty))
         } else if (isValidAmount(amount.value.toString()).not()) {
-            _formValidity.value = RechargingFormState(amountRes = R.string.invalid_amount_empty)
-        } else {
-            _formValidity.value = RechargingFormState(formIsValid = true)
+            _formValidity.postValue(RechargingFormState(amountRes = R.string.invalid_amount_empty))
+        } else if (isValidAmount(amount.value!!).not()) {
+            _formValidity.postValue( RechargingFormState(amountRes = R.string.invalid_amount ))
+        }else {
+            _formValidity.postValue(RechargingFormState(formIsValid = true))
         }
     }
 

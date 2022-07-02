@@ -1,6 +1,7 @@
 package com.englizya.select_seat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import com.englizya.select_seat.BusSeats.BUS_TYPE_32_SEATS
 import com.englizya.select_seat.BusSeats.BUS_TYPE_49_SEATS
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
+import com.englyzia.booking.utils.BookingType
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -219,7 +221,7 @@ class SelectSeatFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       // bookingViewModel.clearSelectSeats()
+        // bookingViewModel.clearSelectSeats()
 
         setupObservers()
         setupListeners()
@@ -272,8 +274,15 @@ class SelectSeatFragment : BaseFragment() {
             }
         }
 
-        bookingViewModel.total.observe(viewLifecycleOwner) {
-            binding.price.text = it.toString()
+        bookingViewModel.totalAfterDiscount.observe(viewLifecycleOwner) {
+
+            if(bookingViewModel.bookingType.value == BookingType.RoundBooking){
+                binding.price.text = it.div(2).toString().plus("\n").plus("x").plus("\n").plus("2")
+
+            }else{
+                binding.price.text = it.toString()
+
+            }
         }
 
         bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
@@ -294,6 +303,13 @@ class SelectSeatFragment : BaseFragment() {
         bookingViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
+//        bookingViewModel.bookingType.observe(viewLifecycleOwner) {
+//            val total = bookingViewModel.total.value?.minus(0.1 * bookingViewModel.total.value!!)
+//            Log.d("Total" , total.toString())
+//            if (total != null) {
+//                bookingViewModel.setTotal(total)
+//            }
+//        }
 
         connectionLiveData.observe(viewLifecycleOwner) {
             showInternetSnackBar(binding.root, it)

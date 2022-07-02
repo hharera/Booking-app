@@ -85,8 +85,12 @@ class BookingViewModel constructor(
     private var _billingDetails = MutableStateFlow<PaymentSdkConfigurationDetails?>(null)
     val billingDetails: StateFlow<PaymentSdkConfigurationDetails?> get() = this._billingDetails
 
-    private var _total = MutableLiveData<Int>()
-    val total: LiveData<Int> = _total
+    private var _total = MutableLiveData<Double>()
+    val total: LiveData<Double> = _total
+
+
+    private var _totalAfterDiscount = MutableLiveData<Double>()
+    val totalAfterDiscount: LiveData<Double> = _totalAfterDiscount
 
     private var _stations = MutableLiveData<List<Station>>()
     val stations: LiveData<List<Station>> = _stations
@@ -200,6 +204,7 @@ class BookingViewModel constructor(
     fun clearReservationOrder() {
         _reservationOrder.value = null
     }
+
     fun setDestination(destination: String) {
         _destination.value = stations.value?.firstOrNull {
             it.branchName == destination
@@ -258,7 +263,18 @@ class BookingViewModel constructor(
         } else {
             _selectedSeats.value = selectedSeats.value?.plus(seat)
         }
-        _total.value = calculateAmount().toInt()
+        _totalAfterDiscount.value = updateAmount()
+        _total.value = calculateAmount()
+        Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+    }
+
+    private fun updateAmount(): Double {
+        val total = calculateAmount()
+        return if (bookingType.value == BookingType.RoundBooking) {
+            total.minus(total * 0.1)*2
+        } else {
+            total
+        }
     }
 
     suspend fun requestReservation() {
@@ -353,7 +369,7 @@ class BookingViewModel constructor(
 
     fun clearSelectSeats() {
         _selectedSeats.value = emptySet()
-        _total.value = 0
+        _total.value = 0.0
     }
 
     suspend fun submitBooking() {
@@ -452,10 +468,12 @@ class BookingViewModel constructor(
         )
     }
 
-    private fun checkRoundReservation(amount: Double) : Double {
-        return when(bookingType.value) {
+    private fun checkRoundReservation(amount: Double): Double {
+        return when (bookingType.value) {
             is BookingType.RoundBooking -> {
-                amount.times(2)
+                amount.minus(amount * 0.1)*2
+
+              //  amount.times(2)
             }
 
             else -> {
