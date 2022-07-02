@@ -7,7 +7,7 @@ object Routing {
      * @Invoice
      *
      */
-    const val REQUEST_INVOICE_PAYMENT_ORDER = "${Domain.ENGLIZYA_BUS_LOCAL}api/payment/invoice/request-payment"
+    const val REQUEST_INVOICE_PAYMENT_ORDER = "${Domain.ENGLIZYA_BUS_REMOTE}api/payment/invoice/request-payment"
     const val REQUEST_INVOICE_PAYMENT = "https://secure-egypt.paytabs.com/payment/new/invoice"
 
     const val REQUEST_RECHARGE = "${Domain.ENGLIZYA_BUS_REMOTE}api/wallet/request-recharge"
@@ -20,7 +20,7 @@ object Routing {
     const val POST_COMPLAINT = "${Domain.ENGLIZYA_BUS_REMOTE}api/support/complaint"
 
     const val BOOK_SEATS = "${Domain.ENGLIZYA_BUS_REMOTE}api/payment/confirm-reservation"
-    const val CONFIRM_RESERVATION = "${Domain.ENGLIZYA_BUS_REMOTE}api/payment/confirm-reservation"
+    const val CONFIRM_RESERVATION = "${Domain.ENGLIZYA_BUS_LOCAL}api/payment/confirm-reservation"
     const val REQUEST_RESERVATION = "${Domain.ENGLIZYA_BUS_REMOTE}api/payment/request-reservation"
     const val SEARCH_TRIPS = "${Domain.ENGLIZYA_BUS_REMOTE}api/trip/search"
 

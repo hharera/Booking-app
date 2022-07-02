@@ -186,6 +186,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         bookingViewModel.onlineTickets.observe(viewLifecycleOwner) {
+            activity?.finish()
             showUserTickets()
         }
 

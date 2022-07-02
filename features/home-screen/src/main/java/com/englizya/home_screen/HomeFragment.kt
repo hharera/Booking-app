@@ -1,5 +1,6 @@
 package com.englizya.home_screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -155,9 +156,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun progressToBookingActivity() {
-        findNavController().navigate(
-            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.BOOKING, false)
-        )
+        startActivity(Intent(context, Class.forName("com.englizya.navigation.booking.BookingActivity")))
     }
 
     private fun progressToHomeActivity() {

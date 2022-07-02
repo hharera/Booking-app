@@ -1,5 +1,6 @@
 package com.englizya.navigation.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.view.forEach
 import androidx.core.view.get
@@ -15,6 +16,7 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.feature.ticket.navigation.home.R
 import com.englizya.feature.ticket.navigation.home.databinding.ActivityHomeBinding
+import com.englizya.navigation.booking.BookingActivity
 
 class HomeActivity : BaseActivity() {
 
@@ -31,16 +33,9 @@ class HomeActivity : BaseActivity() {
         setContentView(binding.root)
 
         navController = Navigation.findNavController(this, R.id.nav_host)
-        navController.enableOnBackPressed(true)
-        navController.setOnBackPressedDispatcher(onBackPressedDispatcher)
 
         getExtras()
         setupBottomNavigation()
-//        disableHomeMenuItem()
-    }
-
-    private fun disableHomeMenuItem() {
-        binding.bottomNavigation.menu[2].isEnabled = false
     }
 
     private fun setupBottomNavigation() {
@@ -54,65 +49,20 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setupListeners() {
-//        binding.home.setOnClickListener {
-//            checkHome()
-//            navController.navigate(
-//                R.id.navigation_home,
-//                Bundle(),
-//                NavOptions.Builder().setLaunchSingleTop(true).build()
-//            )
-//        }
-
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.navigation_home -> {
-                    checkHome()
-                    navController.navigate(
-                        R.id.navigation_home,
-                        Bundle(),
-                        NavOptions.Builder().setLaunchSingleTop(true).build()
-                    )
-                }
-
-                R.id.navigation_profile -> {
-                    navController.navigate(
-                        R.id.navigation_profile,
-                        Bundle(),
-                        NavOptions.Builder().setLaunchSingleTop(true).build()
-                    )
-                }
-
                 R.id.navigation_booking -> {
-                    navController.navigate(
-                        R.id.navigation_booking,
-                        Bundle(),
-                        NavOptions.Builder().setLaunchSingleTop(true).build()
-                    )
+                    binding.bottomNavigation.menu.getItem(0).isCheckable = true
+                    binding.bottomNavigation.menu.getItem(2).isCheckable = false
+                    navController.navigate(R.id.navigation_home)
+                    startActivity(Intent(this, BookingActivity::class.java))
                 }
 
-                R.id.navigation_map -> {
-                    navController.navigate(
-                        R.id.navigation_map,
-                        Bundle(),
-                        NavOptions.Builder().setLaunchSingleTop(true).build()
-                    )
-                }
-
-                R.id.navigation_routes -> {
-                    navController.navigate(
-                        R.id.navigation_routes,
-                        Bundle(),
-                        NavOptions.Builder().setLaunchSingleTop(true).build()
-                    )
+                else -> {
+                    navController.navigate(it.itemId)
                 }
             }
             true
-        }
-    }
-
-    private fun checkHome() {
-        binding.bottomNavigation.menu.forEach {
-            it.isChecked = it.itemId == R.id.navigation_home
         }
     }
 
@@ -128,15 +78,4 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        for (fragment in supportFragmentManager.fragments) {
-            if (fragment.isVisible) {
-                if (fragment.parentFragmentManager.backStackEntryCount > 0) {
-                    fragment.parentFragmentManager.popBackStack()
-                    return
-                }
-            }
-        }
-        super.onBackPressed()
-    }
 }

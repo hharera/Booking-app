@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/navigation_booking">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -157,43 +157,4 @@
         <deepLink app:uri="EnglizyaPay://ticket-details/{ticketId}" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_booking"
-        android:name="com.englizya.navigation.booking.BookingNavigationFragment"
-        tools:layout="@layout/fragment_booking_navigation">
-
-        <deepLink app:uri="EnglizyaPay://booking" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_select_trip"
-        android:name="com.englizya.select_trip.SelectTripFragment"
-        tools:layout="@layout/fragment_select_trip">
-
-        <deepLink app:uri="EnglizyaPay://select-trip" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_select_station"
-        android:name="com.englizya.select_station.SelectStationFragment"
-        tools:layout="@layout/fragment_select_station">
-
-        <deepLink app:uri="EnglizyaPay://select-station" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_select_seat"
-        android:name="com.englizya.select_seat.SelectSeatFragment"
-        tools:layout="@layout/fragment_select_seat">
-
-        <deepLink app:uri="EnglizyaPay://select-seat" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_payment"
-        android:name="com.englyzia.booking_payment.BookingPaymentFragment"
-        tools:layout="@layout/fragment_booking_payment">
-
-        <deepLink app:uri="EnglizyaPay://booking-payment" />
-    </fragment>
 </navigation>

@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@id/navigation_booking"
-        android:icon="@drawable/ic_bus"
-        android:title="@string/tourism" />
+        android:id="@id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
 
     <item
         android:id="@id/navigation_map"
@@ -12,14 +12,9 @@
         android:title="@string/map" />
 
     <item
-        android:id="@id/navigation_home"
-        android:icon="@drawable/ic_home"
-        android:title="@string/home" />
-
-<!--    <item-->
-<!--        android:id="@+id/navigation_home"-->
-<!--        android:icon="@null"-->
-<!--        android:title="@null" />-->
+        android:id="@id/navigation_booking"
+        android:icon="@drawable/ic_bus"
+        android:title="@string/tourism" />
 
     <item
         android:id="@id/navigation_routes"

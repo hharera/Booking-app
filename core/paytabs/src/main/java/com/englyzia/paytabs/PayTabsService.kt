@@ -26,7 +26,7 @@ class PayTabsService {
             paymentMethod: PaymentMethod,
         ): Invoice {
             return Invoice(
-                LIVE_PROFILE_ID,
+                TEST_PROFILE_ID,
                 tranType = PaymentSdkTransactionType.SALE.name,
                 tranClass = PaymentSdkTransactionClass.ECOM.name,
                 cartCurrency = Currency.EG,
@@ -79,9 +79,9 @@ class PayTabsService {
             cartId: Int,
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
-                LIVE_PROFILE_ID,
-                LIVE_SERVER_KEY,
-                LIVE_CLIENT_KEY,
+                TEST_PROFILE_ID,
+                TEST_SERVER_KEY,
+                TEST_CLIENT_KEY,
                 amount,
                 Currency.EG
             )
@@ -117,9 +117,9 @@ class PayTabsService {
             cartId: Int,
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
-                LIVE_PROFILE_ID,
-                LIVE_SERVER_KEY,
-                LIVE_CLIENT_KEY,
+                TEST_PROFILE_ID,
+                TEST_SERVER_KEY,
+                TEST_CLIENT_KEY,
                 amount,
                 Currency.EG
             )
