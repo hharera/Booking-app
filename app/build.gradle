@@ -22,6 +22,7 @@ android {
         secretsProperties.load(new FileInputStream(secretsPropertiesFile))
         defaultConfig {
             buildConfigField("String", "SECRET_KEY", secretsProperties['SECRET_KEY'])
+            buildConfigField("String", "APP_CENTER", secretsProperties['APP_CENTER'])
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

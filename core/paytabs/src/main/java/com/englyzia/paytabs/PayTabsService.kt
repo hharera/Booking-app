@@ -1,6 +1,7 @@
 package com.englyzia.paytabs
 
 import com.englizya.model.model.User
+import com.englyzia.paytabs.BuildConfig.*
 import com.englyzia.paytabs.dto.CustomerDetails
 import com.englyzia.paytabs.dto.Invoice
 import com.englyzia.paytabs.dto.InvoiceDetails
@@ -25,7 +26,7 @@ class PayTabsService {
             paymentMethod: PaymentMethod,
         ): Invoice {
             return Invoice(
-                "98492",
+                LIVE_PROFILE_ID,
                 tranType = PaymentSdkTransactionType.SALE.name,
                 tranClass = PaymentSdkTransactionClass.ECOM.name,
                 cartCurrency = Currency.EG,
@@ -78,9 +79,9 @@ class PayTabsService {
             cartId: Int,
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
-                "98492",
-                "SBJNDG62TW-JD96MMMRDT-HZZTJTWDGN",
-                "C7KMBP-9DDG6D-PGNNNR-DDV6TV",
+                LIVE_PROFILE_ID,
+                LIVE_SERVER_KEY,
+                LIVE_CLIENT_KEY,
                 amount,
                 Currency.EG
             )
@@ -116,9 +117,9 @@ class PayTabsService {
             cartId: Int,
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
-                "98492",
-                "SBJNDG62TW-JD96MMMRDT-HZZTJTWDGN",
-                "C7KMBP-9DDG6D-PGNNNR-DDV6TV",
+                LIVE_PROFILE_ID,
+                LIVE_SERVER_KEY,
+                LIVE_CLIENT_KEY,
                 amount,
                 Currency.EG
             )

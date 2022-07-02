@@ -8,4 +8,17 @@ configurations.all { resolutionStrategy { exclude group: "org.jetbrains.kotlinx"
 
 android {
     namespace 'com.englyzia.paytabs'
+
+    def secretsPropertiesFile = rootProject.file("secrets.properties")
+    def secretsProperties = new Properties()
+    secretsProperties.load(new FileInputStream(secretsPropertiesFile))
+    defaultConfig {
+        buildConfigField("String", "LIVE_SERVER_KEY", secretsProperties['LIVE_SERVER_KEY'])
+        buildConfigField("String", "LIVE_CLIENT_KEY", secretsProperties['LIVE_CLIENT_KEY'])
+        buildConfigField("String", "TEST_SERVER_KEY", secretsProperties['TEST_SERVER_KEY'])
+        buildConfigField("String", "TEST_CLIENT_KEY", secretsProperties['TEST_CLIENT_KEY'])
+        buildConfigField("String", "LIVE_PROFILE_ID", secretsProperties['LIVE_PROFILE_ID'])
+        buildConfigField("String", "TEST_PROFILE_ID", secretsProperties['TEST_PROFILE_ID'])
+    }
 }
+

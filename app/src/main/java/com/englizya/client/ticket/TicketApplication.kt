@@ -73,7 +73,7 @@ class TicketApplication : Application(), KoinComponent {
     private fun setupAppCenter() {
         AppCenter.start(
             this,
-            "3e587360-616d-4d54-b801-0bacab2ecc54",
+            BuildConfig.APP_CENTER,
             Analytics::class.java,
             Crashes::class.java
         )
