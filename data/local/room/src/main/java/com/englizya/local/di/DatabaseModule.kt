@@ -1,6 +1,8 @@
 package com.englizya.local.di
 
 import androidx.room.Room
+import com.englizya.local.InternalRoutes.InternalRoutesDao
+import com.englizya.local.InternalRoutes.InternalRoutesDatabase
 import com.englizya.local.Offers.OfferDao
 import com.englizya.local.Offers.OfferDatabase
 import com.englizya.local.TicketDao
@@ -10,6 +12,7 @@ import com.englizya.local.UserDatabase
 import com.englizya.local.announcement.AnnouncementDao
 import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.local.utils.Constants.ANNOUNCEMENT_DATA_BASE
+import com.englizya.local.utils.Constants.INTERNAL_ROUTES_DATA_BASE
 import com.englizya.local.utils.Constants.OFFER_DATA_BASE
 import com.englizya.local.utils.Constants.TICKET_DATA_BASE
 import com.englizya.local.utils.Constants.USER_DATA_BASE
@@ -46,5 +49,11 @@ val databaseModule = module {
     }
     single<AnnouncementDatabase> {
         Room.databaseBuilder(get(), AnnouncementDatabase::class.java, ANNOUNCEMENT_DATA_BASE).build()
+    }
+    single<InternalRoutesDao> {
+        get<InternalRoutesDatabase>().getMarketDao()
+    }
+    single<InternalRoutesDatabase> {
+        Room.databaseBuilder(get(), InternalRoutesDatabase::class.java, INTERNAL_ROUTES_DATA_BASE).build()
     }
 }

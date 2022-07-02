@@ -1,25 +1,30 @@
 package com.englizya.route
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.datastore.UserDataStore
-import com.englizya.model.model.LineDetails
-import com.englizya.model.model.Routes
+import com.englizya.local.ExternalRoutes.ExternalRoutesDatabase
+import com.englizya.local.InternalRoutes.InternalRoutesDatabase
+import com.englizya.model.model.ExternalRoutes
+import com.englizya.model.model.InternalRoutes
 import com.englizya.repository.RouteRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RouteViewModel constructor(
     private val routeRepository: RouteRepository,
+    private val internalRouteDatabase: InternalRoutesDatabase,
+    private val externalRoutesDatabase: ExternalRoutesDatabase,
 
-    ): BaseViewModel() {
+    ) : BaseViewModel() {
 
-    private val _externalLines = MutableLiveData<List<Routes>>()
-    val externalLines: MutableLiveData<List<Routes>>
+    private val _externalLines = MutableLiveData<List<ExternalRoutes>>()
+    val externalLines: MutableLiveData<List<ExternalRoutes>>
         get() = _externalLines
 
-    private val _internalLines = MutableLiveData<List<Routes>>()
-    val internalLines: MutableLiveData<List<Routes>>
+    private val _internalLines = MutableLiveData<List<InternalRoutes>>()
+    val internalLines: MutableLiveData<List<InternalRoutes>>
         get() = _internalLines
 
     fun getExternalRoutes() = viewModelScope.launch {
@@ -27,6 +32,13 @@ class RouteViewModel constructor(
         routeRepository
             .getExternalLines()
             .onSuccess {
+                viewModelScope.launch(Dispatchers.IO) {
+                    externalRoutesDatabase.getMarketDao().insertExternalRoutes(it)
+                    Log.d(
+                        "LocalInternalRoutes",
+                        externalRoutesDatabase.getMarketDao().getExternalRoutes().toString()
+                    )
+                }
                 updateLoading(false)
                 _externalLines.value = it
             }
@@ -41,6 +53,13 @@ class RouteViewModel constructor(
         routeRepository
             .getInternalLines()
             .onSuccess {
+                viewModelScope.launch(Dispatchers.IO) {
+                    internalRouteDatabase.getMarketDao().insertInternalRoutes(it)
+                    Log.d(
+                        "LocalInternalRoutes",
+                        internalRouteDatabase.getMarketDao().getInternalRoutes().toString()
+                    )
+                }
                 updateLoading(false)
                 _internalLines.value = it
             }
@@ -50,4 +69,14 @@ class RouteViewModel constructor(
             }
     }
 
+    private fun getInternalRouteLocal() {
+        internalRouteDatabase.getMarketDao().getInternalRoutes().let {
+            _internalLines.postValue(it)
+        }
+    }
+    private fun getExternalRouteLocal() {
+        externalRoutesDatabase.getMarketDao().getExternalRoutes().let {
+            _externalLines.postValue(it)
+        }
+    }
 }

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import com.englizya.common.base.BaseFragment
-import com.englizya.model.model.Routes
+import com.englizya.model.model.InternalRoutes
 import com.englizya.route.adapter.CustomExpandableListAdapter
 import com.englizya.route.adapter.ExpandableListData
 import com.englizya.route.databinding.FragmentExternalRoutesBinding
@@ -54,7 +54,7 @@ class ExternalRouteFragment : BaseFragment() {
         }
     }
 
-    private fun setData(lineList: List<Routes>?) {
+    private fun setData(lineList: List<InternalRoutes>?) {
         ExpandableListData.setData(lineList)
         Log.d("External Routes", lineList.toString())
 

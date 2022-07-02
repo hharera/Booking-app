@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
-import android.widget.ExpandableListView
 import com.englizya.common.base.BaseFragment
-import com.englizya.model.model.Routes
+import com.englizya.model.model.InternalRoutes
 import com.englizya.route.adapter.CustomExpandableListAdapter
 import com.englizya.route.adapter.ExpandableListData
-import com.englizya.route.databinding.FragmentExternalRoutesBinding
 import com.englizya.route.databinding.FragmentInternalRoutesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,7 +53,7 @@ class InternalRouteFragment : BaseFragment() {
         }
     }
 
-    private fun setData(lineList: List<Routes>?) {
+    private fun setData(lineList: List<InternalRoutes>?) {
         ExpandableListData.setData(lineList)
         Log.d("Internal Routes", lineList.toString())
 

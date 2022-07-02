@@ -2,10 +2,8 @@ package com.englizya.route.adapter
 
 import android.util.Log
 import com.englizya.model.model.RouteStations
-import com.englizya.model.model.Routes
-import java.util.*
+import com.englizya.model.model.InternalRoutes
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 internal object ExpandableListData {
     var title:
@@ -20,7 +18,7 @@ internal object ExpandableListData {
             return field
         }
 
-    fun setData(routeList: List<Routes>?) {
+    fun setData(routeList: List<InternalRoutes>?) {
         val titleList: MutableList<String> = ArrayList()
         val stations: MutableList<List<RouteStations>> = ArrayList()
         routeList?.forEach { route ->

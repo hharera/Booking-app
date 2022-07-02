@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val externalRoute = module {
 
     viewModel {
-        RouteViewModel(get())
+        RouteViewModel(get(),get(),get())
     }
 
 }

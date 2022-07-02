@@ -1,8 +1,8 @@
 package com.englizya.repository.impl
 
 import com.englizya.api.RouteService
-import com.englizya.model.model.LineDetails
-import com.englizya.model.model.Routes
+import com.englizya.model.model.ExternalRoutes
+import com.englizya.model.model.InternalRoutes
 import com.englizya.repository.RouteRepository
 
 class RouteRepositoryImpl constructor(
@@ -10,11 +10,11 @@ class RouteRepositoryImpl constructor(
 ) :RouteRepository{
 
 
-    override suspend fun getExternalLines(): Result<List<Routes>>  = kotlin.runCatching {
+    override suspend fun getExternalLines(): Result<List<ExternalRoutes>>  = kotlin.runCatching {
         routeService.getExternalLines()
     }
 
-    override suspend fun getInternalLines(): Result<List<Routes>>  = kotlin.runCatching {
+    override suspend fun getInternalLines(): Result<List<InternalRoutes>>  = kotlin.runCatching {
         routeService.getInternalLines()
     }
 
