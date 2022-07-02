@@ -1,10 +1,11 @@
 package com.englizya.offers
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.model.model.Announcement
+import com.englizya.local.Offers.OfferDatabase
 import com.englizya.model.model.Offer
 import com.englizya.repository.OfferRepository
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
 
 class OffersViewModel constructor(
     private val offerRepository: OfferRepository,
-    ): BaseViewModel() {
+    private val offerDatabase: OfferDatabase,
+) : BaseViewModel() {
 
     private var _offers = MutableLiveData<List<Offer>>()
     val offers: LiveData<List<Offer>> = _offers
@@ -27,9 +29,8 @@ class OffersViewModel constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-
-
-            getOffers()
+              getOffersLocal()
+            //getOffers()
         }
     }
 
@@ -38,6 +39,11 @@ class OffersViewModel constructor(
         offerRepository
             .getAllOffers()
             .onSuccess {
+
+                viewModelScope.launch(Dispatchers.IO) {
+                    offerDatabase.getMarketDao().insertOffers(it)
+                    Log.d("Offers", offerDatabase.getMarketDao().getOffers().toString())
+                }
                 updateLoading(false)
                 _offers.value = it
             }
@@ -47,9 +53,9 @@ class OffersViewModel constructor(
             }
     }
 
-     fun getOfferDetails(offerId : String?) = viewModelScope.launch {
+    fun getOfferDetails(offerId: String?) = viewModelScope.launch {
         updateLoading(true)
-        if(offerId != null){
+        if (offerId != null) {
             offerRepository
                 .getOfferDetails(offerId)
                 .onSuccess {
@@ -61,6 +67,12 @@ class OffersViewModel constructor(
                     handleException(it)
                 }
         }
-        }
+    }
 
+    private fun getOffersLocal() {
+        offerDatabase.getMarketDao().getOffers().let {
+
+            _offers.postValue(it.requireNoNulls())
+        }
+    }
 }
