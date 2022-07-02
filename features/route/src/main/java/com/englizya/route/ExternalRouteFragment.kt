@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import com.englizya.common.base.BaseFragment
+import com.englizya.model.model.ExternalRoutes
 import com.englizya.model.model.InternalRoutes
 import com.englizya.route.adapter.CustomExpandableListAdapter
 import com.englizya.route.adapter.ExpandableListData
