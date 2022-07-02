@@ -72,7 +72,7 @@ class OffersViewModel constructor(
     private fun getOffersLocal() {
         offerDatabase.getMarketDao().getOffers().let {
 
-            _offers.postValue(it.requireNoNulls())
+            _offers.postValue(it)
         }
     }
 }

@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val announcementModule = module {
     viewModel {
-        AnnouncementViewModel(get())
+        AnnouncementViewModel(get(),get())
     }
 }

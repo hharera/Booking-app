@@ -13,7 +13,7 @@ interface OfferDao {
 
 
     @Query(value = "SELECT * from Offer ")
-    fun getOffers(): List<Offer?>
+    fun getOffers(): List<Offer>
 }
 
 

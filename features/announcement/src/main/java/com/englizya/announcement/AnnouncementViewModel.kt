@@ -1,9 +1,11 @@
 package com.englizya.announcement
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
+import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.model.model.Announcement
 import com.englizya.repository.AnnouncementRepository
 import com.englizya.repository.OfferRepository
@@ -12,6 +14,7 @@ import kotlinx.coroutines.launch
 
 class AnnouncementViewModel constructor(
     private val announcementRepository: AnnouncementRepository,
+    private val announcementDatabase: AnnouncementDatabase,
 ) : BaseViewModel() {
 
     private var _announcements = MutableLiveData<List<Announcement>>()
@@ -27,7 +30,8 @@ class AnnouncementViewModel constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            getAnnouncements()
+          //  getAnnouncements()
+            getLocalAnnouncements()
         }
     }
 
@@ -37,6 +41,10 @@ class AnnouncementViewModel constructor(
             .getAllAnnouncement()
             .onSuccess {
                 updateLoading(false)
+                viewModelScope.launch(Dispatchers.IO) {
+                    announcementDatabase.getMarketDao().insertAnnouncements(it)
+                    Log.d("Offers", announcementDatabase.getMarketDao().getAnnouncements().toString())
+                }
                 _announcements.value = it
             }
             .onFailure {
@@ -60,5 +68,13 @@ class AnnouncementViewModel constructor(
                 }
         }
         }
+
+
+    private fun getLocalAnnouncements() {
+        announcementDatabase.getMarketDao().getAnnouncements().let {
+
+            _announcements.postValue(it)
+        }
+    }
 
 }

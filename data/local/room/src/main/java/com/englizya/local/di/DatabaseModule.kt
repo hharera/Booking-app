@@ -7,6 +7,9 @@ import com.englizya.local.TicketDao
 import com.englizya.local.TicketDatabase
 import com.englizya.local.UserDao
 import com.englizya.local.UserDatabase
+import com.englizya.local.announcement.AnnouncementDao
+import com.englizya.local.announcement.AnnouncementDatabase
+import com.englizya.local.utils.Constants.ANNOUNCEMENT_DATA_BASE
 import com.englizya.local.utils.Constants.OFFER_DATA_BASE
 import com.englizya.local.utils.Constants.TICKET_DATA_BASE
 import com.englizya.local.utils.Constants.USER_DATA_BASE
@@ -37,5 +40,11 @@ val databaseModule = module {
     }
     single<OfferDatabase> {
         Room.databaseBuilder(get(), OfferDatabase::class.java, OFFER_DATA_BASE).build()
+    }
+    single<AnnouncementDao> {
+        get<AnnouncementDatabase>().getMarketDao()
+    }
+    single<AnnouncementDatabase> {
+        Room.databaseBuilder(get(), AnnouncementDatabase::class.java, ANNOUNCEMENT_DATA_BASE).build()
     }
 }
