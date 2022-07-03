@@ -33,6 +33,7 @@ dependencies {
     api project(Data.model)
 
     implementation(Animation.LOTTIE)
+    implementation project(path: ':data:local:room')
     testImplementation Testing.junit4
 
     implementation(Libs.viewModels)

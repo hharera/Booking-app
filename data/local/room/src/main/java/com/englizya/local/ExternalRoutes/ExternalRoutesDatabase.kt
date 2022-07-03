@@ -3,7 +3,7 @@ package com.englizya.local.ExternalRoutes
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.englizya.model.converters.RouteStationTypeConverter
+import com.englizya.local.converter.RouteStationTypeConverter
 import com.englizya.model.model.ExternalRoutes
 
 @Database(
@@ -14,8 +14,6 @@ import com.englizya.model.model.ExternalRoutes
 
     )
 @TypeConverters(RouteStationTypeConverter::class)
-
-abstract class ExternalRoutesDatabase:RoomDatabase() {
+abstract class ExternalRoutesDatabase : RoomDatabase() {
     abstract fun getMarketDao() : ExternalRoutesDao
-
 }

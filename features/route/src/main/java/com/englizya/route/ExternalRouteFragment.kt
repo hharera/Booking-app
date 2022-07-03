@@ -34,9 +34,19 @@ class ExternalRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        externalRoutesViewModel.getExternalRoutes()
+        externalRoutesViewModel.getExternalRoutes(false)
         setupObservers()
+        setUpListeners()
 
+    }
+
+    private fun setUpListeners() {
+        binding.externalSwipeLayout.setOnRefreshListener {
+            externalRoutesViewModel.getExternalRoutes(true)
+            binding.externalSwipeLayout.isRefreshing = false
+
+
+        }
     }
 
 
@@ -55,8 +65,8 @@ class ExternalRouteFragment : BaseFragment() {
         }
     }
 
-    private fun setData(lineList: List<InternalRoutes>?) {
-        ExpandableListData.setData(lineList)
+    private fun setData(lineList: List<ExternalRoutes>?) {
+        ExpandableListData.setExternalRoutesData(lineList)
         Log.d("External Routes", lineList.toString())
 
     }
@@ -79,5 +89,8 @@ class ExternalRouteFragment : BaseFragment() {
             false
         }
     }
-
+    override fun onDestroyView() {
+        binding.externalSwipeLayout.removeAllViews()
+        super.onDestroyView()
+    }
 }

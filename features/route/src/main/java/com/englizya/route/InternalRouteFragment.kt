@@ -35,9 +35,21 @@ class InternalRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        internalRouteViewModel.getInternalRoutes()
+
+        internalRouteViewModel.getInternalRoutes(false)
         setupObservers()
+        setUpListeners()
     }
+
+    private fun setUpListeners() {
+        binding.swipeLayout.setOnRefreshListener {
+
+            internalRouteViewModel.getInternalRoutes(true)
+            binding.swipeLayout.isRefreshing = false
+
+        }
+    }
+
     private fun setupObservers() {
         internalRouteViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
@@ -54,10 +66,11 @@ class InternalRouteFragment : BaseFragment() {
     }
 
     private fun setData(lineList: List<InternalRoutes>?) {
-        ExpandableListData.setData(lineList)
+        ExpandableListData.setInternalRoutesData(lineList)
         Log.d("Internal Routes", lineList.toString())
 
     }
+
     private fun setUpAdapter() {
         val routeDetails = ExpandableListData.routeDetails
         titleList = ExpandableListData.title
@@ -74,6 +87,11 @@ class InternalRouteFragment : BaseFragment() {
 
             false
         }
+    }
+
+    override fun onDestroyView() {
+        binding.swipeLayout.removeAllViews()
+        super.onDestroyView()
     }
 
 }
