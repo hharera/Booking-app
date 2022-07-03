@@ -12,6 +12,9 @@ interface AnnouncementDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAnnouncements(announcement: List<Announcement>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAnnouncement(announcement: Announcement)
+
     @Query(value = "SELECT * from Announcement ")
     fun getAnnouncements(): List<Announcement>
 

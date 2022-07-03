@@ -95,10 +95,9 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
-            updateUI(it).also {
-                userTicketViewModel.getUserTickets()
-            }
-
+            updateUI(it)
+            adapter.clearList()
+            userTicketViewModel.getFirstPageUserTickets()
         }
 
         userTicketViewModel.error.observe(viewLifecycleOwner) {
@@ -111,15 +110,13 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
-
         confirmationDialog?.dismiss()
         showToast(cancellingStatus!!.message)
-
     }
 
     private fun setupListeners() {
         binding.back.setOnClickListener {
-            activity?.onBackPressed()
+            findNavController().popBackStack()
         }
     }
 

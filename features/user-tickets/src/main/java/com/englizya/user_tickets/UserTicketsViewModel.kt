@@ -68,4 +68,9 @@ class UserTicketsViewModel constructor(
         _page.value = _page.value?.plus(1)
         getUserTickets()
     }
+
+    fun getFirstPageUserTickets() {
+        _page.value = 0
+        getUserTickets()
+    }
 }

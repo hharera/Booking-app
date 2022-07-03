@@ -1,6 +1,5 @@
 package com.englizya.repository.impl
 
-import android.util.Log
 import com.englizya.api.AnnouncementService
 import com.englizya.local.announcement.AnnouncementDao
 import com.englizya.model.model.Announcement
@@ -15,15 +14,10 @@ class AnnouncementRepositoryImpl constructor(
         kotlin.runCatching {
             if (forceOnline) {
                 announcementService.getAnnouncements().also {
-                    announcementDao.insertAnnouncements(it)
-                    Log.d("DataRemote",it.toString())
-
+                    insertAnnouncements(it)
                 }
             } else {
-                announcementDao.getAnnouncements().also {
-                    Log.d("DataLocal",it.toString())
-                }
-
+                announcementDao.getAnnouncements()
             }
         }
 
@@ -36,5 +30,19 @@ class AnnouncementRepositoryImpl constructor(
         } else {
             announcementDao.getAnnouncement(announcementId)
         }
+    }
+
+    override suspend fun insertAnnouncements(
+        announcements: List<Announcement>
+    ): Result<Unit> = kotlin.runCatching {
+        announcements.map {
+            announcementDao.insertAnnouncement(it)
+        }
+    }
+
+    override suspend fun insertAnnouncement(
+        announcement: Announcement
+    ): Result<Unit> = kotlin.runCatching {
+        announcementDao.insertAnnouncement(announcement)
     }
 }

@@ -93,6 +93,10 @@ class TicketAdapter(
         }
     }
 
+    fun clearList() {
+        ticketList = emptyList()
+    }
+
     open inner class BaseViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root)
 
     inner class LoadingViewHolder(

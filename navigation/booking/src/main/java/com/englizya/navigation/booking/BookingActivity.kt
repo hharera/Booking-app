@@ -2,8 +2,12 @@ package com.englizya.navigation.booking
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import androidx.core.view.get
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.englizya.common.base.BaseActivity
+import com.englizya.feature.ticket.navigation.booking.R
 import com.englizya.feature.ticket.navigation.booking.databinding.ActivityBookingBinding
 
 
@@ -18,18 +22,13 @@ class BookingActivity : BaseActivity() {
         setContentView(binding.root)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-
-    }
-
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-
-    }
+//    override fun onBackPressed() {
+//        if (navController.backQueue.isEmpty()) {
+//            finish()
+//        } else {
+//            navController.popBackStack()
+//        }
+//    }
 }
 
 
