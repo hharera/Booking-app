@@ -1,49 +1,13 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 apply plugin: 'org.jetbrains.kotlin.android'
+apply from: "$rootDir/${CommonBuild.COMPOSE_MODULE}"
 
 dependencies {
     api project(UiComponents.BOOKING)
     api project(Base.COMMON_COMPOSE)
-    implementation("com.github.Batterii:PagingRecycler:v1.1.1")
     implementation(UI.BOOM)
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }
 
 android {
     namespace 'com.englizya.select_trip'
-
-    defaultConfig {
-        vectorDrawables {
-            useSupportLibrary true
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    buildFeatures {
-        compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.2.0-beta01'
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }

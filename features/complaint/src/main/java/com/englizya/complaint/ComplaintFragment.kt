@@ -6,6 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.app.imagepickerlibrary.ImagePickerActivityClass
@@ -47,13 +58,21 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        updateUI()
         setupListeners()
         setupObservers()
     }
 
+    private fun updateUI() {
+        binding.imageView.setContent {
+            SuggestionImage(complaintViewModel)
+        }
+    }
+
     private fun setupObservers() {
         complaintViewModel.image.observe(viewLifecycleOwner) {
-            binding.imageView.setImageBitmap(it)
+//            binding.imageView.setImageBitmap(it)
         }
 
         complaintViewModel.insertionCompleted.observe(viewLifecycleOwner) {
@@ -92,10 +111,6 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
             findNavController().popBackStack()
         }
 
-        binding.imageView.setOnClickListener {
-            onImageClicked()
-        }
-
         binding.desc.afterTextChanged {
             complaintViewModel.setDescription(it)
         }
@@ -128,7 +143,7 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
 
     private fun restoreValues() {
         binding.desc.setText(complaintViewModel.desc.value)
-        binding.imageView.setImageBitmap(complaintViewModel.image.value)
+//        binding.imageView.setImageBitmap(complaintViewModel.image.value)
         binding.title.setText(complaintViewModel.title.value)
     }
 
@@ -141,7 +156,7 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
     override fun returnString(item: Uri?) {
         ImageUtils.convertImagePathToBitmap(uri = item)?.let {
             complaintViewModel.setImage(it)
-            binding.imageView.setImageBitmap(it)
+//            binding.imageView.setImageBitmap(it)
         }
     }
 
@@ -177,6 +192,44 @@ class ComplaintFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
         super.onActivityResult(requestCode, resultCode, data)
         imagePicker.onActivityResult(requestCode, resultCode, data)
     }
+}
 
+@Composable
+fun SuggestionImage(
+    complaintViewModel: ComplaintViewModel
+) {
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    val context = LocalContext.current
+    val bitmap = ImageUtils.getImageFromUri(imageUri, context = context)
 
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        imageUri = uri
+    }
+
+    if (bitmap != null) {
+        complaintViewModel.setImage(bitmap)
+        Image(
+            bitmap = bitmap.asImageBitmap(),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .clickable {
+                    launcher.launch("image/*")
+                }
+        )
+    } else {
+        Image(
+            painter = painterResource(id = R.drawable.ic_camera),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .clickable {
+                    launcher.launch("image/*")
+                },
+        )
+    }
 }
