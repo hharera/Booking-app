@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val repositoryModule = module {
 
     single<UserRepository> {
-        UserRepositoryImpl(get(), get())
+        UserRepositoryImpl(get(), get(), get())
     }
 
     single<TripRepository> {
@@ -21,7 +21,7 @@ val repositoryModule = module {
        OfferRepositoryImpl(get())
     }
     single<AnnouncementRepository> {
-        AnnouncementRepositoryImpl(get())
+        AnnouncementRepositoryImpl(get(), get())
     }
     single<StationRepository> {
         StationRepositoryImpl(get())

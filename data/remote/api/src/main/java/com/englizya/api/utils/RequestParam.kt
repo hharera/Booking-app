@@ -8,4 +8,6 @@ object RequestParam {
     const val DRIVER_CODE = "driver_code"
     const val DESC = "desc"
     const val TRA_REF = "tra_ref"
+    const val PAGE = "page"
+    const val PAGE_SIZE = "page_size"
 }

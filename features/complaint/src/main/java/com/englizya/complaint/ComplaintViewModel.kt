@@ -3,12 +3,15 @@ package com.englizya.complaint
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.ImageUtils.convertBitmapToFile
 import com.englizya.complaint.util.Validity
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.request.ComplaintRequest
 import com.englizya.repository.SupportRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ComplaintViewModel constructor(
     private val complaintRepository: SupportRepository,
@@ -44,7 +47,7 @@ class ComplaintViewModel constructor(
 
     }
 
-    private suspend fun insertComplaint(complaintRequest: ComplaintRequest) {
+    private fun insertComplaint(complaintRequest: ComplaintRequest) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         complaintRepository
             .insertComplaint(
@@ -53,7 +56,7 @@ class ComplaintViewModel constructor(
             )
             .onSuccess {
                 updateLoading(false)
-                _insertionCompleted.value = true
+                _insertionCompleted.postValue(true)
             }.onFailure {
                 updateLoading(false)
                 handleException(it)

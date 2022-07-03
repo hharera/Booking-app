@@ -1,13 +1,8 @@
 package com.englizya.feature.ticket
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.common.utils.navigation.Arguments
-import com.englizya.common.utils.navigation.Destination
-import com.englizya.common.utils.navigation.Domain
-import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.datastore.UserDataStore
 import com.englizya.local.UserDatabase
 import com.englizya.model.model.User
@@ -43,9 +38,7 @@ class TicketDetailsViewModel constructor(
                 .onSuccess {
                     updateLoading(false)
                     _ticket.postValue(it)
-                    _user.postValue( userDatabase.getMarketDao().getUser().first())
-              //      Log.d("User Info", _user.value!!.phoneNumber)
-
+                    _user.postValue(userDatabase.getMarketDao().getUser())
                 }
                 .onFailure {
                     updateLoading(false)

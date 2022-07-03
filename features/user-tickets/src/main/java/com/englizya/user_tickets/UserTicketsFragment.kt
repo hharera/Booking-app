@@ -19,7 +19,7 @@ class UserTicketsFragment : BaseFragment() {
     private lateinit var binding: FragmentUserTicketsBinding
     private lateinit var adapter: TicketAdapter
     private val userTicketViewModel: UserTicketsViewModel by viewModel()
-    var yesNoDialog: YesNoDialog? = null
+    var confirmationDialog: ConfirmationDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,10 +39,10 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun setupAdapter() {
-        adapter = TicketAdapter(emptyList(),
+        adapter = TicketAdapter(
+            emptyList(),
             onCancelledClicked = { ticketId ->
-
-                yesNoDialog = YesNoDialog(
+                confirmationDialog = ConfirmationDialog(
                     onPositiveButtonClicked = {
                         cancelTicket(ticketId)
                     },
@@ -51,49 +51,27 @@ class UserTicketsFragment : BaseFragment() {
                     },
                     ticketId = ticketId
                 )
-
-            }, onItemClicked = {
+            },
+            onItemClicked = {
                 showFullTicket(it)
-            })
+            },
+            onNextPageRequested = {
+                userTicketViewModel.nextTicketsPage()
+            }
+        )
         binding.tickets.adapter = adapter
     }
 
-    private fun setupAdapter(tickets: List<UserTicket>) {
-        adapter = TicketAdapter(tickets, onItemClicked = {
-            showFullTicket(it)
-        }, onCancelledClicked = { ticketId ->
-
-            yesNoDialog = YesNoDialog(
-                onPositiveButtonClicked = {
-                    cancelTicket(ticketId)
-                },
-                onNegativeButtonClicked = {
-                    cancelDialog()
-                },
-                ticketId = ticketId
-            )
-            yesNoDialog?.show(childFragmentManager, "yesNoDialog")
-
-
-        })
-        binding.tickets.adapter = adapter
-    }
     private fun cancelTicket(it: String?) {
-
         if (it != null) {
             userTicketViewModel.cancelTicket(it)
         }
-
     }
-
-//
 
     private fun cancelDialog() {
-        yesNoDialog?.dismiss()
+        confirmationDialog?.dismiss()
         showToast("Deleting Ticket Cancelled")
-        //  findNavController ().popBackStack()
     }
-
 
     private fun showFullTicket(it: UserTicket) {
         findNavController().navigate(
@@ -111,24 +89,27 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         userTicketViewModel.tickets.observe(viewLifecycleOwner) {
-            setupAdapter(it)
+            updateUI(it)
         }
 
         userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
             updateUI(it)
         }
+
         userTicketViewModel.error.observe(viewLifecycleOwner) {
             handleFailure(it)
         }
     }
 
+    private fun updateUI(userTickets: List<UserTicket>) {
+        adapter.addTickets(userTickets)
+    }
+
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
         if (cancellingStatus?.status == "success") {
-            yesNoDialog?.dismiss()
+            confirmationDialog?.dismiss()
             onResume()
             showToast(cancellingStatus.message)
-
-
         }
     }
 

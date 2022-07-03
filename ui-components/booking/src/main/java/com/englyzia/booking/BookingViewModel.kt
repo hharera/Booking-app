@@ -127,10 +127,7 @@ class BookingViewModel constructor(
     val bookingType: LiveData<BookingType> = _bookingType
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            fetchUser()
-        }
-
+        getUser()
         setDefaultDate()
     }
 
@@ -138,10 +135,10 @@ class BookingViewModel constructor(
         _date.value = (DateTime.now())
     }
 
-    private suspend fun fetchUser() {
+    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .fetchUser(dataStore.getToken())
+            .getUser(dataStore.getToken())
             .onSuccess {
                 updateLoading(false)
                 _user.value = it
@@ -170,7 +167,7 @@ class BookingViewModel constructor(
         _trips.value = trips
     }
 
-    suspend fun getBookingOffices() {
+    fun getBookingOffices() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         stationRepository.getAllStations()
             .onSuccess {
@@ -226,7 +223,7 @@ class BookingViewModel constructor(
         checkFormValidity()
     }
 
-    fun searchTrips() = viewModelScope.launch {
+    fun searchTrips() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         tripsRepository.searchTrips(
             TripSearchRequest(

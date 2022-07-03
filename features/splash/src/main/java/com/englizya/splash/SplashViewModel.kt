@@ -9,9 +9,7 @@ import com.englizya.datastore.utils.Value.NULL_STRING
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
 import io.ktor.client.features.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SplashViewModel constructor(
@@ -33,7 +31,7 @@ class SplashViewModel constructor(
 
     private suspend fun getUser(token: String) {
         userRepository
-            .fetchUser(token)
+            .getUser(token)
             .onSuccess {
                 updateUserDataStore(it)
                 _loginState.postValue(true)

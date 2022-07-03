@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.englizya.common.ui.ColoredQr
 import com.englizya.common.utils.date.DateOnly
 import com.englizya.common.utils.navigation.Destination
@@ -13,38 +14,94 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.response.UserTicket
+import com.englizya.user_tickets.databinding.CardViewLoadingBinding
 import com.englizya.user_tickets.databinding.CardViewTicketBinding
-import com.google.zxing.BarcodeFormat
-import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.englizya.user_tickets.utils.CardType
 
 
 class TicketAdapter(
-    private val ticketList: List<UserTicket>,
+    private var ticketList: List<UserTicket>,
+    private val onNextPageRequested: () -> Unit,
     private val onItemClicked: (UserTicket) -> Unit,
     private val onCancelledClicked: (String) -> Unit,
-) : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
+) : RecyclerView.Adapter<TicketAdapter.BaseViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
-        val bind = CardViewTicketBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return TicketViewHolder(binding = bind)
+    private var isLoading = false
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == ticketList.size) {
+            CardType.LOADING
+        } else {
+            CardType.TICKET
+        }
     }
 
-    override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
-        holder.updateUI(ticketList.get(position))
+    fun addTickets(tickets: List<UserTicket>) {
+        tickets.forEach {
+            addTicket(it)
+        }
+    }
 
+    private fun addTicket(ticket: UserTicket) {
+        ticketList = ticketList.plus(ticket)
+        notifyItemInserted(ticketList.lastIndex)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        return when (viewType) {
+            CardType.LOADING -> {
+                LoadingViewHolder(
+                    CardViewLoadingBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            else -> {
+                CardViewTicketBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ).let {
+                    TicketViewHolder(it)
+                }
+            }
+        }
+    }
+
+    private fun requestNextPage() {
+        if (isLoading.not()) {
+            isLoading = true
+            onNextPageRequested()
+        }
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        if (getItemViewType(position) == CardType.TICKET) {
+            (holder as TicketViewHolder).updateUI(ticketList[position])
+        } else {
+            requestNextPage()
+        }
     }
 
     override fun getItemCount(): Int {
-        return ticketList.size
+        return if (ticketList.isEmpty()) {
+            0
+        } else {
+            ticketList.size + 1
+        }
     }
+
+    open inner class BaseViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root)
+
+    inner class LoadingViewHolder(
+        private val binding: CardViewLoadingBinding
+    ) : BaseViewHolder(binding) {}
 
     inner class TicketViewHolder(
         private val binding: CardViewTicketBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : BaseViewHolder(binding) {
 
         fun updateUI(ticket: UserTicket) {
             binding.source.text = ticket.source
@@ -68,14 +125,6 @@ class TicketAdapter(
 
         private fun createTicketQr(ticket: UserTicket): Bitmap {
             return ColoredQr().generateQRCode(ticket.ticketQr, ticket.isActive)
-
-
-//            BarcodeEncoder().encodeBitmap(
-//                ticket.ticketQr,
-//                BarcodeFormat.QR_CODE,
-//                400,
-//                400
-//            )
         }
 
         private fun updateBookingOfficeUI(ticket: UserTicket) {
@@ -103,9 +152,6 @@ class TicketAdapter(
                 Log.d("Cancelling Ticket from Adapter" , "Cancelling")
                 onCancelledClicked(ticket.ticketId.toString())
             }
-
         }
-
-
     }
 }

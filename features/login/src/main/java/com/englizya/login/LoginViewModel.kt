@@ -12,6 +12,7 @@ import com.englizya.model.request.LoginRequest
 import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
 import com.englizya.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel constructor(
@@ -69,7 +70,7 @@ class LoginViewModel constructor(
         _redirectRouting.postValue(redirect)
     }
 
-    fun login() = viewModelScope.launch {
+    fun login() = viewModelScope.launch(Dispatchers.IO) {
         phoneNumber.value?.let { phoneNumber ->
             password.value?.let { password ->
                 login(LoginRequest(CountryCode.EgyptianCode.code.plus(phoneNumber), password))

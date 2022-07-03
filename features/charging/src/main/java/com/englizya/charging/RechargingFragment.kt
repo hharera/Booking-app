@@ -15,6 +15,7 @@ import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import com.payment.paymentsdk.integrationmodels.PaymentSdkError
 import com.payment.paymentsdk.integrationmodels.PaymentSdkTransactionDetails
 import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -72,26 +73,20 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
             }
 
         }
-//        lifecycleScope.launch {
-//            chargingViewModel.formValidity.collectIndexed { index, value ->
-//                Log.d(TAG, "setupObservers: $value")
-//                binding.next.isEnabled = value?.formIsValid == true
-//            }
-//        }
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             chargingViewModel.paymentOrder.collectLatest {
                 it?.let { paymentOrder -> chargingViewModel.rechargeBalance(paymentOrder) }
             }
         }
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             chargingViewModel.billingDetails.collectLatest { billingDetails ->
                 billingDetails?.let { navigateToPayment(it) }
             }
         }
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             chargingViewModel.rechargingOperationState.collectLatest { state ->
                 state?.let { checkOperationState(it) }
             }

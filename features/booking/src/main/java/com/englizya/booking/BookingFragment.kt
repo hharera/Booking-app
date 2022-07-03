@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListPopupWindow
 import androidx.activity.addCallback
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.booking.databinding.FragmentBookingBinding
 import com.englizya.common.base.BaseFragment
@@ -21,7 +20,6 @@ import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class BookingFragment : BaseFragment() {
@@ -168,7 +166,7 @@ class BookingFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        lifecycleScope.launch { bookingViewModel.getBookingOffices() }
+        bookingViewModel.getBookingOffices()
     }
 
     private fun showDatePickerDialog() {
