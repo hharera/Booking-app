@@ -46,6 +46,8 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         homeViewModel.getAnnouncements(false)
+        homeViewModel.getOffers(false)
+
         setupListeners()
         setupObservers()
         setupUI()
@@ -145,6 +147,7 @@ class HomeFragment : BaseFragment() {
 
         binding.homeSwipeLayout.setOnRefreshListener {
             homeViewModel.getAnnouncements(true)
+            homeViewModel.getOffers(true)
             binding.homeSwipeLayout.isRefreshing = false
         }
     }

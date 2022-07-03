@@ -18,7 +18,7 @@ val repositoryModule = module {
         BookingOfficeRepositoryImpl(get())
     }
     single<OfferRepository> {
-       OfferRepositoryImpl(get())
+       OfferRepositoryImpl(get(),get())
     }
     single<AnnouncementRepository> {
         AnnouncementRepositoryImpl(get(), get())

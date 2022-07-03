@@ -54,10 +54,10 @@ class HomeViewModel constructor(
             }
     }
 
-    fun getOffers() = viewModelScope.launch(Dispatchers.IO) {
+    fun getOffers(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         offerRepository
-            .getAllOffers()
+            .getAllOffers(forceOnline)
             .onSuccess {
                 updateLoading(false)
                 _offers.postValue(it)
