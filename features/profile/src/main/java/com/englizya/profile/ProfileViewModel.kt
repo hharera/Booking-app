@@ -9,6 +9,7 @@ import com.englizya.datastore.utils.Value
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
 import com.englizya.repository.WalletRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -30,10 +31,10 @@ class ProfileViewModel constructor(
         fetchUser()
     }
 
-    private fun fetchUser() = viewModelScope.launch {
+    private fun fetchUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .fetchUser(dataStore.getToken())
+            .getUser(dataStore.getToken())
             .onSuccess {
                 updateLoading(false)
                 _user.postValue(it)
@@ -44,7 +45,7 @@ class ProfileViewModel constructor(
             }
     }
 
-    private fun getUserBalance() = viewModelScope.launch {
+    private fun getUserBalance() = viewModelScope.launch(Dispatchers.IO) {
         walletRepository
             .getBalance(dataStore.getToken())
             .onSuccess {

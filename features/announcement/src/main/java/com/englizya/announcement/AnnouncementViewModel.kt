@@ -1,6 +1,5 @@
 package com.englizya.announcement
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,7 +7,6 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.model.model.Announcement
 import com.englizya.repository.AnnouncementRepository
-import com.englizya.repository.OfferRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,13 +27,10 @@ class AnnouncementViewModel constructor(
         get() = _announcementsId
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-          //  getAnnouncements()
-            getLocalAnnouncements()
-        }
+        getAnnouncements()
     }
 
-    fun getAnnouncements() = viewModelScope.launch {
+    fun getAnnouncements() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         announcementRepository
             .getAllAnnouncement()
@@ -43,9 +38,8 @@ class AnnouncementViewModel constructor(
                 updateLoading(false)
                 viewModelScope.launch(Dispatchers.IO) {
                     announcementDatabase.getMarketDao().insertAnnouncements(it)
-                    Log.d("Offers", announcementDatabase.getMarketDao().getAnnouncements().toString())
                 }
-                _announcements.value = it
+                _announcements.postValue(it)
             }
             .onFailure {
                 updateLoading(false)
@@ -53,28 +47,19 @@ class AnnouncementViewModel constructor(
             }
     }
 
-    fun getAnnouncementDetails(announcementId: String?) = viewModelScope.launch {
+    fun getAnnouncementDetails(announcementId: String?) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
-        if (announcementId != null){
+        if (announcementId != null) {
             announcementRepository
                 .getAnnouncementDetails(announcementId)
                 .onSuccess {
                     updateLoading(false)
-                    _announcementsDetails.value = it
+                    _announcementsDetails.postValue(it)
                 }
                 .onFailure {
                     updateLoading(false)
                     handleException(it)
                 }
         }
-        }
-
-
-    private fun getLocalAnnouncements() {
-        announcementDatabase.getMarketDao().getAnnouncements().let {
-
-            _announcements.postValue(it)
-        }
     }
-
 }

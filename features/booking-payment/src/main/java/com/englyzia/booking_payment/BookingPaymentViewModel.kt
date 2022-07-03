@@ -8,6 +8,7 @@ import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
 import com.englizya.repository.WalletRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -26,8 +27,7 @@ class BookingPaymentViewModel constructor(
 
     }
 
-
-     fun getUserBalance() = viewModelScope.launch {
+     fun getUserBalance() = viewModelScope.launch(Dispatchers.IO) {
         walletRepository
             .getBalance(dataStore.getToken())
             .onSuccess {

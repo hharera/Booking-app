@@ -14,7 +14,6 @@ import com.englizya.repository.OfferRepository
 import com.englizya.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HomeViewModel constructor(
     private val userRepository: UserRepository,
@@ -38,35 +37,30 @@ class HomeViewModel constructor(
     val user: LiveData<User> = _user
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            fetchUser()
-            getOffers()
-            getAnnouncements()
-        }
+        getUser()
+        getOffers()
+        getAnnouncements()
     }
 
-
-    private suspend fun fetchUser() {
+    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .fetchUser(dataStore.getToken())
+            .getUser(dataStore.getToken())
             .onSuccess {
                 userDatabase.getMarketDao().insertUser(it)
                 _user.postValue(it)
-
             }
             .onFailure {
                 handleException(it)
             }
     }
 
-    fun getOffers() = viewModelScope.launch {
+    fun getOffers() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         offerRepository
             .getAllOffers()
             .onSuccess {
                 updateLoading(false)
-                _offers.value = it
+                _offers.postValue(it)
             }
             .onFailure {
                 updateLoading(false)
@@ -74,35 +68,17 @@ class HomeViewModel constructor(
             }
     }
 
-    fun getAnnouncements() = viewModelScope.launch {
+    fun getAnnouncements() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         announcementRepository
             .getAllAnnouncement()
             .onSuccess {
                 updateLoading(false)
-                _announcements.value = it
+                _announcements.postValue(it)
             }
             .onFailure {
                 updateLoading(false)
                 handleException(it)
             }
     }
-
-
-    fun getOffers(offers: List<Offer>) {
-        _offers.value = offers
-    }
-
-    fun getAnnouncements(announcements: List<Announcement>) {
-        _announcements.value = announcements
-
-    }
-
-    fun onNavigationClicked() {
-        _onNavigationClicked.postValue(true)
-//        _onNavigationClicked.postValue(false)
-    }
-
-    fun getUserName(): String =
-        dataStore.getUserName()
 }

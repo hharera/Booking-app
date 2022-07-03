@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.englizya.user_tickets.databinding.DialogYesNoBinding
 
-class YesNoDialog(
+class ConfirmationDialog(
     private val onPositiveButtonClicked: (ticketId: String) -> Unit,
     private val onNegativeButtonClicked:  ()-> Unit,
     val ticketId: String?,

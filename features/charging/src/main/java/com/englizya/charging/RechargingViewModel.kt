@@ -16,6 +16,7 @@ import com.englizya.repository.UserRepository
 import com.englizya.repository.WalletRepository
 import com.englyzia.paytabs.PayTabsService
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -52,15 +53,7 @@ class RechargingViewModel constructor(
     val rechargingOperationState: StateFlow<Boolean?> get() = this._rechargingOperationState
 
     init {
-        viewModelScope
-            .launch {
-                userRepository
-                    .fetchUser(dataStore.getToken())
-                    .getOrNull()
-                    ?.let {
-                        _user.value = it
-                    }
-            }
+        getUser()
     }
 
 
@@ -88,7 +81,7 @@ class RechargingViewModel constructor(
         checkFormValidity()
     }
 
-    fun rechargeBalance() = viewModelScope.launch {
+    fun rechargeBalance() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
 
         encapsulatePaymentOrderRequest()
@@ -97,6 +90,17 @@ class RechargingViewModel constructor(
                 requestPayment(it)
             }.onFailure {
                 updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    fun getUser() = viewModelScope.launch(Dispatchers.IO) {
+        userRepository
+            .getUser(dataStore.getToken())
+            .onSuccess {
+                _user.value = it
+            }
+            .onFailure {
                 handleException(it)
             }
     }
@@ -116,7 +120,7 @@ class RechargingViewModel constructor(
             }
     }
 
-    fun rechargeBalance(transactionReference: String?) = viewModelScope.launch {
+    fun rechargeBalance(transactionReference: String?) = viewModelScope.launch(Dispatchers.IO) {
         if (transactionReference == null) {
             return@launch
         }

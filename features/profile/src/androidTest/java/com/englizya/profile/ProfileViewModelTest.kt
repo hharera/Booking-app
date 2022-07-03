@@ -49,7 +49,7 @@ class ProfileViewModelTest : KoinTest {
     @Test
     fun test_to_accept_phone_number() {
         coEvery { userDataStore.getToken() } returns "token"
-        coEvery { userRepository.fetchUser(any()) } returns kotlin.runCatching { TestUser.user }
+        coEvery { userRepository.getUser(any()) } returns kotlin.runCatching { TestUser.user }
         coEvery { walletRepository.getBalance(any()) } returns kotlin.runCatching { TestUserBalance.userBalance }
     }
 

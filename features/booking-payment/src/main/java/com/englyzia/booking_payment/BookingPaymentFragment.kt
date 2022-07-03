@@ -145,10 +145,6 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun setupObservers() {
-//        activity?.onBackPressedDispatcher?.addCallback {
-//            findNavController().popBackStack()
-//        }
-
         lifecycleScope.launch {
             bookingViewModel.billingDetails.collect {
                 it?.let {
