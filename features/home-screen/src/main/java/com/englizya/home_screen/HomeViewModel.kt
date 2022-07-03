@@ -38,8 +38,8 @@ class HomeViewModel constructor(
 
     init {
         getUser()
-        getOffers()
-        getAnnouncements()
+     //   getOffers()
+      //  getAnnouncements()
     }
 
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
@@ -54,10 +54,10 @@ class HomeViewModel constructor(
             }
     }
 
-    fun getOffers() = viewModelScope.launch(Dispatchers.IO) {
+    fun getOffers(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         offerRepository
-            .getAllOffers()
+            .getAllOffers(forceOnline)
             .onSuccess {
                 updateLoading(false)
                 _offers.postValue(it)
@@ -68,10 +68,10 @@ class HomeViewModel constructor(
             }
     }
 
-    fun getAnnouncements() = viewModelScope.launch(Dispatchers.IO) {
+    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         announcementRepository
-            .getAllAnnouncement()
+            .getAllAnnouncement(forceOnline)
             .onSuccess {
                 updateLoading(false)
                 _announcements.postValue(it)

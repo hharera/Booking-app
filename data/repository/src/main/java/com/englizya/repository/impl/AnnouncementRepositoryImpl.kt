@@ -1,5 +1,6 @@
 package com.englizya.repository.impl
 
+import android.util.Log
 import com.englizya.api.AnnouncementService
 import com.englizya.local.announcement.AnnouncementDao
 import com.englizya.model.model.Announcement
@@ -13,9 +14,16 @@ class AnnouncementRepositoryImpl constructor(
     override suspend fun getAllAnnouncement(forceOnline: Boolean): Result<List<Announcement>> =
         kotlin.runCatching {
             if (forceOnline) {
-                announcementService.getAnnouncements()
+                announcementService.getAnnouncements().also {
+                    announcementDao.insertAnnouncements(it)
+                    Log.d("DataRemote",it.toString())
+
+                }
             } else {
-                announcementDao.getAnnouncements()
+                announcementDao.getAnnouncements().also {
+                    Log.d("DataLocal",it.toString())
+                }
+
             }
         }
 

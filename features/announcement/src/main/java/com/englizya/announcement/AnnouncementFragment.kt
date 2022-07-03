@@ -32,6 +32,8 @@ class AnnouncementFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        announcementViewModel.getAnnouncements(false)
         setupListeners()
         setupObservers()
         setupUI()
@@ -61,7 +63,7 @@ class AnnouncementFragment : BaseFragment() {
             if (it != null) {
                 adapter.setAnnouncements(it)
             }
-            Log.d("offers", it.toString())
+            Log.d("Announcement", it.toString())
         }
     }
 
@@ -80,6 +82,15 @@ class AnnouncementFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.announcementSwipeLayout.setOnRefreshListener {
+            announcementViewModel.getAnnouncements(true)
+            binding.announcementSwipeLayout.isRefreshing = false
+        }
 
+    }
+
+    override fun onDestroyView() {
+        binding.announcementSwipeLayout.removeAllViews()
+        super.onDestroyView()
     }
 }

@@ -5,6 +5,8 @@ object Constants {
     const val USER_DATA_BASE = "User"
     const val OFFER_DATA_BASE = "Offer"
     const val ANNOUNCEMENT_DATA_BASE = "Announcement"
+    const val INTERNAL_ROUTES_DATA_BASE = "InternalRoutes"
+    const val EXTERNAL_ROUTES_DATA_BASE = "ExternalRoutes"
 
 
 }

@@ -27,25 +27,25 @@ class OffersViewModel constructor(
     val offersId: MutableLiveData<String?>
         get() = _offersId
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-              getOffersLocal()
-            //getOffers()
-        }
-    }
+//    init {
+//        viewModelScope.launch(Dispatchers.IO) {
+//              getOffersLocal()
+//            getOffers()
+//        }
+//    }
 
-    private fun getOffers() = viewModelScope.launch {
+     fun getOffers(forceOnline: Boolean) = viewModelScope.launch (Dispatchers.IO){
         updateLoading(true)
         offerRepository
-            .getAllOffers()
+            .getAllOffers(forceOnline)
             .onSuccess {
 
-                viewModelScope.launch(Dispatchers.IO) {
-                    offerDatabase.getMarketDao().insertOffers(it)
-                    Log.d("Offers", offerDatabase.getMarketDao().getOffers().toString())
-                }
+//                viewModelScope.launch(Dispatchers.IO) {
+//                    offerDatabase.getMarketDao().insertOffers(it)
+//                    Log.d("Offers", offerDatabase.getMarketDao().getOffers().toString())
+//                }
                 updateLoading(false)
-                _offers.value = it
+                _offers.postValue(it)
             }
             .onFailure {
                 updateLoading(false)
@@ -69,10 +69,10 @@ class OffersViewModel constructor(
         }
     }
 
-    private fun getOffersLocal() {
-        offerDatabase.getMarketDao().getOffers().let {
-
-            _offers.postValue(it)
-        }
-    }
+//    private fun getOffersLocal() {
+//        offerDatabase.getMarketDao().getOffers().let {
+//
+//            _offers.postValue(it)
+//        }
+//    }
 }

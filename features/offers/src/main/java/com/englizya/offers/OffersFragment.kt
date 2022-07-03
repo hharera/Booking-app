@@ -34,6 +34,7 @@ class OffersFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        offersViewModel.getOffers(false)
         setupListeners()
         setupObservers()
         setupUI()
@@ -83,7 +84,15 @@ class OffersFragment : BaseFragment() {
      binding.back.setOnClickListener{
          findNavController().popBackStack()
      }
+         binding.offerSwipeLayout.setOnRefreshListener {
+             offersViewModel.getOffers(true)
+             binding.offerSwipeLayout.isRefreshing = false
+         }
+    }
 
+    override fun onDestroyView() {
+        binding.offerSwipeLayout.removeAllViews()
+        super.onDestroyView()
     }
 
 }
