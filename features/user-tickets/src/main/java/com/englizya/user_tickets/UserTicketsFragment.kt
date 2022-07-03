@@ -51,6 +51,8 @@ class UserTicketsFragment : BaseFragment() {
                     },
                     ticketId = ticketId
                 )
+                confirmationDialog?.show(childFragmentManager, "confirmationDialog")
+
             },
             onItemClicked = {
                 showFullTicket(it)
@@ -93,7 +95,10 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
-            updateUI(it)
+            updateUI(it).also {
+                userTicketViewModel.getUserTickets()
+            }
+
         }
 
         userTicketViewModel.error.observe(viewLifecycleOwner) {
@@ -106,11 +111,10 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
-        if (cancellingStatus?.status == "success") {
-            confirmationDialog?.dismiss()
-            onResume()
-            showToast(cancellingStatus.message)
-        }
+
+        confirmationDialog?.dismiss()
+        showToast(cancellingStatus!!.message)
+
     }
 
     private fun setupListeners() {
