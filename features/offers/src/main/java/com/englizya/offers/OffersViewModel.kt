@@ -40,12 +40,12 @@ class OffersViewModel constructor(
             .getAllOffers(forceOnline)
             .onSuccess {
 
-                viewModelScope.launch(Dispatchers.IO) {
-                    offerDatabase.getMarketDao().insertOffers(it)
-                    Log.d("Offers", offerDatabase.getMarketDao().getOffers().toString())
-                }
+//                viewModelScope.launch(Dispatchers.IO) {
+//                    offerDatabase.getMarketDao().insertOffers(it)
+//                    Log.d("Offers", offerDatabase.getMarketDao().getOffers().toString())
+//                }
                 updateLoading(false)
-                _offers.value = it
+                _offers.postValue(it)
             }
             .onFailure {
                 updateLoading(false)
