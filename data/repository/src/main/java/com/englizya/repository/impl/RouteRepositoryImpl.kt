@@ -1,20 +1,18 @@
 package com.englizya.repository.impl
 
 import android.util.Log
-import androidx.lifecycle.viewModelScope
 import com.englizya.api.RouteService
-import com.englizya.local.ExternalRoutes.ExternalRoutesDatabase
-import com.englizya.local.InternalRoutes.InternalRoutesDatabase
+import com.englizya.local.ExternalRoutes.ExternalRoutesDao
+import com.englizya.local.InternalRoutes.InternalRoutesDao
 import com.englizya.model.model.ExternalRoutes
 import com.englizya.model.model.InternalRoutes
 import com.englizya.repository.RouteRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 class RouteRepositoryImpl constructor(
     private val routeService: RouteService,
-    private val internalRouteDatabase: InternalRoutesDatabase,
-    private val externalRoutesDatabase: ExternalRoutesDatabase,
+    private val internalRouteDao: InternalRoutesDao,
+    private val externalRoutesDao: ExternalRoutesDao,
 ) : RouteRepository {
 
 
@@ -22,7 +20,7 @@ class RouteRepositoryImpl constructor(
         kotlin.runCatching {
             if (getForcedOnline) {
                 routeService.getExternalLines().also {
-                    externalRoutesDatabase.getMarketDao().insertExternalRoutes(it)
+                    externalRoutesDao.insertExternalRoutes(it)
                     Log.d("DataRemote",it.toString())
                 }
             } else {
@@ -35,7 +33,7 @@ class RouteRepositoryImpl constructor(
         kotlin.runCatching {
             if (getForcedOnline) {
                 routeService.getInternalLines().also {
-                    internalRouteDatabase.getMarketDao().insertInternalRoutes(it)
+                    internalRouteDao.insertInternalRoutes(it)
                     Log.d("DataRemote",it.toString())
 
                 }
@@ -46,14 +44,14 @@ class RouteRepositoryImpl constructor(
 
 
     private fun getLocalInternalRoute(): List<InternalRoutes> {
-        Log.d("Datalocal",internalRouteDatabase.getMarketDao().getInternalRoutes().toString())
+        Log.d("Datalocal",internalRouteDao.getInternalRoutes().toString())
 
-        return internalRouteDatabase.getMarketDao().getInternalRoutes()
+        return internalRouteDao.getInternalRoutes()
     }
 
     private fun getLocalExternalRoute(): List<ExternalRoutes> {
-        Log.d("Datalocal",externalRoutesDatabase.getMarketDao().getExternalRoutes().toString())
-        return externalRoutesDatabase.getMarketDao().getExternalRoutes()
+        Log.d("Datalocal",externalRoutesDao.getExternalRoutes().toString())
+        return externalRoutesDao.getExternalRoutes()
     }
 
 }
