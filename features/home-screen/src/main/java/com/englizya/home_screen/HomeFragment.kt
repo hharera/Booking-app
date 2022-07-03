@@ -45,6 +45,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        homeViewModel.getAnnouncements(false)
         setupListeners()
         setupObservers()
         setupUI()
@@ -141,6 +142,11 @@ class HomeFragment : BaseFragment() {
         binding.announcementSeeMore.setOnClickListener {
             progressToAnnouncements()
         }
+
+        binding.homeSwipeLayout.setOnRefreshListener {
+            homeViewModel.getAnnouncements(true)
+            binding.homeSwipeLayout.isRefreshing = false
+        }
     }
 
     private fun progressToAnnouncements() {
@@ -161,5 +167,10 @@ class HomeFragment : BaseFragment() {
 
     private fun progressToHomeActivity() {
 
+    }
+
+    override fun onDestroyView() {
+        binding.homeSwipeLayout.removeAllViews()
+        super.onDestroyView()
     }
 }

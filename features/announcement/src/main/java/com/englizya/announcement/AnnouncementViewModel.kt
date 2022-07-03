@@ -26,19 +26,16 @@ class AnnouncementViewModel constructor(
     val announcementsId: MutableLiveData<String?>
         get() = _announcementsId
 
-    init {
-        getAnnouncements()
-    }
 
-    fun getAnnouncements() = viewModelScope.launch(Dispatchers.IO) {
+    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         announcementRepository
-            .getAllAnnouncement()
+            .getAllAnnouncement(forceOnline)
             .onSuccess {
                 updateLoading(false)
-                viewModelScope.launch(Dispatchers.IO) {
-                    announcementDatabase.getMarketDao().insertAnnouncements(it)
-                }
+//                viewModelScope.launch(Dispatchers.IO) {
+//                    announcementDatabase.getMarketDao().insertAnnouncements(it)
+//                }
                 _announcements.postValue(it)
             }
             .onFailure {
