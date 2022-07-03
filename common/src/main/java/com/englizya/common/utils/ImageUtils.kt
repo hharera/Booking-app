@@ -1,12 +1,16 @@
 package com.englizya.common.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 
 object ImageUtils {
 
-    fun convertBitmapToFile(bitmap: android.graphics.Bitmap): java.io.File {
+    fun convertBitmapToFile(bitmap: Bitmap): java.io.File {
         val file = java.io.File.createTempFile("image", ".jpg")
         val outputStream: java.io.OutputStream =
             java.io.BufferedOutputStream(java.io.FileOutputStream(file))
@@ -15,12 +19,17 @@ object ImageUtils {
         return file
     }
 
-    fun convertImagePathToBitmap(data: android.content.Intent): android.graphics.Bitmap? {
-        val imagesList =
-            data.extras?.getStringArray(com.opensooq.supernova.gligar.GligarPicker.Companion.IMAGES_RESULT)
-        if (!imagesList.isNullOrEmpty()) {
-            android.graphics.BitmapFactory.decodeFile(imagesList[0])?.let {
-                return it
+    fun getImageFromUri(imageUri: Uri?, context: Context): Bitmap? {
+        imageUri?.let {
+            return if (Build.VERSION.SDK_INT < 28) {
+                MediaStore
+                    .Images
+                    .Media
+                    .getBitmap(context.contentResolver, imageUri)
+            } else {
+                val source = ImageDecoder
+                    .createSource(context.contentResolver, imageUri)
+                ImageDecoder.decodeBitmap(source)
             }
         }
         return null
@@ -28,5 +37,4 @@ object ImageUtils {
 
     fun convertImagePathToBitmap(uri: Uri?): Bitmap? =
         BitmapFactory.decodeFile(uri?.path)
-
 }
