@@ -1,7 +1,10 @@
 package com.englizya.select_seat
 
+import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
+import android.text.Spannable
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +29,7 @@ import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import kotlin.time.times
 
 class SelectSeatFragment : BaseFragment() {
 
@@ -274,13 +278,37 @@ class SelectSeatFragment : BaseFragment() {
             }
         }
 
-        bookingViewModel.totalAfterDiscount.observe(viewLifecycleOwner) {
+        bookingViewModel.total.observe(viewLifecycleOwner) {
 
-            if(bookingViewModel.bookingType.value == BookingType.RoundBooking){
-                binding.price.text = it.div(2).toString().plus("\n").plus("x").plus("\n").plus("2")
+            if (bookingViewModel.bookingType.value == BookingType.RoundBooking) {
+                binding.priceBeforeDiscount.setText(
+                    it.times(2).toString(),
+                    TextView.BufferType.SPANNABLE
+                )
+                val STRIKE_THROUGH_SPAN = StrikethroughSpan()
+                val spannable: Spannable = binding.priceBeforeDiscount.text as Spannable
+                binding.priceBeforeDiscount.length().let { it1 ->
+                    spannable.setSpan(
+                        STRIKE_THROUGH_SPAN,
+                        0,
+                        it1,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                binding.priceBeforeDiscount.text = spannable
+                if (bookingViewModel.totalAfterDiscount.value != null) {
+                    binding.price.text = bookingViewModel.totalAfterDiscount.value.toString()
 
-            }else{
+                }
+//              else{
+//                  binding.price.text = 0.0.toString()
+//
+//              }
+
+            } else {
+                binding.priceBeforeDiscount.visibility = View.GONE
                 binding.price.text = it.toString()
+
 
             }
         }
@@ -297,6 +325,13 @@ class SelectSeatFragment : BaseFragment() {
         }
 
         bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                binding.priceBeforeDiscount.visibility = View.VISIBLE
+
+            } else {
+                binding.priceBeforeDiscount.visibility = View.GONE
+
+            }
             binding.submit.isEnabled = it.isNotEmpty()
         }
 
