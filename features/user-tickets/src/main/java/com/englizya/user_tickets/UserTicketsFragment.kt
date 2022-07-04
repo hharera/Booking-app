@@ -127,11 +127,15 @@ class UserTicketsFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.ticketSwipeLayout.setOnRefreshListener {
+            userTicketViewModel.getUserTickets(true)
+            binding.ticketSwipeLayout.isRefreshing = false
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        userTicketViewModel.getUserTickets()
+        userTicketViewModel.getUserTickets(false)
     }
 
 }

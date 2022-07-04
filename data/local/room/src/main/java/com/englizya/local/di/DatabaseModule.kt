@@ -7,13 +7,12 @@ import com.englizya.local.InternalRoutes.InternalRoutesDao
 import com.englizya.local.InternalRoutes.InternalRoutesDatabase
 import com.englizya.local.Offers.OfferDao
 import com.englizya.local.Offers.OfferDatabase
-import com.englizya.local.TicketDao
-import com.englizya.local.TicketDatabase
+import com.englizya.local.Ticket.TicketDao
+import com.englizya.local.Ticket.TicketDatabase
 import com.englizya.local.UserDao
 import com.englizya.local.UserDatabase
 import com.englizya.local.announcement.AnnouncementDao
 import com.englizya.local.announcement.AnnouncementDatabase
-import com.englizya.local.converter.RouteStationTypeConverter
 import com.englizya.local.utils.Constants.ANNOUNCEMENT_DATA_BASE
 import com.englizya.local.utils.Constants.EXTERNAL_ROUTES_DATA_BASE
 import com.englizya.local.utils.Constants.INTERNAL_ROUTES_DATA_BASE
