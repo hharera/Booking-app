@@ -42,8 +42,8 @@ class InternalRouteFragment : BaseFragment() {
     }
 
     private fun setUpListeners() {
-        binding.swipeLayout.setOnRefreshListener {
 
+        binding.swipeLayout.setOnRefreshListener {
             internalRouteViewModel.getInternalRoutes(true)
             binding.swipeLayout.isRefreshing = false
 
@@ -56,6 +56,10 @@ class InternalRouteFragment : BaseFragment() {
         }
 
         internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                Log.d("get Internal Routes ", "Remote")
+                internalRouteViewModel.getInternalRoutes(true)
+            }
             setData(it)
             setUpAdapter()
 

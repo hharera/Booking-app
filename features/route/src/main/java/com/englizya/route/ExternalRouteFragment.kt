@@ -56,6 +56,11 @@ class ExternalRouteFragment : BaseFragment() {
         }
 
         externalRoutesViewModel.externalLines.observe(viewLifecycleOwner) {
+            if(it.isEmpty()){
+                Log.d("get External Routes ", "Remote")
+
+                externalRoutesViewModel.getExternalRoutes(true)
+            }
             setData(it)
             setUpAdapter()
 
