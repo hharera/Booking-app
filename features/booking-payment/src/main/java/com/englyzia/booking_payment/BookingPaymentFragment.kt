@@ -72,29 +72,30 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
         binding.cardMethodCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
-//            updateTotalBasedOnBookingType()
-            updateWalletTotal(0.0)
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
         binding.englizyaWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.EnglizyaWallet)
             updateWalletTotal(0.2)
+            //  updateRoundTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
         binding.fawryWalletCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.FawryPayment)
-//            updateTotalBasedOnBookingType()
-            updateWalletTotal(0.0)
+            updateTotalBasedOnBookingType()
+            // updateWalletTotal(0.0)
 
             updateSelectedMethodUI(it.id)
         }
 
         binding.meezaCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.MeezaPayment)
-//            updateTotalBasedOnBookingType()
-            updateWalletTotal(0.0)
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
 
@@ -117,20 +118,47 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun updateRoundTotal(discount: Double) {
-        if(discount == 0.0){
-            binding.subtotalTV.text = bookingViewModel.total.value.toString()
-            binding.totalTV.text =bookingViewModel.total.value.toString()
-        }else{
-            binding.subtotalTV.text = (bookingViewModel.total.value?.times(2).toString())
-            binding.roundDiscountTV.text = (java.lang.Double.parseDouble(binding.subtotalTV.text.toString()).times(discount)).toString()
-            binding.totalTV.text = (java.lang.Double.parseDouble(binding.subtotalTV.text.toString())).times(1 - discount).toString()
+        if (discount == 0.0) {
+            resetPrices()
+        } else {
+            resetRoundPrices()
         }
 
     }
 
+    private fun resetPrices() {
+        binding.walletDiscountTV.text = 0.0.toString()
+        binding.totalTV.text = bookingViewModel.total.value.toString()
+        binding.subtotalTV.text = bookingViewModel.total.value.toString()
+    }
+
+    private fun resetRoundPrices() {
+        val discount = 0.1
+        binding.walletDiscountTV.text = 0.0.toString()
+        binding.subtotalTV.text = (bookingViewModel.total.value?.times(2).toString())
+        binding.roundDiscountTV.text =
+            (java.lang.Double.parseDouble(binding.subtotalTV.text.toString())
+                .times(discount)).toString()
+        binding.totalTV.text =
+            (java.lang.Double.parseDouble(binding.subtotalTV.text.toString())).times(1 - discount)
+                .toString()
+    }
+
     private fun updateWalletTotal(discount: Double) {
-        binding.walletDiscountTV.text = (bookingViewModel.total.value?.times(discount)).toString()
-        binding.totalTV.text = bookingViewModel.total.value?.times(1 - discount).toString()
+        if (bookingViewModel.bookingType.value == BookingType.RoundBooking) {
+            binding.roundDiscountTV.text = 0.0.toString()
+            binding.walletDiscountTV.text =
+                (bookingViewModel.total.value?.times(2)?.times(discount)).toString()
+            binding.totalTV.text =
+                bookingViewModel.total.value?.times(2)?.times(1 - discount).toString()
+
+        } else {
+            binding.walletDiscountTV.text =
+                (bookingViewModel.total.value?.times(discount)).toString()
+            binding.totalTV.text = bookingViewModel.total.value?.times(1 - discount).toString()
+        }
+
+
     }
 
     private fun updateSelectedMethodUI(id: Int) {
@@ -161,7 +189,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         bookingViewModel.total.observe(viewLifecycleOwner) {
-          updateTotalBasedOnBookingType()
+            updateTotalBasedOnBookingType()
 
         }
 
