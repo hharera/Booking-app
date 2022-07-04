@@ -31,7 +31,7 @@ class SplashViewModel constructor(
 
     private suspend fun getUser(token: String) {
         userRepository
-            .getUser(token)
+            .getUser(token,true)
             .onSuccess {
                 updateUserDataStore(it)
                 _loginState.postValue(true)

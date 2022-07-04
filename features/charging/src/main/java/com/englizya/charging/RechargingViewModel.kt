@@ -96,7 +96,7 @@ class RechargingViewModel constructor(
 
     fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .getUser(dataStore.getToken())
+            .getUser(dataStore.getToken(),false)
             .onSuccess {
                 _user.value = it
             }

@@ -87,7 +87,7 @@ class LoginViewModel constructor(
             .onSuccess {
                 updateLoading(false)
                 updateToken(it.jwt)
-                getUserDetails()
+                userRepository.getUser(userDataStore.getToken(), true)
                 _loginOperationState.postValue(true)
             }
             .onFailure {
@@ -97,27 +97,26 @@ class LoginViewModel constructor(
             }
     }
 
-    private suspend fun getUserDetails() {
-        userRepository
-            .getUser(userDataStore.getToken())
-            .onSuccess {
-                cacheUser(it)
-            }
-            .onFailure {
+//    private suspend fun getUserDetails() {
+//        userRepository
+//            .onSuccess {
+////                cacheUser(it)
+//            }
+//            .onFailure {
+//
+//            }
+//    }
 
-            }
-    }
-
-    private suspend fun cacheUser(user: User) {
-        userRepository
-            .insertUser(user)
-            .onSuccess {
-
-            }
-            .onFailure {
-
-            }
-    }
+//    private suspend fun cacheUser(user: User) {
+//        userRepository
+//            .insertUser(user)
+//            .onSuccess {
+//
+//            }
+//            .onFailure {
+//
+//            }
+//    }
 
     private fun updateToken(token: String) {
         userDataStore.setToken(token)

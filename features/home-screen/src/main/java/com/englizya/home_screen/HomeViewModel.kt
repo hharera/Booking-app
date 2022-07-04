@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.local.UserDatabase
+import com.englizya.local.User.UserDatabase
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.model.model.User
@@ -44,7 +44,7 @@ class HomeViewModel constructor(
 
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .getUser(dataStore.getToken())
+            .getUser(dataStore.getToken(),false)
             .onSuccess {
                 _user.postValue(it)
             }

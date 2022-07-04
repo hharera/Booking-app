@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.local.UserDatabase
+import com.englizya.local.User.UserDatabase
 import com.englizya.model.model.User
 import com.englizya.model.response.UserTicket
 import com.englizya.repository.TicketRepository

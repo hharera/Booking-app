@@ -139,7 +139,7 @@ class BookingViewModel constructor(
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .getUser(dataStore.getToken())
+            .getUser(dataStore.getToken(),false)
             .onSuccess {
                 updateLoading(false)
                 _user.value = it

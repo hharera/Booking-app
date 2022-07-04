@@ -34,7 +34,7 @@ class ProfileViewModel constructor(
     private fun fetchUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .getUser(dataStore.getToken())
+            .getUser(dataStore.getToken(),false)
             .onSuccess {
                 updateLoading(false)
                 _user.postValue(it)

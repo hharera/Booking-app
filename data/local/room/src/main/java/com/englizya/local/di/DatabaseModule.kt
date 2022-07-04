@@ -9,8 +9,8 @@ import com.englizya.local.Offers.OfferDao
 import com.englizya.local.Offers.OfferDatabase
 import com.englizya.local.Ticket.TicketDao
 import com.englizya.local.Ticket.TicketDatabase
-import com.englizya.local.UserDao
-import com.englizya.local.UserDatabase
+import com.englizya.local.User.UserDao
+import com.englizya.local.User.UserDatabase
 import com.englizya.local.announcement.AnnouncementDao
 import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.local.utils.Constants.ANNOUNCEMENT_DATA_BASE

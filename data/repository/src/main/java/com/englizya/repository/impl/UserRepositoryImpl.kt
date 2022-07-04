@@ -1,7 +1,7 @@
 package com.englizya.repository.impl
 
 import com.englizya.api.UserService
-import com.englizya.local.UserDao
+import com.englizya.local.User.UserDao
 import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.ResetPasswordRequest
@@ -29,7 +29,9 @@ class UserRepositoryImpl constructor(
     override suspend fun getUser(token: String, forceOnline: Boolean): Result<User> =
         kotlin.runCatching {
             if (forceOnline) {
-                userService.getUser(token)
+                userService.getUser(token).also {
+                    userDao.insertUser(it)
+                }
             } else {
                 userDao.getUser()
             }

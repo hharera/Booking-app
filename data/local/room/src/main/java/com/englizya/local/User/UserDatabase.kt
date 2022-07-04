@@ -1,6 +1,5 @@
-package com.englizya.local
+package com.englizya.local.User
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.englizya.model.model.User
