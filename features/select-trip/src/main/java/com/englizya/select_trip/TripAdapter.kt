@@ -179,7 +179,7 @@ class TripAdapter(
 
         private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
             binding.stations.setContent {
-                var selectedBookingOffice by remember { mutableStateOf<Int?>(selectedOfficeId) }
+                var selectedBookingOffice by remember { mutableStateOf(tripTimes.first().bookingOffice?.officeId) }
 
                 LazyRow() {
                     tripTimes.forEach { stationTime ->

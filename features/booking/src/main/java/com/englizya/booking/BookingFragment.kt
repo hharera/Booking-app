@@ -19,7 +19,10 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class BookingFragment : BaseFragment() {
@@ -174,6 +177,13 @@ class BookingFragment : BaseFragment() {
             MaterialDatePicker
                 .Builder
                 .datePicker()
+                .setCalendarConstraints(
+                    CalendarConstraints
+                        .Builder()
+                        .setStart(DateTime.now().millis)
+                        .setEnd(DateTime.now().plusWeeks(1).millis)
+                        .build()
+                )
                 .setTitleText(getString(R.string.select_trip_date))
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()

@@ -84,9 +84,7 @@ class TicketDetailsFragment : BaseFragment() {
             binding.serviceType.text = ticket.serviceType
             binding.bookingOfficeName.text = ticket.bookingOfficeName
 
-            binding.ticketTime.text = TimeOnly.ToTime(ticket.ticketingTime).toString()
-
-
+            binding.ticketTime.text = TimeOnly.map(ticket.ticketingTime)
         }
     }
     private  fun updateUI(user: User?) {

@@ -1,14 +1,13 @@
 package com.englizya.common.utils.time
 
+import android.util.Log
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatterBuilder
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 object TimeOnly {
+
+    private const val TAG = "TimeOnly"
 
     private const val DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
     private const val DATE_TIME_FORMAT_1 = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"

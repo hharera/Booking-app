@@ -42,6 +42,8 @@ import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import org.jasypt.util.text.AES256TextEncryptor
 import org.jasypt.util.text.TextEncryptor
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
@@ -53,7 +55,6 @@ class TicketApplication : Application(), KoinComponent {
 
     override fun onCreate() {
         super.onCreate()
-        TimeZone.setDefault(TimeZone.getTimeZone("EET"));
 
         setupAppCenter()
         setupKoin()

@@ -84,7 +84,7 @@ class SelectSeatFragment : BaseFragment() {
                     } else if (position % 5 == 1) {
                         updateSeatView(image, iterator.next())
                     } else if (position % 5 == 4) {
-                        image.setBackgroundResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_door)
                     }
                 }
 
@@ -128,7 +128,7 @@ class SelectSeatFragment : BaseFragment() {
                     } else if (position % 5 == 1) {
                         updateSeatView(image, iterator.next())
                     } else if (position % 5 == 4) {
-                        image.setBackgroundResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_door)
                     }
                 }
 
@@ -162,7 +162,7 @@ class SelectSeatFragment : BaseFragment() {
                     if (position % 5 == 0) {
                         image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
                     } else if (position % 5 == 4) {
-                        image.setBackgroundResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_door)
                     }
                 }
 
