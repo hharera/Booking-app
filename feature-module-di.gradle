@@ -1,13 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.gms.google-services'
 apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 apply from: "$rootDir/${CommonBuild.FIREBASE_MODULE}"
-apply from: "$rootDir/${CommonBuild.UI_TESTING_MODULE}"
-apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.COMPOSE_MODULE}"
 
 android {
@@ -21,7 +18,6 @@ android {
     }
     buildFeatures{
         viewBinding true
-//        compose = true
     }
 
     packagingOptions {

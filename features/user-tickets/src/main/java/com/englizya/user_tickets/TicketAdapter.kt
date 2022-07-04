@@ -94,6 +94,9 @@ class TicketAdapter(
     }
 
     fun clearList() {
+        ticketList.forEachIndexed { index, userTicket ->
+            notifyItemRemoved(index)
+        }
         ticketList = emptyList()
     }
 

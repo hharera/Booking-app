@@ -46,7 +46,6 @@ class HomeViewModel constructor(
         userRepository
             .getUser(dataStore.getToken())
             .onSuccess {
-                userDatabase.getMarketDao().insertUser(it)
                 _user.postValue(it)
             }
             .onFailure {

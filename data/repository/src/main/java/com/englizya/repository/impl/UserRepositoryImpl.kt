@@ -40,6 +40,10 @@ class UserRepositoryImpl constructor(
             userService.resetPassword(resetPasswordRequest)
         }
 
+    override suspend fun insertUser(user: User): Result<Any> = kotlin.runCatching {
+        userDao.insertUser(user)
+    }
+
     override fun signInWithCredential(credential: PhoneAuthCredential) =
         auth.signInWithCredential(credential)
 

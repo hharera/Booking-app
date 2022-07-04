@@ -57,6 +57,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun setupListeners() {
+        activity?.onBackPressedDispatcher?.addCallback {
+            bookingViewModel.clearReservationOrder()
+            parentFragmentManager.popBackStack()
+        }
+
         binding.charge.setOnClickListener {
             navigateToRecharging()
         }
@@ -100,10 +105,6 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
         binding.pay.setOnClickListener {
             bookingViewModel.whenPayButtonClicked()
-        }
-
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            bookingViewModel.clearReservationOrder()
         }
     }
 
