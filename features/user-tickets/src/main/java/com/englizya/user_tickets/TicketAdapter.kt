@@ -95,6 +95,7 @@ class TicketAdapter(
 
     fun clearList() {
         ticketList = emptyList()
+        notifyDataSetChanged()
     }
 
     open inner class BaseViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root)

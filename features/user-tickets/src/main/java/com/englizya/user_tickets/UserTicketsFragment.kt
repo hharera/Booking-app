@@ -1,6 +1,7 @@
 package com.englizya.user_tickets
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.FragmentUserTicketsBinding
+import io.ktor.client.features.*
+import io.ktor.http.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserTicketsFragment : BaseFragment() {
@@ -101,7 +104,9 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         userTicketViewModel.error.observe(viewLifecycleOwner) {
+            confirmationDialog?.dismiss()
             handleFailure(it)
+            showErrorDialog(it?.message!!.split("Text:")[1].dropWhile { it == '"' })
         }
     }
 
@@ -110,8 +115,12 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
-        confirmationDialog?.dismiss()
-        showToast(cancellingStatus!!.message)
+        if(cancellingStatus == null){
+            confirmationDialog?.dismiss()
+        }else{
+            confirmationDialog?.dismiss()
+            showToast(cancellingStatus!!.message)
+        }
     }
 
     private fun setupListeners() {

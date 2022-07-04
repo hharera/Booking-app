@@ -51,6 +51,9 @@ open class BaseViewModel : ViewModel() {
             HttpStatusCode.Unauthorized -> {
                 _exception.postValue(AuthorizationException)
             }
+            HttpStatusCode.BadRequest ->{
+                _error.postValue(exception)
+            }
         }
     }
 
