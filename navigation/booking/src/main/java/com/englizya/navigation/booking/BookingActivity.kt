@@ -20,15 +20,16 @@ class BookingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBookingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        navController = Navigation.findNavController(findViewById(R.id.bookingNavHost))
     }
 
-//    override fun onBackPressed() {
-//        if (navController.backQueue.isEmpty()) {
-//            finish()
-//        } else {
-//            navController.popBackStack()
-//        }
-//    }
+    override fun onBackPressed() {
+        if (navController.backQueue.size > 1) {
+            navController.popBackStack()
+        } else {
+            finish()
+        }
+    }
 }
 
 

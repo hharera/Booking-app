@@ -1,4 +1,4 @@
-apply from: "$rootDir/${CommonBuild.FeatureModule}"
+apply from: "$rootDir/${CommonBuild.NavigationModule}"
 
 dependencies {
     api(project(Base.COMMON))
@@ -20,4 +20,6 @@ dependencies {
 
 android {
     namespace 'com.englizya.feature.ticket.navigation.booking'
+
+
 }
