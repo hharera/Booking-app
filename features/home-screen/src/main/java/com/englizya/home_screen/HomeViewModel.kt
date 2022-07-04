@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.local.User.UserDatabase
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.model.model.User
@@ -20,7 +19,6 @@ class HomeViewModel constructor(
     private val offerRepository: OfferRepository,
     private val announcementRepository: AnnouncementRepository,
     private val dataStore: UserDataStore,
-    private val userDatabase: UserDatabase,
 ) : BaseViewModel() {
 
 
@@ -38,8 +36,7 @@ class HomeViewModel constructor(
 
     init {
         getUser()
-     //   getOffers()
-      //  getAnnouncements()
+
     }
 
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
