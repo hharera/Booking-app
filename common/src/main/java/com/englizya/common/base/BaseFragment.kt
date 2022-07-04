@@ -104,13 +104,13 @@ open class BaseFragment : Fragment() {
             }
 
             is ClientRequestException -> {
-                when (throwable.response.status) {
-                    HttpStatusCode.BadRequest -> showErrorDialog(throwable.message.split("Text:")[1].dropWhile { it == '"' })
-                }
 
                 when (throwable.response.status) {
                     HttpStatusCode.Forbidden -> {
                         goLogin()
+                    }
+                    HttpStatusCode.BadRequest -> {
+                        showErrorDialog(throwable.message.split("Text:")[1].dropWhile { it == '"' })
                     }
                 }
             }
@@ -151,7 +151,7 @@ open class BaseFragment : Fragment() {
         dialog.show(childFragmentManager, "errorDialog")
     }
 
-    private fun showErrorDialog(message: String) {
+    fun showErrorDialog(message: String) {
         val dialog = ErrorDialog(message)
         dialog.show(childFragmentManager, "errorDialog")
     }

@@ -98,6 +98,7 @@ class TicketAdapter(
             notifyItemRemoved(index)
         }
         ticketList = emptyList()
+        notifyDataSetChanged()
     }
 
     open inner class BaseViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root)
