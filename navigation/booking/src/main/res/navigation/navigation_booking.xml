@@ -52,5 +52,12 @@
 
         <deepLink app:uri="EnglizyaPay://booking-payment" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_recharging"
+        android:name="com.englizya.charging.RechargingFragment"
+        tools:layout="@layout/fragment_recharging">
 
+        <argument android:name="redirect" />
+        <deepLink app:uri="EnglizyaPay://recharging/{redirect}" />
+    </fragment>
 </navigation>
