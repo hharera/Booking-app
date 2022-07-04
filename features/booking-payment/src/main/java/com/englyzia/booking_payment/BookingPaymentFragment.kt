@@ -247,6 +247,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
     private fun showUserTickets() {
         activity?.startActivity(Intent(context, UserTicketsActivity::class.java))
+        activity?.finish()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
