@@ -139,7 +139,7 @@ class BookingViewModel constructor(
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .getUser(dataStore.getToken(),false)
+            .getUser(dataStore.getToken(), false)
             .onSuccess {
                 updateLoading(false)
                 _user.value = it
@@ -224,14 +224,14 @@ class BookingViewModel constructor(
         checkFormValidity()
     }
 
-    fun searchTrips() = viewModelScope.launch(Dispatchers.IO) {
+    fun searchTrips(forceOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         tripsRepository.searchTrips(
             TripSearchRequest(
                 date = date.value!!.toString(),
                 sourceStationId = source.value!!.branchId,
                 destinationStationId = destination.value!!.branchId
-            )
+            ), forceOnline
         ).onSuccess {
             setDefaultOffice(it)
             updateLoading(false)
@@ -269,7 +269,7 @@ class BookingViewModel constructor(
     private fun updateAmount(): Double {
         val total = calculateAmount()
         return if (bookingType.value == BookingType.RoundBooking) {
-            total.minus(total * 0.1)*2
+            total.minus(total * 0.1) * 2
         } else {
             total
         }
@@ -469,9 +469,9 @@ class BookingViewModel constructor(
     private fun checkRoundReservation(amount: Double): Double {
         return when (bookingType.value) {
             is BookingType.RoundBooking -> {
-                amount.minus(amount * 0.1)*2
+                amount.minus(amount * 0.1) * 2
 
-              //  amount.times(2)
+                //  amount.times(2)
             }
 
             else -> {

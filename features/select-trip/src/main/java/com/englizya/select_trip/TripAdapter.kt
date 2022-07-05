@@ -106,6 +106,9 @@ class TripAdapter(
             binding.price.text = getTripPrice(trip).toString()
 
             binding.serviceDegree.text = trip.service?.serviceDegreeName
+            itemView.setOnClickListener{
+                onItemClicked(trip)
+            }
 
             boomBook(trip)
         }
