@@ -24,10 +24,11 @@ class TripRepositoryImpl constructor(
     ): Result<List<Trip>> =
         kotlin.runCatching {
             if (forceOnline) {
-                tripService.searchTrips(request).also {
-                    tripDao.insertTrips(it)
-                    Log.d("TripData", "Remotely")
-                }
+                tripService.searchTrips(request)
+//                    .also {
+//                    tripDao.insertTrips(it)
+//                    Log.d("TripData", "Remotely")
+//                }
 
             } else {
                 tripDao.getTrips().also {

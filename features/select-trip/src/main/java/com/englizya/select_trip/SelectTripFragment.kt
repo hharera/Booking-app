@@ -41,7 +41,8 @@ class SelectTripFragment : BaseFragment() {
         setupObservers()
         setupUI()
 
-        bookingViewModel.connectivity.value?.let { bookingViewModel.searchTrips(it) }
+//        bookingViewModel.connectivity.value?.let { bookingViewModel.searchTrips(it) }
+        bookingViewModel.searchTrips(true)
     }
 
     private fun setupUI() {
@@ -62,9 +63,9 @@ class SelectTripFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        connectionLiveData.observe(viewLifecycleOwner){
-            bookingViewModel.updateConnectivity(it)
-        }
+//        connectionLiveData.observe(viewLifecycleOwner){
+//            bookingViewModel.updateConnectivity(it)
+//        }
         bookingViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
