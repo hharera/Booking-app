@@ -7,10 +7,9 @@ import com.englizya.local.converter.RouteStationTypeConverter
 import com.englizya.model.model.ExternalRoutes
 
 @Database(
-    version = 1,
+    version = 4,
     entities = [ExternalRoutes::class],
     exportSchema = true,
-
 
     )
 @TypeConverters(RouteStationTypeConverter::class)
