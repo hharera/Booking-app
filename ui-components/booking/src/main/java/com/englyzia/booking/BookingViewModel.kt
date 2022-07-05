@@ -255,15 +255,33 @@ class BookingViewModel constructor(
         _selectedBookingOffice.value = trip.tripTimes.firstOrNull()
     }
 
-    fun setSelectedSeat(seat: Seat) {
-        if (selectedSeats.value?.contains(seat) == true) {
-            _selectedSeats.value = selectedSeats.value?.minus(seat)
+    fun setSelectedSeat(seat: Seat): Boolean {
+        if (selectedSeats.value?.size!! >= 6) {
+            if (selectedSeats.value?.contains(seat) == true) {
+                _selectedSeats.value = selectedSeats.value?.minus(seat)
+                _totalAfterDiscount.value = updateAmount()
+                _total.value = calculateAmount()
+                Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+                return true
+            }
+
         } else {
-            _selectedSeats.value = selectedSeats.value?.plus(seat)
+            if (selectedSeats.value?.contains(seat) == true) {
+                _selectedSeats.value = selectedSeats.value?.minus(seat)
+                _totalAfterDiscount.value = updateAmount()
+                _total.value = calculateAmount()
+                Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+                return true
+            } else {
+                _selectedSeats.value = selectedSeats.value?.plus(seat)
+                _totalAfterDiscount.value = updateAmount()
+                _total.value = calculateAmount()
+                Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+                return false
+            }
         }
-        _totalAfterDiscount.value = updateAmount()
-        _total.value = calculateAmount()
-        Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+        return true
+
     }
 
     private fun updateAmount(): Double {
