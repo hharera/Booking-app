@@ -41,7 +41,7 @@ class SelectTripFragment : BaseFragment() {
         setupObservers()
         setupUI()
 
-        bookingViewModel.searchTrips()
+        bookingViewModel.searchTrips(true)
     }
 
     private fun setupUI() {
