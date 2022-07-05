@@ -25,9 +25,7 @@ class TripRepositoryImpl constructor(
         kotlin.runCatching {
             if (forceOnline) {
                 tripService.searchTrips(request).also {
-                    tripDao.insertTrips(it).also {
-                        Log.d("DataFromCache", tripDao.getTrips().toString())
-                    }
+                    tripDao.insertTrips(it)
                     Log.d("TripData", "Remotely")
                 }
 
