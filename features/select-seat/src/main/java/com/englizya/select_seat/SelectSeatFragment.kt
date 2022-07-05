@@ -213,186 +213,179 @@ class SelectSeatFragment : BaseFragment() {
                     image.setBackgroundResource(R.drawable.ic_seat_selected)
                 }
 
-                isSelected = isSelected.not()
-            }
-        }
-
-        image.apply {
-            textAlignment = View.TEXT_ALIGNMENT_CENTER
+            isSelected = isSelected.not()
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // bookingViewModel.clearSelectSeats()
-
-        setupObservers()
-        setupListeners()
+    image.apply{
+        textAlignment = View.TEXT_ALIGNMENT_CENTER
     }
+}
 
-    private fun updateTimeUI(trip: Trip) {
-        bookingViewModel.destination.value?.let { station ->
-            trip.tripTimes.firstOrNull {
-                station.branchId == it.areaId
-            }?.startTime.let {
-                binding.destinationTimeTV.text = TimeOnly.map(it)
-            }
-        }
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
 
-        bookingViewModel.source.value?.let { station ->
-            trip.tripTimes.firstOrNull {
-                station.branchId == it.areaId
-            }?.startTime.let {
-                binding.sourceTimeTV.text = TimeOnly.map(it)
-            }
+    // bookingViewModel.clearSelectSeats()
+
+    setupObservers()
+    setupListeners()
+}
+
+private fun updateTimeUI(trip: Trip) {
+    bookingViewModel.destination.value?.let { station ->
+        trip.tripTimes.firstOrNull {
+            station.branchId == it.areaId
+        }?.startTime.let {
+            binding.destinationTimeTV.text = TimeOnly.map(it)
         }
     }
 
-    private fun setupListeners() {
-        binding.back.setOnClickListener {
-            parentFragmentManager.popBackStack()
+    bookingViewModel.source.value?.let { station ->
+        trip.tripTimes.firstOrNull {
+            station.branchId == it.areaId
+        }?.startTime.let {
+            binding.sourceTimeTV.text = TimeOnly.map(it)
         }
+    }
+}
 
-        binding.submit.setOnClickListener {
-            lifecycleScope.launch {
-                bookingViewModel.requestReservation()
-            }
+private fun setupListeners() {
+    binding.back.setOnClickListener {
+        parentFragmentManager.popBackStack()
+    }
+
+    binding.submit.setOnClickListener {
+        lifecycleScope.launch {
+            bookingViewModel.requestReservation()
+        }
+    }
+}
+
+private fun setupObservers() {
+    bookingViewModel.source.observe(viewLifecycleOwner) { branch ->
+        bookingViewModel.selectedTrip.value?.tripTimes?.firstOrNull {
+            it.areaId == branch.branchId
+        }?.let {
+            binding.sourceTimeTV.text = it.startTime
         }
     }
 
-    private fun setupObservers() {
-        bookingViewModel.source.observe(viewLifecycleOwner) { branch ->
-            bookingViewModel.selectedTrip.value?.tripTimes?.firstOrNull {
-                it.areaId == branch.branchId
-            }?.let {
-                binding.sourceTimeTV.text = it.startTime
-            }
+    bookingViewModel.destination.observe(viewLifecycleOwner) { branch ->
+        bookingViewModel.selectedTrip.value?.tripTimes?.firstOrNull {
+            it.areaId == branch.branchId
+        }?.let {
+            binding.destinationTimeTV.text = it.startTime
         }
+    }
 
-        bookingViewModel.destination.observe(viewLifecycleOwner) { branch ->
-            bookingViewModel.selectedTrip.value?.tripTimes?.firstOrNull {
-                it.areaId == branch.branchId
-            }?.let {
-                binding.destinationTimeTV.text = it.startTime
-            }
-        }
+    bookingViewModel.total.observe(viewLifecycleOwner) {
 
-        bookingViewModel.total.observe(viewLifecycleOwner) {
-
-            if (bookingViewModel.bookingType.value == BookingType.RoundBooking) {
-                binding.priceBeforeDiscount.setText(
-                    it.times(2).toString(),
-                    TextView.BufferType.SPANNABLE
+        if (bookingViewModel.bookingType.value == BookingType.RoundBooking) {
+            binding.priceBeforeDiscount.setText(
+                it.times(2).toString(),
+                TextView.BufferType.SPANNABLE
+            )
+            val STRIKE_THROUGH_SPAN = StrikethroughSpan()
+            val spannable: Spannable = binding.priceBeforeDiscount.text as Spannable
+            binding.priceBeforeDiscount.length().let { it1 ->
+                spannable.setSpan(
+                    STRIKE_THROUGH_SPAN,
+                    0,
+                    it1,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
-                val STRIKE_THROUGH_SPAN = StrikethroughSpan()
-                val spannable: Spannable = binding.priceBeforeDiscount.text as Spannable
-                binding.priceBeforeDiscount.length().let { it1 ->
-                    spannable.setSpan(
-                        STRIKE_THROUGH_SPAN,
-                        0,
-                        it1,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                }
-                binding.priceBeforeDiscount.text = spannable
-                if (bookingViewModel.totalAfterDiscount.value != null) {
-                    binding.price.text = bookingViewModel.totalAfterDiscount.value.toString()
+            }
+            binding.priceBeforeDiscount.text = spannable
+            if (bookingViewModel.totalAfterDiscount.value != null) {
+                binding.price.text = bookingViewModel.totalAfterDiscount.value.toString()
 
-                }
+            }
 //              else{
 //                  binding.price.text = 0.0.toString()
 //
 //              }
 
-            } else {
-                binding.priceBeforeDiscount.visibility = View.GONE
-                binding.price.text = it.toString()
+        } else {
+            binding.priceBeforeDiscount.visibility = View.GONE
+            binding.price.text = it.toString()
 
 
-            }
-        }
-
-        bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
-            updateUI(it)
-            updateTimeUI(it)
-        }
-
-        bookingViewModel.reservationOrder.observe(viewLifecycleOwner) {
-            it?.let {
-                progressToPayment()
-            }
-        }
-
-        bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                binding.priceBeforeDiscount.visibility = View.VISIBLE
-
-            } else {
-                binding.priceBeforeDiscount.visibility = View.GONE
-
-            }
-            binding.submit.isEnabled = it.isNotEmpty()
-        }
-
-        bookingViewModel.loading.observe(viewLifecycleOwner) {
-            handleLoading(it)
-        }
-//        bookingViewModel.bookingType.observe(viewLifecycleOwner) {
-//            val total = bookingViewModel.total.value?.minus(0.1 * bookingViewModel.total.value!!)
-//            Log.d("Total" , total.toString())
-//            if (total != null) {
-//                bookingViewModel.setTotal(total)
-//            }
-//        }
-
-        connectionLiveData.observe(viewLifecycleOwner) {
-            showInternetSnackBar(binding.root, it)
         }
     }
 
-
-    private fun progressToPayment() {
-        findNavController().navigate(
-            NavigationUtils.getUriNavigation(
-                Domain.ENGLIZYA_PAY,
-                Destination.PAYMENT,
-                false
-            ),
-        )
+    bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
+        updateUI(it)
+        updateTimeUI(it)
     }
 
-    private fun updateUI(date: String?) {
-        date?.let {
-            DateOnly.toMonthDate(it).let {
-                binding.tripDate.text = it
-            }
+    bookingViewModel.reservationOrder.observe(viewLifecycleOwner) {
+        it?.let {
+            progressToPayment()
         }
     }
 
-    private fun updateUI(trip: Trip) {
-        trip.reservations.firstOrNull()?.seats?.let {
-            insertSeatViews(it)
-            updateUI(date = trip.reservations.firstOrNull()?.date)
-            updateUI(trip.service)
+    bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
+        if (it.isNotEmpty()) {
+            binding.priceBeforeDiscount.visibility = View.VISIBLE
+
+        } else {
+            binding.priceBeforeDiscount.visibility = View.GONE
+
+        }
+        binding.submit.isEnabled = it.isNotEmpty()
+    }
+
+    bookingViewModel.loading.observe(viewLifecycleOwner) {
+        handleLoading(it)
+    }
+
+    connectionLiveData.observe(viewLifecycleOwner) {
+        showInternetSnackBar(binding.root, it)
+    }
+}
+
+
+private fun progressToPayment() {
+    findNavController().navigate(
+        NavigationUtils.getUriNavigation(
+            Domain.ENGLIZYA_PAY,
+            Destination.PAYMENT,
+            false
+        ),
+    )
+}
+
+private fun updateUI(date: String?) {
+    date?.let {
+        DateOnly.toMonthDate(it).let {
+            binding.tripDate.text = it
         }
     }
+}
 
-    private fun updateUI(service: ServiceDegree?) {
-        binding.serviceDegree.text = service?.serviceDegreeName.toString()
+private fun updateUI(trip: Trip) {
+    trip.reservations.firstOrNull()?.seats?.let {
+        insertSeatViews(it)
+        updateUI(date = trip.reservations.firstOrNull()?.date)
+        updateUI(trip.service)
     }
+}
+
+private fun updateUI(service: ServiceDegree?) {
+    binding.serviceDegree.text = service?.serviceDegreeName.toString()
+}
 
 
-    override fun onResume() {
-        super.onResume()
-        bookingViewModel.clearSelectSeats()
-        restoreValues()
-    }
+override fun onResume() {
+    super.onResume()
+    bookingViewModel.clearSelectSeats()
+    restoreValues()
+}
 
-    private fun restoreValues() {
-        binding.source.text = bookingViewModel.source.value?.branchName
+private fun restoreValues() {
+    binding.source.text = bookingViewModel.source.value?.branchName
 
-        binding.destination.text = bookingViewModel.destination.value?.branchName
-    }
+    binding.destination.text = bookingViewModel.destination.value?.branchName
+}
 
 }
