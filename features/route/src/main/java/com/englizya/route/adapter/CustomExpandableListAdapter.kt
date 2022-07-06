@@ -82,7 +82,6 @@ class CustomExpandableListAdapter internal constructor(
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.lineTitleTxt)
         val listLineCodeTextView = convertView!!.findViewById<TextView>(R.id.lineCodeTxt)
-//        listLineCodeTextView.setTypeface(listLineCodeTextView.typeface, Typeface.BOLD)
         listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode
         listTitleTextView.setTypeface(listTitleTextView.typeface, Typeface.BOLD)
         listTitleTextView.text = listTitle

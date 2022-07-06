@@ -9,7 +9,7 @@
     <string name="summary">ملخص الإيصال</string>
     <string name="cards_method">بطاقة دفع</string>
     <string name="englizya_wallet">محفظتك</string>
-    <string name="payment_methods" >طرق الدفع</string>
+    <string name="payment_methods">طرق الدفع</string>
     <string name="off_percentage">20%\nخصم</string>
     <string name="off_details">احصل على خصم 20٪ على التذاكر\n عند استخدام محفظة الاشتراكات</string>
     <string name="wallet_discount_txt">قيمة خصم المحفظة</string>
@@ -17,5 +17,12 @@
 
     <string name="total">الإجمالي</string>
     <string name="sub_total">الإجمالى قبل الخصم</string>
+    <string name="ok_text">حسناً</string>
+    <string name="payment_info_txt">
+    <li>عند الضغط على زر الدفع سيتم تحويلك إلى المتصفح </li>
+    \n\n <li>اضغط على Pay Now ثم اختار الدفع بميزة</li>
+    \n\n <li>اكمل بياناتك الشخصية ثم اضغط على Pay Now</li>
+    \n\n <li>امسح ال QR Code الذى سيظهر لك باستخدام تطبيق الشبكة الخاصة بيك </li>
+</string>
 
 </resources>

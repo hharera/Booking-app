@@ -436,6 +436,15 @@ class BookingViewModel constructor(
             PaymentMethod.MeezaPayment -> {
                 requestInvoicePaymentOrder()
             }
+            PaymentMethod.VodafonePayment -> {
+                requestInvoicePaymentOrder()
+            }
+            PaymentMethod.OrangePayment -> {
+                requestInvoicePaymentOrder()
+            }
+            PaymentMethod.EtisalatPayment -> {
+                requestInvoicePaymentOrder()
+            }
             else -> {}
         }
     }

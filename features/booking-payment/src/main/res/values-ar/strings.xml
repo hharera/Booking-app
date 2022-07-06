@@ -17,5 +17,11 @@
     <string name="sub_total">الإجمالى قبل الخصم</string>
 
     <string name="total">الإجمالي</string>
-
+    <string name="ok_text">حسناً</string>
+    <string name="payment_info_txt">
+    <li>عند الضغط على زر الدفع سيتم تحويلك إلى المتصفح </li>
+    \n\n <li>اضغط على Pay Now ثم اختار الدفع بميزة</li>
+    \n\n <li>اكمل بياناتك الشخصية ثم اضغط على Pay Now</li>
+    \n\n <li>امسح ال QR Code الذى سيظهر لك باستخدام تطبيق الشبكة الخاصة بيك </li>
+</string>
 </resources>

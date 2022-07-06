@@ -17,5 +17,12 @@
     <string name="sub_total">Sub-Total</string>
 
     <string name="total">Total</string>
+    <string name="ok_text">Ok</string>
+    <string name="payment_info_txt">
+    <li>On CLicking on Pay , you will be redirected to the Browser</li>
+    \n\n <li>Click on Pay Now then choose Meeza Payment Method</li>
+    \n\n <li>Complete your Personal Information then click on Pay Now</li>
+    \n\n <li>Scan the QR Code that will appear to you using your own Network App</li>
+</string>
 
 </resources>

@@ -17,6 +17,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.InvoicePaymentResponse
+import com.englizya.user_tickets.ConfirmationDialog
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
 import com.englyzia.booking.utils.PaymentMethod
@@ -37,6 +38,8 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private lateinit var binding: FragmentBookingPaymentBinding
     private val bookingPaymentViewModel: BookingPaymentViewModel by sharedViewModel()
     private val bookingViewModel: BookingViewModel by sharedViewModel()
+    var paymentInfoDialog: PaymentInformationDialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -103,10 +106,42 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             //  updateWalletTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
-
+        binding.vodafoneCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.VodafonePayment)
+            showDialog()
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
+            updateSelectedMethodUI(it.id)
+        }
+        binding.etisalatCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.EtisalatPayment)
+            showDialog()
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
+            updateSelectedMethodUI(it.id)
+        }
+        binding.orangeCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.OrangePayment)
+            showDialog()
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
+            updateSelectedMethodUI(it.id)
+        }
         binding.pay.setOnClickListener {
             bookingViewModel.whenPayButtonClicked()
         }
+    }
+
+    private fun showDialog() {
+        paymentInfoDialog = PaymentInformationDialog(
+            onOkButtonClicked = { onOkButtonClicked() }
+        )
+        paymentInfoDialog!!.show(childFragmentManager, "paymentDialog")
+
+    }
+
+    fun onOkButtonClicked() {
+        paymentInfoDialog?.dismiss()
     }
 
     private fun updateTotalBasedOnBookingType() {
