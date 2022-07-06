@@ -9,6 +9,8 @@ import com.englizya.local.Offers.OfferDao
 import com.englizya.local.Offers.OfferDatabase
 import com.englizya.local.Ticket.TicketDao
 import com.englizya.local.Ticket.TicketDatabase
+import com.englizya.local.Trip.TripDao
+import com.englizya.local.Trip.TripDatabase
 import com.englizya.local.User.UserDao
 import com.englizya.local.User.UserDatabase
 import com.englizya.local.announcement.AnnouncementDao
@@ -18,6 +20,7 @@ import com.englizya.local.utils.Constants.EXTERNAL_ROUTES_DATA_BASE
 import com.englizya.local.utils.Constants.INTERNAL_ROUTES_DATA_BASE
 import com.englizya.local.utils.Constants.OFFER_DATA_BASE
 import com.englizya.local.utils.Constants.TICKET_DATA_BASE
+import com.englizya.local.utils.Constants.TRIP_DATA_BASE
 import com.englizya.local.utils.Constants.USER_DATA_BASE
 import org.koin.dsl.module
 
@@ -68,5 +71,12 @@ val databaseModule = module {
     single<ExternalRoutesDatabase> {
         Room.databaseBuilder(get(), ExternalRoutesDatabase::class.java, EXTERNAL_ROUTES_DATA_BASE)
           .build()
+    }
+    single<TripDao> {
+        get<TripDatabase>().getMarketDao()
+    }
+    single<TripDatabase> {
+        Room.databaseBuilder(get(), TripDatabase::class.java, TRIP_DATA_BASE)
+            .build()
     }
 }

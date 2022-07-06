@@ -11,7 +11,7 @@ val repositoryModule = module {
     }
 
     single<TripRepository> {
-        TripRepositoryImpl(get())
+        TripRepositoryImpl(get(),get())
     }
 
     single<BookingOfficeRepository> {

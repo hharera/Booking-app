@@ -104,6 +104,11 @@ class ProfileFragment : BaseFragment() {
         binding.profileQr.setOnClickListener {
             viewQrDialog()
         }
+        binding.swipeLayout.setOnRefreshListener {
+            profileViewModel.fetchUser()
+            profileViewModel.getUserBalance()
+            binding.swipeLayout.isRefreshing = false
+        }
     }
 
     private fun viewQrDialog() {

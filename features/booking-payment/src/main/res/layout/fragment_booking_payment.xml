@@ -93,6 +93,7 @@
                     android:layout_marginHorizontal="23dp"
                     android:layout_marginEnd="23dp"
                     android:background="@drawable/background_button_charge"
+                    android:fontFamily="@font/sf"
                     android:text="@string/charge"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="@+id/balance"
@@ -395,6 +396,7 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <View
                         android:id="@+id/view4"
                         android:layout_width="match_parent"
@@ -436,6 +438,7 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <View
                         android:id="@+id/view3"
                         android:layout_width="match_parent"
@@ -533,6 +536,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
+                        android:fontFamily="@font/sf"
                         android:text="@string/cards_method"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -570,6 +574,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
+                        android:fontFamily="@font/sf"
                         android:text="@string/englizya_wallet"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -629,6 +634,7 @@
         android:layout_marginHorizontal="23dp"
         android:layout_marginVertical="10dp"
         android:background="@drawable/background_button_login"
+        android:fontFamily="@font/sf"
         android:text="@string/pay"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
