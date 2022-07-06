@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppStyle"
         android:usesCleartextTraffic="true"
+        tools:replace="android:theme"
         tools:node="replace">
 
         <activity
