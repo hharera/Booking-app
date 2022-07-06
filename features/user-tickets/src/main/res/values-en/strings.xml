@@ -6,5 +6,7 @@
     <string name="exit_time">Exit Time</string>
     <string name="my_tickets">My Tickets</string>
     <string name="tickets_info">Show the ticket to the driver so that he can read the QR code and print the ticket</string>
+    <string name="go_book">Go Booking</string>
+    <string name="empty">You have no Tickets</string>
 
 </resources>

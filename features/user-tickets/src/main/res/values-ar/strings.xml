@@ -6,5 +6,7 @@
     <string name="exit_time">وقت التحرك</string>
     <string name="my_tickets">تذاكري</string>
     <string name="tickets_info">" اعرض التذكرة على السائق حتى يتمكن من قراءة الكود و طباعة التذكرة"</string>
+    <string name="go_book">احجز تذكرة</string>
+    <string name="empty">لا يوجد لديك تذاكر</string>
 
 </resources>

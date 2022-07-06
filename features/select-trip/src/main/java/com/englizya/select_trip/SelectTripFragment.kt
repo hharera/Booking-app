@@ -123,6 +123,8 @@ class SelectTripFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+
+
     }
 
     override fun onResume() {
