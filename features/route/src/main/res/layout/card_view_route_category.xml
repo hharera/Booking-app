@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/sf"
-                android:text="Lorem ipsum"
+                android:text="@string/line_code"
                 android:textColor="#171B24"
                 app:layout_constraintBottom_toBottomOf="@+id/lineTitleTxt"
                 app:layout_constraintEnd_toEndOf="parent"

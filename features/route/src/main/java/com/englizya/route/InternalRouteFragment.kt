@@ -19,7 +19,7 @@ class InternalRouteFragment : BaseFragment() {
 
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String>? = null
-    private var lineCodeList: List<Int>? = null
+    private var lineCodeList: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

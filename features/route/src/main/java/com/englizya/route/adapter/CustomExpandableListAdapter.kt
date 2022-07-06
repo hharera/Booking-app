@@ -42,7 +42,7 @@ class CustomExpandableListAdapter internal constructor(
             convertView = layoutInflater.inflate(R.layout.card_view_line_routes, null)
         }
         val expandedListTextView = convertView!!.findViewById<TextView>(R.id.lineDetailTxt)
-        expandedListTextView.text = expandedListText
+        expandedListTextView.text =  expandedListText
         return convertView
     }
 
@@ -73,7 +73,7 @@ class CustomExpandableListAdapter internal constructor(
         parent: ViewGroup
     ): View {
         var convertView = convertView
-        val listLineCode = getLineCode(listPosition) as Int
+        val listLineCode = getLineCode(listPosition) as String
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
             val layoutInflater =
@@ -82,8 +82,8 @@ class CustomExpandableListAdapter internal constructor(
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.lineTitleTxt)
         val listLineCodeTextView = convertView!!.findViewById<TextView>(R.id.lineCodeTxt)
-        listLineCodeTextView.setTypeface(listLineCodeTextView.typeface, Typeface.BOLD)
-        listLineCodeTextView.text = listTitle
+//        listLineCodeTextView.setTypeface(listLineCodeTextView.typeface, Typeface.BOLD)
+        listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode
         listTitleTextView.setTypeface(listTitleTextView.typeface, Typeface.BOLD)
         listTitleTextView.text = listTitle
         return convertView

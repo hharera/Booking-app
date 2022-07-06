@@ -13,7 +13,7 @@ internal object ExpandableListData {
             return field
         }
     var lineCode:
-            List<Int> = emptyList()
+            List<String> = emptyList()
         get() {
             return field
         }
@@ -25,7 +25,7 @@ internal object ExpandableListData {
         }
 
     fun setInternalRoutesData(routeList: List<InternalRoutes>?) {
-        val lineCodeList: MutableList<Int> = ArrayList()
+        val lineCodeList: MutableList<String> = ArrayList()
 
         val titleList: MutableList<String> = ArrayList()
         val stations: MutableList<List<RouteStations>> = ArrayList()
@@ -45,7 +45,7 @@ internal object ExpandableListData {
 
     }
     fun setExternalRoutesData(routeList: List<ExternalRoutes>?) {
-        val lineCodeList: MutableList<Int> = ArrayList()
+        val lineCodeList: MutableList<String> = ArrayList()
         val titleList: MutableList<String> = ArrayList()
         val stations: MutableList<List<RouteStations>> = ArrayList()
         routeList?.forEach { route ->
