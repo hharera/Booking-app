@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.englizya.client.ticket">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -15,16 +14,26 @@
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppStyle"
         android:usesCleartextTraffic="true"
-        tools:node="merge"
-        tools:replace="android:label">
+        tools:replace="android:theme,android:supportsRtl,android:icon,android:allowBackup,android:label">
+
+        <activity
+            android:name="com.paymob.acceptsdk.PayActivity"
+            android:exported="true"
+            android:noHistory="false"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 
         <activity
             android:name="com.englizya.select_service.SelectServiceActivity"
+            android:exported="true" />
+
+        <activity
+            android:noHistory="false"
+            android:name="com.payment.paymentsdk.PaymentSdkActivity"
             android:exported="true" />
 
         <activity
