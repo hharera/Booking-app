@@ -7,7 +7,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName = "ExternalRoutes")
 data class ExternalRoutes(
-    @PrimaryKey var routeName: String,
+    var routeName: String,
     var routeStations: List<RouteStations>,
+    @PrimaryKey var lineCode : String ,
+
 
     )

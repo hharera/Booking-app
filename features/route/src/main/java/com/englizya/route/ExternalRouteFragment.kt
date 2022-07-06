@@ -20,6 +20,7 @@ class ExternalRouteFragment : BaseFragment() {
 
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String>? = null
+    private var lineCodeList: List<String>? = null
 
 
     override fun onCreateView(
@@ -56,7 +57,7 @@ class ExternalRouteFragment : BaseFragment() {
         }
 
         externalRoutesViewModel.externalLines.observe(viewLifecycleOwner) {
-            if(it.isEmpty()){
+            if (it.isEmpty()) {
                 Log.d("get External Routes ", "Remote")
 
                 externalRoutesViewModel.getExternalRoutes(true)
@@ -79,9 +80,16 @@ class ExternalRouteFragment : BaseFragment() {
 
     private fun setUpAdapter() {
         val routeDetails = ExpandableListData.routeDetails
+        lineCodeList = ExpandableListData.lineCode
+
         titleList = ExpandableListData.title
         adapter =
-            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, routeDetails)
+            CustomExpandableListAdapter(
+                context!!,
+                lineCodeList as ArrayList<Int>,
+                titleList as ArrayList<String>,
+                routeDetails
+            )
         binding.externalLV.setAdapter(adapter)
         binding.externalLV.setOnGroupExpandListener { groupPosition ->
 
@@ -94,6 +102,7 @@ class ExternalRouteFragment : BaseFragment() {
             false
         }
     }
+
     override fun onDestroyView() {
         binding.externalSwipeLayout.removeAllViews()
         super.onDestroyView()

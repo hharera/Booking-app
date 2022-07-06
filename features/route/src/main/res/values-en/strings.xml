@@ -3,5 +3,6 @@
     <string name="routes">Routes</string>
     <string name="internalRoutes"> Internal Routes </string>
     <string name="externalRoutes"> Tourism Routes </string>
+    <string name="line_code">Line Code: </string>
 
 </resources>
