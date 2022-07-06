@@ -41,7 +41,7 @@ class HomeViewModel constructor(
 
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .getUser(dataStore.getToken(),false)
+            .getUser(dataStore.getToken(),true)
             .onSuccess {
                 _user.postValue(it)
             }
