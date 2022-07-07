@@ -86,8 +86,9 @@ class TicketApplication : Application(), KoinComponent {
             modules(
                 arrayListOf(
                     firebaseModule,
-                    firebaseServiceModule,
                     clientModule,
+                    remoteModule,
+                    firebaseServiceModule,
                     forgetPasswordModule,
                     resetPasswordModule,
                     dataStoreModule,
@@ -112,8 +113,6 @@ class TicketApplication : Application(), KoinComponent {
                     bookingPaymentModule,
                     loginModule,
                     locationViewModel,
-                    contextModule,
-                    remoteModule,
                     homeModule,
                     driverReviewModule,
                     rechargingModule,
@@ -130,11 +129,4 @@ class TicketApplication : Application(), KoinComponent {
         }
     }
 
-}
-
-val contextModule = module {
-
-    single<FirebaseApp> {
-        FirebaseApp.initializeApp(get())!!
-    }
 }
