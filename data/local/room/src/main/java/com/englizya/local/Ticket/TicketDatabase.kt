@@ -1,4 +1,4 @@
-package com.englizya.local.Ticket
+package com.englizya.local.ticket
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

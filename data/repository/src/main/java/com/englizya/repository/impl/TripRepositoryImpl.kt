@@ -2,7 +2,7 @@ package com.englizya.repository.impl
 
 import android.util.Log
 import com.englizya.api.TripService
-import com.englizya.local.Trip.TripDao
+import com.englizya.local.trip.TripDao
 import com.englizya.model.model.Trip
 import com.englizya.model.request.TripSearchRequest
 import com.englizya.repository.TripRepository

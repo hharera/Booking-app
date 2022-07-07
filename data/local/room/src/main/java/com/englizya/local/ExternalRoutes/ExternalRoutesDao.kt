@@ -1,11 +1,11 @@
-package com.englizya.local.ExternalRoutes
+package com.englizya.local.externalRoutes
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.englizya.model.model.ExternalRoutes
-import com.englizya.model.model.InternalRoutes
+
 @Dao
 interface ExternalRoutesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
