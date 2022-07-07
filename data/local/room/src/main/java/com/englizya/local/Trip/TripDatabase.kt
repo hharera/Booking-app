@@ -1,4 +1,4 @@
-package com.englizya.local.Trip
+package com.englizya.local.trip
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

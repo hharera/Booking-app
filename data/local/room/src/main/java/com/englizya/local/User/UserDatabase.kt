@@ -1,4 +1,4 @@
-package com.englizya.local.User
+package com.englizya.local.user
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
