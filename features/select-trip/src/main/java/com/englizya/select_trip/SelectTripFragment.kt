@@ -89,9 +89,8 @@ class SelectTripFragment : BaseFragment() {
             binding.emptyView?.root?.visibility = View.VISIBLE
         } else {
             binding.emptyView?.root?.visibility = View.GONE
-            binding.shimmerViewContainer.stopShimmer()
-            binding.shimmerViewContainer.visibility = View.INVISIBLE
-            binding.trips.visibility = View.VISIBLE.also{adapter.setTrips(list)}
+
+            adapter.setTrips(list)
         }
     }
 
