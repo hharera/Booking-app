@@ -6,6 +6,9 @@ dependencies {
     api project(UiComponents.BOOKING)
     api project(Base.COMMON_COMPOSE)
     implementation(UI.BOOM)
+
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
 }
 
 android {

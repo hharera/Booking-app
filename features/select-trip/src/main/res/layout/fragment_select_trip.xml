@@ -71,6 +71,1039 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar"
+        app:shimmer_auto_start="true"
+        app:shimmer_duration="1500">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:elevation="0dp"
+                app:cardBackgroundColor="@color/grey_100"
+                app:cardElevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_card_ticket"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="16dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sourceCL_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView5_shimmer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_round_bus"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/source_shimmer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#171B24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5_shimmer"
+                            app:layout_constraintTop_toTopOf="@+id/imageView5_shimmer" />
+
+                        <ImageView
+                            android:id="@+id/imageView8_shimmer"
+                            android:layout_width="@dimen/_9sdp"
+                            android:layout_height="@dimen/_9sdp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_clock"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5_shimmer"
+                            app:layout_constraintTop_toBottomOf="@+id/source_shimmer" />
+
+                        <TextView
+                            android:id="@+id/sourceTimeTV_shimmer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#6D809B"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView8_shimmer"
+                            app:layout_constraintStart_toEndOf="@+id/imageView8_shimmer"
+                            app:layout_constraintTop_toTopOf="@+id/imageView8_shimmer" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sourceCL_shimmer">
+
+
+                        <ImageView
+                            android:id="@+id/imageView2_shimmer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_round_bus"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/destination_shimmer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#171B24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2_shimmer"
+                            app:layout_constraintTop_toTopOf="@+id/imageView2_shimmer" />
+
+                        <ImageView
+                            android:id="@+id/imageView7_shimmer"
+                            android:layout_width="@dimen/_9sdp"
+                            android:layout_height="@dimen/_9sdp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_clock"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2_shimmer"
+                            app:layout_constraintTop_toBottomOf="@+id/destination_shimmer" />
+
+                        <TextView
+                            android:id="@+id/destinationTimeTV_shimmer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#6D809B"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView7_shimmer"
+                            app:layout_constraintStart_toEndOf="@+id/imageView7_shimmer"
+                            app:layout_constraintTop_toTopOf="@+id/imageView7_shimmer" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <HorizontalScrollView
+                        android:id="@+id/detailsSV_shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:scrollbars="none"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/book_shimmer">
+
+                        <GridLayout
+                            android:id="@+id/details_shimmer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:rowCount="1">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/background_text_service"
+                                android:padding="4dp">
+
+                                <ImageView
+                                    android:id="@+id/imageView4_shimmer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_calendar"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/trip_date_shimmer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf"
+                                    android:padding="4dp"
+                                    android:textColor="@color/blue_500"
+                                    app:background="@drawable/background_text_service"
+                                    app:icon="@drawable/ic_calendar"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView4_shimmer"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:id="@+id/service_degree_shimmer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+
+                            <TextView
+                                android:id="@+id/trip_name_shimmer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/trip_code_shimmer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+                        </GridLayout>
+                    </HorizontalScrollView>
+
+                    <androidx.compose.ui.platform.ComposeView
+                        android:id="@+id/stations_shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toTopOf="@+id/serviceGuideline_shimmer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/detailsSV_shimmer"
+                        tools:listitem="@layout/card_view_booking_office" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.6715" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/serviceGuideline_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.83" />
+
+                    <LinearLayout
+                        android:id="@+id/gridLayout_shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/serviceGuideline_shimmer">
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_seat" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_caple" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_wc" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_screen" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_service_camera" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_fridge" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_screens" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/price_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_25sdp"
+                        android:fontFamily="@font/sf"
+                        android:textColor="@color/grey_500"
+                        android:textSize="22sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline2_shimmer"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/textView3_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf"
+                        android:textColor="@color/grey_500"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@+id/price_shimmer"
+                        app:layout_constraintStart_toStartOf="@+id/price_shimmer"
+                        app:layout_constraintTop_toBottomOf="@+id/price_shimmer" />
+
+
+                    <TextView
+                        android:id="@+id/book_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:background="@drawable/background_text_book"
+                        android:fontFamily="@font/sf"
+                        android:gravity="center"
+                        android:text="@string/book"
+                        android:textColor="@color/blue_500"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_shimmer"
+                        app:layout_constraintEnd_toEndOf="@+id/textView3_shimmer"
+                        app:layout_constraintStart_toStartOf="@+id/textView3_shimmer"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3_shimmer" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:elevation="0dp"
+                app:cardBackgroundColor="@color/grey_100"
+                app:cardElevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_card_ticket"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="16dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sourceCL_shimmer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView5_shimmer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_round_bus"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/source_shimmer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#171B24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5_shimmer1"
+                            app:layout_constraintTop_toTopOf="@+id/imageView5_shimmer1" />
+
+                        <ImageView
+                            android:id="@+id/imageView8_shimmer1"
+                            android:layout_width="@dimen/_9sdp"
+                            android:layout_height="@dimen/_9sdp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_clock"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5_shimmer1"
+                            app:layout_constraintTop_toBottomOf="@+id/source_shimmer1" />
+
+                        <TextView
+                            android:id="@+id/sourceTimeTV_shimmer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#6D809B"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView8_shimmer1"
+                            app:layout_constraintStart_toEndOf="@+id/imageView8_shimmer1"
+                            app:layout_constraintTop_toTopOf="@+id/imageView8_shimmer1" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout_shimmer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sourceCL_shimmer1">
+
+
+                        <ImageView
+                            android:id="@+id/imageView2_shimmer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_round_bus"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/destination_shimmer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#171B24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2_shimmer1"
+                            app:layout_constraintTop_toTopOf="@+id/imageView2_shimmer1" />
+
+                        <ImageView
+                            android:id="@+id/imageView7_shimmer1"
+                            android:layout_width="@dimen/_9sdp"
+                            android:layout_height="@dimen/_9sdp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_clock"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2_shimmer1"
+                            app:layout_constraintTop_toBottomOf="@+id/destination_shimmer1" />
+
+                        <TextView
+                            android:id="@+id/destinationTimeTV_shimmer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#6D809B"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView7_shimmer1"
+                            app:layout_constraintStart_toEndOf="@+id/imageView7_shimmer1"
+                            app:layout_constraintTop_toTopOf="@+id/imageView7_shimmer1" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <HorizontalScrollView
+                        android:id="@+id/detailsSV_shimmer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:scrollbars="none"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/book_shimmer1">
+
+                        <GridLayout
+                            android:id="@+id/details_shimmer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:rowCount="1">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/background_text_service"
+                                android:padding="4dp">
+
+                                <ImageView
+                                    android:id="@+id/imageView4_shimmer1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_calendar"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/trip_date_shimmer1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf"
+                                    android:padding="4dp"
+                                    android:textColor="@color/blue_500"
+                                    app:background="@drawable/background_text_service"
+                                    app:icon="@drawable/ic_calendar"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView4_shimmer1"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:id="@+id/service_degree_shimmer1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+
+                            <TextView
+                                android:id="@+id/trip_name_shimmer1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/trip_code_shimmer1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+                        </GridLayout>
+                    </HorizontalScrollView>
+
+                    <androidx.compose.ui.platform.ComposeView
+                        android:id="@+id/stations_shimmer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toTopOf="@+id/serviceGuideline_shimmer1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/detailsSV_shimmer1"
+                        tools:listitem="@layout/card_view_booking_office" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2_shimmer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.6715" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/serviceGuideline_shimmer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.83" />
+
+                    <LinearLayout
+                        android:id="@+id/gridLayout_shimmer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/serviceGuideline_shimmer1">
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_seat" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_caple" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_wc" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_screen" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_service_camera" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_fridge" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_screens" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/price_shimmer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_25sdp"
+                        android:fontFamily="@font/sf"
+                        android:textColor="@color/grey_500"
+                        android:textSize="22sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline2_shimmer1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/textView3_shimmer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf"
+                        android:textColor="@color/grey_500"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@+id/price_shimmer1"
+                        app:layout_constraintStart_toStartOf="@+id/price_shimmer1"
+                        app:layout_constraintTop_toBottomOf="@+id/price_shimmer1" />
+
+
+                    <TextView
+                        android:id="@+id/book_shimmer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:background="@drawable/background_text_book"
+                        android:fontFamily="@font/sf"
+                        android:gravity="center"
+                        android:text="@string/book"
+                        android:textColor="@color/blue_500"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_shimmer1"
+                        app:layout_constraintEnd_toEndOf="@+id/textView3_shimmer1"
+                        app:layout_constraintStart_toStartOf="@+id/textView3_shimmer1"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3_shimmer1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:elevation="0dp"
+                app:cardBackgroundColor="@color/grey_100"
+                app:cardElevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_card_ticket"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="16dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sourceCL_shimmer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView5_shimmer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_round_bus"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/source_shimmer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#171B24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5_shimmer2"
+                            app:layout_constraintTop_toTopOf="@+id/imageView5_shimmer2" />
+
+                        <ImageView
+                            android:id="@+id/imageView8_shimmer2"
+                            android:layout_width="@dimen/_9sdp"
+                            android:layout_height="@dimen/_9sdp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_clock"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5_shimmer2"
+                            app:layout_constraintTop_toBottomOf="@+id/source_shimmer2" />
+
+                        <TextView
+                            android:id="@+id/sourceTimeTV_shimmer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#6D809B"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView8_shimmer2"
+                            app:layout_constraintStart_toEndOf="@+id/imageView8_shimmer2"
+                            app:layout_constraintTop_toTopOf="@+id/imageView8_shimmer2" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout_shimmer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sourceCL_shimmer2">
+
+
+                        <ImageView
+                            android:id="@+id/imageView2_shimmer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_round_bus"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/destination_shimmer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#171B24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2_shimmer2"
+                            app:layout_constraintTop_toTopOf="@+id/imageView2_shimmer2" />
+
+                        <ImageView
+                            android:id="@+id/imageView7_shimmer2"
+                            android:layout_width="@dimen/_9sdp"
+                            android:layout_height="@dimen/_9sdp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/ic_clock"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2_shimmer2"
+                            app:layout_constraintTop_toBottomOf="@+id/destination_shimmer2" />
+
+                        <TextView
+                            android:id="@+id/destinationTimeTV_shimmer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/sf"
+                            android:textColor="#6D809B"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView7_shimmer2"
+                            app:layout_constraintStart_toEndOf="@+id/imageView7_shimmer2"
+                            app:layout_constraintTop_toTopOf="@+id/imageView7_shimmer2" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <HorizontalScrollView
+                        android:id="@+id/detailsSV_shimmer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:scrollbars="none"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/book_shimmer2">
+
+                        <GridLayout
+                            android:id="@+id/details_shimmer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:rowCount="1">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/background_text_service"
+                                android:padding="4dp">
+
+                                <ImageView
+                                    android:id="@+id/imageView4_shimmer2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_calendar"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/trip_date_shimmer2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf"
+                                    android:padding="4dp"
+                                    android:textColor="@color/blue_500"
+                                    app:background="@drawable/background_text_service"
+                                    app:icon="@drawable/ic_calendar"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView4_shimmer2"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:id="@+id/service_degree_shimmer2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+
+                            <TextView
+                                android:id="@+id/trip_name_shimmer2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/trip_code_shimmer2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/background_text_service"
+                                android:fontFamily="@font/sf"
+                                android:padding="8dp"
+                                android:textColor="@color/blue_500" />
+                        </GridLayout>
+                    </HorizontalScrollView>
+
+                    <androidx.compose.ui.platform.ComposeView
+                        android:id="@+id/stations_shimmer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toTopOf="@+id/serviceGuideline_shimmer2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/detailsSV_shimmer2"
+                        tools:listitem="@layout/card_view_booking_office" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2_shimmer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.6715" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/serviceGuideline_shimmer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.83" />
+
+                    <LinearLayout
+                        android:id="@+id/gridLayout_shimmer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/serviceGuideline_shimmer2">
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_seat" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_caple" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_wc" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_screen" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_service_camera" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_fridge" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/background_icon_service"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_screens" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/price_shimmer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_25sdp"
+                        android:fontFamily="@font/sf"
+                        android:textColor="@color/grey_500"
+                        android:textSize="22sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline2_shimmer2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/textView3_shimmer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf"
+                        android:textColor="@color/grey_500"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@+id/price_shimmer2"
+                        app:layout_constraintStart_toStartOf="@+id/price_shimmer2"
+                        app:layout_constraintTop_toBottomOf="@+id/price_shimmer2" />
+
+
+                    <TextView
+                        android:id="@+id/book_shimmer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:background="@drawable/background_text_book"
+                        android:fontFamily="@font/sf"
+                        android:gravity="center"
+                        android:text="@string/book"
+                        android:textColor="@color/blue_500"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_shimmer2"
+                        app:layout_constraintEnd_toEndOf="@+id/textView3_shimmer2"
+                        app:layout_constraintStart_toStartOf="@+id/textView3_shimmer2"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3_shimmer2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trips"
         android:layout_width="match_parent"
@@ -81,7 +1114,7 @@
         android:paddingHorizontal="23dp"
         android:paddingTop="7dp"
         android:paddingBottom="50dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar"
@@ -92,10 +1125,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
+        android:visibility="gone"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="40dp"
         app:contentPadding="8dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,10 +1138,11 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
