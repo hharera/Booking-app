@@ -24,7 +24,7 @@ class BookingActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (navController.backQueue.size > 1) {
+        if (navController.backQueue.size >= 1) {
             navController.popBackStack()
         } else {
             finish()
