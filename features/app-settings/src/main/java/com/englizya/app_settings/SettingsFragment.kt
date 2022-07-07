@@ -1,7 +1,7 @@
 package com.englizya.app_settings
 
-import android.content.res.Configuration
-import android.content.res.Resources
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.englizya.app_settings.databinding.FragmentAppSettingsBinding
 import com.englizya.common.base.BaseFragment
 import com.englizya.datastore.utils.Language
+import com.jakewharton.processphoenix.ProcessPhoenix
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -63,25 +64,19 @@ class SettingsFragment : BaseFragment() {
         }
 
         binding.save.setOnClickListener {
-            settingsViewModel.saveSelectedLanguage()
-            binding.save.isEnabled = false
-            activity?.onBackPressed()
+            settingsViewModel.saveSelectedLanguage().also {
+                restartApp()
+            }
         }
-
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
-    private fun updateLanguage() {
-        val locale = Locale.Builder().setLanguage(settingsViewModel.selectedLanguage.value!!.key).build()
-        Locale.setDefault(locale)
-        val resources: Resources = activity!!.resources
-        val config: Configuration = resources.configuration
-        config.setLocale(locale)
-        config.setLayoutDirection(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-        context?.createConfigurationContext(config)
+    private fun restartApp() {
+        val mStartActivity =
+            Intent(context, Class.forName("com.englizya.splash.SplashActivity"))
+        ProcessPhoenix.triggerRebirth(context, mStartActivity)
     }
 
 

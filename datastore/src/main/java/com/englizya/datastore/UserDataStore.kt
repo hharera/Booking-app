@@ -36,7 +36,7 @@ class UserDataStore(context: Context) {
         }
     }
 
-    fun getLanguage(): String =
+    fun getLanguage(): String? =
         driverSharedPreferences.getString(KEY.LANGUAGE, Language.Arabic.key)!!
 
     fun setUserName(name: String) {
