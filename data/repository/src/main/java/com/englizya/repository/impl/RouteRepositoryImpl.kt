@@ -2,8 +2,8 @@ package com.englizya.repository.impl
 
 import android.util.Log
 import com.englizya.api.RouteService
-import com.englizya.local.ExternalRoutes.ExternalRoutesDao
-import com.englizya.local.InternalRoutes.InternalRoutesDao
+import com.englizya.local.external_routes.ExternalRoutesDao
+import com.englizya.local.iInternal_routes.InternalRoutesDao
 import com.englizya.model.model.ExternalRoutes
 import com.englizya.model.model.InternalRoutes
 import com.englizya.repository.RouteRepository

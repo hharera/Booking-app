@@ -1,4 +1,4 @@
-package com.englizya.local.Ticket
+package com.englizya.local.ticket
 
 import androidx.room.Dao
 import androidx.room.Insert

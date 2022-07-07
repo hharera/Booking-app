@@ -27,6 +27,7 @@ class TicketAdapter(
 ) : RecyclerView.Adapter<TicketAdapter.BaseViewHolder>() {
 
     private var isLoading = false
+    private var nextPageRequested = false
 
     override fun getItemViewType(position: Int): Int {
         return if (position == ticketList.size) {
@@ -37,13 +38,10 @@ class TicketAdapter(
     }
 
     fun addTickets(tickets: List<UserTicket>) {
-        if (tickets.isNotEmpty()) {
-            isLoading = false
-            notifyDataSetChanged()
-        }
         tickets.forEach {
             addTicket(it)
         }
+        nextPageRequested = false
     }
 
     private fun addTicket(ticket: UserTicket) {
@@ -75,8 +73,9 @@ class TicketAdapter(
     }
 
     private fun requestNextPage() {
-        if (isLoading) {
+        if (ticketList.isNotEmpty() && nextPageRequested.not()) {
             onNextPageRequested()
+            nextPageRequested = true
         }
     }
 

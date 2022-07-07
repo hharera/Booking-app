@@ -1,7 +1,7 @@
 package com.englizya.repository.impl
 
 import com.englizya.api.UserService
-import com.englizya.local.User.UserDao
+import com.englizya.local.user.UserDao
 import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.ResetPasswordRequest
@@ -33,7 +33,7 @@ class UserRepositoryImpl constructor(
                     userDao.insertUser(it)
                 }
             } else {
-                userDao.getUser()
+                userDao.getUsers().first()
             }
         }
 

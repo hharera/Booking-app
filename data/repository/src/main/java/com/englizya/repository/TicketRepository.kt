@@ -1,7 +1,7 @@
 package com.englizya.repository
 
 import com.englizya.api.TicketService
-import com.englizya.local.Ticket.TicketDao
+import com.englizya.local.ticket.TicketDao
 import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 

@@ -53,6 +53,7 @@ dependencies {
     implementation(Libs.fragments)
     implementation(Libs.navigationFragment)
 
+    implementation(Libs.viewModels)
     implementation Libs.liveData
     implementation Libs.androidxCore
 

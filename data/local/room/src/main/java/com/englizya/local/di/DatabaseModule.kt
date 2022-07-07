@@ -1,18 +1,18 @@
 package com.englizya.local.di
 
 import androidx.room.Room
-import com.englizya.local.ExternalRoutes.ExternalRoutesDao
-import com.englizya.local.ExternalRoutes.ExternalRoutesDatabase
-import com.englizya.local.InternalRoutes.InternalRoutesDao
-import com.englizya.local.InternalRoutes.InternalRoutesDatabase
-import com.englizya.local.Offers.OfferDao
-import com.englizya.local.Offers.OfferDatabase
-import com.englizya.local.Ticket.TicketDao
-import com.englizya.local.Ticket.TicketDatabase
-import com.englizya.local.Trip.TripDao
-import com.englizya.local.Trip.TripDatabase
-import com.englizya.local.User.UserDao
-import com.englizya.local.User.UserDatabase
+import com.englizya.local.external_routes.ExternalRoutesDao
+import com.englizya.local.external_routes.ExternalRoutesDatabase
+import com.englizya.local.iInternal_routes.InternalRoutesDao
+import com.englizya.local.iInternal_routes.InternalRoutesDatabase
+import com.englizya.local.offers.OfferDao
+import com.englizya.local.offers.OfferDatabase
+import com.englizya.local.ticket.TicketDao
+import com.englizya.local.ticket.TicketDatabase
+import com.englizya.local.trip.TripDao
+import com.englizya.local.trip.TripDatabase
+import com.englizya.local.user.UserDao
+import com.englizya.local.user.UserDatabase
 import com.englizya.local.announcement.AnnouncementDao
 import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.local.utils.Constants.ANNOUNCEMENT_DATA_BASE
@@ -22,6 +22,7 @@ import com.englizya.local.utils.Constants.OFFER_DATA_BASE
 import com.englizya.local.utils.Constants.TICKET_DATA_BASE
 import com.englizya.local.utils.Constants.TRIP_DATA_BASE
 import com.englizya.local.utils.Constants.USER_DATA_BASE
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
@@ -35,13 +36,10 @@ val databaseModule = module {
         get<TicketDatabase>().getMarketDao()
     }
 
-
-    single<UserDatabase> {
-        Room.databaseBuilder(get(), UserDatabase::class.java, USER_DATA_BASE).build()
-    }
-
-    single<UserDao> {
-        get<UserDatabase>().getMarketDao()
+    single(named("user_dao")) {
+        Room.databaseBuilder(get(), UserDatabase::class.java, USER_DATA_BASE)
+            .build()
+            .getDao()
     }
 
     single<OfferDao> {

@@ -1,4 +1,4 @@
-package com.englizya.local.InternalRoutes
+package com.englizya.local.iInternal_routes
 
 import androidx.room.Dao
 import androidx.room.Insert

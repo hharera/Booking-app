@@ -1,4 +1,4 @@
-package com.englizya.local.ExternalRoutes
+package com.englizya.local.external_routes
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

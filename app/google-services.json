@@ -57,6 +57,59 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672185707098:android:9447410bd706734e65c663",
+        "android_client_info": {
+          "package_name": "com.englyzia.paytabs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672185707098-pi7j2ad65uavbbumddbp2f1dpl39p2f2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.englyzia.paytabs",
+            "certificate_hash": "1644fe4a6a93929c67c2f53db16f6d0f35bbb1d5"
+          }
+        },
+        {
+          "client_id": "672185707098-qh7es1o94h59tq8ak19g8t0tio9dcto1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.englyzia.paytabs",
+            "certificate_hash": "bec9514f6751ff2ce7c8191af29fbc993d03b3ca"
+          }
+        },
+        {
+          "client_id": "672185707098-u2pgsnnmonqn7816g36k40cik3bp7v0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.englyzia.paytabs",
+            "certificate_hash": "e3287b4ffbc6f51b228c8df2cd2740008df3c9d8"
+          }
+        },
+        {
+          "client_id": "672185707098-vbmnhi9odljcnu4mu7pirom9030g45rk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe2AaM7RG-tDoigPufwOZJxFggxabkyF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672185707098-vbmnhi9odljcnu4mu7pirom9030g45rk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

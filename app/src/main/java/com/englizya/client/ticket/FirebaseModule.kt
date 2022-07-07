@@ -1,4 +1,4 @@
-package com.englizya.firebase.di
+package com.englizya.client.ticket
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase

@@ -16,7 +16,6 @@ import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.di.dataStoreModule
 import com.englizya.feature.set_password.di.setPasswordModule
 import com.englizya.feature.ticket.di.ticketDetailsModule
-import com.englizya.firebase.di.firebaseModule
 import com.englizya.firebase.di.firebaseServiceModule
 import com.englizya.forgetpassword.di.forgetPasswordModule
 import com.englizya.home_screen.di.homeModule

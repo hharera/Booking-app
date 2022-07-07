@@ -12,11 +12,4 @@ dependencies {
     api project(Data.localRoom)
     api project(Data.remoteApi)
     api project(Data.remoteFirebase)
-
-    //gms play
-    implementation Libs.playServicesAuth
-    implementation Libs.playServicesAuthPhone
-    implementation Libs.playServicesMaps
-    implementation Libs.playServicesTasks
-
 }

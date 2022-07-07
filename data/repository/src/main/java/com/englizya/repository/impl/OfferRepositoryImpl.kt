@@ -2,10 +2,9 @@ package com.englizya.repository.impl
 
 import android.util.Log
 import com.englizya.api.OfferService
-import com.englizya.local.Offers.OfferDao
+import com.englizya.local.offers.OfferDao
 import com.englizya.model.model.Offer
 import com.englizya.repository.OfferRepository
-import java.security.PrivateKey
 
 class OfferRepositoryImpl constructor(
     private val offerService: OfferService,

@@ -1,14 +1,14 @@
 package com.englizya.repository.di
 
+import com.englizya.api.UserService
+import com.englizya.local.user.UserDao
 import com.englizya.repository.*
 import com.englizya.repository.impl.*
+import com.google.firebase.auth.FirebaseAuth
+import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
 
 val repositoryModule = module {
-
-    single<UserRepository> {
-        UserRepositoryImpl(get(), get(), get())
-    }
 
     single<TripRepository> {
         TripRepositoryImpl(get(),get())
@@ -47,5 +47,13 @@ val repositoryModule = module {
 
     single<WalletRepository> {
         WalletRepositoryImpl(get())
+    }
+
+    single<UserRepository> {
+        UserRepositoryImpl(
+            userService = get(UserService::class),
+            auth = get(),
+            userDao = get(UserDao::class)
+        )
     }
 }
