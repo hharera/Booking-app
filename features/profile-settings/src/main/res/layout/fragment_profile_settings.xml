@@ -50,7 +50,7 @@
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/ic_character"
+        android:src="@drawable/ic_profile_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -68,7 +68,6 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutName"
         style="@style/MainInputLayoutStyle"
@@ -79,7 +78,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewName"
-        app:startIconDrawable="@drawable/ic_user">
+        app:startIconDrawable="@drawable/ic_user"
+       >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name"
@@ -112,7 +112,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAddress"
-        app:startIconDrawable="@drawable/ic_location">
+        app:startIconDrawable="@drawable/ic_location"
+        app:endIconDrawable="@drawable/ic_map_marker">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/address"
