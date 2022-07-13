@@ -21,6 +21,8 @@ dependencies {
     api(project(Feature.ABOUT_US))
     api(project(Feature.OFFERS))
     api(project(Feature.ANNOUNCEMENT))
+    api(project(Feature.PROFILE_SETTINGS))
+
 
 
     api(project(Feature.RECHARGING))

@@ -100,6 +100,13 @@
 
         <deepLink app:uri="EnglizyaPay://privacy-policy" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_profile_settings"
+        android:name="com.englizya.profile_settings.ProfileSettingsFragment"
+        tools:layout="@layout/fragment_profile_settings">
+
+        <deepLink app:uri="EnglizyaPay://profile_settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_offers"

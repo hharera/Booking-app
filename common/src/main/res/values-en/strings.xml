@@ -225,7 +225,6 @@
     <string name="showToDriverTxt">Please Show The QR Code To The Driver To Reserve a Ticket</string>
     <string name="refund_ticket_txt">Cancel</string>
     <string name="message">Do you want to cancel ticket reservation ? </string>
-
     <string name="yes_txt">Yes</string>
     <string name="no_txt">No</string>
     <string name="welcome_back">Welcome Back</string>

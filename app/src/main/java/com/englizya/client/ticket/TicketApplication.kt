@@ -25,6 +25,7 @@ import com.englizya.location_update.di.locationViewModel
 import com.englizya.login.di.loginModule
 import com.englizya.offers.di.offersModule
 import com.englizya.profile.di.profileModule
+import com.englizya.profile_settings.di.profileSettingsModule
 import com.englizya.repository.di.repositoryModule
 import com.englizya.reset_password.di.resetPasswordModule
 import com.englizya.route.di.externalRoute
@@ -108,6 +109,7 @@ class TicketApplication : Application(), KoinComponent {
                     offersModule,
                     announcementModule,
                     profileModule,
+                    profileSettingsModule,
                     bookingPaymentModule,
                     loginModule,
                     locationViewModel,

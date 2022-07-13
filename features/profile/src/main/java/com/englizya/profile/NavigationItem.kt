@@ -7,6 +7,8 @@ sealed class NavigationItem(
     object LogOut : NavigationItem(R.drawable.ic_sign_out, R.string.logout)
     object LogIn : NavigationItem(R.drawable.ic_sign_in, R.string.login)
     object UserTickets : NavigationItem(R.drawable.ic_ticket, R.string.my_tickets)
+    object ProfileSettings : NavigationItem(R.drawable.ic_badge, R.string.profile_settings)
+
     object DriverReview : NavigationItem(R.drawable.ic_rate, R.string.review_driver)
     object ContactUs : NavigationItem(R.drawable.ic_phone_contact, R.string.contact_us)
     object PaymentHistory : NavigationItem(R.drawable.ic_history, R.string.payments_history)

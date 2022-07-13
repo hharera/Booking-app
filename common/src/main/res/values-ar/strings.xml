@@ -14,6 +14,7 @@
     <string name="phone_number">رقم الهاتف</string>
     <string name="wrong_phone_number">رقم الهاتف خاطئ</string>
     <string name="offer">عرض</string>
+    <string name="profile_settings">إعدادات الملف الشخصى</string>
     <string name="name">الأسم</string>
     <string name="confirm">تأكيد</string>
     <string name="my_orders">طلباتي</string>
@@ -183,7 +184,6 @@
     <string name="about_us">عنا</string>
     <string name="report_problem">حساب عن مشكلة</string>
     <string name="home">الصفحة الرئيسية</string>
-    <string name="profile_settings">إعدادات الملف الشخصي</string>
     <string name="coming_soon">قريبًا</string>
     <string name="this_feature_is_currently_under_development">هذه قيد التطوير</string>
     <string name="book_your_ticket_now">احجز تذكرتك الآن</string>

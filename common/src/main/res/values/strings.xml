@@ -202,6 +202,7 @@
     <string name="arabic">عربي</string>
     <string name="language">اللغة</string>
     <string name="settings">الاعدادات</string>
+
     <string name="date_is_required">اختر التاريخ</string>
     <string name="destincation_is_required">اختر محطة الوصول</string>
     <string name="source_is_required">اختر محطة القيام</string>
