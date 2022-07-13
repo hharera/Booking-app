@@ -5,6 +5,11 @@
     <string name="riding_station">محطة الركوب</string>
     <string name="riding_time">وقت الركوب</string>
     <string name="exit_time">وقت التحرك</string>
+    <string name="dialog_message" formatted="true">سيتم خصم %1$s ج تكلفة التذكرة من رصيدكم</string>
+    <string name="dialog_title">تأكيد</string>
+    <string name="ok_btn">حسناً</string>
+    <string name="cancel_btn">إلغاء</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="tickets_info">" اعرض التذكرة على السائق حتى يتمكن من قراءة الكود و طباعة التذكرة"</string>
 </resources>

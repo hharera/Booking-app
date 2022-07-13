@@ -6,5 +6,8 @@
     <string name="exit_time">وقت التحرك</string>
     <string name="my_tickets">تذاكري</string>
     <string name="tickets_info">" اعرض التذكرة على السائق حتى يتمكن من قراءة الكود و طباعة التذكرة"</string>
-
+    <string name="dialog_message" formatted="true">سيتم خصم %1$s ج تكلفة التذكرة من رصيدكم</string>
+    <string name="dialog_title">تأكيد</string>
+    <string name="ok_btn">حسناً</string>
+    <string name="cancel_btn">إلغاء</string>
 </resources>

@@ -17,6 +17,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.InvoicePaymentResponse
+import com.englizya.user_tickets.ConfirmationDialog
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
 import com.englyzia.booking.utils.PaymentMethod
@@ -37,6 +38,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private lateinit var binding: FragmentBookingPaymentBinding
     private val bookingPaymentViewModel: BookingPaymentViewModel by sharedViewModel()
     private val bookingViewModel: BookingViewModel by sharedViewModel()
+    var paymentConfirmationDialog: PaymentConfirmationDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +69,18 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.pay.setOnClickListener {
-            bookingViewModel.whenPayButtonClicked()
+            paymentConfirmationDialog = PaymentConfirmationDialog(
+                binding.totalTV.text.toString(),
+                onPositiveButtonClicked = {
+                    bookingViewModel.whenPayButtonClicked()
+                    paymentConfirmationDialog?.dismiss()
+
+                },
+                onNegativeButtonClicked = {
+                    paymentConfirmationDialog?.dismiss()
+                })
+            paymentConfirmationDialog?.show(childFragmentManager, "paymentConfirmationDialog")
+
         }
 
         binding.cardMethodCL.setOnClickListener {
@@ -98,10 +111,6 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             updateSelectedMethodUI(it.id)
         }
 
-        binding.pay.setOnClickListener {
-            bookingViewModel.whenPayButtonClicked()
-        }
-
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
             bookingViewModel.clearReservationOrder()
         }
@@ -117,13 +126,17 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun updateRoundTotal(discount: Double) {
-        if(discount == 0.0){
+        if (discount == 0.0) {
             binding.subtotalTV.text = bookingViewModel.total.value.toString()
-            binding.totalTV.text =bookingViewModel.total.value.toString()
-        }else{
+            binding.totalTV.text = bookingViewModel.total.value.toString()
+        } else {
             binding.subtotalTV.text = (bookingViewModel.total.value?.times(2).toString())
-            binding.roundDiscountTV.text = (java.lang.Double.parseDouble(binding.subtotalTV.text.toString()).times(discount)).toString()
-            binding.totalTV.text = (java.lang.Double.parseDouble(binding.subtotalTV.text.toString())).times(1 - discount).toString()
+            binding.roundDiscountTV.text =
+                (java.lang.Double.parseDouble(binding.subtotalTV.text.toString())
+                    .times(discount)).toString()
+            binding.totalTV.text =
+                (java.lang.Double.parseDouble(binding.subtotalTV.text.toString())).times(1 - discount)
+                    .toString()
         }
 
     }
@@ -161,7 +174,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         bookingViewModel.total.observe(viewLifecycleOwner) {
-          updateTotalBasedOnBookingType()
+            updateTotalBasedOnBookingType()
 
         }
 
