@@ -28,9 +28,8 @@ class RechargingViewModel constructor(
     private val dataStore: UserDataStore,
 ) : BaseViewModel() {
 
-    private val _user = MutableStateFlow<User?>(null)
-    val user: StateFlow<User?>
-        get() = _user
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> = _user
 
     private val _amount = MutableStateFlow<Double?>(null)
     val amount: StateFlow<Double?>
@@ -96,7 +95,7 @@ class RechargingViewModel constructor(
 
     fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .getUser(dataStore.getToken(),false)
+            .getUser(dataStore.getToken(),true)
             .onSuccess {
                 _user.value = it
             }
