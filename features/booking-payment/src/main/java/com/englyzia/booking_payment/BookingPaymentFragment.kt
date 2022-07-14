@@ -30,6 +30,7 @@ import com.payment.paymentsdk.integrationmodels.PaymentSdkTransactionDetails
 import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.serialization.descriptors.PrimitiveKind
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -40,6 +41,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private val bookingViewModel: BookingViewModel by sharedViewModel()
     var paymentInfoDialog: PaymentInformationDialog? = null
     var paymentConfirmationDialog: PaymentConfirmationDialog? = null
+    var noBalanceDialog: NoBalanceDialog? = null
 
 
     override fun onCreateView(
@@ -79,9 +81,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             paymentConfirmationDialog = PaymentConfirmationDialog(
                 binding.totalTV.text.toString(),
                 onPositiveButtonClicked = {
-                    bookingViewModel.whenPayButtonClicked()
-                    paymentConfirmationDialog?.dismiss()
-
+                    checkWalletBalance()
                 },
                 onNegativeButtonClicked = {
                     paymentConfirmationDialog?.dismiss()
@@ -139,6 +139,24 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             updateSelectedMethodUI(it.id)
         }
 
+    }
+
+    private fun checkWalletBalance() {
+        val total: Double = binding.totalTV.text.toString().toDouble()
+        if ((bookingViewModel.selectedPaymentMethod.value == PaymentMethod.EnglizyaWallet).and((total > bookingPaymentViewModel.userBalance.value!!))) {
+            paymentConfirmationDialog?.dismiss()
+            noBalanceDialog =
+                NoBalanceDialog(
+                    onChargeButtonClicked = {
+                        navigateToRecharging()
+                        noBalanceDialog?.dismiss()
+                    }
+                )
+            noBalanceDialog?.show(childFragmentManager, "noBalanceDialog")
+        } else {
+            bookingViewModel.whenPayButtonClicked()
+            paymentConfirmationDialog?.dismiss()
+        }
     }
 
     private fun showDialog() {
