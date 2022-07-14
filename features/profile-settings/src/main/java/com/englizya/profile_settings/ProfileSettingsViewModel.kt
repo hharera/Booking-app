@@ -52,20 +52,7 @@ class ProfileSettingsViewModel constructor(
                 handleException(it)
             }
     }
-//    private fun getUserImage() = viewModelScope.launch(Dispatchers.IO) {
-//        updateLoading(true)
-//        userRepository
-//            .getUserImage(dataStore.getToken())
-//            .onSuccess {
-//
-//                updateLoading(false)
-//                _user.postValue(it)
-//            }
-//            .onFailure {
-//                updateLoading(false)
-//                handleException(it)
-//            }
-//    }
+
     suspend fun updateUser() {
         updateLoading(true)
         createEditUserRequest()
