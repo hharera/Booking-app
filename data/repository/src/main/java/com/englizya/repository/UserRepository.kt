@@ -4,7 +4,9 @@ import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.ResetPasswordRequest
 import com.englizya.model.request.SignupRequest
+import com.englizya.model.request.UserEditRequest
 import com.englizya.model.response.LoginResponse
+import com.englizya.model.response.UserEditResponse
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
@@ -30,4 +32,5 @@ interface UserRepository {
     suspend fun getUser(token: String, forceOnline : Boolean = true): Result<User>
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any>
     suspend fun insertUser(user: User) : Result<Any>
+    suspend fun updateUser(token: String ,request:UserEditRequest) : Result<UserEditResponse>
 }

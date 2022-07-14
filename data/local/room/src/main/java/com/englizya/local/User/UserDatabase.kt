@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.englizya.model.model.User
 
 @Database(
-    version = 1,
+    version = 5,
     entities = [User::class],
     exportSchema = true,
 
