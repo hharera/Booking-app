@@ -39,6 +39,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private val bookingPaymentViewModel: BookingPaymentViewModel by sharedViewModel()
     private val bookingViewModel: BookingViewModel by sharedViewModel()
     var paymentInfoDialog: PaymentInformationDialog? = null
+    var paymentConfirmationDialog: PaymentConfirmationDialog? = null
 
 
     override fun onCreateView(
@@ -75,9 +76,19 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.pay.setOnClickListener {
-            bookingViewModel.whenPayButtonClicked()
-        }
+            paymentConfirmationDialog = PaymentConfirmationDialog(
+                binding.totalTV.text.toString(),
+                onPositiveButtonClicked = {
+                    bookingViewModel.whenPayButtonClicked()
+                    paymentConfirmationDialog?.dismiss()
 
+                },
+                onNegativeButtonClicked = {
+                    paymentConfirmationDialog?.dismiss()
+                })
+            paymentConfirmationDialog?.show(childFragmentManager, "paymentConfirmationDialog")
+
+        }
         binding.cardMethodCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
             updateTotalBasedOnBookingType()
@@ -127,9 +138,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             //  updateWalletTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
-        binding.pay.setOnClickListener {
-            bookingViewModel.whenPayButtonClicked()
-        }
+
     }
 
     private fun showDialog() {
