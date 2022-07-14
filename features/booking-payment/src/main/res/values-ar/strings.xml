@@ -15,7 +15,9 @@
     <string name="wallet_discount_txt">قيمة خصم المحفظة</string>
     <string name="round_discount_txt">خصم الذهاب و العودة</string>
     <string name="sub_total">الإجمالى قبل الخصم</string>
-
+    <string name="no_balance_dialog_title">ليس لديك رصيد كافى</string>
+    <string name="no_balance_dialog_message">لا يوجد رصيد كافى بحسابكم لاتمام عملية الدفع</string>
+    <string name="charge_text">شحن</string>
     <string name="total">الإجمالي</string>
     <string name="ok_text">حسناً</string>
     <string name="payment_info_txt">

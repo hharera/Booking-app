@@ -18,6 +18,10 @@
     <string name="total">الإجمالي</string>
     <string name="sub_total">الإجمالى قبل الخصم</string>
     <string name="ok_text">حسناً</string>
+    <string name="no_balance_dialog_title">ليس لديك رصيد كافى</string>
+    <string name="no_balance_dialog_message">لا يوجد رصيد كافى بحسابكم لاتمام عملية الدفع</string>
+    <string name="charge_text">شحن</string>
+
     <string name="payment_info_txt">
     <li>عند الضغط على زر الدفع سيتم تحويلك إلى المتصفح </li>
     \n\n <li>اضغط على Pay Now ثم اختار الدفع بميزة</li>
