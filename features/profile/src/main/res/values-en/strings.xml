@@ -8,4 +8,6 @@
     <string name="suggestions_and_complaints">Suggestions and Complaints</string>
     <string name="profile_name">%1$s\'s Profile</string>
     <string name="refund_policy">Refund Policy</string>
+    <string name="profile_settings">Profile Settings</string>
+
 </resources>
