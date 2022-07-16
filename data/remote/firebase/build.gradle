@@ -10,3 +10,7 @@ dependencies {
     api(Reactive.RxKotlin)
     api(Reactive.RxJava)
 }
+
+android {
+    namespace 'com.englizya.firebase'
+}

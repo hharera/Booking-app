@@ -5,72 +5,92 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.ui.QrDialog
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.model.model.User
 import com.englizya.profile.NavigationItem.*
 import com.englizya.profile.databinding.FragmentProfileBinding
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var adapter: NavigationAdapter
     private val profileViewModel: ProfileViewModel by viewModel()
 
     private val navigationItemList = arrayListOf(
         UserTickets,
-        PaymentHistory,
-        ReportProblem,
+//        PaymentHistory,
+        SuggestionsAndComplaint,
+        ProfileSettings,
         DriverReview,
-        SuggestIdea,
         Settings,
-//        AboutUs,
-//        TermsAndPolicy,
-//        UpcomingFeatures,
-//        PaymentCards,
+        AboutUs,
+        ContactUs,
+        TermsAndConditions,
+        RefundPolicy,
+        PrivacyPolicy,
+        LogOut,
     )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentProfileBinding.inflate(layoutInflater)
+        changeStatusBarColor(R.color.grey_100)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
         setupRecyclerViewAdapter()
     }
 
     private fun setupObservers() {
+        lifecycleScope.launch {
+            profileViewModel.userBalance.collectLatest {
+                binding.balance.text = it.toString()
+            }
+        }
 
+        profileViewModel.user.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
+    }
+
+    private fun updateUI(user: User) {
+        BarcodeEncoder().encodeBitmap(user.uid, BarcodeFormat.QR_CODE, 48, 48).let {
+            binding.profileQr.setImageBitmap(it)
+        }
+
+        binding.profileName.text = getString(R.string.profile_name, user.name)
     }
 
     private fun setupRecyclerViewAdapter() {
-        val adapter =
-            NavigationAdapter(navigationItemList) {
-                checkClickItem(it)
-            }
-
-        binding.navigationMenu.adapter = adapter
-    }
-
-    override fun onResume() {
-        super.onResume()
-        restoreValues()
-    }
-
-    private fun restoreValues() {
-
+        NavigationAdapter(navigationItemList) {
+            checkClickItem(it)
+        }.let { navigationAdapter ->
+            adapter = navigationAdapter
+            binding.navigationMenu.adapter = navigationAdapter
+        }
     }
 
     private fun setupListeners() {
@@ -78,18 +98,35 @@ class ProfileFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        binding.logout.setOnClickListener {
-            profileViewModel.logout()
-            navigateToLogin()
+        binding.charge.setOnClickListener {
+            navigateToRecharging()
         }
+
+        binding.profileQr.setOnClickListener {
+            viewQrDialog()
+        }
+        binding.swipeLayout.setOnRefreshListener {
+            profileViewModel.fetchUser()
+            profileViewModel.getUserBalance()
+            binding.swipeLayout.isRefreshing = false
+        }
+    }
+
+    private fun viewQrDialog() {
+        QrDialog(
+            profileViewModel.user.value,
+        ).show(
+            childFragmentManager,
+            "QrDialog"
+        )
     }
 
     private fun navigateToLogin() {
         kotlin.runCatching {
             Class.forName("com.englizya.navigation.login.LoginActivity").let {
                 Intent(context, it).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(this)
+                    activity?.finish()
                 }
             }
         }
@@ -109,15 +146,15 @@ class ProfileFragment : BaseFragment() {
 
             }
 
-            is TermsAndPolicy -> {
-
+            is TermsAndConditions -> {
+                navigateToTermsAndConditions()
             }
 
             is PaymentHistory -> {
 
             }
 
-            is ReportProblem -> {
+            is SuggestionsAndComplaint -> {
                 navigateToComplaint()
             }
 
@@ -126,17 +163,102 @@ class ProfileFragment : BaseFragment() {
             }
 
             is AboutUs -> {
-
+                navigateToAboutUs()
             }
 
             is UpcomingFeatures -> {
 
             }
 
+            is PrivacyPolicy -> {
+                navigateToPrivacyPolicy()
+            }
+
+            is ContactUs -> {
+                navigateToContactUs()
+            }
+
             is DriverReview -> {
                 navigateReviewDriver()
             }
+
+            is RefundPolicy -> {
+                navigateRefundPolicy()
+            }
+
+            is LogOut -> {
+                profileViewModel.logout()
+                navigateToLogin()
+            }
+            is ProfileSettings ->{
+                navigateToProfileSettings()
+            }
+            else -> {}
         }
+    }
+    private fun navigateToProfileSettings() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.PROFILE_SETTINGS,
+                    false
+                )
+            )
+    }
+    private fun navigateRefundPolicy() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.REFUND_POLICY,
+                    false
+                )
+            )
+    }
+
+    private fun navigateToPrivacyPolicy() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.PRIVACY_POLICY,
+                    false
+                )
+            )
+    }
+
+    private fun navigateToAboutUs() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.AboutUs,
+                    false
+                )
+            )
+    }
+
+    private fun navigateToContactUs() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.ContactUs,
+                    false
+                )
+            )
+    }
+
+    private fun navigateToTermsAndConditions() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.TERMS_AND_CONDITIONS,
+                    false
+                )
+            )
     }
 
     private fun navigateToUserTickets() {
@@ -162,6 +284,16 @@ class ProfileFragment : BaseFragment() {
                 Domain.ENGLIZYA_PAY,
                 Destination.PAYMENT_HISTORY,
                 false
+            )
+        )
+    }
+
+    private fun navigateToRecharging() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.RECHARGING,
+                Destination.PROFILE
             )
         )
     }

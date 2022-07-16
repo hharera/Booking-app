@@ -1,12 +1,14 @@
 package com.englizya.model.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 
 @Serializable
+@Entity(tableName = "Trip")
 data class Trip(
-    @SerialName("tripId") var tripId: Int? = null,
+    @PrimaryKey @SerialName("tripId") var tripId: Int? = null,
     @SerialName("tripName") var tripName: String? = null,
     @SerialName("startDate") var startDate: String? = null,
     @SerialName("endDate") var endDate: String? = null,

@@ -56,7 +56,6 @@
         android:layout_below="@+id/app_name"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:src="@drawable/logo_colored"
         android:tint="@color/blue_600"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

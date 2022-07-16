@@ -8,10 +8,10 @@ object NavigationUtils {
     fun getUriNavigation(
         domain: String,
         destination: String,
-        arg: Boolean,
+        containsArgs: Boolean = false,
         argument: String? = null
     ): Uri {
-        return if (arg) {
+        return if (containsArgs) {
             "$domain://$destination/${argument}"
         } else {
             "$domain://$destination"

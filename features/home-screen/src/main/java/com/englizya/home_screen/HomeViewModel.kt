@@ -8,11 +8,16 @@ import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.model.model.User
+import com.englizya.repository.AnnouncementRepository
+import com.englizya.repository.OfferRepository
 import com.englizya.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel constructor(
     private val userRepository: UserRepository,
+    private val offerRepository: OfferRepository,
+    private val announcementRepository: AnnouncementRepository,
     private val dataStore: UserDataStore,
 ) : BaseViewModel() {
 
@@ -30,14 +35,13 @@ class HomeViewModel constructor(
     val user: LiveData<User> = _user
 
     init {
-        viewModelScope.launch {
-            fetchUser()
-        }
+        getUser()
+
     }
 
-    private suspend fun fetchUser() {
+    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .fetchUser(dataStore.getToken())
+            .getUser(dataStore.getToken(),true)
             .onSuccess {
                 _user.postValue(it)
             }
@@ -46,20 +50,31 @@ class HomeViewModel constructor(
             }
     }
 
-    fun getOffers(offers: List<Offer>) {
-        _offers.value = offers
+    fun getOffers(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        updateLoading(true)
+        offerRepository
+            .getAllOffers(forceOnline)
+            .onSuccess {
+                updateLoading(false)
+                _offers.postValue(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
     }
 
-    fun getAnnouncements(announcements: List<Announcement>) {
-        _announcements.value = announcements
-
+    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        updateLoading(true)
+        announcementRepository
+            .getAllAnnouncement(forceOnline)
+            .onSuccess {
+                updateLoading(false)
+                _announcements.postValue(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
     }
-
-    fun onNavigationClicked() {
-        _onNavigationClicked.postValue(true)
-//        _onNavigationClicked.postValue(false)
-    }
-
-    fun getUserName(): String =
-        dataStore.getUserName()
 }

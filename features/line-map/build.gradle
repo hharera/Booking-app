@@ -4,3 +4,7 @@ dependencies {
     implementation Libs.playServicesMaps
 
 }
+
+android {
+    namespace 'com.englizya.line_map'
+}

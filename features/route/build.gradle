@@ -2,5 +2,10 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
     api project(UiComponents.UPCOMING_FEATURE)
+    implementation(Libs.swipeRefreshLayout)
 
+}
+
+android {
+    namespace 'com.englizya.route'
 }

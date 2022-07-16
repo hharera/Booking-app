@@ -1,12 +1,14 @@
 package com.englizya.user_tickets
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.model.response.OnlineTicket
+import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.englizya.repository.TicketRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserTicketsViewModel constructor(
@@ -18,21 +20,57 @@ class UserTicketsViewModel constructor(
     val tickets: MutableLiveData<List<UserTicket>>
         get() = _tickets
 
+    private val _cancelTicketStatus = MutableLiveData<CancelTicketResponse>()
+    val cancelTicketStatus: MutableLiveData<CancelTicketResponse>
+        get() = _cancelTicketStatus
+
+    private val _page = MutableLiveData(0)
+    val page: LiveData<Int> = _page
+
+    private val _pageSize = MutableLiveData(5)
+    private val pageSize: LiveData<Int> = _pageSize
+
     init {
-        getUserTickets()
+        getUserTickets(false)
     }
 
-    fun getUserTickets() = viewModelScope.launch {
+    fun getUserTickets(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         ticketRepository
-            .getUserTickets(userDataStore.getToken())
+            .getUserTickets(userDataStore.getToken(), page.value!!, pageSize.value!!,forceOnline)
             .onSuccess {
                 updateLoading(false)
-                _tickets.value = it
+                _tickets.postValue(it)
             }
             .onFailure {
                 updateLoading(false)
                 handleException(it)
             }
+    }
+
+    fun cancelTicket(ticketId:String)= viewModelScope.launch {
+        updateLoading(true)
+        ticketRepository
+            .cancelTicket(userDataStore.getToken() , ticketId)
+            .onSuccess {
+                updateLoading(false)
+                _cancelTicketStatus.value = it
+
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+
+    }
+
+    fun nextTicketsPage() {
+        _page.value = _page.value?.plus(1)
+        getUserTickets(false)
+    }
+
+    fun getFirstPageUserTickets() {
+        _page.value = 0
+        getUserTickets(false)
     }
 }

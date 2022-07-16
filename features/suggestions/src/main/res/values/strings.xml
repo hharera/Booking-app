@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="submit">تأكيد</string>
+    <string name="feedback">الشكاوي والاقتراحات</string>
     <string name="suggestions">الأقتراحات</string>
 </resources>

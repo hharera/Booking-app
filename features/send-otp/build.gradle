@@ -4,3 +4,7 @@ dependencies {
 
     api project(Base.COMMON)
 }
+
+android {
+    namespace 'com.englizya.send_otp'
+}

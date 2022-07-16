@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
+import androidx.activity.addCallback
+import androidx.core.text.layoutDirection
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -14,8 +15,8 @@ import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.FragmentSelectTripBinding
 import com.englyzia.booking.BookingViewModel
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 class SelectTripFragment : BaseFragment() {
 
@@ -23,16 +24,14 @@ class SelectTripFragment : BaseFragment() {
     private lateinit var adapter: TripAdapter
     private val bookingViewModel: BookingViewModel by sharedViewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentSelectTripBinding.inflate(layoutInflater)
+        changeStatusBarColor(R.color.grey_100)
         return binding.root
     }
 
@@ -42,9 +41,8 @@ class SelectTripFragment : BaseFragment() {
         setupObservers()
         setupUI()
 
-        lifecycleScope.launch {
-            bookingViewModel.searchTrips()
-        }
+//        bookingViewModel.connectivity.value?.let { bookingViewModel.searchTrips(it) }
+        bookingViewModel.searchTrips(true)
     }
 
     private fun setupUI() {
@@ -52,28 +50,33 @@ class SelectTripFragment : BaseFragment() {
             emptyList(),
             bookingViewModel.source.value,
             bookingViewModel.destination.value,
+            selectedOfficeId = bookingViewModel.selectedBookingOffice.value?.bookingOffice?.officeId,
             onItemClicked = {
                 progressToSelectSeats(it)
             },
             onOfficeClicked = {
                 bookingViewModel.setSelectedBookingOffice(it)
             },
-            selectedStationTime = bookingViewModel.bookingOffice.value
+            selectedStationTime = bookingViewModel.selectedBookingOffice.value
         )
         binding.trips.adapter = adapter
     }
 
     private fun setupObservers() {
+//        connectionLiveData.observe(viewLifecycleOwner){
+//            bookingViewModel.updateConnectivity(it)
+//        }
         bookingViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
 
-        bookingViewModel.bookingOffice.observe(viewLifecycleOwner) {
+        bookingViewModel.selectedBookingOffice.observe(viewLifecycleOwner) {
             updateUI(it)
         }
 
         bookingViewModel.trips.observe(viewLifecycleOwner) {
-            updateUI(it)
+            if (it != null)
+                updateUI(it)
         }
     }
 
@@ -120,6 +123,8 @@ class SelectTripFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+
+
     }
 
     override fun onResume() {

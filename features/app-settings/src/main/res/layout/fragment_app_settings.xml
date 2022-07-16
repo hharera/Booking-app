@@ -45,9 +45,9 @@
 
     <TextView
         android:id="@+id/fromTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
+        android:layout_marginHorizontal="23dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/sf"
         android:text="@string/language"
@@ -57,10 +57,14 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
-    <RadioGroup
+    <GridLayout
+        android:id="@+id/languageGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="23dp"
+        android:background="@drawable/background_button_number"
+        android:columnCount="1"
         app:layout_constraintTop_toBottomOf="@+id/fromTextView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,12 +72,9 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginHorizontal="23dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/background_button_number"
             app:layout_constraintTop_toBottomOf="@+id/fromTextView">
 
             <TextView
-                android:id="@+id/imageView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -84,23 +85,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RadioButton
+                android:id="@+id/arabicRadioButton"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:textAlignment="textEnd"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey_250" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/english"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginHorizontal="23dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/background_button_number"
             app:layout_constraintTop_toBottomOf="@+id/fromTextView">
 
             <TextView
@@ -114,14 +118,28 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RadioButton
+                android:id="@+id/englishRadioButton"
                 android:layout_width="wrap_content"
+                android:clickable="false"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </RadioGroup>
+    </GridLayout>
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="23dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/background_button_submit"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

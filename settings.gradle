@@ -7,7 +7,7 @@ dependencyResolutionManagement {
         jcenter()
     }
 }
-rootProject.name = "Ticket-Client"
+rootProject.name = "Englizya-Bus"
 
 
 include ':app'
@@ -36,6 +36,7 @@ include ':features:location-update'
 include ':features:line-map'
 include ':features:user-data'
 include ':features:driver-review'
+
 
 include ':ui-components'
 include ':ui-components:no-internet'
@@ -76,5 +77,11 @@ include ':features:booking-payment'
 include ':core:paytabs'
 include ':features:user-tickets'
 include ':common-test'
-//include ':common-compose'
+include ':common-compose'
 include ':navigation:user-tickets'
+include ':features:terms-conditions'
+include ':features:contact-us'
+include ':features:about-us'
+include ':features:privacy-policy'
+include ':features:charging'
+include ':features:offers'

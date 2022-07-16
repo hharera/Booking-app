@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.lifecycleScope
+import android.widget.ListPopupWindow
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.englizya.booking.databinding.FragmentBookingBinding
 import com.englizya.common.base.BaseFragment
@@ -17,15 +18,22 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Station
 import com.englyzia.booking.BookingViewModel
+import com.englyzia.booking.utils.BookingType
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.coroutines.launch
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class BookingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentBookingBinding
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var destinationAdapter: ArrayAdapter<String>
+    private lateinit var sourceAdapter: ArrayAdapter<String>
     private val bookingViewModel: BookingViewModel by sharedViewModel()
+    private val roundDiscountDialog: RoundDiscountDialog by lazy {
+        RoundDiscountDialog()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +44,9 @@ class BookingFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBookingBinding.inflate(layoutInflater)
-        changeStatusBarColor(R.color.grey_100)
+        changeStatusBarColor(R.color.blue_600)
         return binding.root
     }
 
@@ -48,18 +57,12 @@ class BookingFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
-        binding.source.setOnItemClickListener { adapterView, view, i, l ->
-            adapterView.adapter.getItem(i).toString().let {
-                Log.d(TAG, "setupListeners: $it")
-                bookingViewModel.setSource(it)
-            }
+        activity?.onBackPressedDispatcher?.addCallback {
+            activity?.viewModelStore?.clear()
         }
 
-        binding.destination.setOnItemClickListener { adapterView, view, i, l ->
-            adapterView.adapter.getItem(i).toString().let {
-                Log.d(TAG, "setupListeners: $it")
-                bookingViewModel.setDestination(it)
-            }
+        binding.swap.setOnClickListener {
+            bookingViewModel.swapStations()
         }
 
         binding.dateConstraintLayout.setOnClickListener {
@@ -69,29 +72,47 @@ class BookingFragment : BaseFragment() {
         binding.search.setOnClickListener {
             progressToSelectTrip()
         }
+
+        binding.oneWayTrip.setOnClickListener {
+            bookingViewModel.setBookingType(BookingType.OneWayBooking)
+            updateUI(BookingType.OneWayBooking)
+        }
+
+        binding.roundTrip.setOnClickListener {
+            bookingViewModel.setBookingType(BookingType.RoundBooking)
+            updateUI(BookingType.RoundBooking)
+        }
+    }
+
+    private fun updateUI(bookingType: BookingType) {
+        when (bookingType) {
+            BookingType.RoundBooking -> {
+                binding.oneWayTrip.setBackgroundResource(R.drawable.background_unselected_reservation_type)
+                binding.roundTrip.setBackgroundResource(R.drawable.background_selected_reservation_type)
+                showRoundDiscountDialog()
+            }
+
+            BookingType.OneWayBooking -> {
+                binding.roundTrip.setBackgroundResource(R.drawable.background_unselected_reservation_type)
+                binding.oneWayTrip.setBackgroundResource(R.drawable.background_selected_reservation_type)
+            }
+        }
+    }
+
+    private fun showRoundDiscountDialog() {
+        if (roundDiscountDialog.isAdded.not())
+            roundDiscountDialog.show(childFragmentManager, "RoundDialog")
     }
 
     private fun progressToSelectTrip() {
         findNavController().navigate(
-            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.SELECT_TRIP, null)
+            NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.SELECT_TRIP, false)
         )
     }
 
     private fun setupObservers() {
         bookingViewModel.formValidity.observe(viewLifecycleOwner) {
             binding.search.isEnabled = it.formIsValid
-
-            if (null != it.sourceError) {
-                binding.source.setError(getString(it.sourceError!!))
-            } else {
-                binding.source.error = null
-            }
-
-            if (null != it.destinationError) {
-                binding.destination.setError(getString(it.destinationError!!))
-            } else {
-                binding.destination.error = null
-            }
         }
 
         bookingViewModel.date.observe(viewLifecycleOwner) {
@@ -100,37 +121,55 @@ class BookingFragment : BaseFragment() {
 
         bookingViewModel.source.observe(viewLifecycleOwner) {
             it.branchName?.let {
-                binding.destination.setText(it)
+                binding.source.setText(it)
             }
         }
 
         bookingViewModel.destination.observe(viewLifecycleOwner) {
             it.branchName?.let {
-                binding.source.setText(it)
+                binding.destination.setText(it)
             }
         }
 
         bookingViewModel.stations.observe(viewLifecycleOwner) {
             updateUI(it)
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
     private fun updateUI(it: List<Station>) {
-        adapter = ArrayAdapter<String>(
+        sourceAdapter = ArrayAdapter<String>(
             requireContext(),
             R.layout.card_view_station,
             R.id.station,
             it.map { it.branchName }
         )
 
-        binding.source.setAdapter(adapter)
-        binding.destination.setAdapter(adapter)
+        destinationAdapter = ArrayAdapter<String>(
+            requireContext(),
+            R.layout.card_view_station,
+            R.id.station,
+            it.map { it.branchName }
+        )
+
+        binding.fromConstraintLayout.setOnClickListener {
+            bookingViewModel.getStations()
+            showSourceMenu(it)
+        }
+
+        binding.constraintLayout.setOnClickListener {
+            bookingViewModel.getStations()
+            showDestinationMenu(it)
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        lifecycleScope.launch { bookingViewModel.getBookingOffices() }
+        bookingViewModel.getBookingOffices()
     }
 
     private fun showDatePickerDialog() {
@@ -138,6 +177,13 @@ class BookingFragment : BaseFragment() {
             MaterialDatePicker
                 .Builder
                 .datePicker()
+                .setCalendarConstraints(
+                    CalendarConstraints
+                        .Builder()
+                        .setStart(DateTime.now().millis)
+                        .setEnd(DateTime.now().plusWeeks(1).millis)
+                        .build()
+                )
                 .setTitleText(getString(R.string.select_trip_date))
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
@@ -148,5 +194,37 @@ class BookingFragment : BaseFragment() {
             bookingViewModel.setDate(time)
         }
         datePicker.show(childFragmentManager, "DATE")
+    }
+
+    private fun showDestinationMenu(view: View) {
+        ListPopupWindow(context!!).apply {
+            setAdapter(destinationAdapter)
+            anchorView = view
+
+            setOnItemClickListener { adapterView, view, i, l ->
+                adapterView.adapter.getItem(i).toString().let {
+                    bookingViewModel.setDestination(it)
+                }
+                dismiss()
+            }
+
+            show()
+        }
+    }
+
+    private fun showSourceMenu(view: View) {
+        ListPopupWindow(context!!).apply {
+            setAdapter(destinationAdapter)
+            anchorView = view
+
+            setOnItemClickListener { adapterView, view, i, l ->
+                adapterView.adapter.getItem(i).toString().let {
+                    bookingViewModel.setSource(it)
+                }
+                dismiss()
+            }
+
+            show()
+        }
     }
 }

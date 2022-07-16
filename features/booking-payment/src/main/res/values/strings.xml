@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="payment_checkout">Payment checkout</string>
-    <string name="transaction_error">Transaction error</string>
-    <string name="payment_cancelled">Payment canceled</string>
-    <string name="payment_failed">Payment failed</string>
+    <string name="payment_checkout">اتمام الدفع</string>
+    <string name="transaction_error">خطأ في المعاملة</string>
+    <string name="payment_cancelled">تم إلغاء الدفع</string>
+    <string name="payment_failed">عملية الدفع فشلت</string>
+    <string name="card_payment">ادفع ببطاقة الائتمان / الخصم</string>
+    <string name="wallet_payment">ادفع باستخدام محفظتك</string>
+    <string name="summary">ملخص الإيصال</string>
+    <string name="cards_method">بطاقة دفع</string>
+    <string name="englizya_wallet">محفظتك</string>
+    <string name="payment_methods">طرق الدفع</string>
+    <string name="off_percentage">20%\nخصم</string>
+    <string name="off_details">احصل على خصم 20٪ على التذاكر\n عند استخدام محفظة الاشتراكات</string>
+    <string name="wallet_discount_txt">قيمة خصم المحفظة</string>
+    <string name="round_discount_txt">خصم الذهاب و العودة</string>
+
+    <string name="total">الإجمالي</string>
+    <string name="sub_total">الإجمالى قبل الخصم</string>
+    <string name="ok_text">حسناً</string>
+    <string name="no_balance_dialog_title">ليس لديك رصيد كافى</string>
+    <string name="no_balance_dialog_message">لا يوجد رصيد كافى بحسابكم لاتمام عملية الدفع</string>
+    <string name="charge_text">شحن</string>
+    <string name="dialog_message" formatted="true">سيتم خصم %1$s ج تكلفة التذكرة من رصيدكم</string>
+    <string name="dialog_title">تأكيد</string>
+    <string name="ok_btn">حسناً</string>
+    <string name="cancel_btn">إلغاء</string>
+    <string name="payment_info_txt">
+    <li>عند الضغط على زر الدفع سيتم تحويلك إلى المتصفح </li>
+    \n\n <li>اضغط على Pay Now ثم اختار الدفع بميزة</li>
+    \n\n <li>اكمل بياناتك الشخصية ثم اضغط على Pay Now</li>
+    \n\n <li>امسح ال QR Code الذى سيظهر لك باستخدام تطبيق الشبكة الخاصة بيك </li>
+</string>
+
 </resources>

@@ -3,26 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="100dp"
     android:layout_height="wrap_content"
+    app:cardElevation="0dp"
+    android:minHeight="@dimen/_60sdp"
+    android:maxHeight="@dimen/_100sdp"
     android:padding="6dp"
     android:id="@+id/card"
-    android:layout_margin="4dp"
+    android:layout_marginVertical="4dp"
+    android:layout_marginEnd="4dp"
     android:backgroundTint="@color/grey_100"
     android:elevation="0dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_60sdp"
+        android:background="@color/grey_100"
+        android:id="@+id/card_constraint_layout"
+        android:maxHeight="@dimen/_100sdp">
 
         <TextView
             android:id="@+id/textView_stop_station_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="4dp"
             android:fontFamily="@font/sf"
             android:gravity="center"
             android:padding="4dp"
+            android:textAlignment="center"
             android:text="Lorem Lorem Lorem \n05:00 am"
             android:textColor="@color/blue_500"
             android:textSize="11sp"

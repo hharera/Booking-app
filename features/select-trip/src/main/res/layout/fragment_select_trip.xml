@@ -75,14 +75,42 @@
         android:id="@+id/trips"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layoutDirection="ltr"
+        android:nestedScrollingEnabled="true"
         android:orientation="vertical"
         android:paddingHorizontal="23dp"
         android:paddingTop="7dp"
+        android:paddingBottom="50dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar"
         tools:listitem="@layout/card_view_trip" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="40dp"
+        app:contentPadding="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
     <include
         android:id="@+id/emptyView"

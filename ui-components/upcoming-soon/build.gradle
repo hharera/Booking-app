@@ -2,3 +2,7 @@ apply from: "$rootDir/${CommonBuild.UI_MODULE}"
 
 dependencies {
 }
+
+android {
+    namespace 'com.englizya.comming_soon'
+}

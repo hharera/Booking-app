@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 }
 apply plugin: 'kotlin-kapt'
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
@@ -16,6 +17,13 @@ android {
         versionCode Releases.versionCode
         versionName Releases.versionName
 
+        def secretsPropertiesFile = rootProject.file("secrets.properties")
+        def secretsProperties = new Properties()
+        secretsProperties.load(new FileInputStream(secretsPropertiesFile))
+        defaultConfig {
+            buildConfigField("String", "SECRET_KEY", secretsProperties['SECRET_KEY'])
+            buildConfigField("String", "APP_CENTER", secretsProperties['APP_CENTER'])
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,6 +34,21 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.2.0-beta01'
+    }
+
     signingConfigs {
         release {
             storeFile file("$rootDir/englizya.jks")
@@ -42,6 +65,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.englizya.client.ticket'
 }
 
 dependencies {

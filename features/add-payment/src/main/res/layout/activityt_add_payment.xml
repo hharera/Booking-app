@@ -37,7 +37,7 @@
         android:id="@+id/textViewPleaseEnterPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
+        android:layout_marginHorizontal="23dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="47dp"
         android:fontFamily="@font/sf"
@@ -159,9 +159,9 @@
 
     <TextView
         android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
+        android:layout_marginHorizontal="23dp"
         android:layout_marginTop="9dp"
         android:fontFamily="@font/sf"
         android:text="@string/card_owner"
@@ -171,7 +171,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewPleaseEnterPassword" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutName"
+        android:id="@+id/textInputLayoutCardOwner"
         style="@style/MainInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
 
     <TextView
         android:id="@+id/textViewConfirmPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginTop="13dp"
@@ -205,7 +205,7 @@
         android:textColor="#303030"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCardOwner" />
 
 
     <com.google.android.material.textfield.TextInputLayout

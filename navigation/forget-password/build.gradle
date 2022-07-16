@@ -9,3 +9,7 @@ dependencies {
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)
 }
+
+android {
+    namespace 'com.englizya.navigation.forget_password'
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="payment_checkout">اتمام الدفع</string>
+    <string name="transaction_error">خطأ في المعاملة</string>
+    <string name="payment_cancelled">تم إلغاء الدفع</string>
+    <string name="payment_failed">عملية الدفع فشلت</string>
+</resources>

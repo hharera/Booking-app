@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.base.BaseFragment
-import com.englizya.navigation.booking.BookingActivity
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.select_service.databinding.ActivitySelectServiceBinding
 
@@ -32,18 +31,18 @@ class SelectServiceActivity : BaseActivity() {
         }
 
         binding.longTransportationService.setOnClickListener {
-            progressToBookingActivity()
+//            progressToBookingActivity()
         }
     }
 
-    private fun progressToBookingActivity() {
-        val intent = Intent(
-            this,
-            BookingActivity::class.java
-        )
-
-        startActivity(intent)
-    }
+//    private fun progressToBookingActivity() {
+//        val intent = Intent(
+//            this,
+//            BookingActivity::class.java
+//        )
+//
+//        startActivity(intent)
+//    }
 
     private fun progressToHomeActivity() {
         val intent = Intent(

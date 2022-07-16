@@ -1,9 +1,27 @@
 package com.englizya.local.di
 
 import androidx.room.Room
-import com.englizya.local.TicketDao
-import com.englizya.local.TicketDatabase
+import com.englizya.local.ExternalRoutes.ExternalRoutesDao
+import com.englizya.local.ExternalRoutes.ExternalRoutesDatabase
+import com.englizya.local.InternalRoutes.InternalRoutesDao
+import com.englizya.local.InternalRoutes.InternalRoutesDatabase
+import com.englizya.local.Offers.OfferDao
+import com.englizya.local.Offers.OfferDatabase
+import com.englizya.local.Ticket.TicketDao
+import com.englizya.local.Ticket.TicketDatabase
+import com.englizya.local.Trip.TripDao
+import com.englizya.local.Trip.TripDatabase
+import com.englizya.local.User.UserDao
+import com.englizya.local.User.UserDatabase
+import com.englizya.local.announcement.AnnouncementDao
+import com.englizya.local.announcement.AnnouncementDatabase
+import com.englizya.local.utils.Constants.ANNOUNCEMENT_DATA_BASE
+import com.englizya.local.utils.Constants.EXTERNAL_ROUTES_DATA_BASE
+import com.englizya.local.utils.Constants.INTERNAL_ROUTES_DATA_BASE
+import com.englizya.local.utils.Constants.OFFER_DATA_BASE
 import com.englizya.local.utils.Constants.TICKET_DATA_BASE
+import com.englizya.local.utils.Constants.TRIP_DATA_BASE
+import com.englizya.local.utils.Constants.USER_DATA_BASE
 import org.koin.dsl.module
 
 
@@ -15,5 +33,50 @@ val databaseModule = module {
 
     single<TicketDao> {
         get<TicketDatabase>().getMarketDao()
+    }
+
+
+    single<UserDatabase> {
+        Room.databaseBuilder(get(), UserDatabase::class.java, USER_DATA_BASE).build()
+    }
+
+    single<UserDao> {
+        get<UserDatabase>().getMarketDao()
+    }
+
+    single<OfferDao> {
+        get<OfferDatabase>().getMarketDao()
+    }
+    single<OfferDatabase> {
+        Room.databaseBuilder(get(), OfferDatabase::class.java, OFFER_DATA_BASE).build()
+    }
+    single<AnnouncementDao> {
+        get<AnnouncementDatabase>().getMarketDao()
+    }
+    single<AnnouncementDatabase> {
+        Room.databaseBuilder(get(), AnnouncementDatabase::class.java, ANNOUNCEMENT_DATA_BASE)
+            .build()
+    }
+    single<InternalRoutesDao> {
+        get<InternalRoutesDatabase>().getMarketDao()
+    }
+    single<InternalRoutesDatabase> {
+        Room.databaseBuilder(get(), InternalRoutesDatabase::class.java, INTERNAL_ROUTES_DATA_BASE)
+          .build()
+    }
+
+    single<ExternalRoutesDao> {
+        get<ExternalRoutesDatabase>().getMarketDao()
+    }
+    single<ExternalRoutesDatabase> {
+        Room.databaseBuilder(get(), ExternalRoutesDatabase::class.java, EXTERNAL_ROUTES_DATA_BASE)
+          .build()
+    }
+    single<TripDao> {
+        get<TripDatabase>().getMarketDao()
+    }
+    single<TripDatabase> {
+        Room.databaseBuilder(get(), TripDatabase::class.java, TRIP_DATA_BASE)
+            .build()
     }
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_booking"
         android:name="com.englizya.booking.BookingFragment"
-        tools:layout="@layout/fragment_booking">
+        tools:layout="@layout/activity_booking">
 
         <deepLink app:uri="EnglizyaPay://booking" />
     </fragment>
@@ -26,8 +26,7 @@
         android:name="com.englizya.select_trip.SelectTripFragment"
         tools:layout="@layout/fragment_select_trip">
 
-        <argument android:name="arg" />
-        <deepLink app:uri="EnglizyaPay://select-trip/{arg}" />
+        <deepLink app:uri="EnglizyaPay://select-trip" />
     </fragment>
 
     <fragment
@@ -53,5 +52,12 @@
 
         <deepLink app:uri="EnglizyaPay://booking-payment" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_recharging"
+        android:name="com.englizya.charging.RechargingFragment"
+        tools:layout="@layout/fragment_recharging">
 
+        <argument android:name="redirect" />
+        <deepLink app:uri="EnglizyaPay://recharging/{redirect}" />
+    </fragment>
 </navigation>

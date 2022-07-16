@@ -9,8 +9,6 @@ android {
     defaultConfig {
         minSdkVersion DefaultConfig.minSdk
         targetSdkVersion DefaultConfig.targetSdk
-        versionCode Releases.versionCode
-        versionName Releases.versionName
 
     }
 
@@ -21,21 +19,13 @@ android {
     }
 
     kotlinOptions.jvmTarget = "1.8"
-
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'META-INF/AL2.0'
-        exclude "META-INF/*.kotlin_module"
-        exclude 'META-INF/proguard/androidx-annotations.pro'
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/license.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt', 'META-INF/notice.txt', 'META-INF/ASL2.0', 'META-INF/LGPL2.1', 'META-INF/AL2.0', 'META-INF/*.kotlin_module', 'META-INF/proguard/androidx-annotations.pro']
+        }
     }
+
+    namespace 'com.englizya.common'
 }
 
 dependencies {
@@ -43,6 +33,7 @@ dependencies {
     api project(Data.model)
 
     implementation(Animation.LOTTIE)
+    implementation project(path: ':data:local:room')
     testImplementation Testing.junit4
 
     implementation(Libs.viewModels)
@@ -63,5 +54,10 @@ dependencies {
     testImplementation(Testing.coroutinesTest)
     testImplementation(Testing.androidCoreTesting)
 
+    implementation(Libs.navigationFragment)
+    implementation "com.github.blennerSilva:AwesomeDialog:2.0.5"
+    api BarCode.zxingEmbedded
+
     api(Libs.jodaTime)
+    api(Encryption.Jaspyt)
 }

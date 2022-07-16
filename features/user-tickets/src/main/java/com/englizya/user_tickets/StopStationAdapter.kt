@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.englizya.common.utils.time.TimeOnly
-import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.TripTimes
 import com.englizya.user_tickets.databinding.CardViewStopStationBinding
 

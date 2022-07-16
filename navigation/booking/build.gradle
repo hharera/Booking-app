@@ -1,16 +1,25 @@
-apply from: "$rootDir/${CommonBuild.FeatureModule}"
+apply from: "$rootDir/${CommonBuild.NavigationModule}"
 
 dependencies {
     api(project(Base.COMMON))
     api(project(Feature.BOOKING))
+    api(project(Feature.OFFERS))
     api(project(Feature.SELECT_TRIP))
     api(project(Feature.SELECT_STATION))
     api(project(Feature.SELECT_SEAT))
     api(project(Feature.BOOKING_PAYMENT))
     api(project(Feature.USER_TICKETS))
+    api(project(Feature.RECHARGING))
+
 
     api(project(UiComponents.BOOKING))
 
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)
+}
+
+android {
+    namespace 'com.englizya.feature.ticket.navigation.booking'
+
+
 }

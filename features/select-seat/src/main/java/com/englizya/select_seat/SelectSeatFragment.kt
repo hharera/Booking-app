@@ -1,6 +1,11 @@
 package com.englizya.select_seat
 
+import android.graphics.Paint
 import android.os.Bundle
+import android.text.Spannable
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +20,17 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.model.Seat
+import com.englizya.model.model.ServiceDegree
 import com.englizya.model.model.Trip
+import com.englizya.select_seat.BusSeats.BUS_TYPE_28_SEATS
+import com.englizya.select_seat.BusSeats.BUS_TYPE_32_SEATS
+import com.englizya.select_seat.BusSeats.BUS_TYPE_49_SEATS
 import com.englizya.select_seat.databinding.FragmentSelectSeatBinding
 import com.englyzia.booking.BookingViewModel
+import com.englyzia.booking.utils.BookingType
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import kotlin.time.times
 
 class SelectSeatFragment : BaseFragment() {
 
@@ -36,6 +47,106 @@ class SelectSeatFragment : BaseFragment() {
     }
 
     private fun insertSeatViews(seatList: List<Seat>) {
+        if (seatList.size == BUS_TYPE_49_SEATS) {
+            spreadBus_49_SeatsView(seatList)
+        } else if (seatList.size == BUS_TYPE_32_SEATS) {
+            spreadMiniBus_32_SeatsView(seatList)
+        } else if (seatList.size == BUS_TYPE_28_SEATS) {
+            spreadMiniBus_28_SeatsView(seatList)
+        }
+    }
+
+    private fun spreadMiniBus_32_SeatsView(seatList: List<Seat>) {
+        val iterator = seatList.iterator()
+
+        for (position in 0..44) {
+            val image = TextView(context).apply {
+                setTextColor(resources.getColor(R.color.white))
+                gravity = Gravity.CENTER
+                textSize = 14f
+            }
+
+            binding.seats.addView(image)
+
+            when (position) {
+                in (0..4) -> {
+                    if (position % 5 == 0) {
+                        image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 3) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 4) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                in (5..9) -> {
+                    if (position % 5 == 0) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 1) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 4) {
+                        image.setBackgroundResource(R.drawable.ic_door)
+                    }
+                }
+
+                in (10..40) -> {
+                    if (position % 5 != 2) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                else -> {
+                    updateSeatView(image, iterator.next())
+                }
+            }
+        }
+    }
+
+    private fun spreadMiniBus_28_SeatsView(seatList: List<Seat>) {
+        val iterator = seatList.iterator()
+
+        for (position in 0..39) {
+            val image = TextView(context).apply {
+                setTextColor(resources.getColor(R.color.white))
+                gravity = Gravity.CENTER
+                textSize = 14f
+            }
+
+            binding.seats.addView(image)
+
+            when (position) {
+                in (0..4) -> {
+                    if (position % 5 == 0) {
+                        image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
+                    } else if (position % 5 == 4) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                in (5..9) -> {
+                    if (position % 5 == 0) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 1) {
+                        updateSeatView(image, iterator.next())
+                    } else if (position % 5 == 4) {
+                        image.setBackgroundResource(R.drawable.ic_door)
+                    }
+                }
+
+                in (10..35) -> {
+                    if (position % 5 != 2) {
+                        updateSeatView(image, iterator.next())
+                    }
+                }
+
+                else -> {
+                    updateSeatView(image, iterator.next())
+                }
+            }
+        }
+    }
+
+    private fun spreadBus_49_SeatsView(seatList: List<Seat>) {
         val iterator = seatList.iterator()
 
         for (position in 0..64) {
@@ -52,7 +163,7 @@ class SelectSeatFragment : BaseFragment() {
                     if (position % 5 == 0) {
                         image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
                     } else if (position % 5 == 4) {
-                        image.setBackgroundResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_door)
                     }
                 }
 
@@ -95,15 +206,17 @@ class SelectSeatFragment : BaseFragment() {
 
         image.setOnClickListener {
             if (isAvailable) {
-                bookingViewModel.setSelectedSeat(seat)
+                bookingViewModel.setSelectedSeat(seat).also {
+                    isSelected = it
 
-                if (isSelected) {
-                    image.setBackgroundResource(R.drawable.ic_seat_available)
-                } else {
-                    image.setBackgroundResource(R.drawable.ic_seat_selected)
+
+                    if (isSelected) {
+                        image.setBackgroundResource(R.drawable.ic_seat_available)
+                    } else {
+                        image.setBackgroundResource(R.drawable.ic_seat_selected)
+                    }
                 }
-
-                isSelected = isSelected.not()
+                //isSelected = isSelected.not()
             }
         }
 
@@ -115,7 +228,7 @@ class SelectSeatFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bookingViewModel.clearSelectSeats()
+        // bookingViewModel.clearSelectSeats()
 
         setupObservers()
         setupListeners()
@@ -141,7 +254,7 @@ class SelectSeatFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.back.setOnClickListener {
-            findNavController().popBackStack()
+            parentFragmentManager.popBackStack()
         }
 
         binding.submit.setOnClickListener {
@@ -169,7 +282,38 @@ class SelectSeatFragment : BaseFragment() {
         }
 
         bookingViewModel.total.observe(viewLifecycleOwner) {
-            binding.price.text = it.toString()
+
+            if (bookingViewModel.bookingType.value == BookingType.RoundBooking) {
+                binding.priceBeforeDiscount.setText(
+                    it.times(2).toString(),
+                    TextView.BufferType.SPANNABLE
+                )
+                val STRIKE_THROUGH_SPAN = StrikethroughSpan()
+                val spannable: Spannable = binding.priceBeforeDiscount.text as Spannable
+                binding.priceBeforeDiscount.length().let { it1 ->
+                    spannable.setSpan(
+                        STRIKE_THROUGH_SPAN,
+                        0,
+                        it1,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                binding.priceBeforeDiscount.text = spannable
+                if (bookingViewModel.totalAfterDiscount.value != null) {
+                    binding.price.text = bookingViewModel.totalAfterDiscount.value.toString()
+
+                }
+//              else{
+//                  binding.price.text = 0.0.toString()
+//
+//              }
+
+            } else {
+                binding.priceBeforeDiscount.visibility = View.GONE
+                binding.price.text = it.toString()
+
+
+            }
         }
 
         bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
@@ -177,15 +321,23 @@ class SelectSeatFragment : BaseFragment() {
             updateTimeUI(it)
         }
 
-        lifecycleScope.launch {
-            bookingViewModel.reservationOrder.collect {
-                it?.let {
-                    progressToPayment()
-                }
+        bookingViewModel.reservationOrder.observe(viewLifecycleOwner) {
+            it?.let {
+                progressToPayment()
             }
         }
 
         bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
+            if (it.size > 6) {
+                showToast(getString(R.string.seatLimit))
+            }
+            if (it.isNotEmpty()) {
+                binding.priceBeforeDiscount.visibility = View.VISIBLE
+
+            } else {
+                binding.priceBeforeDiscount.visibility = View.GONE
+
+            }
             binding.submit.isEnabled = it.isNotEmpty()
         }
 
@@ -193,6 +345,9 @@ class SelectSeatFragment : BaseFragment() {
             handleLoading(it)
         }
 
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
 
@@ -218,12 +373,18 @@ class SelectSeatFragment : BaseFragment() {
         trip.reservations.firstOrNull()?.seats?.let {
             insertSeatViews(it)
             updateUI(date = trip.reservations.firstOrNull()?.date)
+            updateUI(trip.service)
         }
     }
 
+    private fun updateUI(service: ServiceDegree?) {
+        binding.serviceDegree.text = service?.serviceDegreeName.toString()
+    }
+
+
     override fun onResume() {
         super.onResume()
-
+        bookingViewModel.clearSelectSeats()
         restoreValues()
     }
 

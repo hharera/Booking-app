@@ -1,6 +1,12 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     implementation("io.github.g0dkar:qrcode-kotlin:1.1.0")
+    implementation(Animation.LOTTIE)
+}
+
+android {
+    namespace 'com.englizya.user_tickets'
 }

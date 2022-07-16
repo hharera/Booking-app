@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="my_tickets">My Tickets</string>
+    <string name="we_are_sorry">نحن آسفون ، لكن لم نتمكن من العثور على أي رحلات تطابق معايير البحث الخاصة بك. يرجى المحاولة مرة أخرى.</string>
+    <string name="riding_station">محطة الركوب</string>
+    <string name="riding_time">وقت الركوب</string>
+    <string name="exit_time">وقت التحرك</string>
+    <string name="my_tickets">تذاكري</string>
+    <string name="tickets_info">" اعرض التذكرة على السائق حتى يتمكن من قراءة الكود و طباعة التذكرة"</string>
+    <string name="go_book">احجز تذكرة</string>
+    <string name="empty">لا يوجد لديك تذاكر</string>
+
 </resources>

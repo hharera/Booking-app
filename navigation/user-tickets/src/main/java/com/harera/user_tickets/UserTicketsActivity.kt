@@ -14,4 +14,8 @@ class UserTicketsActivity : BaseActivity() {
         binding = ActivityUserTicketsBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
 }

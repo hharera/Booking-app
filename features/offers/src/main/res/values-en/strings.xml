@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offers">Offers</string>
+    <string name="offerStartDate">Offer Start Date: </string>
+    <string name="offerEndDate">Offer End Date: </string>
+    <string name="offerDiscount">Discount : </string>
+</resources>

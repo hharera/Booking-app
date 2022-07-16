@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="log_in_to_your_existing_account">تسجيل دخول الي حسابك الحالي</string>
+    <string name="contact_phone_number">رقم الهاتف</string>
+    <string name="welcome_back">مرحبًا بك مرة أخرى!</string>
+    <string name="log_in">تسجيل الدخول</string>
+    <string name="not_have_an_account">"ليس لديك حساب؟ "</string>
+    <string name="phone_number_not_valid">رقم غير صحيح يجب ان يبدأ ب 01 ويتكون من 11 رقم</string>
+    <string name="forget_password">" هل نسيت كلمة المرور؟"</string>
+    <string name="signup">تسجيل</string>
+    <string name="password_should_be_not_empty">كلمة المرور مطلوبة</string>
+    <string name="password_not_vlid">يجب أن تكون كلمة المرور بين 8 و 40 حرفًا</string>
+    <string name="create_new_account">إنشاء حساب جديد</string>
+</resources>

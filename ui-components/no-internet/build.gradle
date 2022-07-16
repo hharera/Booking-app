@@ -8,3 +8,7 @@ dependencies {
     implementation project(Data.REPOSITORY)
     implementation project(Base.COMMON)
 }
+
+android {
+    namespace 'com.englizya.feature.ticket.no_internet'
+}

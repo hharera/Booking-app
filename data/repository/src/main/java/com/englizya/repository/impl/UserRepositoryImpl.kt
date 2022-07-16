@@ -1,11 +1,14 @@
 package com.englizya.repository.impl
 
 import com.englizya.api.UserService
+import com.englizya.local.User.UserDao
 import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.ResetPasswordRequest
 import com.englizya.model.request.SignupRequest
+import com.englizya.model.request.UserEditRequest
 import com.englizya.model.response.LoginResponse
+import com.englizya.model.response.UserEditResponse
 import com.englizya.repository.UserRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
@@ -14,6 +17,7 @@ import java.util.concurrent.TimeUnit
 class UserRepositoryImpl constructor(
     private val userService: UserService,
     private val auth: FirebaseAuth,
+    private val userDao: UserDao,
 ) : UserRepository {
 
     override suspend fun login(request: LoginRequest): Result<LoginResponse> = runCatching {
@@ -24,12 +28,31 @@ class UserRepositoryImpl constructor(
 
     override fun signOut() = auth.signOut()
 
-    override suspend fun fetchUser(token : String): Result<User> = kotlin.runCatching {
-        userService.getUser(token)
+    override suspend fun getUser(token: String, forceOnline: Boolean): Result<User> =
+        kotlin.runCatching {
+            if (forceOnline) {
+                userService.getUser(token).also {
+                    userDao.insertUser(it)
+                }
+            } else {
+                userDao.getUser()
+            }
+        }
+
+    override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any> =
+        kotlin.runCatching {
+            userService.resetPassword(resetPasswordRequest)
+        }
+
+    override suspend fun insertUser(user: User): Result<Any> = kotlin.runCatching {
+        userDao.insertUser(user)
     }
 
-    override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any> = kotlin.runCatching {
-        userService.resetPassword(resetPasswordRequest)
+    override suspend fun updateUser(
+        token: String,
+        request: UserEditRequest
+    ): Result<UserEditResponse> = kotlin.runCatching {
+        userService.updateUser(token, request)
     }
 
     override fun signInWithCredential(credential: PhoneAuthCredential) =

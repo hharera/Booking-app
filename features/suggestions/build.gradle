@@ -4,3 +4,7 @@ dependencies {
     implementation Libs.playServicesTasks
 
 }
+
+android {
+    namespace 'com.englizya.suggestions'
+}

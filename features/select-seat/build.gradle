@@ -4,3 +4,7 @@ dependencies {
     api project(UiComponents.BOOKING)
     implementation 'com.github.murgupluoglu:seatview-android:2.0.0'
 }
+
+android {
+    namespace 'com.englizya.select_seat'
+}

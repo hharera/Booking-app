@@ -43,6 +43,10 @@ class ForgetPasswordFragment : BaseFragment() {
         forgetPasswordViewModel.phoneNumberValidity.observe(viewLifecycleOwner) {
             binding.next.isEnabled = (it)
         }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
+        }
     }
 
 

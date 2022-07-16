@@ -7,3 +7,7 @@ dependencies {
     api(Libs.googlePlaces)
     api(Libs.searchBar)
 }
+
+android {
+    namespace 'com.englizya.select_location'
+}

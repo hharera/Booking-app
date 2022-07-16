@@ -2,14 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    app:cardElevation="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="9dp"
-    android:backgroundTint="@color/grey_100">
+    app:cardBackgroundColor="@color/grey_100">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_background_ticket"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_ticket"
         android:padding="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,128 +118,250 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <GridLayout
+        <HorizontalScrollView
             android:id="@+id/details"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:columnCount="2"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:background="@drawable/background_text_service"
-                android:padding="4dp">
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_calendar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/trip_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf"
-                    android:padding="4dp"
-                    android:text="11 March 2022"
-                    android:textColor="@color/blue_500"
-                    app:background="@drawable/background_text_service"
-                    app:icon="@drawable/ic_calendar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/service_degree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_margin="4dp"
-                android:background="@drawable/background_text_service"
-                android:fontFamily="@font/sf"
-                android:padding="8dp"
-                android:text="VIP"
-                android:textColor="@color/blue_500" />
-
-            <TextView
-                android:id="@+id/seat_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_margin="4dp"
-                android:background="@drawable/background_text_service"
-                android:fontFamily="@font/sf"
-                android:padding="8dp"
-                android:text="Seat 100004"
-                android:textColor="@color/blue_500" />
-
-            <TextView
-                android:id="@+id/trio_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:background="@drawable/background_text_service"
-                android:fontFamily="@font/sf"
-                android:padding="8dp"
-                android:text="Trip 100004"
-                android:textColor="@color/blue_500" />
-        </GridLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/stations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_marginTop="11dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cancelBtn">
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_text_service"
+                    android:padding="4dp">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/trip_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf"
+                        android:padding="4dp"
+                        android:text="11 March 2022"
+                        android:textColor="@color/blue_500"
+                        app:background="@drawable/background_text_service"
+                        app:icon="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/service_degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_text_service"
+                    android:fontFamily="@font/sf"
+                    android:padding="8dp"
+                    android:text="VIP"
+                    android:textColor="@color/blue_500" />
+
+                <TextView
+                    android:id="@+id/trio_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_text_service"
+                    android:fontFamily="@font/sf"
+                    android:padding="8dp"
+                    android:text="#Trip 100004"
+                    android:textColor="@color/blue_500" />
+
+                <TextView
+                    android:id="@+id/seat_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_text_service"
+                    android:fontFamily="@font/sf"
+                    android:padding="8dp"
+                    android:text="#Seat 100004"
+                    android:textColor="@color/blue_500" />
+
+                <TextView
+                    android:id="@+id/ticket_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/background_text_service"
+                    android:fontFamily="@font/sf"
+                    android:padding="8dp"
+                    android:text="#Ticket 100004"
+                    android:textColor="@color/blue_500" />
+            </GridLayout>
+        </HorizontalScrollView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/selected_station"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@color/grey_100"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details"
-            tools:listitem="@layout/card_view_stop_station" />
+            tools:listitem="@layout/card_view_stop_station">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/imageView_station"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_unselected_station"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/next_station"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:fontFamily="@font/sf"
+                        android:text="@string/riding_station"
+                        android:textColor="@color/blue_500"
+                        app:layout_constraintStart_toEndOf="@+id/imageView_station"
+                        app:layout_constraintTop_toTopOf="@+id/imageView_station" />
+
+                    <TextView
+                        android:id="@+id/station"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/sf"
+                        android:textColor="@color/blue_500"
+                        app:layout_constraintBottom_toBottomOf="@+id/next_station"
+                        app:layout_constraintStart_toEndOf="@+id/next_station"
+                        app:layout_constraintTop_toTopOf="@+id/next_station" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_marginStart="6dp"
+                        android:fontFamily="@font/sf"
+                        android:text="@string/riding_time"
+                        android:textColor="@color/blue_500"
+                        app:layout_constraintStart_toEndOf="@+id/imageView_station"
+                        app:layout_constraintTop_toBottomOf="@+id/station" />
+
+                    <TextView
+                        android:id="@+id/riding_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/sf"
+                        android:text="15:99"
+                        android:textColor="@color/blue_500"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView56"
+                        app:layout_constraintStart_toEndOf="@+id/textView56"
+                        app:layout_constraintTop_toTopOf="@+id/textView56" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.6" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:fontFamily="@font/sf"
+                        android:text="@string/exit_time"
+                        android:textColor="@color/blue_500"
+                        app:layout_constraintStart_toEndOf="@+id/riding_time"
+                        app:layout_constraintTop_toBottomOf="@+id/station" />
+
+                    <TextView
+                        android:id="@+id/exit_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/sf"
+                        android:text="00:00"
+                        android:textColor="@color/blue_500"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                        app:layout_constraintStart_toEndOf="@+id/textView5"
+                        app:layout_constraintTop_toTopOf="@+id/textView5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </HorizontalScrollView>
+        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.6715" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
-
+            app:layout_constraintGuide_percent="0.6715"/>
 
         <ImageView
             android:id="@+id/ticket_qr"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="5dp"
-            android:layout_marginBottom="4dp"
             android:fontFamily="@font/sf"
             android:src="@drawable/ic_qr"
             android:text="@string/per_ticket"
             android:textColor="@color/grey_500"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/stations"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
 
-
+        <TextView
+            android:id="@+id/cancelBtn"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@drawable/background_text_cancel"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:fontFamily="@font/sf"
+            android:textAlignment="center"
+            android:textColor="@color/blue_500"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toTopOf="@id/details"
+            app:layout_constraintEnd_toEndOf="@+id/ticket_qr"
+            app:layout_constraintStart_toStartOf="@+id/ticket_qr"
+            app:layout_constraintTop_toBottomOf="@+id/ticket_qr" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -1,0 +1,8 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+
+android{
+    namespace 'com.englizya.contact_us'
+}
+
+dependencies {
+}

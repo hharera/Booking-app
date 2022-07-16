@@ -1,0 +1,12 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+
+android {
+    namespace 'com.harera.user_tickets'
+}
+
+dependencies {
+    api(project(Feature.USER_TICKETS))
+    api(project(Feature.TICKET))
+
+}
+

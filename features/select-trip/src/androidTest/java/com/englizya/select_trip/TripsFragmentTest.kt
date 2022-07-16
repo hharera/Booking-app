@@ -14,6 +14,7 @@ import com.englyzia.booking.BookingViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.philippeboisney.common_test.datasets.TripDataset.TRIP_LIST
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -28,6 +29,7 @@ class TripsFragmentTest : KoinTest {
 
     private val tripRepository = mockk<TripRepository>()
 
+    @Before
     fun setUp() {
         startKoin {
             module {

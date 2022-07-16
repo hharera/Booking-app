@@ -22,7 +22,7 @@ open class BaseViewModel : ViewModel() {
     private val _error: MutableLiveData<Exception?> = MutableLiveData()
     val error: LiveData<Exception?> = _error
 
-    private val _connectivity: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val _connectivity: MutableLiveData<Boolean> = MutableLiveData(true)
     val connectivity: LiveData<Boolean> = _connectivity
 
     fun handleException(exception: Exception?) {
@@ -51,14 +51,15 @@ open class BaseViewModel : ViewModel() {
             HttpStatusCode.Unauthorized -> {
                 _exception.postValue(AuthorizationException)
             }
+            HttpStatusCode.BadRequest ->{
+                _error.postValue(exception)
+            }
         }
     }
 
     fun handleException(exception: Throwable?) {
-        exception?.let {
-            it.printStackTrace()
-            checkExceptionType(exception)
-        }
+        exception?.printStackTrace()
+        _error.postValue(Exception(exception))
     }
 
     fun updateConnectivity(connectivity: Boolean) {

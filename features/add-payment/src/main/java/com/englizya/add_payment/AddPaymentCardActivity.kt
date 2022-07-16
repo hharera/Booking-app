@@ -1,13 +1,11 @@
 package com.englizya.add_payment
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import com.englizya.add_payment.databinding.ActivitytAddPaymentBinding
 import com.englizya.common.base.BaseActivity
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.model.model.PaymentCard
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddPaymentCardActivity : BaseActivity() {
@@ -55,19 +53,27 @@ class AddPaymentCardActivity : BaseActivity() {
             bind.add.isEnabled = it.isValid
 
             if (it.cardOwnerError != null) {
-                bind.cardOwner.error = getString(it.cardOwnerError!!)
+                bind.textInputLayoutCardOwner.error = getString(it.cardOwnerError!!)
+            } else {
+                bind.textInputLayoutCardOwner.error = null
             }
 
             if (it.cardNumberError != null) {
-                bind.cardNumber.error = getString(it.cardNumberError!!)
+                bind.textInputLayoutCardNumber.error = getString(it.cardNumberError!!)
+            } else {
+                bind.textInputLayoutCardNumber.error = null
             }
 
             if (it.cardCvvError != null) {
-                bind.cvv.error = getString(it.cardCvvError!!)
+                bind.textInputLayoutCVV.error = getString(it.cardCvvError!!)
+            } else {
+                bind.textInputLayoutCVV.error = null
             }
 
             if (it.cardExpirationError != null) {
-                bind.expirationDate.error = getString(it.cardExpirationError!!)
+                bind.textInputLayoutExpirationDate.error = getString(it.cardExpirationError!!)
+            } else {
+                bind.textInputLayoutExpirationDate.error = null
             }
         }
     }

@@ -11,15 +11,12 @@ class DoneDialog : DialogFragment() {
 
     private lateinit var binding: DialogDoneBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = DialogDoneBinding.inflate(layoutInflater)
         return binding.root
     }

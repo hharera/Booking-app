@@ -60,6 +60,7 @@ class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
                     showDoneDialog()
                     findNavController().popBackStack()
                 }
+                else -> {}
             }
         }
 
@@ -67,10 +68,20 @@ class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
             binding.submit.isEnabled = it.formIsValid
 
             if (it.driverCodeError != null) {
-                binding.driverCode.error = getString(it.driverCodeError!!)
-            } else if (it.reviewMessageError != null) {
-                binding.message.error = getString(it.reviewMessageError!!)
+                binding.textInputLayoutDriverCode.error = getString(it.driverCodeError!!)
+            } else {
+                binding.textInputLayoutDriverCode.error = null
             }
+
+            if (it.reviewMessageError != null) {
+                binding.textInputLayoutReviewMessage.error = getString(it.reviewMessageError!!)
+            } else {
+                binding.textInputLayoutReviewMessage.error = null
+            }
+        }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(binding.root, it)
         }
     }
 
@@ -100,18 +111,10 @@ class DriverReviewFragment : BaseFragment(), ImagePickerActivityClass.OnResult,
                 driverReviewViewModel.insertDriverReview()
             }
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-
-        restoreValues()
-    }
-
-    private fun restoreValues() {
-        binding.message.setText(driverReviewViewModel.message.value)
-        binding.image.setImageBitmap(driverReviewViewModel.image.value)
-        binding.driverCode.setText(driverReviewViewModel.driverCode.value)
+        binding.cancel.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun onImageClicked() {

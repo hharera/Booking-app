@@ -1,5 +1,10 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
 
+}
+
+android {
+    namespace 'com.englizya.feature.ticket'
 }

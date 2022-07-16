@@ -1,6 +1,13 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
+apply plugin: 'org.jetbrains.kotlin.android'
+apply from: "$rootDir/${CommonBuild.COMPOSE_MODULE}"
 
 dependencies {
     api project(UiComponents.BOOKING)
+    api project(Base.COMMON_COMPOSE)
     implementation(UI.BOOM)
+}
+
+android {
+    namespace 'com.englizya.select_trip'
 }

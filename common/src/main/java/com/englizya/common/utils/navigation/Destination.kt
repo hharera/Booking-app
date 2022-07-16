@@ -1,6 +1,9 @@
 package com.englizya.common.utils.navigation
 
 object Destination {
+    const val AboutUs = "about-us"
+    const val ContactUs = "contact-us"
+    const val TERMS_AND_CONDITIONS = "terms-and-conditions"
     const val USER_TICKETS = "user-tickets"
     const val PAYMENT_HISTORY = "payment-history"
     const val PROFILE = "profile"
@@ -19,6 +22,19 @@ object Destination {
     const val SPLASH = "splash"
     const val LOGIN: String = "login"
     const val TICKET = "ticket"
-    const val END_SHIFT = "end-shift"
     const val SEND_OTP = "send-otp"
+    const val PRIVACY_POLICY = "privacy-policy"
+    const val RECHARGING = "recharging"
+    const val REFUND_POLICY = "refund-policy"
+    const val TICKET_DETAILS = "ticket-details"
+    const val BOOKING = "booking"
+    const val OFFERS = "offers"
+    const val ANNOUNCEMENT = "announcement"
+    const val ANNOUNCEMENT_DETAILS = "announcement-details"
+    const val OFFER_DETAILS = "offer-details"
+    const val PROFILE_SETTINGS = "profile_settings"
+
+
+
+
 }

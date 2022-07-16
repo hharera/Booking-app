@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="routes">الخطوط</string>
+    <string name="internalRoutes">الخطوط الداخلية </string>
+    <string name="externalRoutes">الخطوط السياحى </string>
+    <string name="line_code">كود الخط: </string>
+
+</resources>

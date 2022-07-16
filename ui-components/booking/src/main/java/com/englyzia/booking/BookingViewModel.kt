@@ -1,29 +1,32 @@
 package com.englyzia.booking
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.common.utils.date.DateOnly
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.*
-import com.englizya.model.request.PaymentRequest
-import com.englizya.model.request.ReservationConfirmationRequest
-import com.englizya.model.request.ReservationRequest
-import com.englizya.model.request.TripSearchRequest
+import com.englizya.model.request.*
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englizya.model.response.OnlineTicket
 import com.englizya.model.response.PayMobPaymentResponse
 import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.*
+import com.englyzia.booking.utils.BookingType
+import com.englyzia.booking.utils.PaymentMethod
 import com.englyzia.paytabs.PayTabsService
+import com.englyzia.paytabs.dto.Invoice
+import com.englyzia.paytabs.utils.PaymentMethod.Fawry
+import com.englyzia.paytabs.utils.PaymentMethod.Meeza
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
+import com.englyzia.paytabs.utils.PaymentMethod as PaytabsUtilsPaymentMethod
 
 class BookingViewModel constructor(
     private val stationRepository: StationRepository,
@@ -58,7 +61,7 @@ class BookingViewModel constructor(
      * Trips Result Screen
      */
 
-    private var _trips = MutableLiveData<List<Trip>>()
+    private var _trips = MutableLiveData<List<Trip>>(null)
     val trips: LiveData<List<Trip>> = _trips
 
     private var _selectedTrip = MutableLiveData<Trip>()
@@ -68,8 +71,8 @@ class BookingViewModel constructor(
      * Reservation Data
      */
 
-    private var _reservationOrder = MutableStateFlow<ReservationOrder?>(null)
-    val reservationOrder: StateFlow<ReservationOrder?> get() = _reservationOrder
+    private var _reservationOrder = MutableLiveData<ReservationOrder>()
+    val reservationOrder: LiveData<ReservationOrder> = _reservationOrder
 
     private var _paymentAction = MutableStateFlow<Boolean>(false)
     val paymentAction: StateFlow<Boolean> get() = _paymentAction
@@ -83,8 +86,12 @@ class BookingViewModel constructor(
     private var _billingDetails = MutableStateFlow<PaymentSdkConfigurationDetails?>(null)
     val billingDetails: StateFlow<PaymentSdkConfigurationDetails?> get() = this._billingDetails
 
-    private var _total = MutableLiveData<Int>()
-    val total: LiveData<Int> = _total
+    private var _total = MutableLiveData<Double>()
+    val total: LiveData<Double> = _total
+
+
+    private var _totalAfterDiscount = MutableLiveData<Double>()
+    val totalAfterDiscount: LiveData<Double> = _totalAfterDiscount
 
     private var _stations = MutableLiveData<List<Station>>()
     val stations: LiveData<List<Station>> = _stations
@@ -104,29 +111,35 @@ class BookingViewModel constructor(
     private var _transactionRef = MutableLiveData<String?>()
     val transactionRef: LiveData<String?> = _transactionRef
 
-    private var _bookingOffice = MutableLiveData<LineStationTime?>()
-    val bookingOffice: LiveData<LineStationTime?> = _bookingOffice
+    private var _selectedBookingOffice = MutableLiveData<LineStationTime?>()
+    val selectedBookingOffice: LiveData<LineStationTime?> = _selectedBookingOffice
+
+    private var _selectedPaymentMethod = MutableLiveData<PaymentMethod>()
+    val selectedPaymentMethod: LiveData<PaymentMethod> = _selectedPaymentMethod
+
+    private var _reservationWithWalletRequest = MutableLiveData<ReservationWithWalletRequest>()
+    val reservationWithWalletRequest: LiveData<ReservationWithWalletRequest> =
+        _reservationWithWalletRequest
+
+    private var _invoicePaymentResponse = MutableLiveData<InvoicePaymentResponse>()
+    val invoicePaymentResponse: LiveData<InvoicePaymentResponse> = _invoicePaymentResponse
+
+    private var _bookingType = MutableLiveData<BookingType>(BookingType.OneWayBooking)
+    val bookingType: LiveData<BookingType> = _bookingType
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            fetchUser()
-        }
-
+        getUser()
         setDefaultDate()
     }
 
     private fun setDefaultDate() {
-        DateOnly.toMonthDate(
-            DateTime(DateTimeZone.UTC)
-        ).let {
-            _date.postValue(DateTime(it))
-        }
+        _date.value = (DateTime.now())
     }
 
-    private suspend fun fetchUser() {
+    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .fetchUser(dataStore.getToken())
+            .getUser(dataStore.getToken(), true)
             .onSuccess {
                 updateLoading(false)
                 _user.value = it
@@ -155,14 +168,12 @@ class BookingViewModel constructor(
         _trips.value = trips
     }
 
-    suspend fun getBookingOffices() {
+    fun getBookingOffices() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
-        stationRepository
-            .getAllStations()
+        stationRepository.getAllStations()
             .onSuccess {
                 updateLoading(false)
                 _stations.postValue(it)
-                updateData(it)
             }
             .onFailure {
                 updateLoading(false)
@@ -188,6 +199,10 @@ class BookingViewModel constructor(
     }
 
 
+    fun clearReservationOrder() {
+        _reservationOrder.value = null
+    }
+
     fun setDestination(destination: String) {
         _destination.value = stations.value?.firstOrNull {
             it.branchName == destination
@@ -209,15 +224,16 @@ class BookingViewModel constructor(
         checkFormValidity()
     }
 
-    suspend fun searchTrips() {
+    fun searchTrips(forceOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         tripsRepository.searchTrips(
             TripSearchRequest(
                 date = date.value!!.toString(),
                 sourceStationId = source.value!!.branchId,
                 destinationStationId = destination.value!!.branchId
-            )
+            ), forceOnline
         ).onSuccess {
+            setDefaultOffice(it)
             updateLoading(false)
             _trips.postValue(it)
         }.onFailure {
@@ -226,28 +242,54 @@ class BookingViewModel constructor(
         }
     }
 
+    private fun setDefaultOffice(it: List<Trip>) {
+        _selectedBookingOffice.postValue(it.firstOrNull()?.tripTimes?.firstOrNull())
+    }
+
     fun setSelectedTrip(trip: Trip) {
         _selectedTrip.value = trip
         updateBookingOffice(trip)
     }
 
     private fun updateBookingOffice(trip: Trip) {
-        _bookingOffice.value = trip.tripTimes.firstOrNull()
+        _selectedBookingOffice.value = trip.tripTimes.firstOrNull()
     }
 
-    fun setSelectedSeat(seat: Seat) {
-        if (selectedSeats.value?.contains(seat) == true) {
-            _selectedSeats.value = selectedSeats.value?.minus(seat)
-        } else {
-            _selectedSeats.value = selectedSeats.value?.plus(seat)
-        }
+    fun setSelectedSeat(seat: Seat): Boolean {
+        if (selectedSeats.value?.size!! >= 6) {
+            if (selectedSeats.value?.contains(seat) == true) {
+                _selectedSeats.value = selectedSeats.value?.minus(seat)
+                _totalAfterDiscount.value = updateAmount()
+                _total.value = calculateAmount()
+                Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+                return true
+            }
 
-        _total.value = selectedTrip.value?.plan?.seatPrices?.firstOrNull {
-            it.source == source.value?.branchId && it.destination == destination.value?.branchId
-        }?.vipPrice?.let {
-            selectedSeats.value?.size?.times(
-                it
-            )
+        } else {
+            if (selectedSeats.value?.contains(seat) == true) {
+                _selectedSeats.value = selectedSeats.value?.minus(seat)
+                _totalAfterDiscount.value = updateAmount()
+                _total.value = calculateAmount()
+                Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+                return true
+            } else {
+                _selectedSeats.value = selectedSeats.value?.plus(seat)
+                _totalAfterDiscount.value = updateAmount()
+                _total.value = calculateAmount()
+                Log.d("checkRoundReservation", checkRoundReservation(calculateAmount()).toString())
+                return false
+            }
+        }
+        return true
+
+    }
+
+    private fun updateAmount(): Double {
+        val total = calculateAmount()
+        return if (bookingType.value == BookingType.RoundBooking) {
+            total.minus(total * 0.1) * 2
+        } else {
+            total
         }
     }
 
@@ -270,7 +312,7 @@ class BookingViewModel constructor(
             .requestReservation(reservationRequest, dataStore.getToken())
             .onSuccess {
                 updateLoading(false)
-                _reservationOrder.value = it
+                _reservationOrder.postValue(it)
             }.onFailure {
                 updateLoading(false)
                 handleException(it)
@@ -343,7 +385,7 @@ class BookingViewModel constructor(
 
     fun clearSelectSeats() {
         _selectedSeats.value = emptySet()
-        _total.value = 0
+        _total.value = 0.0
     }
 
     suspend fun submitBooking() {
@@ -363,7 +405,7 @@ class BookingViewModel constructor(
         }
     }
 
-    fun cratePaymentConfigurationDetails() {
+    private fun createPaymentConfigurationDetails() {
         updateLoading(true)
         encapsulatePaymentConfigurationDetails()
             .onFailure {
@@ -376,27 +418,218 @@ class BookingViewModel constructor(
             }
     }
 
+    fun whenPayButtonClicked() {
+        updateLoading(true)
+        when (selectedPaymentMethod.value) {
+            PaymentMethod.Card -> {
+                createPaymentConfigurationDetails()
+            }
+
+            PaymentMethod.EnglizyaWallet -> {
+                createReservationWithWalletRequest()
+            }
+
+            PaymentMethod.FawryPayment -> {
+                requestInvoicePaymentOrder()
+            }
+
+            PaymentMethod.MeezaPayment -> {
+                requestInvoicePaymentOrder()
+            }
+            PaymentMethod.VodafonePayment -> {
+                requestInvoicePaymentOrder()
+            }
+            PaymentMethod.OrangePayment -> {
+                requestInvoicePaymentOrder()
+            }
+            PaymentMethod.EtisalatPayment -> {
+                requestInvoicePaymentOrder()
+            }
+            else -> {}
+        }
+    }
+
+    private fun requestInvoicePaymentOrder() {
+        updateLoading(true)
+
+        encapsulateInvoicePaymentOrderRequest()
+            .onSuccess {
+                updateLoading(false)
+                requestInvoicePaymentOrder(it)
+            }.onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private fun encapsulateInvoicePaymentOrderRequest(): Result<InvoicePaymentOrderRequest> =
+        kotlin.runCatching {
+            InvoicePaymentOrderRequest(orderId = reservationOrder.value!!.orderId)
+        }
+
+    private fun requestInvoicePaymentOrder(request: InvoicePaymentOrderRequest) =
+        viewModelScope.launch(Dispatchers.IO) {
+            updateLoading(true)
+            paymentRepository
+                .requestInvoicePaymentOrder(request, dataStore.getToken())
+                .onSuccess {
+                    updateLoading(false)
+                    requestInvoicePayment()
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
+
+    private fun createInvoice() = kotlin.runCatching {
+        PayTabsService.createInvoice(
+            user.value!!,
+            selectedTrip.value!!.tripName!!,
+            checkRoundReservation(calculateAmount()),
+            reservationOrder.value!!.orderId,
+            selectedSeats.value!!.size,
+            getPaymentMethod()
+        )
+    }
+
+    private fun checkRoundReservation(amount: Double): Double {
+        return when (bookingType.value) {
+            is BookingType.RoundBooking -> {
+                amount.minus(amount * 0.1) * 2
+
+                //  amount.times(2)
+            }
+
+            else -> {
+                amount
+            }
+        }
+    }
+
+    private fun getPaymentMethod(): PaytabsUtilsPaymentMethod {
+        return when (selectedPaymentMethod.value) {
+            PaymentMethod.FawryPayment -> Fawry
+            PaymentMethod.MeezaPayment -> Meeza
+            else -> Fawry
+        }
+    }
+
+    private fun requestInvoicePayment() {
+        updateLoading(true)
+        createInvoice()
+            .onSuccess {
+                updateLoading(false)
+                requestInvoicePayment(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch {
+        updateLoading(true)
+        paymentRepository
+            .requestInvoicePayment(request = invoice)
+            .onSuccess {
+                updateLoading(false)
+                _invoicePaymentResponse.postValue(it)
+            }
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private fun createReservationWithWalletRequest() {
+        updateLoading(true)
+        encapsulateReservationWithWalletRequest()
+            .onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+            .onSuccess {
+                updateLoading(false)
+                _reservationWithWalletRequest.value = it
+            }
+    }
+
     private fun encapsulatePaymentConfigurationDetails() =
         kotlin.runCatching {
             PayTabsService.createPaymentConfigData(
                 user = reservationOrder.value!!.user,
                 tripName = selectedTrip.value!!.tripName!!,
-                amount = calculateAmount(),
+                amount = checkRoundReservation(calculateAmount()),
                 cartId = reservationOrder.value!!.orderId
             )
         }
 
     private fun calculateAmount(): Double {
-        return selectedTrip.value?.let {
-            it.plan?.seatPrices?.first {
-                it.source == source.value?.branchId &&
-                        it.destination == destination.value?.branchId
-            }?.vipPrice!! * selectedSeats.value!!.size
-        }!!.toDouble()
+        return when (selectedTrip.value?.service?.serviceId) {
+            1 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.vipPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            2 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.economicPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            3 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.pullmanPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            4 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.pullmanPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            7 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.royalGoldPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            8 -> {
+                selectedTrip.value?.let {
+                    it.plan?.seatPrices?.first {
+                        it.source == source.value?.branchId &&
+                                it.destination == destination.value?.branchId
+                    }?.miniGoldPrice!! * selectedSeats.value!!.size
+                }!!.toDouble()
+            }
+
+            else -> {
+                Double.MAX_VALUE
+            }
+        }
+
     }
 
     fun clearTripList() {
-        _trips.postValue(emptyList())
+        _trips.postValue(null)
     }
 
     fun setTransactionRef(transactionReference: String?) {
@@ -422,7 +655,21 @@ class BookingViewModel constructor(
             reservationRepository.confirmReservation(request, dataStore.getToken())
                 .onSuccess {
                     updateLoading(false)
-                    _onlineTickets.postValue(it)
+                    _reservationTickets.postValue(it)
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
+
+    fun confirmReservation(request: ReservationWithWalletRequest) =
+        viewModelScope.launch(Dispatchers.IO) {
+            updateLoading(true)
+            reservationRepository.confirmReservation(request, dataStore.getToken())
+                .onSuccess {
+                    updateLoading(false)
+                    _reservationTickets.postValue(it)
                 }
                 .onFailure {
                     updateLoading(false)
@@ -440,12 +687,57 @@ class BookingViewModel constructor(
                 seats = selectedSeats.value!!.map { it.seatId!! }.toSet(),
                 sourceBranchId = source.value!!.branchId,
                 destinationBranchId = destination.value!!.branchId,
+                selectedBookingOffice = getSelectedBookingOffice(),
             )
         }
     }
 
-    fun setSelectedBookingOffice(stationTime: LineStationTime?) {
-        _bookingOffice.value = stationTime
+    private fun encapsulateReservationWithWalletRequest(): Result<ReservationWithWalletRequest> {
+        return kotlin.runCatching {
+            ReservationWithWalletRequest(
+                reservationId = selectedTrip.value!!.reservations.first().id!!,
+                tripId = selectedTrip.value!!.tripId!!,
+                pathType = selectedTrip.value!!.pathType!!,
+                seats = selectedSeats.value!!.map { it.seatId!! }.toSet(),
+                sourceBranchId = source.value!!.branchId,
+                destinationBranchId = destination.value!!.branchId,
+                selectedBookingOffice = getSelectedBookingOffice(),
+            )
+        }
     }
 
+    private fun getSelectedBookingOffice(): Int {
+        if (selectedBookingOffice.value == null) {
+            return source.value!!.bookingOfficeList!!.first().officeId!!
+        } else {
+            return selectedBookingOffice.value!!.bookingOffice!!.officeId!!
+        }
+    }
+
+    fun setSelectedBookingOffice(stationTime: LineStationTime?) {
+        _selectedBookingOffice.value = stationTime
+    }
+
+    fun setSelectedPaymentMethod(method: PaymentMethod) {
+        _selectedPaymentMethod.value = method
+    }
+
+    fun swapStations() {
+        _source.value?.let { source ->
+            _destination.value?.let { destination ->
+                _source.value = destination
+                _destination.value = source
+            }
+        }
+    }
+
+    fun getStations() = viewModelScope.launch(Dispatchers.IO) {
+        if (stations.value.isNullOrEmpty())
+            getBookingOffices()
+    }
+
+    fun setBookingType(bookingType: BookingType) {
+        _bookingType.value = bookingType
+    }
 }
+

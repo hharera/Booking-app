@@ -1,0 +1,27 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="ticket_details">Ticket Details</string>
+    <string name="trip_number">Trip Number</string>
+    <string name="trip_date">Date</string>
+    <string name="trip_source">From</string>
+    <string name="trip_destination">To</string>
+    <string name="number_of_tickets">Tickets</string>
+    <string name="client_name">Name</string>
+    <string name="client_phone">Phone Number</string>
+    <string name="seat_no">Seat Number</string>
+    <string name="service_type">Service Type</string>
+    <string name="booking_office_name">Booking Office</string>
+    <string name="trip_time">Time</string>
+
+
+
+
+
+
+
+
+
+
+
+</resources>

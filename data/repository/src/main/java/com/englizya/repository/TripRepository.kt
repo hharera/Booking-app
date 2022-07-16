@@ -5,5 +5,5 @@ import com.englizya.model.request.TripSearchRequest
 
 interface TripRepository {
     suspend fun getAllTrips(): Result<List<Trip>>
-    suspend fun searchTrips(request: TripSearchRequest): Result<List<Trip>>
+    suspend fun searchTrips(request: TripSearchRequest,forceOnline : Boolean = false ): Result<List<Trip>>
 }

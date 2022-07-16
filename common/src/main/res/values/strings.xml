@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ENGLIZYA BUS</string>
+    <string name="app_name">انجليزية باص</string>
     <string name="enter_information_to_create_account">أدخل المعلومات التالية لإنشاء حساب جديد</string>
     <string name="sign_up">الاشتراك</string>
     <string name="start">ابدأ</string>
     <string name="password">كلمة المرور</string>
     <string name="email">البريد الإلكتروني</string>
-    <string name="total">الإجمالي</string>
     <string name="remove">إزالة</string>
     <string name="your_balance">رصيدك</string>
     <string name="price">السعر</string>
@@ -36,7 +36,7 @@
     <string name="enter_code">ادخل الكود</string>
     <string name="wrong_code">كود خاطئ</string>
     <string name="company_name">الإنجليزية</string>
-    <string name="privacy_policy">لقد قرأت نص الخصوصية والأمان وأوافق عليه</string>
+    <string name="privacy_policy">وثيقة الخصوصية</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
     <string name="_3">3</string>
@@ -93,7 +93,7 @@
     <string name="our_location">موقعنا</string>
     <string name="similar_products">منجات مماثلة:</string>
     <string name="top_categories">الاقسام الرئيسييه</string>
-    <string name="no_internet">لا يوجد اتصال بالإنترنت \ n الرجاء التحقق من الإنترنت</string>
+    <string name="no_internet">غير متصل</string>
     <string name="addCategory">إضافة قسم</string>
     <string name="addProduct">إضافة منتج</string>
     <string name="addOffer">إضافة عرض</string>
@@ -150,16 +150,7 @@
     <string name="add_payment_card">إضافة بطاقة دفع</string>
     <string name="payment_cards">بطاقات الدفع</string>
     <string name="add_card">إضافة بطاقة</string>
-    <string name="welcome_back">مرحبًا بك مرة أخرى!</string>
-    <string name="log_in">تسجيل الدخول</string>
-    <string name="dont_have_an_account">أليس لديك حساب؟</string>
-    <string name="forget_password">هل نسيت كلمة المرور؟</string>
-    <string name="signup">الخدمة</string>
-    <string name="phone_number_not_valid">رقم الهاتف غير صالح</string>
-    <string name="password_should_be_not_empty">كلمة المرور مطلوبة</string>
-    <string name="password_not_vlid">كلمة المرور غير صالحة</string>
-    <string name="create_new_account">إنشاء حساب جديد</string>
-    <string name="sending_otp_message">%1$s لقد أرسلنا رمز تأكيد إلى</string>
+    <string name="sending_otp_message"> %1$s لقد أرسلنا رمز تأكيد إلى </string>
     <string name="enter_confirmation_code">أدخل رمز التجهيز</string>
     <string name="map">خريطة</string>
     <string name="empty_password_error">أدخل كلمة المرور</string>
@@ -187,7 +178,7 @@
     <string name="see_more">شاهد المزيد ...</string>
     <string name="suggest_idea">اقتراح فكرة</string>
     <string name="terms_and_privacy_policy">شروط الاستخدام والخصوصية</string>
-    <string name="booking">إجراء</string>
+    <string name="booking">حجز</string>
     <string name="upcoming_features">ميزات القادمة</string>
     <string name="about_us">عنا</string>
     <string name="report_problem">حساب عن مشكلة</string>
@@ -230,5 +221,16 @@
     <string name="transaction_rejected">تم رفض المعاملة</string>
     <string name="user_tickets">سجل التذاكر</string>
     <string name="add_complaint">إضافة شكوى</string>
-    <string name="one_way">ذهاب</string>
+    <string name="wallet_otp">رمز التأكيد</string>
+    <string name="showToDriverTxt">لحجز تذكرة اعرض الكود على السائق</string>
+    <string name="refund_ticket_txt">الغاء</string>
+    <string name="message">هل تريد الغاء حجز التذكرة ؟</string>
+    <string name="yes_txt">نعم</string>
+    <string name="no_txt">لا</string>
+    <string name="welcome_back">مرحبا بك مرة اخرى</string>
+    <string name="not_authorized">غير مسموح</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
 </resources>

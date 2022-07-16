@@ -1,6 +1,10 @@
 package com.englizya.signup
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,8 +63,31 @@ class SignupFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+        setupTermsAndConditions()
+    }
+
+    private fun setupTermsAndConditions() {
+        val termsAndConditions = getString(R.string.terms_and_conditions)
+        val accept = getString(R.string.read_and_accept)
+
+        val spannable: Spannable = SpannableString(accept.plus(termsAndConditions))
+        spannable.setSpan(
+            ForegroundColorSpan(Color.BLACK),
+            0,
+            accept.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannable.setSpan(
+            ForegroundColorSpan(Color.BLUE),
+            accept.length,
+            accept.length + termsAndConditions.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        bind.termsAndConditionsTV.text = spannable
     }
 
     private fun setupObservers() {
@@ -76,14 +103,42 @@ class SignupFragment : BaseFragment() {
             bind.signup.isEnabled = it.isValid
 
             if (it.phoneNumberError != null) {
-                bind.phoneNumber.error = getString(it.phoneNumberError!!)
+                bind.textInputLayoutPhoneNumber.error = getString(it.phoneNumberError!!)
+            } else {
+                bind.textInputLayoutPhoneNumber.error = null
             }
+
+            if (it.termsAcceptanceError != null) {
+                bind.textInputLayoutPhoneNumber.error = getString(it.termsAcceptanceError!!)
+            } else {
+                bind.textInputLayoutPhoneNumber.error = null
+            }
+        }
+
+        signupViewModel.termsAccepted.observe(viewLifecycleOwner) {
+            if (it) {
+                bind.acceptPolicy.setImageResource(R.drawable.ic_accepted)
+            } else {
+                bind.acceptPolicy.setImageResource(R.drawable.background_button_accept)
+            }
+        }
+
+        connectionLiveData.observe(viewLifecycleOwner) {
+            showInternetSnackBar(bind.root, it)
         }
     }
 
     private fun setupListeners() {
         bind.phoneNumber.afterTextChanged { phoneNumber ->
             signupViewModel.setPhoneNumber(phoneNumber)
+        }
+
+        bind.acceptPolicy.setOnClickListener {
+            signupViewModel.whenAcceptedClicked()
+        }
+
+        bind.termsAndConditionsTV.setOnClickListener {
+            showTermsAndConditions()
         }
 
         bind.signup.setOnClickListener {
@@ -108,6 +163,10 @@ class SignupFragment : BaseFragment() {
 
             bind.signup.isEnabled = false
         }
+    }
+
+    private fun showTermsAndConditions() {
+        TermsAndConditionsDialog(signupViewModel).show(childFragmentManager, "TermsAndConditionsDialog")
     }
 
 }

@@ -1,95 +1,87 @@
 package com.englyzia.paytabs
 
-import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.englizya.model.model.User
+import com.englyzia.paytabs.BuildConfig.*
+import com.englyzia.paytabs.dto.CustomerDetails
+import com.englyzia.paytabs.dto.Invoice
+import com.englyzia.paytabs.dto.InvoiceDetails
+import com.englyzia.paytabs.dto.LineItems
 import com.englyzia.paytabs.utils.CountryCode.EG
 import com.englyzia.paytabs.utils.Currency
-import com.payment.paymentsdk.PaymentSdkActivity.Companion.startCardPayment
+import com.englyzia.paytabs.utils.Domain
+import com.englyzia.paytabs.utils.PaymentMethod
 import com.payment.paymentsdk.PaymentSdkConfigBuilder
 import com.payment.paymentsdk.integrationmodels.*
-import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
+import org.joda.time.DateTime
 
 class PayTabsService {
 
-//    //    create
-//    private val TAG = "MainActivity"
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        val profileId = "94307"
-//        val serverKey = "SJJNDG62RM-JDHRGDH6LT-2Z6MDWGW6R"
-//        val clientLey = "CKKMBP-9DRH6D-HRTDHG-6NKGKQ"
-//        val locale = PaymentSdkLanguageCode.EN
-//        val screenTitle = "Test SDK"
-//        val cartId = "123456"
-//        val cartDesc = "cart description"
-//        val currency = Currency.EG
-//        val amount = 20.0
-//        val tokeniseType = PaymentSdkTokenise.NONE
-//
-//        val tokenFormat = PaymentSdkTokenFormat.Hex32Format()
-//        val billingData = PaymentSdkBillingDetails(
-//            "Beba",
-//            countryCode = "EG",
-//            email = "hassan.harera@gmail.com",
-//            "Hassan Harera",
-//            "01062227714",
-//            "Beni Suef",
-//            addressLine = "Beni Suef",
-//            "62611"
-//        )
-//
-//        val configData =
-//            PaymentSdkConfigBuilder(
-//                profileId,
-//                serverKey,
-//                clientLey,
-//                amount,
-//                currency
-//            )
-//                .setCartDescription(cartDesc)
-//                .setLanguageCode(locale)
-//                .setBillingData(billingData)
-//                .setMerchantCountryCode("EG")
-//                .setCartId(cartId)
-//                .setTransactionType(PaymentSdkTransactionType.SALE)
-//                .showBillingInfo(false)
-//                .showShippingInfo(false)
-//                .forceShippingInfo(false)
-//                .setScreenTitle(screenTitle)
-//                .build()
-//
-//        startCardPayment(this, configData, this)
-//    }
-//
-//    override fun onError(error: PaymentSdkError) {
-//        Log.d(TAG, "onError: " + error.msg)
-//    }
-//
-//    override fun onPaymentCancel() {
-//        Log.d(TAG, "onPaymentCancel: ")
-//    }
-//
-//    override fun onPaymentFinish(paymentSdkTransactionDetails: PaymentSdkTransactionDetails) {
-//        paymentSdkTransactionDetails.token?.let {
-//            Log.d(TAG, "onPaymentFinish: $it")
-//        }
-//    }
-
     companion object {
+        fun createInvoice(
+            user: User,
+            tripName: String,
+            amount: Double,
+            cartId: Int,
+            seatsCount: Int,
+            paymentMethod: PaymentMethod,
+        ): Invoice {
+            return Invoice(
+                LIVE_PROFILE_ID,
+                tranType = PaymentSdkTransactionType.SALE.name,
+                tranClass = PaymentSdkTransactionClass.ECOM.name,
+                cartCurrency = Currency.EG,
+                cartAmount = amount.toString(),
+                cartId = cartId.toString(),
+                cartDescription = "حجز $seatsCount مقعد/مقاعد علي $tripName",
+                hideShipping = true,
+                customerRef = user.username,
+                customerDetails = CustomerDetails(
+                    user.name,
+                    user.phoneNumber.plus("@englizya.com"),
+                    user.address,
+                    user.address,
+                    "Egypt",
+                ),
+                invoice = InvoiceDetails(
+                    shippingCharges = 0,
+                    extraCharges = 0,
+                    extraDiscount = 0,
+                    total = amount.toInt(),
+                    activationDate = DateTime.now().plusSeconds(3).toString(),
+                    expiryDate = DateTime.now().plusHours(2).toString(),
+                    dueDate = DateTime.now().plusHours(2).toString(),
+                    lineItems = arrayListOf(
+                        LineItems(
+                            "1",
+                            "حجز مقعد/مقاعد علي رحلة".plus(tripName),
+                            "englizya.com",
+                            amount,
+                            1,
+                            amount,
+                            0,
+                            0,
+                            0,
+                            0,
+                            amount
+                        )
+                    ),
+                ),
+                "${Domain.INVOICE_CALLBACK}/$cartId",
+                "${Domain.INVOICE_CALLBACK}/$cartId",
+                paymentMethods = arrayListOf(paymentMethod.name),
+            )
+        }
+
         fun createPaymentConfigData(
             user: User,
             tripName: String,
             amount: Double,
-            cartId : Int,
+            cartId: Int,
         ): PaymentSdkConfigurationDetails {
             return PaymentSdkConfigBuilder(
-                "94307",
-                "SJJNDG62RM-JDHRGDH6LT-2Z6MDWGW6R",
-                "CKKMBP-9DRH6D-HRTDHG-6NKGKQ",
+                LIVE_PROFILE_ID,
+                LIVE_SERVER_KEY,
+                LIVE_CLIENT_KEY,
                 amount,
                 Currency.EG
             )
@@ -117,6 +109,35 @@ class PayTabsService {
                 zip = "123456",
                 city = "Cairo",
             )
+        }
+
+        fun createPaymentConfigData(
+            user: User,
+            amount: Double,
+            cartId: Int,
+        ): PaymentSdkConfigurationDetails {
+            return PaymentSdkConfigBuilder(
+                LIVE_PROFILE_ID,
+                LIVE_SERVER_KEY,
+                LIVE_CLIENT_KEY,
+                amount,
+                Currency.EG
+            )
+                .setCartId(cartId = cartId.toString())
+                .setCartDescription(createCartDescription(amount))
+                .setLanguageCode(PaymentSdkLanguageCode.EN)
+                .setBillingData(createBillingInfo(user))
+                .setMerchantCountryCode(EG)
+                .setTransactionType(PaymentSdkTransactionType.SALE)
+                .showBillingInfo(false)
+                .showShippingInfo(false)
+                .forceShippingInfo(false)
+                .setScreenTitle("Englizya Payment")
+                .build()
+        }
+
+        fun createCartDescription(amount: Double): String {
+            return "Recharging wallet with $amount EGP"
         }
     }
 }

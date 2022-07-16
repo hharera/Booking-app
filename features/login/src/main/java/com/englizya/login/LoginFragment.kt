@@ -1,20 +1,21 @@
 package com.englizya.login
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
+import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
 import com.englizya.select_service.SelectServiceActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment() {
@@ -22,29 +23,18 @@ class LoginFragment : BaseFragment() {
     private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var bind: FragmentLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        getExtras()
-    }
-
-    private fun getExtras() {
-        arguments?.let {
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         bind = FragmentLoginBinding.inflate(layoutInflater)
         return bind.root
     }
 
     override fun onResume() {
         super.onResume()
-
         restoreValues()
     }
 
@@ -59,8 +49,31 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+        setupSignupSpannable()
+    }
+
+    private fun setupSignupSpannable() {
+        val notHaveAccount = getString(R.string.not_have_an_account)
+        val signup = getString(R.string.signup)
+
+        val spannable: Spannable = SpannableString( notHaveAccount.plus(signup))
+        spannable.setSpan(
+            ForegroundColorSpan(Color.BLACK),
+            0,
+            notHaveAccount.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannable.setSpan(
+            ForegroundColorSpan(Color.BLUE),
+            notHaveAccount.length,
+            signup.length + notHaveAccount.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        bind.signup.text = spannable
     }
 
     private fun setupObservers() {
@@ -76,13 +89,23 @@ class LoginFragment : BaseFragment() {
             checkLoginState(state)
         }
 
+        connectionLiveData.observe(viewLifecycleOwner) { state ->
+            showInternetSnackBar(bind.root, state)
+        }
+
         loginViewModel.formValidity.observe(viewLifecycleOwner) {
             bind.login.isEnabled = it.formIsValid
 
             if (it.phoneNumberError != null) {
-                bind.phoneNumber.error = getString(it.phoneNumberError!!)
-            } else if (it.passwordError != null) {
-                bind.password.error = getString(it.passwordError!!)
+                bind.textInputLayoutPhoneNumber.error = getString(it.phoneNumberError!!)
+            } else {
+                bind.textInputLayoutPhoneNumber.error = null
+            }
+
+            if (it.passwordError != null) {
+                bind.textInputLayoutPassword.error = getString(it.passwordError!!)
+            } else {
+                bind.textInputLayoutPassword.error = null
             }
         }
     }
@@ -100,7 +123,7 @@ class LoginFragment : BaseFragment() {
             startActivity(
                 Intent(
                     context,
-                    SelectServiceActivity::class.java
+                    HomeActivity::class.java
                 ).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
@@ -126,9 +149,7 @@ class LoginFragment : BaseFragment() {
         }
 
         bind.login.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
                 loginViewModel.login()
-            }
             bind.login.isEnabled = false
         }
     }

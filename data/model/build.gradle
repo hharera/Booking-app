@@ -9,3 +9,7 @@ dependencies {
     implementation(Libs.serializer)
     annotationProcessor(Libs.roomCompiler)
 }
+
+android {
+    namespace 'com.englizya.model'
+}

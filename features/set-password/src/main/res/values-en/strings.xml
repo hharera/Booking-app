@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="password_not_valid">Password must be between 8 and 40 characters</string>
+</resources>

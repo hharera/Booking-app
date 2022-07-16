@@ -3,6 +3,7 @@ package com.englyzia.reviewdriver
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.ImageUtils.convertBitmapToFile
 import com.englizya.datastore.UserDataStore
@@ -10,6 +11,8 @@ import com.englizya.driver_review.R
 import com.englizya.model.request.DriverReviewRequest
 import com.englizya.repository.SupportRepository
 import com.englyzia.reviewdriver.utils.Validity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DriverReviewViewModel constructor(
     private val supportRepository: SupportRepository,
@@ -48,21 +51,23 @@ class DriverReviewViewModel constructor(
 
     }
 
-    private suspend fun insertDriverReview(driverReviewRequest: DriverReviewRequest) {
-        updateLoading(true)
-        supportRepository
-            .insertDriverReview(
-                driverReviewRequest = driverReviewRequest,
-                userDataStore.getToken()
-            )
-            .onSuccess {
-                updateLoading(false)
-                _insertionCompleted.value = true
-            }.onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
+    private suspend fun insertDriverReview(driverReviewRequest: DriverReviewRequest) =
+        viewModelScope.launch(Dispatchers.IO) {
+            updateLoading(true)
+            supportRepository
+                .insertDriverReview(
+                    driverReviewRequest = driverReviewRequest,
+                    userDataStore.getToken()
+                )
+                .onSuccess {
+                    updateLoading(false)
+                    _insertionCompleted.postValue(true)
+                }
+                .onFailure {
+                    updateLoading(false)
+                    handleException(it)
+                }
+        }
 
     private fun createDriverReviewRequest() = kotlin.runCatching {
         DriverReviewRequest(

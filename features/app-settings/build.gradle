@@ -1,5 +1,10 @@
 apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
+    implementation "com.jakewharton:process-phoenix:2.0.0"
 
+}
+
+android {
+    namespace 'com.englizya.app_settings'
 }
