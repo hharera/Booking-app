@@ -25,6 +25,7 @@
     <string name="dialog_title">تأكيد</string>
     <string name="ok_btn">حسناً</string>
     <string name="cancel_btn">إلغاء</string>
+    <string name="done_reserving_text">تم حجز تذكرتك بنجاح</string>
     <string name="payment_info_txt">
     <li>عند الضغط على زر الدفع سيتم تحويلك إلى المتصفح </li>
     \n\n <li>اضغط على Pay Now ثم اختار الدفع بميزة</li>

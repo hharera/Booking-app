@@ -17,7 +17,6 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.InvoicePaymentResponse
-import com.englizya.user_tickets.ConfirmationDialog
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
 import com.englyzia.booking.utils.PaymentMethod
@@ -30,7 +29,6 @@ import com.payment.paymentsdk.integrationmodels.PaymentSdkTransactionDetails
 import com.payment.paymentsdk.sharedclasses.interfaces.CallbackPaymentInterface
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.serialization.descriptors.PrimitiveKind
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -42,6 +40,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     var paymentInfoDialog: PaymentInformationDialog? = null
     var paymentConfirmationDialog: PaymentConfirmationDialog? = null
     var noBalanceDialog: NoBalanceDialog? = null
+    var doneBookingTicket: DoneBookingDialog? = null
 
 
     override fun onCreateView(
@@ -279,7 +278,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
 
         bookingViewModel.reservationTickets.observe(viewLifecycleOwner) {
-            showUserTickets()
+            doneBookingTicket = DoneBookingDialog(onOkButtonClicked = {
+                doneBookingTicket!!.dismiss()
+                showUserTickets()
+            })
+            doneBookingTicket!!.show(childFragmentManager, "DoneReservingTicketDialog")
         }
 
         bookingViewModel.loading.observe(viewLifecycleOwner) {

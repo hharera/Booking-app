@@ -24,6 +24,8 @@
     <string name="ok_btn">OK</string>
     <string name="cancel_btn">Cancel</string>
     <string name="ok_text">Ok</string>
+    <string name="done_reserving_text">Your Ticket has been booked successfully</string>
+
     <string name="payment_info_txt">
     <li>On CLicking on Pay , you will be redirected to the Browser</li>
     \n\n <li>Click on Pay Now then choose Meeza Payment Method</li>
