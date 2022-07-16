@@ -1,0 +1,7 @@
+apply from: "$rootDir/${CommonBuild.FeatureModule}"
+dependencies {
+
+}
+android {
+    namespace 'com.englizya.internel_search'
+}
