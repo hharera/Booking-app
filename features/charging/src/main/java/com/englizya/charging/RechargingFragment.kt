@@ -25,6 +25,7 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
 
     private lateinit var binding: FragmentRechargingBinding
     private val chargingViewModel: RechargingViewModel by viewModel()
+    var doneChargingDialog: DoneChargingDialog? = null
 
     companion object {
         private const val PAYMENT_REQ = 30005
@@ -88,7 +89,19 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
 
         lifecycleScope.launch(Dispatchers.IO) {
             chargingViewModel.rechargingOperationState.collectLatest { state ->
-                state?.let { checkOperationState(it) }
+                state.let {
+                    if (it == true) {
+                        doneChargingDialog = DoneChargingDialog(
+                            message = chargingViewModel.amount.value.toString(),
+                            onOkButtonClicked = {
+                                doneChargingDialog!!.dismiss()
+                            }
+                        )
+                        doneChargingDialog!!.show(childFragmentManager, "DoneChargingDialog")
+                    } else {
+                        showErrorDialog(getString(R.string.error_text))
+                    }
+                }
             }
         }
 
