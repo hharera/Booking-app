@@ -15,17 +15,13 @@
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppStyle"
         android:usesCleartextTraffic="true"
-        tools:replace="android:theme,android:supportsRtl,android:icon,android:allowBackup,android:label">
-
-        <activity
-            android:name="com.paymob.acceptsdk.PayActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+        tools:node="merge"
+        tools:replace="android:label">
 
         <activity
             android:name="com.englizya.select_service.SelectServiceActivity"
