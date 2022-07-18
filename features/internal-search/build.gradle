@@ -3,5 +3,5 @@ dependencies {
 
 }
 android {
-    namespace 'com.englizya.internel_search'
+    namespace 'com.englizya.internal_search'
 }
