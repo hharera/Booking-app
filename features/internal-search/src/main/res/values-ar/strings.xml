@@ -2,4 +2,5 @@
 <resources>
     <string name="where_you_are">اين انت ؟</string>
     <string name="where_to_go">اين تريد ان تذهب ؟</string>
+    <string name="search_text">بحث</string>
 </resources>

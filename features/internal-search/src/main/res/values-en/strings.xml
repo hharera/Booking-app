@@ -2,4 +2,6 @@
 <resources>
     <string name="where_you_are">Where are you ?</string>
     <string name="where_to_go">Where do you want to go ?</string>
+    <string name="search_text">Search</string>
+
 </resources>
