@@ -58,12 +58,12 @@ class RechargingViewModel constructor(
 
     private fun checkFormValidity() {
         if (amount.value == null) {
-            _formValidity.postValue( RechargingFormState(amountRes = R.string.charging_amount_empty))
+            _formValidity.postValue(RechargingFormState(amountRes = R.string.charging_amount_empty))
         } else if (isValidAmount(amount.value.toString()).not()) {
             _formValidity.postValue(RechargingFormState(amountRes = R.string.invalid_amount_empty))
         } else if (isValidAmount(amount.value!!).not()) {
-            _formValidity.postValue( RechargingFormState(amountRes = R.string.invalid_amount ))
-        }else {
+            _formValidity.postValue(RechargingFormState(amountRes = R.string.invalid_amount))
+        } else {
             _formValidity.postValue(RechargingFormState(formIsValid = true))
         }
     }
@@ -95,9 +95,9 @@ class RechargingViewModel constructor(
 
     fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .getUser(dataStore.getToken(),true)
+            .getUser(dataStore.getToken(), true)
             .onSuccess {
-                _user.value = it
+                _user.postValue(it)
             }
             .onFailure {
                 handleException(it)
@@ -105,16 +105,16 @@ class RechargingViewModel constructor(
     }
 
     private suspend fun requestPayment(request: PaymentOrderRequest) {
-        updateLoading(true)
+//        updateLoading(true)
 
         Log.d(TAG, "requestPayment: $request")
         walletRepository
             .requestRecharge(dataStore.getToken(), request)
             .onSuccess {
-                updateLoading(false)
+//                updateLoading(false)
                 _paymentOrder.value = it
             }.onFailure {
-                updateLoading(false)
+//                updateLoading(false)
                 handleException(it)
             }
     }
@@ -124,15 +124,15 @@ class RechargingViewModel constructor(
             return@launch
         }
 
-        updateLoading(true)
+//        updateLoading(true)
 
         walletRepository
             .rechargeBalance(dataStore.getToken(), RechargingRequest(transactionReference))
             .onSuccess {
-                updateLoading(false)
+//                updateLoading(false)
                 _rechargingOperationState.value = true
             }.onFailure {
-                updateLoading(false)
+//                updateLoading(false)
                 handleException(it)
                 _rechargingOperationState.value = false
             }
@@ -140,15 +140,15 @@ class RechargingViewModel constructor(
 
 
     fun rechargeBalance(paymentOrder: PaymentOrder) {
-        updateLoading(true)
+//        updateLoading(true)
 
         encapsulatePaymentConfigurationDetails(paymentOrder)
             .onSuccess {
-                updateLoading(false)
+//                updateLoading(false)
                 _billingDetails.value = it
             }
             .onFailure {
-                updateLoading(false)
+//                updateLoading(false)
                 handleException(it)
             }
     }

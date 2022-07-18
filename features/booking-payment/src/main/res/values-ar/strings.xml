@@ -21,6 +21,8 @@
     <string name="dialog_message" formatted="true">سيتم خصم %1$s ج تكلفة التذكرة من رصيدكم</string>
     <string name="dialog_title">تأكيد</string>
     <string name="ok_btn">حسناً</string>
+    <string name="done_reserving_text">تم حجز تذكرتك بنجاح</string>
+
     <string name="cancel_btn">إلغاء</string>
     <string name="total">الإجمالي</string>
     <string name="ok_text">حسناً</string>

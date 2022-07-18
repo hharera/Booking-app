@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.englizya.announcement.constants.ImagesConstants
 import com.englizya.announcement.databinding.FragmentAnnouncementBinding
 import com.englizya.announcement.databinding.FragmentAnnouncementDetailsBinding
 import com.englizya.common.base.BaseFragment
@@ -45,7 +46,7 @@ class AnnouncementDetailsFragment : BaseFragment() {
     }
 
     private fun updateUI(announcement: Announcement) {
-        Picasso.get().load(announcement.announcementImageUrl).into(binding.announcementImg)
+        Picasso.get().load(ImagesConstants.IMAGE_URL + announcement.announcementImageUrl).into(binding.announcementImg)
         binding.announcementDetails.text = announcement.announcementDescription
         binding.announcementTitle.text = announcement.announcementTitle
     }

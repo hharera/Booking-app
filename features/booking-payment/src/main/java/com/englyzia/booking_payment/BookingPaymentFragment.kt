@@ -17,7 +17,6 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.InvoicePaymentResponse
-import com.englizya.user_tickets.ConfirmationDialog
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
 import com.englyzia.booking.utils.PaymentMethod
@@ -40,6 +39,8 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private val bookingViewModel: BookingViewModel by sharedViewModel()
     var paymentInfoDialog: PaymentInformationDialog? = null
     var paymentConfirmationDialog: PaymentConfirmationDialog? = null
+    var noBalanceDialog: NoBalanceDialog? = null
+    var doneBookingTicket: DoneBookingDialog? = null
 
 
     override fun onCreateView(
@@ -79,9 +80,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             paymentConfirmationDialog = PaymentConfirmationDialog(
                 binding.totalTV.text.toString(),
                 onPositiveButtonClicked = {
-                    bookingViewModel.whenPayButtonClicked()
-                    paymentConfirmationDialog?.dismiss()
-
+                    checkWalletBalance()
                 },
                 onNegativeButtonClicked = {
                     paymentConfirmationDialog?.dismiss()
@@ -139,6 +138,24 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             updateSelectedMethodUI(it.id)
         }
 
+    }
+
+    private fun checkWalletBalance() {
+        val total: Double = binding.totalTV.text.toString().toDouble()
+        if ((bookingViewModel.selectedPaymentMethod.value == PaymentMethod.EnglizyaWallet).and((total > bookingPaymentViewModel.userBalance.value!!))) {
+            paymentConfirmationDialog?.dismiss()
+            noBalanceDialog =
+                NoBalanceDialog(
+                    onChargeButtonClicked = {
+                        navigateToRecharging()
+                        noBalanceDialog?.dismiss()
+                    }
+                )
+            noBalanceDialog?.show(childFragmentManager, "noBalanceDialog")
+        } else {
+            bookingViewModel.whenPayButtonClicked()
+            paymentConfirmationDialog?.dismiss()
+        }
     }
 
     private fun showDialog() {
@@ -261,7 +278,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
 
         bookingViewModel.reservationTickets.observe(viewLifecycleOwner) {
-            showUserTickets()
+            doneBookingTicket = DoneBookingDialog(onOkButtonClicked = {
+                doneBookingTicket!!.dismiss()
+                showUserTickets()
+            })
+            doneBookingTicket!!.show(childFragmentManager, "DoneReservingTicketDialog")
         }
 
         bookingViewModel.loading.observe(viewLifecycleOwner) {
