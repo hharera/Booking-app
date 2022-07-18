@@ -11,6 +11,7 @@ import com.englizya.common.utils.code.CountryCode
 import com.englizya.model.request.LoginRequest
 import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
+import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -86,6 +87,7 @@ class LoginViewModel constructor(
             .onSuccess {
                 updateLoading(false)
                 updateToken(it.jwt)
+                userRepository.getUser(userDataStore.getToken(), true)
                 _loginOperationState.postValue(true)
             }
             .onFailure {
@@ -94,6 +96,27 @@ class LoginViewModel constructor(
                 _loginOperationState.postValue(false)
             }
     }
+
+//    private suspend fun getUserDetails() {
+//        userRepository
+//            .onSuccess {
+////                cacheUser(it)
+//            }
+//            .onFailure {
+//
+//            }
+//    }
+
+//    private suspend fun cacheUser(user: User) {
+//        userRepository
+//            .insertUser(user)
+//            .onSuccess {
+//
+//            }
+//            .onFailure {
+//
+//            }
+//    }
 
     private fun updateToken(token: String) {
         userDataStore.setToken(token)

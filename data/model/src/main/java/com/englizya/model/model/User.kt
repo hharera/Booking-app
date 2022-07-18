@@ -14,5 +14,6 @@ data class User(
     val phoneNumber: String,
     val name: String,
     val address: String? = null,
+    val imageUrl: String? = null,
     val walletOtp: String,
 )

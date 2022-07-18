@@ -31,6 +31,7 @@ class ProfileFragment : BaseFragment() {
         UserTickets,
 //        PaymentHistory,
         SuggestionsAndComplaint,
+        ProfileSettings,
         DriverReview,
         Settings,
         AboutUs,
@@ -103,6 +104,11 @@ class ProfileFragment : BaseFragment() {
 
         binding.profileQr.setOnClickListener {
             viewQrDialog()
+        }
+        binding.swipeLayout.setOnRefreshListener {
+            profileViewModel.fetchUser()
+            profileViewModel.getUserBalance()
+            binding.swipeLayout.isRefreshing = false
         }
     }
 
@@ -184,10 +190,22 @@ class ProfileFragment : BaseFragment() {
                 profileViewModel.logout()
                 navigateToLogin()
             }
+            is ProfileSettings ->{
+                navigateToProfileSettings()
+            }
             else -> {}
         }
     }
-
+    private fun navigateToProfileSettings() {
+        findNavController()
+            .navigate(
+                NavigationUtils.getUriNavigation(
+                    Domain.ENGLIZYA_PAY,
+                    Destination.PROFILE_SETTINGS,
+                    false
+                )
+            )
+    }
     private fun navigateRefundPolicy() {
         findNavController()
             .navigate(

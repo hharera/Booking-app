@@ -5,4 +5,6 @@
     <string name="unavailable">غير متاح</string>
     <string name="walletDiscount"> عند شرائك التذاكر باستخدام محفظة الانجليزية سيتم خصم 20% من قيمة التذاكر</string>
     <string name="total">الإجمالي</string>
+    <string name="seatLimit">اقصى عدد مقاعد متاح هو 6 كراسى</string>
+
 </resources>

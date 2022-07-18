@@ -5,6 +5,9 @@
     <string name="charging_amount_empty">قيمة الشحن مطلوب</string>
     <string name="invalid_amount_empty">الرجاء إدخال مبلغ صالح مثل 100</string>
     <string name="invalid_amount">الرجاء إدخال مبلغ مساوى او اكبر من 50</string>
+    <string name="done_charging_text">تم شحن رصيد حسابكم بمبلغ %1$s ج</string>
+    <string name="ok_text">حسناً</string>
+    <string name="error_text">حدث خطاً اثناء شحن الرصيد , الرجاء المحاولة مرة اخرى</string>
 
     <string name="pound">جنيه</string>
 

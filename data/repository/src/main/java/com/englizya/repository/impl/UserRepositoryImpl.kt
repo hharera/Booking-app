@@ -1,12 +1,14 @@
 package com.englizya.repository.impl
 
 import com.englizya.api.UserService
-import com.englizya.local.UserDao
+import com.englizya.local.User.UserDao
 import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.ResetPasswordRequest
 import com.englizya.model.request.SignupRequest
+import com.englizya.model.request.UserEditRequest
 import com.englizya.model.response.LoginResponse
+import com.englizya.model.response.UserEditResponse
 import com.englizya.repository.UserRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
@@ -29,7 +31,9 @@ class UserRepositoryImpl constructor(
     override suspend fun getUser(token: String, forceOnline: Boolean): Result<User> =
         kotlin.runCatching {
             if (forceOnline) {
-                userService.getUser(token)
+                userService.getUser(token).also {
+                    userDao.insertUser(it)
+                }
             } else {
                 userDao.getUser()
             }
@@ -39,6 +43,17 @@ class UserRepositoryImpl constructor(
         kotlin.runCatching {
             userService.resetPassword(resetPasswordRequest)
         }
+
+    override suspend fun insertUser(user: User): Result<Any> = kotlin.runCatching {
+        userDao.insertUser(user)
+    }
+
+    override suspend fun updateUser(
+        token: String,
+        request: UserEditRequest
+    ): Result<UserEditResponse> = kotlin.runCatching {
+        userService.updateUser(token, request)
+    }
 
     override fun signInWithCredential(credential: PhoneAuthCredential) =
         auth.signInWithCredential(credential)

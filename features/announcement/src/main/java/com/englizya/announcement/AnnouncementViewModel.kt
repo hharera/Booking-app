@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.model.model.Announcement
 import com.englizya.repository.AnnouncementRepository
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class AnnouncementViewModel constructor(
     private val announcementRepository: AnnouncementRepository,
-    private val announcementDatabase: AnnouncementDatabase,
 ) : BaseViewModel() {
 
     private var _announcements = MutableLiveData<List<Announcement>>()
@@ -33,9 +31,6 @@ class AnnouncementViewModel constructor(
             .getAllAnnouncement(forceOnline)
             .onSuccess {
                 updateLoading(false)
-//                viewModelScope.launch(Dispatchers.IO) {
-//                    announcementDatabase.getMarketDao().insertAnnouncements(it)
-//                }
                 _announcements.postValue(it)
             }
             .onFailure {

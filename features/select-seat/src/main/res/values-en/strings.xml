@@ -5,4 +5,6 @@
     <string name="unavailable">Unavailable</string>
     <string name="walletDiscount"> When buying tickets using Englizya Wallet , you will take a 20% discount on these tickets</string>
     <string name="total">Total</string>
+    <string name="seatLimit">Maximum seat number available to reserve is 6 seats</string>
+
 </resources>

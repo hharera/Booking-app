@@ -1,11 +1,14 @@
 package com.englizya.model.response
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Entity(tableName = "Ticket")
 data class UserTicket(
     var tripName: String,
-    val ticketId: Int,
+    @PrimaryKey   val ticketId: Int,
     val ticketQr: String,
     var ticketingTime: String?,
     var seatNo: Int,
@@ -20,6 +23,6 @@ data class UserTicket(
     val bookingOfficeName: String,
     val reservationDate: String,
     val tripId: Int,
-    val isActive: Boolean ,
+    val isActive: Boolean,
 )
 

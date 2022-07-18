@@ -31,13 +31,13 @@ class UserTicketsViewModel constructor(
     private val pageSize: LiveData<Int> = _pageSize
 
     init {
-        getUserTickets()
+        getUserTickets(false)
     }
 
-    fun getUserTickets() = viewModelScope.launch(Dispatchers.IO) {
+    fun getUserTickets(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         ticketRepository
-            .getUserTickets(userDataStore.getToken(), page.value!!, pageSize.value!!)
+            .getUserTickets(userDataStore.getToken(), page.value!!, pageSize.value!!,forceOnline)
             .onSuccess {
                 updateLoading(false)
                 _tickets.postValue(it)
@@ -66,11 +66,11 @@ class UserTicketsViewModel constructor(
 
     fun nextTicketsPage() {
         _page.value = _page.value?.plus(1)
-        getUserTickets()
+        getUserTickets(false)
     }
 
     fun getFirstPageUserTickets() {
         _page.value = 0
-        getUserTickets()
+        getUserTickets(false)
     }
 }

@@ -106,6 +106,9 @@ class TripAdapter(
             binding.price.text = getTripPrice(trip).toString()
 
             binding.serviceDegree.text = trip.service?.serviceDegreeName
+            itemView.setOnClickListener{
+                onItemClicked(trip)
+            }
 
             boomBook(trip)
         }
@@ -179,7 +182,7 @@ class TripAdapter(
 
         private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
             binding.stations.setContent {
-                var selectedBookingOffice by remember { mutableStateOf<Int?>(selectedOfficeId) }
+                var selectedBookingOffice by remember { mutableStateOf(tripTimes.first().bookingOffice?.officeId) }
 
                 LazyRow() {
                     tripTimes.forEach { stationTime ->

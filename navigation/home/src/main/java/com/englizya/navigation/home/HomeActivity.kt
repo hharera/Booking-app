@@ -79,10 +79,10 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (navController.backQueue.isEmpty()) {
-            finish()
-        } else {
+        if (navController.backQueue.size > 1) {
             navController.popBackStack()
+        } else {
+            finish()
         }
     }
 }

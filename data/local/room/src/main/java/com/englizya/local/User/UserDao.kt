@@ -1,4 +1,4 @@
-package com.englizya.local
+package com.englizya.local.User
 
 import androidx.room.Dao
 import androidx.room.Insert

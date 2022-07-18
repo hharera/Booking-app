@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.local.Offers.OfferDatabase
 import com.englizya.model.model.Offer
 import com.englizya.repository.OfferRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class OffersViewModel constructor(
     private val offerRepository: OfferRepository,
-    private val offerDatabase: OfferDatabase,
 ) : BaseViewModel() {
 
     private var _offers = MutableLiveData<List<Offer>>()
@@ -34,7 +32,7 @@ class OffersViewModel constructor(
 //        }
 //    }
 
-     fun getOffers(forceOnline: Boolean) = viewModelScope.launch (Dispatchers.IO){
+    fun getOffers(forceOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         offerRepository
             .getAllOffers(forceOnline)

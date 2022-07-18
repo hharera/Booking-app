@@ -15,7 +15,22 @@
     <string name="wallet_discount_txt">Wallet Discount Value</string>
     <string name="round_discount_txt">Round Trip Discount Value</string>
     <string name="sub_total">Sub-Total</string>
-
+    <string name="no_balance_dialog_title">No enough balance</string>
+    <string name="no_balance_dialog_message">There isn\'t enough balance in your account to complete the payment process</string>
+    <string name="charge_text">RECHARGE</string>
     <string name="total">Total</string>
+    <string name="dialog_message" formatted="true">%1$s will be deducted from your balance</string>
+    <string name="dialog_title">Confirmation</string>
+    <string name="ok_btn">OK</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="ok_text">Ok</string>
+    <string name="done_reserving_text">Your Ticket has been booked successfully</string>
+
+    <string name="payment_info_txt">
+    <li>On CLicking on Pay , you will be redirected to the Browser</li>
+    \n\n <li>Click on Pay Now then choose Meeza Payment Method</li>
+    \n\n <li>Complete your Personal Information then click on Pay Now</li>
+    \n\n <li>Scan the QR Code that will appear to you using your own Network App</li>
+</string>
 
 </resources>

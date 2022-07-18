@@ -19,6 +19,8 @@ class InternalRouteFragment : BaseFragment() {
 
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String>? = null
+    private var lineCodeList: List<String>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -42,8 +44,8 @@ class InternalRouteFragment : BaseFragment() {
     }
 
     private fun setUpListeners() {
-        binding.swipeLayout.setOnRefreshListener {
 
+        binding.swipeLayout.setOnRefreshListener {
             internalRouteViewModel.getInternalRoutes(true)
             binding.swipeLayout.isRefreshing = false
 
@@ -56,6 +58,10 @@ class InternalRouteFragment : BaseFragment() {
         }
 
         internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                Log.d("get Internal Routes ", "Remote")
+                internalRouteViewModel.getInternalRoutes(true)
+            }
             setData(it)
             setUpAdapter()
 
@@ -74,8 +80,9 @@ class InternalRouteFragment : BaseFragment() {
     private fun setUpAdapter() {
         val routeDetails = ExpandableListData.routeDetails
         titleList = ExpandableListData.title
+        lineCodeList = ExpandableListData.lineCode
         adapter =
-            CustomExpandableListAdapter(context!!, titleList as ArrayList<String>, routeDetails)
+            CustomExpandableListAdapter(context!!,lineCodeList as ArrayList<Int>, titleList as ArrayList<String>, routeDetails)
         binding.internalLV.setAdapter(adapter)
         binding.internalLV.setOnGroupExpandListener { groupPosition ->
 

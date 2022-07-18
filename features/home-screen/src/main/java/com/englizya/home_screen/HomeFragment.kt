@@ -110,12 +110,18 @@ class HomeFragment : BaseFragment() {
         }
 
         homeViewModel.offers.observe(viewLifecycleOwner) {
+            if(it == null){
+                homeViewModel.getOffers(true)
+            }
             if (it != null) {
                 offerSliderAdapter.setOffers(it)
             }
             Log.d("offers", it.toString())
         }
         homeViewModel.announcements.observe(viewLifecycleOwner) {
+            if(it == null){
+                homeViewModel.getAnnouncements(true)
+            }
             if (it != null) {
                 announcementAdapter.setAnnouncements(it)
             }

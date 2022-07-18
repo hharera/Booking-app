@@ -16,7 +16,7 @@ internal class TimeOnlyTest{
 
     @Test
     fun `test to map time to 24 time system`(): Unit {
-        TimeOnly.timeIn24TimeSystem("2022-04-01 18:00:00").let {
+        TimeOnly.timeIn24TimeSystem("2022-06-29T09:46:43.000+00:00").let {
             println("====================")
             println(it)
         }

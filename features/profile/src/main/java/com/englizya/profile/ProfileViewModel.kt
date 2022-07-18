@@ -31,10 +31,10 @@ class ProfileViewModel constructor(
         fetchUser()
     }
 
-    private fun fetchUser() = viewModelScope.launch(Dispatchers.IO) {
+     fun fetchUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .getUser(dataStore.getToken())
+            .getUser(dataStore.getToken(),true)
             .onSuccess {
                 updateLoading(false)
                 _user.postValue(it)
@@ -45,7 +45,7 @@ class ProfileViewModel constructor(
             }
     }
 
-    private fun getUserBalance() = viewModelScope.launch(Dispatchers.IO) {
+     fun getUserBalance() = viewModelScope.launch(Dispatchers.IO) {
         walletRepository
             .getBalance(dataStore.getToken())
             .onSuccess {

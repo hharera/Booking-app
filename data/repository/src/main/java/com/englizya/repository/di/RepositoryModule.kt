@@ -11,7 +11,7 @@ val repositoryModule = module {
     }
 
     single<TripRepository> {
-        TripRepositoryImpl(get())
+        TripRepositoryImpl(get(),get())
     }
 
     single<BookingOfficeRepository> {
@@ -42,7 +42,7 @@ val repositoryModule = module {
     }
 
     single<TicketRepository> {
-        TicketRepositoryImpl(get())
+        TicketRepositoryImpl(get(),get())
     }
 
     single<WalletRepository> {

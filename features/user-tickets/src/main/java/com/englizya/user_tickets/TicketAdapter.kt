@@ -37,6 +37,10 @@ class TicketAdapter(
     }
 
     fun addTickets(tickets: List<UserTicket>) {
+        if (tickets.isNotEmpty()) {
+            isLoading = false
+            notifyDataSetChanged()
+        }
         tickets.forEach {
             addTicket(it)
         }
@@ -71,8 +75,7 @@ class TicketAdapter(
     }
 
     private fun requestNextPage() {
-        if (isLoading.not()) {
-            isLoading = true
+        if (isLoading) {
             onNextPageRequested()
         }
     }
@@ -94,8 +97,10 @@ class TicketAdapter(
     }
 
     fun clearList() {
+        ticketList.forEachIndexed { index, userTicket ->
+            notifyItemRemoved(index)
+        }
         ticketList = emptyList()
-        notifyDataSetChanged()
     }
 
     open inner class BaseViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root)

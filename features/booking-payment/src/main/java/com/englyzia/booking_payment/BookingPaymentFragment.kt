@@ -37,6 +37,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private lateinit var binding: FragmentBookingPaymentBinding
     private val bookingPaymentViewModel: BookingPaymentViewModel by sharedViewModel()
     private val bookingViewModel: BookingViewModel by sharedViewModel()
+    var paymentInfoDialog: PaymentInformationDialog? = null
+    var paymentConfirmationDialog: PaymentConfirmationDialog? = null
+    var noBalanceDialog: NoBalanceDialog? = null
+    var doneBookingTicket: DoneBookingDialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +62,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     }
 
     private fun setupListeners() {
+        activity?.onBackPressedDispatcher?.addCallback {
+            bookingViewModel.clearReservationOrder()
+            parentFragmentManager.popBackStack()
+        }
+
         binding.charge.setOnClickListener {
             navigateToRecharging()
         }
@@ -67,9 +77,17 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.pay.setOnClickListener {
-            bookingViewModel.whenPayButtonClicked()
-        }
+            paymentConfirmationDialog = PaymentConfirmationDialog(
+                binding.totalTV.text.toString(),
+                onPositiveButtonClicked = {
+                    checkWalletBalance()
+                },
+                onNegativeButtonClicked = {
+                    paymentConfirmationDialog?.dismiss()
+                })
+            paymentConfirmationDialog?.show(childFragmentManager, "paymentConfirmationDialog")
 
+        }
         binding.cardMethodCL.setOnClickListener {
             bookingViewModel.setSelectedPaymentMethod(PaymentMethod.Card)
             updateTotalBasedOnBookingType()
@@ -98,14 +116,58 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             //  updateWalletTotal(0.0)
             updateSelectedMethodUI(it.id)
         }
+        binding.vodafoneCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.VodafonePayment)
+            showDialog()
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
+            updateSelectedMethodUI(it.id)
+        }
+        binding.etisalatCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.EtisalatPayment)
+            showDialog()
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
+            updateSelectedMethodUI(it.id)
+        }
+        binding.orangeCL.setOnClickListener {
+            bookingViewModel.setSelectedPaymentMethod(PaymentMethod.OrangePayment)
+            showDialog()
+            updateTotalBasedOnBookingType()
+            //  updateWalletTotal(0.0)
+            updateSelectedMethodUI(it.id)
+        }
 
-        binding.pay.setOnClickListener {
+    }
+
+    private fun checkWalletBalance() {
+        val total: Double = binding.totalTV.text.toString().toDouble()
+        if ((bookingViewModel.selectedPaymentMethod.value == PaymentMethod.EnglizyaWallet).and((total > bookingPaymentViewModel.userBalance.value!!))) {
+            paymentConfirmationDialog?.dismiss()
+            noBalanceDialog =
+                NoBalanceDialog(
+                    onChargeButtonClicked = {
+                        navigateToRecharging()
+                        noBalanceDialog?.dismiss()
+                    }
+                )
+            noBalanceDialog?.show(childFragmentManager, "noBalanceDialog")
+        } else {
             bookingViewModel.whenPayButtonClicked()
+            paymentConfirmationDialog?.dismiss()
         }
+    }
 
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            bookingViewModel.clearReservationOrder()
-        }
+    private fun showDialog() {
+        paymentInfoDialog = PaymentInformationDialog(
+            onOkButtonClicked = { onOkButtonClicked() }
+        )
+        paymentInfoDialog!!.show(childFragmentManager, "paymentDialog")
+
+    }
+
+    fun onOkButtonClicked() {
+        paymentInfoDialog?.dismiss()
     }
 
     private fun updateTotalBasedOnBookingType() {
@@ -216,7 +278,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
 
         bookingViewModel.reservationTickets.observe(viewLifecycleOwner) {
-            showUserTickets()
+            doneBookingTicket = DoneBookingDialog(onOkButtonClicked = {
+                doneBookingTicket!!.dismiss()
+                showUserTickets()
+            })
+            doneBookingTicket!!.show(childFragmentManager, "DoneReservingTicketDialog")
         }
 
         bookingViewModel.loading.observe(viewLifecycleOwner) {
@@ -246,6 +312,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
     private fun showUserTickets() {
         activity?.startActivity(Intent(context, UserTicketsActivity::class.java))
+        activity?.finish()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

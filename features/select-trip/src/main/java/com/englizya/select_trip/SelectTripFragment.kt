@@ -41,7 +41,8 @@ class SelectTripFragment : BaseFragment() {
         setupObservers()
         setupUI()
 
-        bookingViewModel.searchTrips()
+//        bookingViewModel.connectivity.value?.let { bookingViewModel.searchTrips(it) }
+        bookingViewModel.searchTrips(true)
     }
 
     private fun setupUI() {
@@ -62,6 +63,9 @@ class SelectTripFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
+//        connectionLiveData.observe(viewLifecycleOwner){
+//            bookingViewModel.updateConnectivity(it)
+//        }
         bookingViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
@@ -119,6 +123,8 @@ class SelectTripFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+
+
     }
 
     override fun onResume() {

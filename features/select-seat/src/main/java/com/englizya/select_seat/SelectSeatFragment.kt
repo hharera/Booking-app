@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -84,7 +85,7 @@ class SelectSeatFragment : BaseFragment() {
                     } else if (position % 5 == 1) {
                         updateSeatView(image, iterator.next())
                     } else if (position % 5 == 4) {
-                        image.setBackgroundResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_door)
                     }
                 }
 
@@ -128,7 +129,7 @@ class SelectSeatFragment : BaseFragment() {
                     } else if (position % 5 == 1) {
                         updateSeatView(image, iterator.next())
                     } else if (position % 5 == 4) {
-                        image.setBackgroundResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_door)
                     }
                 }
 
@@ -162,7 +163,7 @@ class SelectSeatFragment : BaseFragment() {
                     if (position % 5 == 0) {
                         image.setBackgroundResource(R.drawable.ic_driver_steering_wheel)
                     } else if (position % 5 == 4) {
-                        image.setBackgroundResource(R.drawable.ic_exit)
+                        image.setBackgroundResource(R.drawable.ic_door)
                     }
                 }
 
@@ -205,15 +206,17 @@ class SelectSeatFragment : BaseFragment() {
 
         image.setOnClickListener {
             if (isAvailable) {
-                bookingViewModel.setSelectedSeat(seat)
+                bookingViewModel.setSelectedSeat(seat).also {
+                    isSelected = it
 
-                if (isSelected) {
-                    image.setBackgroundResource(R.drawable.ic_seat_available)
-                } else {
-                    image.setBackgroundResource(R.drawable.ic_seat_selected)
+
+                    if (isSelected) {
+                        image.setBackgroundResource(R.drawable.ic_seat_available)
+                    } else {
+                        image.setBackgroundResource(R.drawable.ic_seat_selected)
+                    }
                 }
-
-                isSelected = isSelected.not()
+                //isSelected = isSelected.not()
             }
         }
 
@@ -325,6 +328,9 @@ class SelectSeatFragment : BaseFragment() {
         }
 
         bookingViewModel.selectedSeats.observe(viewLifecycleOwner) {
+            if (it.size > 6) {
+                showToast(getString(R.string.seatLimit))
+            }
             if (it.isNotEmpty()) {
                 binding.priceBeforeDiscount.visibility = View.VISIBLE
 
@@ -338,13 +344,6 @@ class SelectSeatFragment : BaseFragment() {
         bookingViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
-//        bookingViewModel.bookingType.observe(viewLifecycleOwner) {
-//            val total = bookingViewModel.total.value?.minus(0.1 * bookingViewModel.total.value!!)
-//            Log.d("Total" , total.toString())
-//            if (total != null) {
-//                bookingViewModel.setTotal(total)
-//            }
-//        }
 
         connectionLiveData.observe(viewLifecycleOwner) {
             showInternetSnackBar(binding.root, it)

@@ -1,5 +1,6 @@
 package com.englizya.user_tickets
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -94,7 +95,16 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         userTicketViewModel.tickets.observe(viewLifecycleOwner) {
-            updateUI(it)
+            if (it.isEmpty()) {
+                binding.emptyView.root.visibility = View.VISIBLE
+                binding.ticketsInfoText.visibility = View.GONE
+
+            } else {
+                binding.emptyView.root.visibility = View.GONE
+                updateUI(it)
+
+            }
+
         }
 
         userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
@@ -115,9 +125,9 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
-        if(cancellingStatus == null){
+        if (cancellingStatus == null) {
             confirmationDialog?.dismiss()
-        }else{
+        } else {
             confirmationDialog?.dismiss()
             showToast(cancellingStatus!!.message)
         }
@@ -127,11 +137,23 @@ class UserTicketsFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.ticketSwipeLayout.setOnRefreshListener {
+            userTicketViewModel.getUserTickets(true)
+            binding.ticketSwipeLayout.isRefreshing = false
+        }
+
+        binding.emptyView.goBook.setOnClickListener {
+            navigateToBooking()
+        }
+    }
+
+    private fun navigateToBooking() {
+        startActivity(Intent(context, Class.forName("com.englizya.navigation.booking.BookingActivity")))
     }
 
     override fun onResume() {
         super.onResume()
-        userTicketViewModel.getUserTickets()
+        userTicketViewModel.getUserTickets(false)
     }
 
 }
