@@ -5,5 +5,7 @@
     <string name="search_text">بحث</string>
     <string name="search_stations">بحث فى المحطات</string>
     <string name="search">ابحث…</string>
+    <string name="search_result">نتيجة البحث</string>
+
 
 </resources>

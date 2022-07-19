@@ -48,6 +48,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/from"
             android:imeOptions="actionNext"
+            android:editable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black" />
@@ -85,6 +86,7 @@
             android:id="@+id/to"
             android:imeOptions="actionNext"
             android:layout_width="match_parent"
+            android:editable="false"
             android:layout_height="match_parent"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
