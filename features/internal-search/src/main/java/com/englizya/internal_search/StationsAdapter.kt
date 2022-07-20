@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.englizya.internal_search.databinding.StationListItemBinding
 import com.englizya.model.model.RouteStations
+import com.englizya.model.model.Trip
 
 
 class StationsAdapter(
     private var stations: List<RouteStations>,
+    private val onItemClicked: (RouteStations) -> Unit,
+
 
     ) : RecyclerView.Adapter<StationsAdapter.NavigationItemViewHolder>() {
 
@@ -25,8 +28,19 @@ class StationsAdapter(
         return NavigationItemViewHolder(binding = binding)
     }
 
+    override fun onBindViewHolder(holder: NavigationItemViewHolder, position: Int) {
+        holder.updateUI(stations[position])
+        holder.itemView.setOnClickListener { onItemClicked(stations[position]) }
+    }
+
+    override fun getItemCount(): Int {
+        Log.d("Sizes", stations.size.toString())
+        return stations.size
+    }
+
     inner class NavigationItemViewHolder(private val binding: StationListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
 
         fun updateUI(routeStation: RouteStations) {
             binding.stationNameTxt.text = routeStation.stationName
@@ -36,6 +50,7 @@ class StationsAdapter(
     }
 
     fun setStations(list: List<List<RouteStations>>) {
+
         stations = list.flatten()
         Log.d("Stations from adapter", list.toString())
         Log.d("Size Stations from adapter", list.size.toString())
@@ -52,7 +67,7 @@ class StationsAdapter(
             }
 
         }
-        Log.d("Filtered" , filteredList.toString())
+        Log.d("Filtered", filteredList.toString())
         filterList(filteredList);
 
     }
@@ -60,15 +75,5 @@ class StationsAdapter(
     private fun filterList(filteredList: ArrayList<RouteStations>) {
         stations = filteredList
         notifyDataSetChanged()
-    }
-
-    override fun onBindViewHolder(holder: NavigationItemViewHolder, position: Int) {
-        holder.updateUI(stations[position])
-        holder.itemView.setOnClickListener {  }
-    }
-
-    override fun getItemCount(): Int {
-        Log.d("Sizes", stations.size.toString())
-        return stations.size
     }
 }

@@ -11,9 +11,10 @@ import androidx.fragment.app.DialogFragment
 import com.englizya.internal_search.databinding.DialogStationsBinding
 import com.englizya.model.model.RouteStations
 
-class StationsDialog constructor(
+class FromStationsDialog constructor(
     private var stationsList: List<List<RouteStations>>,
-    private var adapter: StationsAdapter
+    private var adapter: StationsAdapter,
+    private val onFromStationClicked: (RouteStations) -> Unit,
 
 ) : DialogFragment() {
     private lateinit var binding: DialogStationsBinding
@@ -29,15 +30,18 @@ class StationsDialog constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateUI()
+        setupUI()
         setUpListeners()
 
 
     }
 
-    private fun updateUI() {
-        adapter = StationsAdapter(emptyList())
-
+    private fun setupUI() {
+        adapter = StationsAdapter(emptyList(),
+            onItemClicked = {
+                onFromStationClicked(it)
+        }
+        )
         binding.stations.adapter = adapter
     }
 
