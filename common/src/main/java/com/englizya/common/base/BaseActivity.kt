@@ -1,5 +1,7 @@
 package com.englizya.common.base
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,8 +11,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.englizya.common.R
 import com.englizya.common.ui.LoadingDialog
+import com.englizya.common.utils.language.ContextUtils
 import com.englizya.common.utils.network.ConnectionLiveData
+import com.englizya.datastore.UserDataStore
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -25,6 +30,15 @@ open class BaseActivity : AppCompatActivity() {
         connectionLiveData = ConnectionLiveData(this)
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        val localeToSwitchTo = UserDataStore(newBase).getLanguage()
+
+        val localeUpdatedContext: ContextWrapper =
+            ContextUtils.updateLocale(newBase, Locale(localeToSwitchTo.toString()))
+        super.attachBaseContext(localeUpdatedContext)
+
+    }
+
     fun handleLoading(state: Boolean) {
         if (state) {
             showLoading()
@@ -34,7 +48,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        if(!loadingDialog.isAdded)
+        if (!loadingDialog.isAdded)
             loadingDialog.show(supportFragmentManager, "Loading")
     }
 
@@ -73,7 +87,7 @@ open class BaseActivity : AppCompatActivity() {
             .also { finish() }
     }
 
-    fun changeStatusBarColor(colorRes : Int) {
+    fun changeStatusBarColor(colorRes: Int) {
         window?.statusBarColor = getColor(colorRes)
     }
 
