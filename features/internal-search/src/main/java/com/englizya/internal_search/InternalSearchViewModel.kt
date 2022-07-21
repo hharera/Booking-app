@@ -31,6 +31,9 @@ class InternalSearchViewModel constructor(
     private val _searchResult = MutableLiveData<List<InternalRoutes>>()
     val searchResult: LiveData<List<InternalRoutes>> = _searchResult
 
+    init {
+        getInternalRoutes(true)
+    }
     fun getInternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         routeRepository

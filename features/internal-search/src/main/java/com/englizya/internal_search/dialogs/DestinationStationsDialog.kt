@@ -15,7 +15,7 @@ import com.englizya.model.model.RouteStations
 class DestinationStationsDialog constructor(
     private var stationsList: List<List<RouteStations>>,
     private var adapter: StationsAdapter,
-    private val onToStationClicked: (RouteStations) -> Unit,
+    private val onDestinationStationClicked: (RouteStations) -> Unit,
 
     ) : DialogFragment() {
     private lateinit var binding: DialogStationsBinding
@@ -40,7 +40,7 @@ class DestinationStationsDialog constructor(
     private fun setupUI() {
         adapter = StationsAdapter(emptyList(),
             onItemClicked = {
-                onToStationClicked(it)
+                onDestinationStationClicked(it)
         }
         )
         binding.stations.adapter = adapter

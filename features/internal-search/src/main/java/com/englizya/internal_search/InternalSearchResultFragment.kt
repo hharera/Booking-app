@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
+import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.internal_search.adapter.CustomExpandableListAdapter
 import com.englizya.internal_search.adapter.ExpandableListData
@@ -36,12 +37,19 @@ class InternalSearchResultFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
+        setUpListeners()
+    }
+
+    private fun setUpListeners() {
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 
     private fun setUpObservers() {
         internalSearchViewModel.searchResult.observe(viewLifecycleOwner) {
-            Log.d("SearchResultFragment", it.map{it.lineCode}.toString())
+            Log.d("SearchResultFragment", it.map { it.lineCode }.toString())
             setData(it)
             setUpAdapter()
         }
@@ -58,7 +66,7 @@ class InternalSearchResultFragment : BaseFragment() {
         val routeDetails = ExpandableListData.routeDetails
         titleList = ExpandableListData.title
         lineCodeList = ExpandableListData.lineCode
-        Log.d("lineCode" , lineCodeList.toString())
+        Log.d("lineCode", lineCodeList.toString())
 
         adapter =
             CustomExpandableListAdapter(

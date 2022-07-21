@@ -36,9 +36,6 @@ class InternalSearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        internalSearchViewModel.stations.clear()
-        internalSearchViewModel.getInternalRoutes(true)
-
         setUpObservers()
         setUpListeners()
 
@@ -57,14 +54,14 @@ class InternalSearchFragment : BaseFragment() {
         }
     }
 
-    private fun onToStationCLicked(stationName: String) {
+    private fun onDestinationStationCLicked(stationName: String) {
         binding.destination.setText(stationName)
         internalSearchViewModel.destinationStationName.value = stationName
         destinationStationsDialog!!.dismiss()
 
     }
 
-    private fun onFromStationCLicked(stationName: String) {
+    private fun onSourceStationCLicked(stationName: String) {
         binding.source.setText(stationName)
         internalSearchViewModel.sourceStationName.value = stationName
         sourceStationsDialog!!.dismiss()
@@ -73,18 +70,18 @@ class InternalSearchFragment : BaseFragment() {
 
     private fun setUpListeners() {
         binding.source.setOnClickListener {
-            internalSearchViewModel.getInternalRoutes(true)
+//            internalSearchViewModel.getInternalRoutes(true)
 
             sourceStationsDialog = SourceStationsDialog(
                 stationsList = internalSearchViewModel.stations,
                 adapter = StationsAdapter(
                     internalSearchViewModel.stations.flatten(),
                     onItemClicked = {
-                        onFromStationCLicked(it.stationName)
+                        onSourceStationCLicked(it.stationName)
 
                     }),
-                onFromStationClicked = {
-                    onFromStationCLicked(it.stationName)
+                onSourceStationClicked = {
+                    onSourceStationCLicked(it.stationName)
 
                 }
             )
@@ -93,18 +90,18 @@ class InternalSearchFragment : BaseFragment() {
 
         }
         binding.destination.setOnClickListener {
-            internalSearchViewModel.getInternalRoutes(true)
+//            internalSearchViewModel.getInternalRoutes(true)
 
             destinationStationsDialog = DestinationStationsDialog(
                 stationsList = internalSearchViewModel.stations,
                 adapter = StationsAdapter(
                     internalSearchViewModel.stations.flatten(),
                     onItemClicked = {
-                        onToStationCLicked(it.stationName)
+                        onDestinationStationCLicked(it.stationName)
 
                     }),
-                onToStationClicked = {
-                    onToStationCLicked(it.stationName)
+                onDestinationStationClicked = {
+                    onDestinationStationCLicked(it.stationName)
                 }
             )
             Log.d("routeStations", internalSearchViewModel.stations.toString())
@@ -118,6 +115,7 @@ class InternalSearchFragment : BaseFragment() {
 
             }
         }
+
     }
 
     private fun navigateToSearchResult() {
