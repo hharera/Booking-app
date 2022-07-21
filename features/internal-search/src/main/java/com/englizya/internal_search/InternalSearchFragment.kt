@@ -11,15 +11,15 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.internal_search.databinding.FragmentInternalSearchBinding
-import com.englizya.model.model.RouteStations
+import com.englizya.internal_search.dialogs.SourceStationsDialog
+import com.englizya.internal_search.dialogs.DestinationStationsDialog
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InternalSearchFragment : BaseFragment() {
     private lateinit var binding: FragmentInternalSearchBinding
     private val internalSearchViewModel: InternalSearchViewModel by sharedViewModel()
-    private var fromStationsDialog: FromStationsDialog? = null
-    private var toStationsDialog: ToStationsDialog? = null
+    private var sourceStationsDialog: SourceStationsDialog? = null
+    private var destinationStationsDialog: DestinationStationsDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,91 +36,87 @@ class InternalSearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        internalSearchViewModel.getInternalRoutes(true)
+        internalSearchViewModel.stations.clear()
+        internalSearchViewModel.getInternalRoutes(true)
+
         setUpObservers()
         setUpListeners()
 
     }
 
     private fun setUpObservers() {
-        internalSearchViewModel.from.observe(viewLifecycleOwner) { list ->
+        internalSearchViewModel.internalRoutes.observe(viewLifecycleOwner) { list ->
+            internalSearchViewModel.stations.clear()
+
             list.forEach {
                 internalSearchViewModel.stations.add(it.routeStations)
 
             }
-            fromStationsDialog = FromStationsDialog(
-                stationsList = internalSearchViewModel.stations,
-                adapter = StationsAdapter(
-                    internalSearchViewModel.stations.flatten(),
-                    onItemClicked = {
-                        onFromStationCLicked(it.stationName, it)
-
-                    }),
-                onFromStationClicked = {
-                    onFromStationCLicked(it.stationName, it)
-
-                }
-            )
-            Log.d("routeStations", internalSearchViewModel.stations.toString())
-            fromStationsDialog!!.show(childFragmentManager, "StationsDialog")
 
 
         }
+    }
 
-        internalSearchViewModel.to.observe(viewLifecycleOwner) { list ->
-            list.forEach {
-                internalSearchViewModel.stations.add(it.routeStations)
-
-            }
-            toStationsDialog = ToStationsDialog(
-                stationsList = internalSearchViewModel.stations,
-                adapter = StationsAdapter(
-                    internalSearchViewModel.stations.flatten(),
-                    onItemClicked = {
-                        onToStationCLicked(it.stationName, it)
-
-                    }),
-                onToStationClicked = {
-                    onToStationCLicked(it.stationName, it)
-                }
-            )
-            Log.d("routeStations", internalSearchViewModel.stations.toString())
-            toStationsDialog!!.show(childFragmentManager, "StationsDialog")
-
-
-        }
-
+    private fun onToStationCLicked(stationName: String) {
+        binding.destination.setText(stationName)
+        internalSearchViewModel.destinationStationName.value = stationName
+        destinationStationsDialog!!.dismiss()
 
     }
 
-    private fun onToStationCLicked(stationName: String, routeStation: RouteStations) {
-        binding.to.setText(stationName)
-        internalSearchViewModel.toRouteStation.value = stationName
-        toStationsDialog!!.dismiss()
-
-    }
-
-    private fun onFromStationCLicked(stationName: String, routeStation: RouteStations) {
-        binding.from.setText(stationName)
-        internalSearchViewModel.fromRouteStation.value = stationName
-        fromStationsDialog!!.dismiss()
+    private fun onFromStationCLicked(stationName: String) {
+        binding.source.setText(stationName)
+        internalSearchViewModel.sourceStationName.value = stationName
+        sourceStationsDialog!!.dismiss()
 
     }
 
     private fun setUpListeners() {
-        binding.from.setOnClickListener {
-            internalSearchViewModel.getFromInternalRoutes(true)
+        binding.source.setOnClickListener {
+            internalSearchViewModel.getInternalRoutes(true)
+
+            sourceStationsDialog = SourceStationsDialog(
+                stationsList = internalSearchViewModel.stations,
+                adapter = StationsAdapter(
+                    internalSearchViewModel.stations.flatten(),
+                    onItemClicked = {
+                        onFromStationCLicked(it.stationName)
+
+                    }),
+                onFromStationClicked = {
+                    onFromStationCLicked(it.stationName)
+
+                }
+            )
+            Log.d("routeStations", internalSearchViewModel.stations.toString())
+            sourceStationsDialog!!.show(childFragmentManager, "StationsDialog")
+
         }
-        binding.to.setOnClickListener {
-            internalSearchViewModel.getToInternalRoutes(true)
+        binding.destination.setOnClickListener {
+            internalSearchViewModel.getInternalRoutes(true)
+
+            destinationStationsDialog = DestinationStationsDialog(
+                stationsList = internalSearchViewModel.stations,
+                adapter = StationsAdapter(
+                    internalSearchViewModel.stations.flatten(),
+                    onItemClicked = {
+                        onToStationCLicked(it.stationName)
+
+                    }),
+                onToStationClicked = {
+                    onToStationCLicked(it.stationName)
+                }
+            )
+            Log.d("routeStations", internalSearchViewModel.stations.toString())
+            destinationStationsDialog!!.show(childFragmentManager, "StationsDialog")
+
+
         }
         binding.search.setOnClickListener {
             internalSearchViewModel.searchRoute().also {
                 navigateToSearchResult()
 
             }
-
-
         }
     }
 

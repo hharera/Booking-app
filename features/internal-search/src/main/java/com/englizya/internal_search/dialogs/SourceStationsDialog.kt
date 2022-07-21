@@ -1,4 +1,4 @@
-package com.englizya.internal_search
+package com.englizya.internal_search.dialogs
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,15 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.englizya.internal_search.StationsAdapter
 import com.englizya.internal_search.databinding.DialogStationsBinding
 import com.englizya.model.model.RouteStations
 
-class ToStationsDialog constructor(
+class SourceStationsDialog constructor(
     private var stationsList: List<List<RouteStations>>,
     private var adapter: StationsAdapter,
-    private val onToStationClicked: (RouteStations) -> Unit,
+    private val onFromStationClicked: (RouteStations) -> Unit,
 
-) : DialogFragment() {
+    ) : DialogFragment() {
     private lateinit var binding: DialogStationsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +40,7 @@ class ToStationsDialog constructor(
     private fun setupUI() {
         adapter = StationsAdapter(emptyList(),
             onItemClicked = {
-                onToStationClicked(it)
+                onFromStationClicked(it)
         }
         )
         binding.stations.adapter = adapter

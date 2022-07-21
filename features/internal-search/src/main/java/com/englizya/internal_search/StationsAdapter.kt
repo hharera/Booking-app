@@ -4,9 +4,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.englizya.internal_search.databinding.StationDialogListItemBinding
 import com.englizya.internal_search.databinding.StationListItemBinding
 import com.englizya.model.model.RouteStations
-import com.englizya.model.model.Trip
 
 
 class StationsAdapter(
@@ -14,21 +14,21 @@ class StationsAdapter(
     private val onItemClicked: (RouteStations) -> Unit,
 
 
-    ) : RecyclerView.Adapter<StationsAdapter.NavigationItemViewHolder>() {
+    ) : RecyclerView.Adapter<StationsAdapter.StationItemViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): NavigationItemViewHolder {
-        val binding = StationListItemBinding.inflate(
+    ): StationItemViewHolder {
+        val binding = StationDialogListItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return NavigationItemViewHolder(binding = binding)
+        return StationItemViewHolder(binding = binding)
     }
 
-    override fun onBindViewHolder(holder: NavigationItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StationItemViewHolder, position: Int) {
         holder.updateUI(stations[position])
         holder.itemView.setOnClickListener { onItemClicked(stations[position]) }
     }
@@ -38,7 +38,7 @@ class StationsAdapter(
         return stations.size
     }
 
-    inner class NavigationItemViewHolder(private val binding: StationListItemBinding) :
+    inner class StationItemViewHolder(private val binding: StationDialogListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 

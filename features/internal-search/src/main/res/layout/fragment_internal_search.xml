@@ -46,8 +46,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/from"
-            android:imeOptions="actionNext"
+            android:id="@+id/source"
             android:editable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -83,7 +82,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/to"
+            android:id="@+id/destination"
             android:imeOptions="actionNext"
             android:layout_width="match_parent"
             android:editable="false"

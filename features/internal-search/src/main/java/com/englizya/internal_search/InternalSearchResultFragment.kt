@@ -41,7 +41,7 @@ class InternalSearchResultFragment : BaseFragment() {
 
     private fun setUpObservers() {
         internalSearchViewModel.searchResult.observe(viewLifecycleOwner) {
-            Log.d("InternalRoutes", it.toString())
+            Log.d("SearchResultFragment", it.map{it.lineCode}.toString())
             setData(it)
             setUpAdapter()
         }
@@ -58,6 +58,8 @@ class InternalSearchResultFragment : BaseFragment() {
         val routeDetails = ExpandableListData.routeDetails
         titleList = ExpandableListData.title
         lineCodeList = ExpandableListData.lineCode
+        Log.d("lineCode" , lineCodeList.toString())
+
         adapter =
             CustomExpandableListAdapter(
                 context!!,
@@ -66,16 +68,7 @@ class InternalSearchResultFragment : BaseFragment() {
                 routeDetails
             )
         binding.internalLV.setAdapter(adapter)
-        binding.internalLV.setOnGroupExpandListener { groupPosition ->
 
-        }
-        binding.internalLV.setOnGroupCollapseListener { groupPosition ->
-
-        }
-        binding.internalLV.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-
-            false
-        }
     }
 
 }

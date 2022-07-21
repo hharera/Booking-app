@@ -44,24 +44,6 @@ internal object ExpandableListData {
         routeDetails = stations
 
     }
-    fun setExternalRoutesData(routeList: List<ExternalRoutes>?) {
-        val lineCodeList: MutableList<String> = ArrayList()
-        val titleList: MutableList<String> = ArrayList()
-        val stations: MutableList<List<RouteStations>> = ArrayList()
-        routeList?.forEach { route ->
-            titleList.add(route.routeName)
-            lineCodeList.add(route.lineCode)
 
-            stations.add(route.routeStations.sortedBy { it.stationOrder })
-
-        }
-
-        Log.d("Station ", stations.toString())
-
-        lineCode = lineCodeList
-        title = titleList
-        routeDetails = stations
-
-    }
 }
 

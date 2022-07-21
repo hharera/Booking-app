@@ -17,32 +17,27 @@ class InternalSearchViewModel constructor(
     val stations: MutableList<List<RouteStations>> = ArrayList()
 
 
-    private val _from = MutableLiveData<List<InternalRoutes>>()
-    val from: LiveData<List<InternalRoutes>> = _from
+    private val _internalRoutes = MutableLiveData<List<InternalRoutes>>()
+    val internalRoutes: LiveData<List<InternalRoutes>> = _internalRoutes
 
+    private val _sourceStationName = MutableLiveData<String>()
+    val sourceStationName: MutableLiveData<String>
+        get() = _sourceStationName
 
-    private val _to = MutableLiveData<List<InternalRoutes>>()
-    val to: LiveData<List<InternalRoutes>> = _to
-
-
-    private val _fromRouteStation = MutableLiveData<String>()
-    val fromRouteStation: MutableLiveData<String>
-        get() = _fromRouteStation
-
-    private val _toRouteStation = MutableLiveData<String>()
-    val toRouteStation: MutableLiveData<String>
-        get() = _toRouteStation
+    private val _destinationStationName = MutableLiveData<String>()
+    val destinationStationName: MutableLiveData<String>
+        get() = _destinationStationName
 
     private val _searchResult = MutableLiveData<List<InternalRoutes>>()
     val searchResult: LiveData<List<InternalRoutes>> = _searchResult
 
-    fun getFromInternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+    fun getInternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         routeRepository
             .getInternalLines(getOnlineForced)
             .onSuccess {
                 updateLoading(false)
-                _from.postValue(it)
+                _internalRoutes.postValue(it)
             }
             .onFailure {
                 updateLoading(false)
@@ -50,28 +45,15 @@ class InternalSearchViewModel constructor(
             }
     }
 
-    fun getToInternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        routeRepository
-            .getInternalLines(getOnlineForced)
-            .onSuccess {
-                updateLoading(false)
-                _to.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
 
     fun searchRoute() {
-        Log.d("FromRoute", fromRouteStation.value.toString())
-        Log.d("ToRoute", toRouteStation.value.toString())
+        Log.d("FromRoute", sourceStationName.value.toString())
+        Log.d("ToRoute", destinationStationName.value.toString())
 
-     _searchResult.value  =   from.value?.filter {
+     _searchResult.value  =   internalRoutes.value?.filter {
             it.routeStations.filter {
-                it.stationName == fromRouteStation.value ||
-                        it.stationName == toRouteStation.value
+                it.stationName == sourceStationName.value ||
+                        it.stationName == destinationStationName.value
             }.size == 2
         }
 
@@ -80,26 +62,3 @@ class InternalSearchViewModel constructor(
 
     }
 }
-//        if (fromRouteStation.value?.stationOrder!! < toRouteStation.value?.stationOrder!!) {
-//            _searchResult.value = from.value?.filter {
-//
-//                it.routeStations.contains(fromRouteStation.value) && it.routeStations.contains(
-//                    toRouteStation.value
-//                )
-//            }.also { internalRoutes ->
-//                internalRoutes?.map { internalRoute -> internalRoute.routeStations.sortedBy { it.stationOrder } }
-//            }
-//
-//        } else {
-//            _searchResult.value = from.value?.filter {
-//                it.routeStations.contains(fromRouteStation.value) && it.routeStations.contains(
-//                    toRouteStation.value
-//                )
-//            }.also { internalRoutes ->
-//                internalRoutes?.map { internalRoute -> internalRoute.routeStations.sortedByDescending { it.stationOrder } }
-//
-//            }
-//        }
-//Log.d("SearchRoute" , _searchResult.value .toString())
-//}
-//}
