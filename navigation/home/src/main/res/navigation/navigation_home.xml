@@ -44,7 +44,13 @@
 
         <deepLink app:uri="EnglizyaPay://settings" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_join_us"
+        android:name="com.englizya.join_us.JobsFragment"
+        tools:layout="@layout/fragment_jobs">
 
+        <deepLink app:uri="EnglizyaPay://join_us" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_user_tickets"
         android:name="com.englizya.user_tickets.UserTicketsFragment"

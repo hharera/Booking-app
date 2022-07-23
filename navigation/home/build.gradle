@@ -23,6 +23,7 @@ dependencies {
     api(project(Feature.ANNOUNCEMENT))
     api(project(Feature.PROFILE_SETTINGS))
     api(project(Feature.INTERNAL_SEARCH))
+    api(project(Feature.JOIN_US))
 
     api(project(Feature.RECHARGING))
     api(project(Navigation.BOOKING))

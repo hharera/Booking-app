@@ -25,6 +25,7 @@ import com.englizya.firebase.di.firebaseServiceModule
 import com.englizya.forgetpassword.di.forgetPasswordModule
 import com.englizya.home_screen.di.homeModule
 import com.englizya.internal_search.di.internalSearchModule
+import com.englizya.join_us.di.jobsModule
 import com.englizya.local.di.databaseModule
 import com.englizya.location_update.di.locationViewModel
 import com.englizya.login.di.loginModule
@@ -148,6 +149,7 @@ class TicketApplication : Application(), KoinComponent {
                     externalRoute,
                     ticketDetailsModule,
                     offersModule,
+                    jobsModule,
                     announcementModule,
                     profileModule,
                     profileSettingsModule,

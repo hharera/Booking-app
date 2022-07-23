@@ -36,6 +36,7 @@ class ProfileFragment : BaseFragment() {
         Settings,
         AboutUs,
         ContactUs,
+        JoinUs,
         TermsAndConditions,
         RefundPolicy,
         PrivacyPolicy,
@@ -177,6 +178,9 @@ class ProfileFragment : BaseFragment() {
             is ContactUs -> {
                 navigateToContactUs()
             }
+            is JoinUs -> {
+                navigateToJoinUs()
+            }
 
             is DriverReview -> {
                 navigateReviewDriver()
@@ -190,12 +194,23 @@ class ProfileFragment : BaseFragment() {
                 profileViewModel.logout()
                 navigateToLogin()
             }
-            is ProfileSettings ->{
+            is ProfileSettings -> {
                 navigateToProfileSettings()
             }
             else -> {}
         }
     }
+
+    private fun navigateToJoinUs() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.JOIN_US,
+                false
+            )
+        )
+    }
+
     private fun navigateToProfileSettings() {
         findNavController()
             .navigate(
@@ -206,6 +221,7 @@ class ProfileFragment : BaseFragment() {
                 )
             )
     }
+
     private fun navigateRefundPolicy() {
         findNavController()
             .navigate(
@@ -265,7 +281,7 @@ class ProfileFragment : BaseFragment() {
         findNavController()
             .navigate(
                 NavigationUtils.getUriNavigation(
-                     Domain.ENGLIZYA_PAY,
+                    Domain.ENGLIZYA_PAY,
                     Destination.USER_TICKETS,
                     false
                 )
