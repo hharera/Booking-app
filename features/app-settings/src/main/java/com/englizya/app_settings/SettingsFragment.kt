@@ -66,8 +66,10 @@ class SettingsFragment : BaseFragment() {
 
         binding.save.setOnClickListener {
             settingsViewModel.saveSelectedLanguage().also {
-                restartApp()
+                startActivity(Intent(context ,  Class.forName("com.englizya.navigation.home.HomeActivity")))
+                activity?.finish()
             }
+
         }
 
         binding.back.setOnClickListener {

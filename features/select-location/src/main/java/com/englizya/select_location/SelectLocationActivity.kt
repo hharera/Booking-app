@@ -15,7 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.englizya.common.base.BaseActivity
-import com.englizya.common.extension.onSearchConfirmed
+//import com.englizya.common.extension.onSearchConfirmed
 import com.englizya.common.utils.navigation.Arguments
 import com.englizya.select_location.databinding.ActivitySelectLocationBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -73,9 +73,9 @@ class SelectLocationActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun setupListener() {
-        bind.searchLocation.onSearchConfirmed {
-            searchLocation(it)
-        }
+//        bind.searchLocation.onSearchConfirmed {
+//            searchLocation(it)
+//        }
     }
 
     private fun verifyLocationPermission() {

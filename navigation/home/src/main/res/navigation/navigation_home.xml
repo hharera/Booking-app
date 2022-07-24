@@ -108,6 +108,21 @@
         <deepLink app:uri="EnglizyaPay://profile_settings" />
     </fragment>
     <fragment
+        android:id="@+id/navigation_internal_search"
+        android:name="com.englizya.internal_search.InternalSearchFragment"
+        tools:layout="@layout/fragment_internal_search">
+
+        <deepLink app:uri="EnglizyaPay://internal_search" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_internal_search_result"
+        android:name="com.englizya.internal_search.InternalSearchResultFragment"
+        tools:layout="@layout/fragment_internal_search_result">
+
+        <deepLink app:uri="EnglizyaPay://internal_search_result" />
+    </fragment>
+    <fragment
         android:id="@+id/navigation_offers"
         android:name="com.englizya.offers.OffersFragment"
         tools:layout="@layout/fragment_offers">

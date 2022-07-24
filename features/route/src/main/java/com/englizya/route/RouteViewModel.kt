@@ -1,6 +1,7 @@
 package com.englizya.route
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
@@ -17,12 +18,10 @@ class RouteViewModel constructor(
     ) : BaseViewModel() {
 
     private val _externalLines = MutableLiveData<List<ExternalRoutes>>()
-    val externalLines: MutableLiveData<List<ExternalRoutes>>
-        get() = _externalLines
+    val externalLines: LiveData<List<ExternalRoutes>> = _externalLines
 
     private val _internalLines = MutableLiveData<List<InternalRoutes>>()
-    val internalLines: MutableLiveData<List<InternalRoutes>>
-        get() = _internalLines
+    val internalLines: LiveData<List<InternalRoutes>> = _internalLines
 
     fun getExternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)

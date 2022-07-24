@@ -37,10 +37,10 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private lateinit var binding: FragmentBookingPaymentBinding
     private val bookingPaymentViewModel: BookingPaymentViewModel by sharedViewModel()
     private val bookingViewModel: BookingViewModel by sharedViewModel()
-    var paymentInfoDialog: PaymentInformationDialog? = null
-    var paymentConfirmationDialog: PaymentConfirmationDialog? = null
-    var noBalanceDialog: NoBalanceDialog? = null
-    var doneBookingTicket: DoneBookingDialog? = null
+    private var paymentInfoDialog: PaymentInformationDialog? = null
+    private var paymentConfirmationDialog: PaymentConfirmationDialog? = null
+    private var noBalanceDialog: NoBalanceDialog? = null
+    private var doneBookingTicket: DoneBookingDialog? = null
 
 
     override fun onCreateView(

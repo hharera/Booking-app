@@ -1,4 +1,4 @@
-package com.englizya.local.Offers
+package com.englizya.local.offers
 
 import androidx.room.Dao
 import androidx.room.Insert

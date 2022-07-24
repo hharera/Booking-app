@@ -110,7 +110,7 @@ class HomeFragment : BaseFragment() {
         }
 
         homeViewModel.offers.observe(viewLifecycleOwner) {
-            if(it == null){
+            if (it == null) {
                 homeViewModel.getOffers(true)
             }
             if (it != null) {
@@ -119,7 +119,7 @@ class HomeFragment : BaseFragment() {
             Log.d("offers", it.toString())
         }
         homeViewModel.announcements.observe(viewLifecycleOwner) {
-            if(it == null){
+            if (it == null) {
                 homeViewModel.getAnnouncements(true)
             }
             if (it != null) {
@@ -136,7 +136,7 @@ class HomeFragment : BaseFragment() {
             )
         }
         binding.shortTransportationService.setOnClickListener {
-            progressToHomeActivity()
+            progressToInternalSearchActivity()
         }
 
         binding.longTransportationService.setOnClickListener {
@@ -171,10 +171,22 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun progressToBookingActivity() {
-        startActivity(Intent(context, Class.forName("com.englizya.navigation.booking.BookingActivity")))
+        startActivity(
+            Intent(
+                context,
+                Class.forName("com.englizya.navigation.booking.BookingActivity")
+            )
+        )
     }
 
-    private fun progressToHomeActivity() {
+    private fun progressToInternalSearchActivity() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.INTERNAL_SEARCH,
+                false
+            )
+        )
 
     }
 

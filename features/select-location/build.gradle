@@ -5,7 +5,6 @@ dependencies {
     api project(Base.COMMON)
     api(Libs.playServicesMaps)
     api(Libs.googlePlaces)
-    api(Libs.searchBar)
 }
 
 android {
