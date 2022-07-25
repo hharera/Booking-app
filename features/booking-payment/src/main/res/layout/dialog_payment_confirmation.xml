@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_260sdp"
+    android:layout_width="@dimen/_280sdp"
     android:layout_height="@dimen/_140sdp"
     android:layout_margin="20dp"
     android:background="@color/grey_100"
@@ -46,7 +46,6 @@
             android:id="@+id/ok_btn"
             android:layout_width="144dp"
             android:layout_height="48dp"
-            android:layout_marginStart="150dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/background_button_charge"
             android:fontFamily="@font/sf"
@@ -54,23 +53,31 @@
             android:text="@string/ok_btn"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
+            android:layout_marginHorizontal="10dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cancel_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_message" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_message"
+            app:layout_constraintVertical_bias="0.104" />
 
         <TextView
             android:id="@+id/cancel_btn"
             android:layout_width="144dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="150dp"
             android:background="@drawable/back_cancel"
             android:fontFamily="@font/sf"
             android:gravity="center"
             android:text="@string/cancel"
+            android:layout_marginHorizontal="10dp"
             android:textAlignment="center"
             android:textColor="@color/blue_500"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_message" />
+            app:layout_constraintStart_toEndOf="@+id/ok_btn"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_message"
+            app:layout_constraintVertical_bias="0.062" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
