@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="where_you_are">اين انت ؟</string>
+    <string name="where_to_go">اين تريد ان تذهب ؟</string>
+    <string name="search_text">بحث</string>
+    <string name="search_stations">بحث فى المحطات</string>
+    <string name="search">ابحث…</string>
+    <string name="search_result">نتيجة البحث</string>
+
+</resources>

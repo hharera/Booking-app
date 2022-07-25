@@ -33,6 +33,7 @@ object Feature {
     const val SELECT_TRIP = ":features:select-trip"
     const val OFFERS = ":features:offers"
     const val ANNOUNCEMENT = ":features:announcement"
+    const val INTERNAL_SEARCH = ":features:internal-search"
 
 
 }

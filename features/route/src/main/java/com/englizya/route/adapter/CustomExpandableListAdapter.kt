@@ -20,7 +20,6 @@ class CustomExpandableListAdapter internal constructor(
 ) : BaseExpandableListAdapter() {
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
         return RoutesList[listPosition][expandedListPosition].stationName
-//        [this.lineList[listPosition]][expandedListPosition]
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -54,7 +53,7 @@ class CustomExpandableListAdapter internal constructor(
         return this.titleList[listPosition]
     }
 
-    fun getLineCode(listPosition: Int): Any {
+    private fun getLineCode(listPosition: Int): Any {
         return this.lineCodeList[listPosition]
     }
 

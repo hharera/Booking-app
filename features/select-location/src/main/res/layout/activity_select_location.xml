@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        android:id="@+id/search_location"
-        style="@style/MaterialSearchBarLight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutDirection="rtl"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:mt_hintColor="@color/black"
-        app:mt_maxSuggestionsCount="3"
-        app:mt_placeholder="@string/search_location_hint"
-        app:mt_hint="@string/search_location_hint"
-        app:mt_placeholderColor="@color/grey_500"
-        app:mt_roundedSearchBarEnabled="false"
-        app:mt_textColor="@color/black" />
+    <!--    <com.mancj.materialsearchbar.MaterialSearchBar-->
+    <!--        android:id="@+id/search_location"-->
+    <!--        style="@style/MaterialSearchBarLight"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layoutDirection="rtl"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:mt_hintColor="@color/black"-->
+    <!--        app:mt_maxSuggestionsCount="3"-->
+    <!--        app:mt_placeholder="@string/search_location_hint"-->
+    <!--        app:mt_hint="@string/search_location_hint"-->
+    <!--        app:mt_placeholderColor="@color/grey_500"-->
+    <!--        app:mt_roundedSearchBarEnabled="false"-->
+    <!--        app:mt_textColor="@color/black" />-->
 
     <fragment
         android:id="@+id/map"
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/confirm"
-        app:layout_constraintTop_toBottomOf="@+id/search_location"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:context=".ui.location.MapsFragment"
         tools:layout_editor_absoluteX="0dp" />

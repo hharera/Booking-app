@@ -1,4 +1,4 @@
-package com.englizya.local.Trip
+package com.englizya.local.trip
 
 import androidx.room.Dao
 import androidx.room.Insert

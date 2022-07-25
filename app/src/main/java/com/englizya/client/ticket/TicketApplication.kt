@@ -24,6 +24,7 @@ import com.englizya.firebase.di.firebaseModule
 import com.englizya.firebase.di.firebaseServiceModule
 import com.englizya.forgetpassword.di.forgetPasswordModule
 import com.englizya.home_screen.di.homeModule
+import com.englizya.internal_search.di.internalSearchModule
 import com.englizya.local.di.databaseModule
 import com.englizya.location_update.di.locationViewModel
 import com.englizya.login.di.loginModule
@@ -67,48 +68,48 @@ class TicketApplication : Application(), KoinComponent {
     }
 
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(updateBaseContextLocal(base))
-    }
-
-    private fun updateBaseContextLocal(base: Context?): Context? {
-        var language = UserDataStore(base!!).getLanguage()//it return "en", "ar" like this
-        if (language == null || language.isEmpty()) {
-            //when first time enter into app (get the device language and set it
-            language = Locale.getDefault().language
-            if (language.equals("ar")) {
-                UserDataStore(this).setLanguage(Language.Arabic)
-            } else if (language.equals("en")) {
-                UserDataStore(this).setLanguage(Language.English)
-            }
-        }
-        val locale = language?.let { Locale(it) }
-        if (locale != null) {
-            Locale.setDefault(locale)
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            updateResourcesLocale(base, locale!!)
-            return updateResourcesLocaleLegacy(base, locale)
-        }
-
-        return updateResourcesLocaleLegacy(base, locale!!)
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun updateResourcesLocale(context: Context, locale: Locale): Context? {
-        val configuration = context.resources.configuration
-        configuration.setLocale(locale)
-        return context.createConfigurationContext(configuration)
-    }
-
-    private fun updateResourcesLocaleLegacy(context: Context, locale: Locale): Context? {
-        val resources = context.resources
-        val configuration = resources.configuration
-        configuration.locale = locale
-        resources.updateConfiguration(configuration, resources.displayMetrics)
-        return context
-    }
+//    override fun attachBaseContext(base: Context?) {
+//        super.attachBaseContext(updateBaseContextLocal(base))
+//    }
+//
+//    private fun updateBaseContextLocal(base: Context?): Context? {
+//        var language = UserDataStore(base!!).getLanguage()//it return "en", "ar" like this
+//        if (language == null || language.isEmpty()) {
+//            //when first time enter into app (get the device language and set it
+//            language = Locale.getDefault().language
+//            if (language.equals("ar")) {
+//                UserDataStore(this).setLanguage(Language.Arabic)
+//            } else if (language.equals("en")) {
+//                UserDataStore(this).setLanguage(Language.English)
+//            }
+//        }
+//        val locale = language?.let { Locale(it) }
+//        if (locale != null) {
+//            Locale.setDefault(locale)
+//        }
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            updateResourcesLocale(base, locale!!)
+//            return updateResourcesLocaleLegacy(base, locale)
+//        }
+//
+//        return updateResourcesLocaleLegacy(base, locale!!)
+//    }
+//
+//    @TargetApi(Build.VERSION_CODES.N)
+//    private fun updateResourcesLocale(context: Context, locale: Locale): Context? {
+//        val configuration = context.resources.configuration
+//        configuration.setLocale(locale)
+//        return context.createConfigurationContext(configuration)
+//    }
+//
+//    private fun updateResourcesLocaleLegacy(context: Context, locale: Locale): Context? {
+//        val resources = context.resources
+//        val configuration = resources.configuration
+//        configuration.locale = locale
+//        resources.updateConfiguration(configuration, resources.displayMetrics)
+//        return context
+//    }
 
 
     private fun setupAppCenter() {
@@ -151,6 +152,7 @@ class TicketApplication : Application(), KoinComponent {
                     profileModule,
                     profileSettingsModule,
                     coilModule,
+                    internalSearchModule,
                     bookingPaymentModule,
                     loginModule,
                     locationViewModel,

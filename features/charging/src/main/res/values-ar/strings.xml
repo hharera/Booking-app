@@ -10,5 +10,6 @@
     <string name="ok_text">حسناً</string>
     <string name="error_text">حدث خطاً اثناء شحن الرصيد , الرجاء المحاولة مرة اخرى</string>
 
+    <string name="charge_info">اشحن محفظتك و احصل على خصم 10% عند الحجز بها</string>
 
 </resources>
