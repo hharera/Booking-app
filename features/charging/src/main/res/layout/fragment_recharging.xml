@@ -105,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/sf"
         android:text="@string/charge_info"
         android:textColor="@color/grey_300"
         android:textSize="15sp"
