@@ -1,4 +1,4 @@
-package com.englizya.local.Offers
+package com.englizya.local.offers
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
