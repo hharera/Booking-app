@@ -15,4 +15,7 @@ interface ExternalRoutesDao {
 
     @Query(value = "SELECT * from ExternalRoutes ")
     fun getExternalRoutes(): List<ExternalRoutes>
+
+    @Query(value = "DELETE from ExternalRoutes")
+    fun clearExternalRoutes()
 }

@@ -18,4 +18,7 @@ interface TicketDao {
 
     @Query(value = "DELETE FROM Ticket WHERE ticketId = :ticketId")
     fun removeTicket(ticketId:Int)
+
+    @Query(value = "DELETE from Ticket")
+    fun deleteTickets()
 }

@@ -15,4 +15,7 @@ interface InternalRoutesDao {
 
     @Query(value = "SELECT * from InternalRoutes ")
     fun getInternalRoutes(): List<InternalRoutes>
+
+    @Query(value = "DELETE from InternalRoutes")
+    fun clearInternalRoutes()
 }
