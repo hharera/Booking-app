@@ -14,6 +14,7 @@ class OfferRepositoryImpl constructor(
         kotlin.runCatching {
             if (forceOnline) {
                 offerService.getAllOffers().also {
+                    offerDao.clearOffers()
                     offerDao.insertOffers(it)
                     Log.d("DataRemote", it.toString())
 
