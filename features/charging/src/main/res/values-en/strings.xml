@@ -12,5 +12,10 @@
     <string name="charge_info">Recharge your Wallet and Get 20% Discount when you Book with it</string>
     <string name="card_recharge">Pay With Credit/Debit Card</string>
     <string name="cards_method">Bank Card</string>
-
+    <string name="payment_info_txt">
+    <li>On CLicking on Pay , you will be redirected to the Browser</li>
+    \n\n <li>Click on Pay Now then choose Meeza Payment Method</li>
+    \n\n <li>Complete your Personal Information then click on Pay Now</li>
+    \n\n <li>Scan the QR Code that will appear to you using your own Network App</li>
+</string>
 </resources>

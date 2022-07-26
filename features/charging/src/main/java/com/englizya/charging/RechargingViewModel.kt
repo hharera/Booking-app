@@ -102,8 +102,7 @@ class RechargingViewModel constructor(
         _selectedRechargeMethod.value = method
     }
 
-    suspend fun whenRechargeButtonClicked() {
-        updateLoading(true)
+    fun whenRechargeButtonClicked() {
         when (selectedRechargeMethod.value) {
             RechargeMethod.Card -> {
                 rechargeBalance()
@@ -134,33 +133,35 @@ class RechargingViewModel constructor(
     }
 
     private fun rechargeBalanceByInvoice() = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
         encapsulatePaymentOrderRequest()
             .onSuccess {
-                updateLoading(false)
                 requestPaymentByInvoice(it)
             }.onFailure {
-                updateLoading(false)
                 handleException(it)
             }
     }
 
     private suspend fun requestPaymentByInvoice(request: PaymentOrderRequest) {
+        updateLoading(true)
 
         Log.d(TAG, "requestPayment: $request")
         walletRepository
             .requestRecharge(dataStore.getToken(), request)
             .onSuccess {
+                updateLoading(false)
+
                 _paymentInvoiceOrder.postValue(it)
             }.onFailure {
+                updateLoading(false)
+
                 handleException(it)
             }
     }
 
-     fun requestRechargeByInvoice(paymentOrder: PaymentOrder) {
+    fun requestRechargeByInvoice(paymentOrder: PaymentOrder) {
         encapsulateInvoicePaymentOrderRequest(paymentOrder)
             .onSuccess {
-                Log.d("requestRechargeByInvoice" , "1")
+                Log.d("requestRechargeByInvoice", "1")
 
                 requestInvoicePayment()
             }.onFailure {
@@ -174,11 +175,10 @@ class RechargingViewModel constructor(
         }
 
 
-
     private fun requestInvoicePayment() {
         createInvoice()
             .onSuccess {
-                Log.d("requestInvoicePayment" , "2")
+                Log.d("requestInvoicePayment", "2")
 
                 requestInvoicePayment(it)
             }
@@ -191,10 +191,8 @@ class RechargingViewModel constructor(
         walletRepository
             .requestInvoicePayment(request = invoice)
             .onSuccess {
-                Log.d("requestInvoicePayment" , it.toString())
-
+                Log.d("requestInvoicePayment", it.toString())
                 _invoicePaymentResponse.postValue(it)
-                updateLoading(false)
             }
             .onFailure {
                 handleException(it)

@@ -31,7 +31,9 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
 
     private lateinit var binding: FragmentRechargingBinding
     private val chargingViewModel: RechargingViewModel by viewModel()
-    var doneChargingDialog: DoneChargingDialog? = null
+    private var doneChargingDialog: DoneChargingDialog? = null
+    private var rechargeInfoDialog: RechargeInformationDialog? = null
+
 
     companion object {
         private const val PAYMENT_REQ = 30005
@@ -87,12 +89,12 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
             }
         }
 
-        chargingViewModel.paymentInvoiceOrder.observe(viewLifecycleOwner){
-            lifecycleScope.launch(Dispatchers.IO){
+        chargingViewModel.paymentInvoiceOrder.observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
                 chargingViewModel.requestRechargeByInvoice(it)
-                Log.d("paymentOrder " , it.orderId.toString())
+                Log.d("paymentOrder ", it.orderId.toString())
 
-                Log.d("requestRechargeByInvoice" , "requestRechargeByInvoice")
+                Log.d("requestRechargeByInvoice", "requestRechargeByInvoice")
             }
 
         }
@@ -123,7 +125,7 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
 
         }
         chargingViewModel.invoicePaymentResponse.observe(viewLifecycleOwner) {
-            Log.d("Invoice" , it.invoiceLink.toString())
+            Log.d("Invoice", it.invoiceLink.toString())
             redirect(it)
 
         }
@@ -149,6 +151,18 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
         }
     }
 
+    private fun showDialog() {
+        rechargeInfoDialog = RechargeInformationDialog(
+            onOkButtonClicked = { onOkButtonClicked() }
+        )
+        rechargeInfoDialog!!.show(childFragmentManager, "paymentDialog")
+
+    }
+
+    private fun onOkButtonClicked() {
+        rechargeInfoDialog?.dismiss()
+    }
+
     private fun setupListeners() {
         binding.cardMethodCL.setOnClickListener {
             chargingViewModel.setSelectedPaymentMethod(RechargeMethod.Card)
@@ -162,17 +176,17 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
         }
         binding.vodafoneCL.setOnClickListener {
             chargingViewModel.setSelectedPaymentMethod(RechargeMethod.VodafonePayment)
-
+            showDialog()
             updateSelectedMethodUI(it.id)
         }
         binding.etisalatCL.setOnClickListener {
             chargingViewModel.setSelectedPaymentMethod(RechargeMethod.EtisalatPayment)
-
+            showDialog()
             updateSelectedMethodUI(it.id)
         }
         binding.orangeCL.setOnClickListener {
             chargingViewModel.setSelectedPaymentMethod(RechargeMethod.OrangePayment)
-
+            showDialog()
             updateSelectedMethodUI(it.id)
         }
         binding.meezaCL.setOnClickListener {
@@ -192,7 +206,7 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.next.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO){
+            lifecycleScope.launch(Dispatchers.IO) {
                 chargingViewModel.whenRechargeButtonClicked()
 
             }
