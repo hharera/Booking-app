@@ -1,20 +1,28 @@
 package com.englizya.charging
 
 import android.util.Log
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.englizya.charging.utils.RechargeMethod
 import com.englizya.charging.utils.Validator.isValidAmount
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.User
+import com.englizya.model.request.InvoicePaymentOrderRequest
 import com.englizya.model.request.PaymentOrderRequest
 import com.englizya.model.request.RechargingRequest
+import com.englizya.model.request.ReservationRequest
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englizya.model.response.PaymentOrder
+import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.PaymentRepository
 import com.englizya.repository.UserRepository
 import com.englizya.repository.WalletRepository
 import com.englyzia.paytabs.PayTabsService
+import com.englyzia.paytabs.dto.Invoice
+import com.englyzia.paytabs.utils.PaymentMethod
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,9 +43,19 @@ class RechargingViewModel constructor(
     val amount: StateFlow<Double?>
         get() = _amount
 
+    private var _selectedRechargeMethod = MutableLiveData<RechargeMethod>()
+    val selectedRechargeMethod: LiveData<RechargeMethod> = _selectedRechargeMethod
+
+    private var _invoicePaymentResponse = MutableLiveData<InvoicePaymentResponse>()
+    val invoicePaymentResponse: LiveData<InvoicePaymentResponse> = _invoicePaymentResponse
+
     private val _paymentOrder = MutableStateFlow<PaymentOrder?>(null)
     val paymentOrder: StateFlow<PaymentOrder?>
         get() = _paymentOrder
+
+
+    private var _paymentInvoiceOrder = MutableLiveData<PaymentOrder>()
+    val paymentInvoiceOrder: LiveData<PaymentOrder> = _paymentInvoiceOrder
 
     private var _formValidity = MutableLiveData<RechargingFormState>()
     val formValidity: LiveData<RechargingFormState> = _formValidity
@@ -80,6 +98,127 @@ class RechargingViewModel constructor(
         checkFormValidity()
     }
 
+    fun setSelectedPaymentMethod(method: RechargeMethod) {
+        _selectedRechargeMethod.value = method
+    }
+
+    suspend fun whenRechargeButtonClicked() {
+        updateLoading(true)
+        when (selectedRechargeMethod.value) {
+            RechargeMethod.Card -> {
+                rechargeBalance()
+            }
+
+            RechargeMethod.FawryPayment -> {
+                rechargeBalanceByInvoice()
+
+            }
+
+            RechargeMethod.MeezaPayment -> {
+                rechargeBalanceByInvoice()
+
+            }
+            RechargeMethod.VodafonePayment -> {
+                rechargeBalanceByInvoice()
+            }
+            RechargeMethod.OrangePayment -> {
+                rechargeBalanceByInvoice()
+
+            }
+            RechargeMethod.EtisalatPayment -> {
+                rechargeBalanceByInvoice()
+
+            }
+            else -> {}
+        }
+    }
+
+    private fun rechargeBalanceByInvoice() = viewModelScope.launch(Dispatchers.IO) {
+        updateLoading(true)
+        encapsulatePaymentOrderRequest()
+            .onSuccess {
+                updateLoading(false)
+                requestPaymentByInvoice(it)
+            }.onFailure {
+                updateLoading(false)
+                handleException(it)
+            }
+    }
+
+    private suspend fun requestPaymentByInvoice(request: PaymentOrderRequest) {
+
+        Log.d(TAG, "requestPayment: $request")
+        walletRepository
+            .requestRecharge(dataStore.getToken(), request)
+            .onSuccess {
+                _paymentInvoiceOrder.postValue(it)
+            }.onFailure {
+                handleException(it)
+            }
+    }
+
+     fun requestRechargeByInvoice(paymentOrder: PaymentOrder) {
+        encapsulateInvoicePaymentOrderRequest(paymentOrder)
+            .onSuccess {
+                Log.d("requestRechargeByInvoice" , "1")
+
+                requestInvoicePayment()
+            }.onFailure {
+                handleException(it)
+            }
+    }
+
+    private fun encapsulateInvoicePaymentOrderRequest(paymentOrder: PaymentOrder): Result<InvoicePaymentOrderRequest> =
+        kotlin.runCatching {
+            InvoicePaymentOrderRequest(orderId = paymentOrder.orderId)
+        }
+
+
+
+    private fun requestInvoicePayment() {
+        createInvoice()
+            .onSuccess {
+                Log.d("requestInvoicePayment" , "2")
+
+                requestInvoicePayment(it)
+            }
+            .onFailure {
+                handleException(it)
+            }
+    }
+
+    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch {
+        walletRepository
+            .requestInvoicePayment(request = invoice)
+            .onSuccess {
+                Log.d("requestInvoicePayment" , it.toString())
+
+                _invoicePaymentResponse.postValue(it)
+                updateLoading(false)
+            }
+            .onFailure {
+                handleException(it)
+            }
+    }
+
+    private fun createInvoice() = kotlin.runCatching {
+        PayTabsService.createInvoice(
+            user.value!!,
+            amount.value!!,
+            paymentInvoiceOrder.value!!.orderId,
+            getRechargeMethod()
+        )
+    }
+
+    private fun getRechargeMethod(): PaymentMethod {
+        return when (selectedRechargeMethod.value) {
+            RechargeMethod.FawryPayment -> PaymentMethod.Fawry
+            RechargeMethod.MeezaPayment -> PaymentMethod.Meeza
+            else -> PaymentMethod.Fawry
+        }
+    }
+
+
     fun rechargeBalance() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
 
@@ -93,6 +232,7 @@ class RechargingViewModel constructor(
             }
     }
 
+
     fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
             .getUser(dataStore.getToken(), true)
@@ -105,16 +245,13 @@ class RechargingViewModel constructor(
     }
 
     private suspend fun requestPayment(request: PaymentOrderRequest) {
-//        updateLoading(true)
 
         Log.d(TAG, "requestPayment: $request")
         walletRepository
             .requestRecharge(dataStore.getToken(), request)
             .onSuccess {
-//                updateLoading(false)
                 _paymentOrder.value = it
             }.onFailure {
-//                updateLoading(false)
                 handleException(it)
             }
     }
@@ -124,31 +261,24 @@ class RechargingViewModel constructor(
             return@launch
         }
 
-//        updateLoading(true)
 
         walletRepository
             .rechargeBalance(dataStore.getToken(), RechargingRequest(transactionReference))
             .onSuccess {
-//                updateLoading(false)
                 _rechargingOperationState.value = true
             }.onFailure {
-//                updateLoading(false)
                 handleException(it)
                 _rechargingOperationState.value = false
             }
     }
 
-
     fun rechargeBalance(paymentOrder: PaymentOrder) {
-//        updateLoading(true)
 
         encapsulatePaymentConfigurationDetails(paymentOrder)
             .onSuccess {
-//                updateLoading(false)
                 _billingDetails.value = it
             }
             .onFailure {
-//                updateLoading(false)
                 handleException(it)
             }
     }

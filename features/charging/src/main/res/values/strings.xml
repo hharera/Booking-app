@@ -8,6 +8,8 @@
     <string name="done_charging_text">تم شحن رصيد حسابكم بمبلغ %1$s ج</string>
     <string name="ok_text">حسناً</string>
     <string name="error_text">حدث خطاً اثناء شحن الرصيد , الرجاء المحاولة مرة اخرى</string>
+    <string name="card_recharge">ادفع ببطاقة الائتمان / الخصم</string>
+    <string name="cards_method">بطاقة دفع</string>
 
     <string name="pound">جنيه</string>
     <string name="charge_info">اشحن محفظتك و احصل على خصم 20% عند الحجز بها</string>
