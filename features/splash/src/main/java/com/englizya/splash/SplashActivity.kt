@@ -14,6 +14,10 @@ import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.login.LoginActivity
 import com.englizya.splash.databinding.ActivitySplashLongBinding
 import com.englizya.splash.databinding.ActivitySplashShortBinding
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.sarnava.textwriter.TextWriter
 import io.ktor.client.features.*
 import io.ktor.http.*
@@ -32,6 +36,8 @@ class SplashActivity : BaseActivity() {
     private lateinit var splashLongBinding: ActivitySplashLongBinding
     private lateinit var splashShortBinding: ActivitySplashShortBinding
 
+    private var appUpdate: AppUpdateManager? = null
+    private val REQUEST_CODE = 100
     private val splashViewModel: SplashViewModel by viewModel()
 
     private val userDataStore: UserDataStore by inject()
@@ -39,7 +45,8 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        appUpdate = AppUpdateManagerFactory.create(this)
+        checkUpdate()
         firstOpenState = userDataStore.getFirstOpenState()
         if (firstOpenState) {
             splashLongBinding = ActivitySplashLongBinding.inflate(layoutInflater)
@@ -120,6 +127,43 @@ class SplashActivity : BaseActivity() {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }.let { intent ->
             startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        inProgressUpdate()
+
+    }
+
+    private fun checkUpdate() {
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+            if (updateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                appUpdate?.startUpdateFlowForResult(
+                    updateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    REQUEST_CODE
+                )
+
+            }
+        }
+    }
+
+    private fun inProgressUpdate() {
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+            if (updateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+            ) {
+                appUpdate?.startUpdateFlowForResult(
+                    updateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    REQUEST_CODE
+                )
+
+            }
         }
     }
 
