@@ -9,6 +9,6 @@
     <string name="done_charging_text">You have charged %1$s LE to your balance </string>
     <string name="ok_text">OK</string>
     <string name="error_text">Error occurred while charging your balance , Try again later</string>
-    <string name="charge_info">Recharge our Wallet and Get 10% Discount when you Book with it</string>
+    <string name="charge_info">Recharge your Wallet and Get 20% Discount when you Book with it</string>
 
 </resources>

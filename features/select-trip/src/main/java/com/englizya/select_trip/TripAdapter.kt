@@ -28,6 +28,7 @@ import com.englizya.model.model.Trip
 import com.englizya.select_trip.databinding.CardViewTripBinding
 import com.englizya.select_trip.ui.theme.Blue500
 import com.englizya.select_trip.ui.theme.Grey100
+import com.englizya.select_trip.utils.SeatStatus
 import java.util.*
 
 class TripAdapter(
@@ -87,6 +88,12 @@ class TripAdapter(
             )
             setTripDate(trip.reservations.first().date)
             updateTripDetails(trip)
+
+            binding.availableSeatsCount.text = trip.reservations.first().seats.count {
+                it.seatStatus == SeatStatus.AVAILABLE
+            }.toString().let {
+                binding.root.context.getString(R.string.available_seats, it)
+            }
 
             binding.source.text = source?.branchName
             binding.sourceTimeTV.text = trip.tripTimes.firstOrNull {

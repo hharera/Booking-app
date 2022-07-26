@@ -132,21 +132,38 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
+                    <TextView
+                        android:id="@+id/charge_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="23dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/sf"
+                        android:gravity="center"
+                        android:text="@string/charge_info"
+                        android:textAlignment="center"
+                        android:textColor="@color/grey_300"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/charge" />
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
+                        android:layout_height="130dp"
                         android:layout_marginTop="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/balance">
+                        app:layout_constraintTop_toBottomOf="@+id/charge_info">
 
                         <TextView
                             android:id="@+id/provided_payment_services"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
+                            android:fontFamily="@font/sf"
+                            android:gravity="center"
                             android:text="@string/support_payment_services"
                             android:textColor="@color/grey_300"
                             android:textSize="16sp"
@@ -154,40 +171,56 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/materialButton"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:textAllCaps="false"
-                            app:icon="@drawable/ic_visa"
-                            app:iconTint="@null"
-                            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                            app:layout_constraintTop_toBottomOf="@+id/provided_payment_services"
-                            app:strokeColor="@color/blue_500"
-                            app:strokeWidth="0dp" />
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                            app:layout_constraintTop_toBottomOf="@+id/provided_payment_services">
 
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_percent="0.5" />
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/materialButton"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAllCaps="false"
+                                app:icon="@drawable/ic_visa"
+                                app:iconTint="@null"
+                                app:strokeColor="@color/blue_500"
+                                app:strokeWidth="0dp" />
 
-                        <com.google.android.material.button.MaterialButton
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:textAllCaps="false"
-                            app:icon="@drawable/ic_mastercard"
-                            app:iconTint="@null"
-                            app:layout_constraintBottom_toBottomOf="@+id/materialButton"
-                            app:layout_constraintStart_toStartOf="@+id/guideline2"
-                            app:layout_constraintTop_toTopOf="@+id/materialButton"
-                            app:strokeColor="@color/blue_500"
-                            app:strokeWidth="0dp" />
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAllCaps="false"
+                                app:icon="@drawable/ic_mastercard"
+                                app:iconTint="@null"
+                                app:strokeColor="@color/blue_500"
+                                app:strokeWidth="0dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textAllCaps="false"
+                                app:icon="@drawable/fawry"
+                                app:iconTint="@null"
+                                app:strokeColor="@color/blue_500"
+                                app:strokeWidth="0dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAllCaps="false"
+                                app:icon="@drawable/ic_englizya_wallet"
+                                app:iconTint="@null"
+                                app:strokeColor="@color/blue_500"
+                                app:strokeWidth="0dp" />
+                        </LinearLayout>
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
