@@ -78,13 +78,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
         android:layout_marginTop="4dp"
+        app:expandedHintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCharge"
+        app:placeholderText="@string/amount"
         app:suffixText="@string/pound"
-        app:suffixTextColor="@color/grey_300"
-        app:expandedHintEnabled="false"
-        app:placeholderText="@string/amount">
+        app:suffixTextColor="@color/grey_300">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amount"
@@ -99,5 +99,19 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
+    <TextView
+        android:id="@+id/charge_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="23dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sf"
+        android:text="@string/charge_info"
+        android:textColor="@color/grey_300"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCharge" />
 </androidx.constraintlayout.widget.ConstraintLayout>
