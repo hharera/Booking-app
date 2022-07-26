@@ -131,7 +131,7 @@
             android:layout_gravity="center"
             android:layout_margin="4dp"
             android:layout_weight="0.5"
-            android:background="@drawable/background_button_recharge_method_selected"
+            android:background="@drawable/background_button_recharge_method"
             android:padding="6dp"
             android:text="@string/card_recharge"
             android:textAlignment="textEnd"

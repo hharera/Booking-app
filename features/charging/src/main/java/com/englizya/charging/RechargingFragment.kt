@@ -61,6 +61,15 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
             handleLoading(it)
         }
 
+        lifecycleScope.launch(Dispatchers.IO){
+            chargingViewModel.user.collectLatest {
+                if (it == null){
+                    chargingViewModel.getUser()
+                }
+            }
+        }
+
+
 
         chargingViewModel.formValidity.observe(viewLifecycleOwner) {
             binding.next.isEnabled = it.formIsValid
