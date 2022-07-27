@@ -235,6 +235,7 @@ class RechargingViewModel constructor(
         userRepository
             .getUser(dataStore.getToken(), true)
             .onSuccess {
+                Log.d("UserFromViewModel" , it.toString())
                 _user.value = it
             }
             .onFailure {
