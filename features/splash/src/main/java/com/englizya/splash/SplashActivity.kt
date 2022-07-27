@@ -47,9 +47,7 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        appUpdate = AppUpdateManagerFactory.create(this)
 
-        checkUpdate()
         firstOpenState = userDataStore.getFirstOpenState()
         if (firstOpenState) {
             splashLongBinding = ActivitySplashLongBinding.inflate(layoutInflater)
@@ -62,6 +60,9 @@ class SplashActivity : BaseActivity() {
         updateUI()
         setupObservers()
         userDataStore.setFirstOpenState(false)
+        appUpdate = AppUpdateManagerFactory.create(this)
+
+        checkUpdate()
     }
 
     private fun updateUI() {
