@@ -72,6 +72,58 @@ class PayTabsService {
             )
         }
 
+        fun createInvoice(
+            user: User,
+            amount: Double,
+            cartId: Int,
+            paymentMethod: PaymentMethod,
+        ): Invoice {
+            return Invoice(
+                LIVE_PROFILE_ID,
+                tranType = PaymentSdkTransactionType.SALE.name,
+                tranClass = PaymentSdkTransactionClass.ECOM.name,
+                cartCurrency = Currency.EG,
+                cartAmount = amount.toString(),
+                cartId = cartId.toString(),
+                cartDescription = "شحن محفظة الانجليزية",
+                hideShipping = true,
+                customerRef = user.username,
+                customerDetails = CustomerDetails(
+                    user.name,
+                    user.phoneNumber.plus("@englizya.com"),
+                    user.address,
+                    user.address,
+                    "Egypt",
+                ),
+                invoice = InvoiceDetails(
+                    shippingCharges = 0,
+                    extraCharges = 0,
+                    extraDiscount = 0,
+                    total = amount.toInt(),
+                    activationDate = DateTime.now().plusSeconds(3).toString(),
+                    expiryDate = DateTime.now().plusHours(2).toString(),
+                    dueDate = DateTime.now().plusHours(2).toString(),
+                    lineItems = arrayListOf(
+                        LineItems(
+                            "1",
+                            "شحن محفظة الانجليزية",
+                            "englizya.com",
+                            amount,
+                            1,
+                            amount,
+                            0,
+                            0,
+                            0,
+                            0,
+                            amount
+                        )
+                    ),
+                ),
+                "${Domain.INVOICE_CALLBACK}/$cartId",
+                "${Domain.INVOICE_CALLBACK}/$cartId",
+                paymentMethods = arrayListOf(paymentMethod.name),
+            )
+        }
         fun createPaymentConfigData(
             user: User,
             tripName: String,

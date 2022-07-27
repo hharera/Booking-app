@@ -1,9 +1,6 @@
 package com.englizya.local.announcement
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.englizya.model.model.Announcement
 
 @Dao
@@ -20,4 +17,7 @@ interface AnnouncementDao {
 
     @Query(value = "SELECT * from Announcement where announcementId = :announcementId limit 1")
     fun getAnnouncement(announcementId: String): Announcement
+
+    @Query(value = "DELETE from Announcement")
+    fun clearAnnouncements()
 }

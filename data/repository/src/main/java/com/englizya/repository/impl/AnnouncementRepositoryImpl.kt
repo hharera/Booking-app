@@ -35,6 +35,8 @@ class AnnouncementRepositoryImpl constructor(
     override suspend fun insertAnnouncements(
         announcements: List<Announcement>
     ): Result<Unit> = kotlin.runCatching {
+        announcementDao.clearAnnouncements()
+
         announcements.map {
             announcementDao.insertAnnouncement(it)
         }

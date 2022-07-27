@@ -20,6 +20,7 @@ class RouteRepositoryImpl constructor(
         kotlin.runCatching {
             if (getForcedOnline) {
                 routeService.getExternalLines().also {
+                    externalRoutesDao.clearExternalRoutes()
                     externalRoutesDao.insertExternalRoutes(it)
                     Log.d("DataRemote",it.toString())
                 }
@@ -33,6 +34,7 @@ class RouteRepositoryImpl constructor(
         kotlin.runCatching {
             if (getForcedOnline) {
                 routeService.getInternalLines().also {
+                    internalRouteDao.clearInternalRoutes()
                     internalRouteDao.insertInternalRoutes(it)
                     Log.d("DataRemote",it.toString())
 
