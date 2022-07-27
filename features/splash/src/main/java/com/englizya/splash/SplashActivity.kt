@@ -16,7 +16,9 @@ import com.englizya.splash.databinding.ActivitySplashLongBinding
 import com.englizya.splash.databinding.ActivitySplashShortBinding
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.sarnava.textwriter.TextWriter
 import io.ktor.client.features.*
@@ -46,6 +48,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appUpdate = AppUpdateManagerFactory.create(this)
+
         checkUpdate()
         firstOpenState = userDataStore.getFirstOpenState()
         if (firstOpenState) {
@@ -137,10 +140,12 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun checkUpdate() {
+
         appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
             if (updateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                 && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
             ) {
+                Log.d("updateInfo", updateInfo.toString())
                 appUpdate?.startUpdateFlowForResult(
                     updateInfo,
                     AppUpdateType.IMMEDIATE,
@@ -156,6 +161,8 @@ class SplashActivity : BaseActivity() {
         appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
             if (updateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
             ) {
+                Log.d("updateInfo", updateInfo.toString())
+
                 appUpdate?.startUpdateFlowForResult(
                     updateInfo,
                     AppUpdateType.IMMEDIATE,
@@ -165,6 +172,14 @@ class SplashActivity : BaseActivity() {
 
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CODE && resultCode != RESULT_OK) {
+            showToast("You should update the Application")
+            finish()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun startTextAnimation() {
