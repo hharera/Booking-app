@@ -18,4 +18,7 @@ interface UserDao {
 
     @Query(value = "SELECT * from User limit 1")
     fun getUser(): User
+
+    @Query(value = "DELETE from User")
+    fun deleteUser()
 }

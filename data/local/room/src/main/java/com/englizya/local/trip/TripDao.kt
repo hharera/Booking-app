@@ -16,4 +16,7 @@ interface TripDao {
 
     @Query(value = "SELECT * from Trip ")
     fun getTrips(): List<Trip>
+
+    @Query(value = "DELETE from Trip")
+    fun deleteTrips()
 }
