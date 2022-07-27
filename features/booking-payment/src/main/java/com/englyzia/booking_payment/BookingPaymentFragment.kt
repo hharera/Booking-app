@@ -77,15 +77,16 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         }
 
         binding.pay.setOnClickListener {
-            paymentConfirmationDialog = PaymentConfirmationDialog(
-                binding.totalTV.text.toString(),
-                onPositiveButtonClicked = {
-                    checkWalletBalance()
-                },
-                onNegativeButtonClicked = {
-                    paymentConfirmationDialog?.dismiss()
-                })
-            paymentConfirmationDialog?.show(childFragmentManager, "paymentConfirmationDialog")
+            checkWalletBalance()
+//            paymentConfirmationDialog = PaymentConfirmationDialog(
+//                binding.totalTV.text.toString(),
+//                onPositiveButtonClicked = {
+//                    checkWalletBalance()
+//                },
+//                onNegativeButtonClicked = {
+//                    paymentConfirmationDialog?.dismiss()
+//                })
+//            paymentConfirmationDialog?.show(childFragmentManager, "paymentConfirmationDialog")
 
         }
         binding.cardMethodCL.setOnClickListener {
@@ -143,7 +144,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
     private fun checkWalletBalance() {
         val total: Double = binding.totalTV.text.toString().toDouble()
         if ((bookingViewModel.selectedPaymentMethod.value == PaymentMethod.EnglizyaWallet).and((total > bookingPaymentViewModel.userBalance.value!!))) {
-            paymentConfirmationDialog?.dismiss()
+//            paymentConfirmationDialog?.dismiss()
             noBalanceDialog =
                 NoBalanceDialog(
                     onChargeButtonClicked = {
@@ -154,7 +155,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             noBalanceDialog?.show(childFragmentManager, "noBalanceDialog")
         } else {
             bookingViewModel.whenPayButtonClicked()
-            paymentConfirmationDialog?.dismiss()
+//            paymentConfirmationDialog?.dismiss()
         }
     }
 
