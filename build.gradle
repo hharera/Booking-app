@@ -27,3 +27,13 @@ buildscript {
 
     }
 }
+
+buildscript {
+    repositories {
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+
+    dependencies {
+        classpath 'com.github.triplet.gradle:play-publisher:4.0.0-SNAPSHOT'
+    }
+}
