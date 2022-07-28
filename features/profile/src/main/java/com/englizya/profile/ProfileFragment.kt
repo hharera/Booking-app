@@ -81,7 +81,10 @@ class ProfileFragment : BaseFragment() {
         BarcodeEncoder().encodeBitmap(user.uid, BarcodeFormat.QR_CODE, 48, 48).let {
             binding.profileQr.setImageBitmap(it)
         }
-        Picasso.get().load(user.imageUrl).into(binding.imageView8)
+        if(user.imageUrl != null){
+            Picasso.get().load(user.imageUrl).into(binding.imageView8)
+
+        }
         binding.profileName.text = getString(R.string.profile_name, user.name)
     }
 

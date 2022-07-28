@@ -108,7 +108,10 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.user.observe(viewLifecycleOwner) {
             binding.userNameTV.text = it.name
-            Picasso.get().load(it.imageUrl).into(binding.imageView)
+            if(it.imageUrl != null){
+                Picasso.get().load(it.imageUrl).into(binding.imageView)
+
+            }
         }
 
         homeViewModel.offers.observe(viewLifecycleOwner) {
