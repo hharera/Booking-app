@@ -2,6 +2,7 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
     implementation Libs.playServicesTasks
+    implementation Libs.picasso
 }
 
 android {

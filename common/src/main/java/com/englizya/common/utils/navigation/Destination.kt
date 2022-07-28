@@ -35,6 +35,7 @@ object Destination {
     const val PROFILE_SETTINGS = "profile_settings"
     const val INTERNAL_SEARCH = "internal_search"
     const val INTERNAL_SEARCH_RESULT= "internal_search_result"
+    const val INTERNAL_ROUTES_DETAILS= "internal-routes-details"
 
 
 

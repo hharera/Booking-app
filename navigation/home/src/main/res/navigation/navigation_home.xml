@@ -114,7 +114,13 @@
 
         <deepLink app:uri="EnglizyaPay://internal_search" />
     </fragment>
-
+    <fragment
+        android:id="@+id/navigation_internal_routes_details"
+        android:name="com.englizya.route.InternalRoutesDetailsFragment"
+        tools:layout="@layout/fragment_internal_routes_details">
+        <argument android:name="cityName"/>
+        <deepLink app:uri="EnglizyaPay://internal-routes-details/{cityName}" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_internal_search_result"
         android:name="com.englizya.internal_search.InternalSearchResultFragment"

@@ -16,6 +16,7 @@ import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
+import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
@@ -107,6 +108,10 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.user.observe(viewLifecycleOwner) {
             binding.userNameTV.text = it.name
+            if(it.imageUrl != null){
+                Picasso.get().load(it.imageUrl).into(binding.imageView)
+
+            }
         }
 
         homeViewModel.offers.observe(viewLifecycleOwner) {
