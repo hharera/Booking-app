@@ -1,5 +1,6 @@
 package com.englizya.repository.impl
 
+import android.util.Log
 import com.englizya.api.UserService
 import com.englizya.local.user.UserDao
 import com.englizya.model.model.User
@@ -32,10 +33,16 @@ class UserRepositoryImpl constructor(
         kotlin.runCatching {
             if (forceOnline) {
                 userService.getUser(token).also {
+                    Log.d("UserRemote" , it.toString())
                     userDao.insertUser(it)
                 }
             } else {
-                userDao.getUser()
+                userDao.getUser().also {
+                    Log.d("UserLocal" ,it.toString())
+
+                }
+
+
             }
         }
 

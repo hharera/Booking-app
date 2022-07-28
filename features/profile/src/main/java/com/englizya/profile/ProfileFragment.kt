@@ -17,6 +17,7 @@ import com.englizya.profile.NavigationItem.*
 import com.englizya.profile.databinding.FragmentProfileBinding
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -80,7 +81,7 @@ class ProfileFragment : BaseFragment() {
         BarcodeEncoder().encodeBitmap(user.uid, BarcodeFormat.QR_CODE, 48, 48).let {
             binding.profileQr.setImageBitmap(it)
         }
-
+        Picasso.get().load(user.imageUrl).into(binding.imageView8)
         binding.profileName.text = getString(R.string.profile_name, user.name)
     }
 
@@ -190,12 +191,13 @@ class ProfileFragment : BaseFragment() {
                 profileViewModel.logout()
                 navigateToLogin()
             }
-            is ProfileSettings ->{
+            is ProfileSettings -> {
                 navigateToProfileSettings()
             }
             else -> {}
         }
     }
+
     private fun navigateToProfileSettings() {
         findNavController()
             .navigate(
@@ -206,6 +208,7 @@ class ProfileFragment : BaseFragment() {
                 )
             )
     }
+
     private fun navigateRefundPolicy() {
         findNavController()
             .navigate(
@@ -265,7 +268,7 @@ class ProfileFragment : BaseFragment() {
         findNavController()
             .navigate(
                 NavigationUtils.getUriNavigation(
-                     Domain.ENGLIZYA_PAY,
+                    Domain.ENGLIZYA_PAY,
                     Destination.USER_TICKETS,
                     false
                 )
