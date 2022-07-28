@@ -34,7 +34,7 @@ class ProfileFragment : BaseFragment() {
         SuggestionsAndComplaint,
         ProfileSettings,
         DriverReview,
-        Settings,
+//        Settings,
         AboutUs,
         ContactUs,
         TermsAndConditions,
@@ -139,9 +139,9 @@ class ProfileFragment : BaseFragment() {
                 navigateToUserTickets()
             }
 
-            is Settings -> {
-                navigateToSettings()
-            }
+//            is Settings -> {
+//                navigateToSettings()
+//            }
 
             is PaymentCards -> {
 
