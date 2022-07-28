@@ -6,20 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.InternalRoutes
+import com.englizya.route.adapter.CityAdapter
 import com.englizya.route.adapter.CustomExpandableListAdapter
 import com.englizya.route.adapter.ExpandableListData
 import com.englizya.route.databinding.FragmentInternalRoutesBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InternalRouteFragment : BaseFragment() {
     private lateinit var binding: FragmentInternalRoutesBinding
-    private val internalRouteViewModel: RouteViewModel by viewModel()
+    private lateinit var adapter: CityAdapter
 
-    private var adapter: ExpandableListAdapter? = null
-    private var titleList: List<String>? = null
-    private var lineCodeList: List<String>? = null
+    private val internalRouteViewModel: RouteViewModel by sharedViewModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,16 +47,29 @@ class InternalRouteFragment : BaseFragment() {
 
         internalRouteViewModel.getInternalRoutes(false)
         setupObservers()
+        setupUI()
+
         setUpListeners()
+    }
+
+    private fun setupUI() {
+        adapter = CityAdapter(
+            emptyList(),
+            onItemClicked = {
+                navigateToCityLine(it)
+            }
+        )
+        binding.cityRecyclerView.adapter = adapter
+
     }
 
     private fun setUpListeners() {
 
-        binding.swipeLayout.setOnRefreshListener {
-            internalRouteViewModel.getInternalRoutes(true)
-            binding.swipeLayout.isRefreshing = false
-
-        }
+//        binding.swipeLayout.setOnRefreshListener {
+//            internalRouteViewModel.getInternalRoutes(true)
+//            binding.swipeLayout.isRefreshing = false
+//
+//        }
     }
 
     private fun setupObservers() {
@@ -62,8 +82,7 @@ class InternalRouteFragment : BaseFragment() {
                 Log.d("get Internal Routes ", "Remote")
                 internalRouteViewModel.getInternalRoutes(true)
             }
-            setData(it)
-            setUpAdapter()
+            adapter.setCities(it)
 
         }
         internalRouteViewModel.error.observe(viewLifecycleOwner) {
@@ -71,33 +90,21 @@ class InternalRouteFragment : BaseFragment() {
         }
     }
 
-    private fun setData(lineList: List<InternalRoutes>?) {
-        ExpandableListData.setInternalRoutesData(lineList)
-        Log.d("Internal Routes", lineList.toString())
+    private fun navigateToCityLine(cityName: String) {
+        Log.d("Clicking To Navigate" , "click")
 
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.INTERNAL_ROUTES_DETAILS,
+                cityName
+            )
+        )
     }
 
-    private fun setUpAdapter() {
-        val routeDetails = ExpandableListData.routeDetails
-        titleList = ExpandableListData.title
-        lineCodeList = ExpandableListData.lineCode
-        adapter =
-            CustomExpandableListAdapter(context!!,lineCodeList as ArrayList<Int>, titleList as ArrayList<String>, routeDetails)
-        binding.internalLV.setAdapter(adapter)
-        binding.internalLV.setOnGroupExpandListener { groupPosition ->
-
-        }
-        binding.internalLV.setOnGroupCollapseListener { groupPosition ->
-
-        }
-        binding.internalLV.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-
-            false
-        }
-    }
 
     override fun onDestroyView() {
-        binding.swipeLayout.removeAllViews()
+//        binding.swipeLayout.removeAllViews()
         super.onDestroyView()
     }
 

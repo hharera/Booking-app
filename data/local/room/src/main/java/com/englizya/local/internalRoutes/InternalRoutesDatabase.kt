@@ -7,7 +7,7 @@ import com.englizya.local.converter.RouteStationTypeConverter
 import com.englizya.model.model.InternalRoutes
 
 @Database(
-    version = 5,
+    version = 6,
     entities = [InternalRoutes::class],
     exportSchema = true,
 )

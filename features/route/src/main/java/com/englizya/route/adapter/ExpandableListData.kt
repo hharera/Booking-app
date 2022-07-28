@@ -24,18 +24,18 @@ internal object ExpandableListData {
             return field
         }
 
-    fun setInternalRoutesData(routeList: List<InternalRoutes>?) {
+    fun setInternalRoutesData(routeList: List<InternalRoutes>? , cityName:String) {
         val lineCodeList: MutableList<String> = ArrayList()
 
         val titleList: MutableList<String> = ArrayList()
         val stations: MutableList<List<RouteStations>> = ArrayList()
-        routeList?.forEach { route ->
+        routeList?.filter { it.cityName == cityName }?.forEach {route ->
             titleList.add(route.routeName)
             lineCodeList.add(route.lineCode)
 
-           stations.add(route.routeStations.sortedBy { it.stationOrder })
-
+            stations.add(route.routeStations.sortedBy { it.stationOrder })
         }
+
 
         Log.d("Station ", stations.toString())
 
