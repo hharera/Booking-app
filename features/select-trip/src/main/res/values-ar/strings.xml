@@ -4,5 +4,5 @@
     <string name="riding_station">محطة الركوب</string>
     <string name="riding_time">وقت الركوب</string>
     <string name="exit_time">وقت التحرك</string>
-    <string name="available_seats">متاح %1$s</string>
+    <string name="available_seats">متاح %1$s كرسى</string>
 </resources>

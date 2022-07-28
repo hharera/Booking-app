@@ -4,5 +4,5 @@
     <string name="riding_station">Riding Station</string>
     <string name="riding_time">Riding Time</string>
     <string name="exit_time">Exit Time</string>
-    <string name="available_seats">Available %1$s</string>
+    <string name="available_seats">Available %1$s seats</string>
 </resources>
