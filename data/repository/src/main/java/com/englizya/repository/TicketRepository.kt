@@ -32,6 +32,7 @@ class TicketRepositoryImpl constructor(
         kotlin.runCatching {
             if (forceOnline) {
                 ticketService.getTickets(token, page, pageSize).also {
+                    ticketDao.deleteTickets()
                     ticketDao.insertTickets(it)
                 }
 
