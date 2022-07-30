@@ -3,6 +3,7 @@ package com.englizya.charging
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,9 @@ import com.englizya.charging.databinding.FragmentRechargingBinding
 import com.englizya.charging.utils.RechargeMethod
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.InvoicePaymentResponse
 import com.englyzia.paytabs.utils.PaymentMethod
 import com.payment.paymentsdk.PaymentSdkActivity
@@ -136,6 +140,11 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
         chargingViewModel.invoicePaymentResponse.observe(viewLifecycleOwner) {
             Log.d("Invoice", it.invoiceLink.toString())
             redirect(it)
+            Handler().postDelayed(
+                {
+                    navigateToHome()
+                }, 1000
+            )
 
         }
         connectionLiveData.observe(viewLifecycleOwner) {
@@ -148,7 +157,16 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
             data = Uri.parse(invoicePaymentResponse.invoiceLink)
         })
     }
+    private fun navigateToHome() {
 
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.HOME,
+                chargingViewModel.user.value!!.phoneNumber
+            )
+        )
+    }
     private fun updateSelectedMethodUI(id: Int) {
         binding.methodsGL.forEach {
             if (it.id == id) {

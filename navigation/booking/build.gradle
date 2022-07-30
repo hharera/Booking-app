@@ -10,6 +10,7 @@ dependencies {
     api(project(Feature.BOOKING_PAYMENT))
     api(project(Feature.USER_TICKETS))
     api(project(Feature.RECHARGING))
+    api(project(Feature.HOME))
 
 
     api(project(UiComponents.BOOKING))

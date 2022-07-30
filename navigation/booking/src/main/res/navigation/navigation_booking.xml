@@ -60,4 +60,13 @@
         <argument android:name="redirect" />
         <deepLink app:uri="EnglizyaPay://recharging/{redirect}" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.englizya.home_screen.HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <argument android:name="phoneNumber" />
+        <deepLink app:uri="EnglizyaPay://home/{phoneNumber}" />
+    </fragment>
 </navigation>

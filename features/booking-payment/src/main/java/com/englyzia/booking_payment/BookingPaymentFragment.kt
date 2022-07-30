@@ -3,6 +3,7 @@ package com.englyzia.booking_payment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -302,6 +303,11 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
 
         bookingViewModel.invoicePaymentResponse.observe(viewLifecycleOwner) {
             redirect(it)
+            Handler().postDelayed(
+                {
+                    navigateToHome()
+                }, 1000
+            )
         }
     }
 
@@ -309,6 +315,17 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
         startActivity(Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(invoicePaymentResponse.invoiceLink)
         })
+    }
+
+    private fun navigateToHome() {
+
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.HOME,
+                bookingViewModel.user.value!!.phoneNumber
+            )
+        )
     }
 
     private fun showUserTickets() {
