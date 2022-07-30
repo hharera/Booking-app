@@ -11,12 +11,14 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.datastore.UserDataStore
 import com.englizya.home_screen.databinding.FragmentHomeBinding
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
@@ -26,6 +28,8 @@ class HomeFragment : BaseFragment() {
 
     //    private lateinit var announcementSliderAdapter: AnnouncementSliderAdapter
     private lateinit var announcementAdapter: AnnouncementAdapter
+    private val userDataStore: UserDataStore by inject()
+    private var firstOpenState: Boolean = true
 
 
     private val homeViewModel: HomeViewModel by viewModel()
@@ -45,9 +49,17 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firstOpenState = userDataStore.getFirstOpenState()
 
-        homeViewModel.getAnnouncements(false)
-        homeViewModel.getOffers(false)
+        if (firstOpenState) {
+            homeViewModel.getAnnouncements(true)
+            homeViewModel.getOffers(true)
+        } else {
+            homeViewModel.getAnnouncements(false)
+            homeViewModel.getOffers(false)
+        }
+
+        userDataStore.setFirstOpenState(false)
 
         setupListeners()
         setupObservers()
@@ -108,7 +120,7 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.user.observe(viewLifecycleOwner) {
             binding.userNameTV.text = it.name
-            if(it.imageUrl != null){
+            if (it.imageUrl != null) {
                 Picasso.get().load(it.imageUrl).into(binding.imageView)
 
             }

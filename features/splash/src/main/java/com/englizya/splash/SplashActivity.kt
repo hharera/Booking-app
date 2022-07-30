@@ -59,7 +59,6 @@ class SplashActivity : BaseActivity() {
 
         updateUI()
         setupObservers()
-        userDataStore.setFirstOpenState(false)
         appUpdate = AppUpdateManagerFactory.create(this)
 
         checkUpdate()
