@@ -305,7 +305,7 @@ class BookingPaymentFragment : BaseFragment(), CallbackPaymentInterface {
             redirect(it)
             Handler().postDelayed(
                 {
-                    navigateToHome()
+//                    navigateToHome()
                 }, 1000
             )
         }

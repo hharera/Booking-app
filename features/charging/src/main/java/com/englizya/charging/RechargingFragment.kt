@@ -142,7 +142,7 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
             redirect(it)
             Handler().postDelayed(
                 {
-                    navigateToHome()
+//                    navigateToHome()
                 }, 1000
             )
 
