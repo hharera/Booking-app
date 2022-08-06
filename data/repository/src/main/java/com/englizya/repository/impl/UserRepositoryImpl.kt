@@ -33,20 +33,20 @@ class UserRepositoryImpl constructor(
         kotlin.runCatching {
             userService.getUser(token)
 
-//            if (forceOnline) {
-//                userService.getUser(token)
-//                    .also {
-//                    Log.d("UserRemote" , it.toString())
-//                    userDao.insertUser(it)
-//                }
-//            } else {
-//                userDao.getUser().also {
-//                    Log.d("UserLocal" ,it.toString())
-//
-//                }
+            if (forceOnline) {
+                userService.getUser(token)
+                    .also {
+                    Log.d("UserRemote" , it.toString())
+                    userDao.insertUser(it)
+                }
+            } else {
+                userDao.getUser().also {
+                    Log.d("UserLocal" ,it.toString())
+
+                }
 
 
-//            }
+            }
         }
 
     override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any> =
