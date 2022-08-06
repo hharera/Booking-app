@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.englizya.model.model.InternalRoutes
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface InternalRoutesDao {
@@ -14,7 +15,7 @@ interface InternalRoutesDao {
 
 
     @Query(value = "SELECT * from InternalRoutes ")
-    fun getInternalRoutes(): List<InternalRoutes>
+    fun getInternalRoutes(): Flow<List<InternalRoutes>>
 
     @Query(value = "DELETE from InternalRoutes")
     fun clearInternalRoutes()

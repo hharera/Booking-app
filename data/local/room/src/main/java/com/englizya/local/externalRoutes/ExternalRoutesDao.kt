@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.englizya.model.model.ExternalRoutes
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExternalRoutesDao {
@@ -14,7 +15,7 @@ interface ExternalRoutesDao {
 
 
     @Query(value = "SELECT * from ExternalRoutes ")
-    fun getExternalRoutes(): List<ExternalRoutes>
+    fun getExternalRoutes(): Flow<List<ExternalRoutes>>
 
     @Query(value = "DELETE from ExternalRoutes")
     fun clearExternalRoutes()

@@ -45,7 +45,7 @@ class InternalRouteFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        internalRouteViewModel.getInternalRoutes(false)
+//        internalRouteViewModel.getInternalRoutes(false)
         setupObservers()
         setupUI()
 
@@ -77,12 +77,12 @@ class InternalRouteFragment : BaseFragment() {
             handleLoading(it)
         }
 
-        internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
-                Log.d("get Internal Routes ", "Remote")
-                internalRouteViewModel.getInternalRoutes(true)
-            }
-            adapter.setCities(it)
+        internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {result->
+//            if (it.isEmpty()) {
+//                Log.d("get Internal Routes ", "Remote")
+//                internalRouteViewModel.getInternalRoutes(true)
+//            }
+            adapter.setCities(result.data!!)
 
         }
         internalRouteViewModel.error.observe(viewLifecycleOwner) {

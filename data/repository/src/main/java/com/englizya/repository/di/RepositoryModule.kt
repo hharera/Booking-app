@@ -27,7 +27,7 @@ val repositoryModule = module {
         StationRepositoryImpl(get())
     }
     single<RouteRepository> {
-        RouteRepositoryImpl(get(),get(),get())
+        RouteRepositoryImpl(get(),get(),get(),get(),get())
     }
     single<PaymentRepository> {
         PaymentRepositoryImpl(get())

@@ -45,7 +45,7 @@ class InternalSearchFragment : BaseFragment() {
         internalSearchViewModel.internalRoutes.observe(viewLifecycleOwner) { list ->
             internalSearchViewModel.stations.clear()
 
-            list.forEach {
+            list.data?.forEach {
                 internalSearchViewModel.stations.add(it.routeStations)
 
             }

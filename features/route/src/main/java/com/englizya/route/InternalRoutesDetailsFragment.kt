@@ -54,10 +54,10 @@ class InternalRoutesDetailsFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
-        binding.swipeLayout.setOnRefreshListener {
-            internalRouteViewModel.getInternalRoutes(true)
-            binding.swipeLayout.isRefreshing = false
-        }
+//        binding.swipeLayout.setOnRefreshListener {
+//            internalRouteViewModel.getInternalRoutes(true)
+//            binding.swipeLayout.isRefreshing = false
+//        }
     }
 
     private fun updateUI() {
@@ -66,11 +66,11 @@ class InternalRoutesDetailsFragment : BaseFragment() {
 
     private fun setUpObservers() {
         internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
-                Log.d("get Internal Routes ", "Remote")
-                internalRouteViewModel.getInternalRoutes(true)
-            }
-            setData(it, cityName)
+//            if (it.isEmpty()) {
+//                Log.d("get Internal Routes ", "Remote")
+//                internalRouteViewModel.getInternalRoutes(true)
+//            }
+            setData(it.data, cityName)
             setUpAdapter()
 
 
