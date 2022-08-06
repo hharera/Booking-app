@@ -2,6 +2,7 @@ package com.englizya.announcement
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.model.model.Announcement
@@ -13,8 +14,9 @@ class AnnouncementViewModel constructor(
     private val announcementRepository: AnnouncementRepository,
 ) : BaseViewModel() {
 
-    private var _announcements = MutableLiveData<List<Announcement>>()
-    val announcements: LiveData<List<Announcement>> = _announcements
+
+//    private var _announcements = MutableLiveData<List<Announcement>>()
+//    val announcements: LiveData<List<Announcement>> = _announcements
 
     private var _announcementsDetails = MutableLiveData<Announcement>()
     val announcementsDetails: LiveData<Announcement> = _announcementsDetails
@@ -23,21 +25,21 @@ class AnnouncementViewModel constructor(
     private val _announcementsId = MutableLiveData<String?>()
     val announcementsId: MutableLiveData<String?>
         get() = _announcementsId
+    val announcements = announcementRepository.getAllAnnouncement().asLiveData()
 
-
-    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        announcementRepository
-            .getAllAnnouncement(forceOnline)
-            .onSuccess {
-                updateLoading(false)
-                _announcements.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
+//    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
+//        updateLoading(true)
+//        announcementRepository
+//            .getAllAnnouncement().asLiveData()
+//            .onSuccess {
+//                updateLoading(false)
+//                _announcements.postValue(it)
+//            }
+//            .onFailure {
+//                updateLoading(false)
+//                handleException(it)
+//            }
+//    }
 
     fun getAnnouncementDetails(announcementId: String?) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)

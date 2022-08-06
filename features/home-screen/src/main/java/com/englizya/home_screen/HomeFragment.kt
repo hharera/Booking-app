@@ -52,10 +52,10 @@ class HomeFragment : BaseFragment() {
         firstOpenState = userDataStore.getFirstOpenState()
 
         if (firstOpenState) {
-            homeViewModel.getAnnouncements(true)
+//            homeViewModel.getAnnouncements(true)
             homeViewModel.getOffers(true)
         } else {
-            homeViewModel.getAnnouncements(false)
+//            homeViewModel.getAnnouncements(false)
             homeViewModel.getOffers(false)
         }
 
@@ -135,14 +135,11 @@ class HomeFragment : BaseFragment() {
             }
             Log.d("offers", it.toString())
         }
-        homeViewModel.announcements.observe(viewLifecycleOwner) {
-            if (it == null) {
-                homeViewModel.getAnnouncements(true)
-            }
-            if (it != null) {
-                announcementAdapter.setAnnouncements(it)
-            }
-            Log.d("Announcements", it.toString())
+        homeViewModel.announcements.observe(viewLifecycleOwner) {result ->
+
+                announcementAdapter.setAnnouncements(result.data!!)
+
+            Log.d("Announcements", result.data.toString())
         }
     }
 
@@ -169,7 +166,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.homeSwipeLayout.setOnRefreshListener {
-            homeViewModel.getAnnouncements(true)
+//            homeViewModel.getAnnouncements(true)
             homeViewModel.getOffers(true)
             binding.homeSwipeLayout.isRefreshing = false
         }

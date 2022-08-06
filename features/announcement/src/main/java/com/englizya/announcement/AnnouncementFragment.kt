@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.englizya.announcement.R
 import com.englizya.announcement.databinding.FragmentAnnouncementBinding
@@ -13,6 +14,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Announcement
+import com.englizya.repository.utils.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AnnouncementFragment : BaseFragment() {
@@ -33,7 +35,7 @@ class AnnouncementFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        announcementViewModel.getAnnouncements(false)
+//        announcementViewModel.getAnnouncements(false)
         setupListeners()
         setupObservers()
         setupUI()
@@ -59,11 +61,14 @@ class AnnouncementFragment : BaseFragment() {
         announcementViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
-        announcementViewModel.announcements.observe(viewLifecycleOwner) {
-            if (it != null) {
-                adapter.setAnnouncements(it)
-            }
-            Log.d("Announcement", it.toString())
+        announcementViewModel.announcements.observe(viewLifecycleOwner) {result->
+
+                adapter.setAnnouncements(result.data!!)
+            Log.d("Announcement", result.data.toString())
+
+            binding.progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+            binding.errorText.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+       binding.errorText.text = result.error?.localizedMessage
         }
     }
 
@@ -82,15 +87,15 @@ class AnnouncementFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
-        binding.announcementSwipeLayout.setOnRefreshListener {
-            announcementViewModel.getAnnouncements(true)
-            binding.announcementSwipeLayout.isRefreshing = false
-        }
+//        binding.announcementSwipeLayout.setOnRefreshListener {
+////            announcementViewModel.getAnnouncements(true)
+//            binding.announcementSwipeLayout.isRefreshing = false
+//        }
 
     }
-
-    override fun onDestroyView() {
-        binding.announcementSwipeLayout.removeAllViews()
-        super.onDestroyView()
-    }
+//
+//    override fun onDestroyView() {
+////        binding.announcementSwipeLayout.removeAllViews()
+//        super.onDestroyView()
+//    }
 }

@@ -2,6 +2,7 @@ package com.englizya.home_screen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
@@ -28,8 +29,7 @@ class HomeViewModel constructor(
     private var _offers = MutableLiveData<List<Offer>>()
     val offers: LiveData<List<Offer>> = _offers
 
-    private var _announcements = MutableLiveData<List<Announcement>>()
-    val announcements: LiveData<List<Announcement>> = _announcements
+    val announcements = announcementRepository.getAllAnnouncement().asLiveData()
 
     private var _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
@@ -64,17 +64,17 @@ class HomeViewModel constructor(
             }
     }
 
-    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        announcementRepository
-            .getAllAnnouncement(forceOnline)
-            .onSuccess {
-                updateLoading(false)
-                _announcements.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
+//    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
+//        updateLoading(true)
+//        announcementRepository
+//            .getAllAnnouncement(forceOnline)
+//            .onSuccess {
+//                updateLoading(false)
+//                _announcements.postValue(it)
+//            }
+//            .onFailure {
+//                updateLoading(false)
+//                handleException(it)
+//            }
+//    }
 }
