@@ -1,32 +1,43 @@
 package com.englizya.repository.impl
 
 import android.util.Log
+import androidx.room.withTransaction
 import com.englizya.api.OfferService
+import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.local.offers.OfferDao
+import com.englizya.local.offers.OfferDatabase
 import com.englizya.model.model.Offer
 import com.englizya.repository.OfferRepository
+import com.englizya.repository.utils.Resource
+import com.englizya.repository.utils.networkBoundResource
+import kotlinx.coroutines.flow.Flow
 
 class OfferRepositoryImpl constructor(
     private val offerService: OfferService,
+    private val db: OfferDatabase,
+
     private val offerDao: OfferDao
 ) : OfferRepository {
-    override suspend fun getAllOffers(forceOnline: Boolean): Result<List<Offer>> =
-        kotlin.runCatching {
-            if (forceOnline) {
-                offerService.getAllOffers().also {
+    override  fun getAllOffers(): Flow<Resource<List<Offer>>> =
+        networkBoundResource(
+            query =
+            {
+                offerDao.getOffers()
+            },
+            fetch =
+            {
+                offerService.getAllOffers()
+            },
+            saveFetchResult =
+            { offers ->
+                db.withTransaction {
                     offerDao.clearOffers()
-                    offerDao.insertOffers(it)
-                    Log.d("DataRemote", it.toString())
-
-                }
-            } else {
-                offerDao.getOffers().also {
-                    Log.d("DataLocal", it.toString())
+                    offerDao.insertOffers(offers)
                 }
 
-            }
 
-        }
+            })
+
 
     override suspend fun getOfferDetails(offerId: String): Result<Offer> = kotlin.runCatching {
         offerService.getOfferDetails(offerId)

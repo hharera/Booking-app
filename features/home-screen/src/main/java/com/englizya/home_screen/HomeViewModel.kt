@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.model.model.User
 import com.englizya.repository.AnnouncementRepository
@@ -25,11 +24,12 @@ class HomeViewModel constructor(
 
     private var _onNavigationClicked = MutableLiveData<Boolean>(false)
     val onNavigationClicked: LiveData<Boolean> = _onNavigationClicked
-
-    private var _offers = MutableLiveData<List<Offer>>()
-    val offers: LiveData<List<Offer>> = _offers
+//
+//    private var _offers = MutableLiveData<List<Offer>>()
+//    val offers: LiveData<List<Offer>> = _offers
 
     val announcements = announcementRepository.getAllAnnouncement().asLiveData()
+    val offers = offerRepository.getAllOffers().asLiveData()
 
     private var _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
@@ -41,7 +41,7 @@ class HomeViewModel constructor(
 
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         userRepository
-            .getUser(dataStore.getToken(),true)
+            .getUser(dataStore.getToken(), true)
             .onSuccess {
                 _user.postValue(it)
             }
@@ -50,19 +50,19 @@ class HomeViewModel constructor(
             }
     }
 
-    fun getOffers(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        offerRepository
-            .getAllOffers(forceOnline)
-            .onSuccess {
-                updateLoading(false)
-                _offers.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
+//    fun getOffers(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
+//        updateLoading(true)
+//        offerRepository
+//            .getAllOffers(forceOnline)
+//            .onSuccess {
+//                updateLoading(false)
+//                _offers.postValue(it)
+//            }
+//            .onFailure {
+//                updateLoading(false)
+//                handleException(it)
+//            }
+//    }
 
 //    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
 //        updateLoading(true)

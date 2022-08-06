@@ -1,8 +1,8 @@
 package com.englizya.offers
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.model.model.Offer
@@ -14,8 +14,8 @@ class OffersViewModel constructor(
     private val offerRepository: OfferRepository,
 ) : BaseViewModel() {
 
-    private var _offers = MutableLiveData<List<Offer>>()
-    val offers: LiveData<List<Offer>> = _offers
+//    private var _offers = MutableLiveData<List<Offer>>()
+//    val offers: LiveData<List<Offer>> = _offers
 
     private var _offersDetails = MutableLiveData<Offer>()
     val offersDetails: LiveData<Offer> = _offersDetails
@@ -24,7 +24,7 @@ class OffersViewModel constructor(
     private val _offersId = MutableLiveData<String?>()
     val offersId: MutableLiveData<String?>
         get() = _offersId
-
+    val offers = offerRepository.getAllOffers().asLiveData()
 //    init {
 //        viewModelScope.launch(Dispatchers.IO) {
 //              getOffersLocal()
@@ -32,24 +32,24 @@ class OffersViewModel constructor(
 //        }
 //    }
 
-    fun getOffers(forceOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        offerRepository
-            .getAllOffers(forceOnline)
-            .onSuccess {
+//    fun getOffers(forceOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+//        updateLoading(true)
+//        offerRepository
+//            .getAllOffers(forceOnline)
+//            .onSuccess {
 
 //                viewModelScope.launch(Dispatchers.IO) {
 //                    offerDatabase.getMarketDao().insertOffers(it)
 //                    Log.d("Offers", offerDatabase.getMarketDao().getOffers().toString())
 //                }
-                updateLoading(false)
-                _offers.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
+//                updateLoading(false)
+//                _offers.postValue(it)
+//            }
+//            .onFailure {
+//                updateLoading(false)
+//                handleException(it)
+//            }
+//    }
 
     fun getOfferDetails(offerId: String?) = viewModelScope.launch {
         updateLoading(true)

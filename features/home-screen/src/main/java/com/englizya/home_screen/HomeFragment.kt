@@ -51,13 +51,13 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         firstOpenState = userDataStore.getFirstOpenState()
 
-        if (firstOpenState) {
-//            homeViewModel.getAnnouncements(true)
-            homeViewModel.getOffers(true)
-        } else {
-//            homeViewModel.getAnnouncements(false)
-            homeViewModel.getOffers(false)
-        }
+//        if (firstOpenState) {
+////            homeViewModel.getAnnouncements(true)
+//            homeViewModel.getOffers(true)
+//        } else {
+////            homeViewModel.getAnnouncements(false)
+//            homeViewModel.getOffers(false)
+//        }
 
         userDataStore.setFirstOpenState(false)
 
@@ -127,11 +127,11 @@ class HomeFragment : BaseFragment() {
         }
 
         homeViewModel.offers.observe(viewLifecycleOwner) {
-            if (it == null) {
-                homeViewModel.getOffers(true)
-            }
-            if (it != null) {
-                offerSliderAdapter.setOffers(it)
+//            if (it == null) {
+//                homeViewModel.getOffers(true)
+//            }
+            if (it.data != null) {
+                offerSliderAdapter.setOffers(it.data!!)
             }
             Log.d("offers", it.toString())
         }
@@ -167,7 +167,7 @@ class HomeFragment : BaseFragment() {
 
         binding.homeSwipeLayout.setOnRefreshListener {
 //            homeViewModel.getAnnouncements(true)
-            homeViewModel.getOffers(true)
+//            homeViewModel.getOffers(true)
             binding.homeSwipeLayout.isRefreshing = false
         }
     }

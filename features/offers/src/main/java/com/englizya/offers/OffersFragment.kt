@@ -34,7 +34,7 @@ class OffersFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        offersViewModel.getOffers(false)
+//        offersViewModel.getOffers(false)
         setupListeners()
         setupObservers()
         setupUI()
@@ -72,8 +72,8 @@ class OffersFragment : BaseFragment() {
             handleLoading(it)
         }
         offersViewModel.offers.observe(viewLifecycleOwner) {
-            if(it != null){
-                adapter.setOffers(it)
+            if(it.data != null){
+                adapter.setOffers(it.data!!)
 
             }
             Log.d("offers", it.toString())
@@ -84,10 +84,10 @@ class OffersFragment : BaseFragment() {
      binding.back.setOnClickListener{
          findNavController().popBackStack()
      }
-         binding.offerSwipeLayout.setOnRefreshListener {
-             offersViewModel.getOffers(true)
-             binding.offerSwipeLayout.isRefreshing = false
-         }
+//         binding.offerSwipeLayout.setOnRefreshListener {
+//             offersViewModel.getOffers(true)
+//             binding.offerSwipeLayout.isRefreshing = false
+//         }
     }
 
     override fun onDestroyView() {
