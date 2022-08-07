@@ -1,9 +1,9 @@
 package com.englyzia.booking
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
@@ -77,8 +77,8 @@ class BookingViewModel constructor(
     private var _paymentAction = MutableStateFlow<Boolean>(false)
     val paymentAction: StateFlow<Boolean> get() = _paymentAction
 
-    private var _user = MutableStateFlow<User?>(null)
-    val user: StateFlow<User?> get() = _user
+//    private var _user = MutableStateFlow<User?>(null)
+//    val user: StateFlow<User?> get() = _user
 
     private var _paymentToken = MutableStateFlow<PayMobPaymentResponse?>(null)
     val paymentToken: StateFlow<PayMobPaymentResponse?> get() = this._paymentToken
@@ -126,9 +126,9 @@ class BookingViewModel constructor(
 
     private var _bookingType = MutableLiveData<BookingType>(BookingType.OneWayBooking)
     val bookingType: LiveData<BookingType> = _bookingType
+    var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
 
     init {
-        getUser()
         setDefaultDate()
     }
 
@@ -136,18 +136,8 @@ class BookingViewModel constructor(
         _date.value = (DateTime.now())
     }
 
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        userRepository
-            .getUser(dataStore.getToken(), true)
-            .onSuccess {
-                updateLoading(false)
-                _user.value = it
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
+     fun getUser(forceOnline : Boolean) = userRepository.getUser(dataStore.getToken(),forceOnline).asLiveData().let {
+        user = it
     }
 
     suspend fun getAlTrips(trips: List<Trip>) {
@@ -361,8 +351,8 @@ class BookingViewModel constructor(
                         && it.destination == destination.value!!.branchId
                         && it.destination == destination.value!!.branchId
             }.vipPrice!!,
-            passenger = user.value!!.name,
-            phoneMobile = user.value!!.phoneNumber,
+            passenger = user.value!!.data?.name!!,
+            phoneMobile = user.value!!.data?.phoneNumber!!,
             qty = selectedSeats.value!!.size,
             tripId = selectedTrip.value!!.tripId.toString(),
             tripName = selectedTrip.value!!.tripName.toString(),
@@ -484,7 +474,7 @@ class BookingViewModel constructor(
 
     private fun createInvoice() = kotlin.runCatching {
         PayTabsService.createInvoice(
-            user.value!!,
+            user.value?.data!!,
             selectedTrip.value!!.tripName!!,
             checkRoundReservation(calculateAmount()),
             reservationOrder.value!!.orderId,

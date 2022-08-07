@@ -14,6 +14,7 @@ import com.englizya.common.utils.time.TimeOnly
 import com.englizya.feature.ticket.databinding.FragmentTicketDetailsBinding
 import com.englizya.model.model.User
 import com.englizya.model.response.UserTicket
+import com.englizya.repository.utils.Resource
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -64,9 +65,21 @@ class TicketDetailsFragment : BaseFragment() {
             binding.root.visibility = View.VISIBLE
             updateUI(it)
         }
-        ticketDetailsViewModel.user.observe(viewLifecycleOwner){
-            updateUI(it)
-        }
+//        ticketDetailsViewModel.user.observe(viewLifecycleOwner){resource->
+//            when (resource){
+//                is Resource.Error->{
+//                    handleFailure(resource.error)
+//                }
+//                is Resource.Success->{
+//                    handleLoading(false)
+//                    updateUI(resource.data)
+//
+//                }
+//                is Resource.Loading->{
+//                    handleLoading(true)
+//                }
+//            }
+//        }
     }
     private  fun updateUI(ticket: UserTicket?) {
         if (ticket != null) {

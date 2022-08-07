@@ -61,7 +61,8 @@ class AnnouncementFragment : BaseFragment() {
         announcementViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
-        announcementViewModel.announcements.observe(viewLifecycleOwner) {result->
+        announcementViewModel.announcements.observe(viewLifecycleOwner) {
+                result->
 
                 adapter.setAnnouncements(result.data!!)
             Log.d("Announcement", result.data.toString())

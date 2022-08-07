@@ -15,7 +15,7 @@ interface TicketDao {
 
 
     @Query(value = "SELECT * from Ticket ")
-    fun getTickets(): Flow<List<UserTicket>>
+    fun getTickets(): Flow<List<UserTicket>?>
 
     @Query(value = "DELETE FROM Ticket WHERE ticketId = :ticketId")
     fun removeTicket(ticketId:Int)

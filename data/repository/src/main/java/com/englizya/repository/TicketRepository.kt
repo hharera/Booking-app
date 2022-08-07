@@ -12,12 +12,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface TicketRepository {
 
-     fun getUserTickets(
+    fun getUserTickets(
         token: String,
         page: Int,
         pageSize: Int,
-        forceOnline :Boolean
-    ): Flow<Resource<List<UserTicket>>>
+        forceOnline: Boolean
+    ): Flow<Resource<List<UserTicket>?>>
 
     suspend fun getTicketDetails(token: String, ticketId: String): Result<UserTicket>
     suspend fun cancelTicket(token: String, ticketId: String): Result<CancelTicketResponse>
@@ -31,22 +31,22 @@ class TicketRepositoryImpl constructor(
     ) : TicketRepository {
 
 
-    override  fun getUserTickets(
+    override fun getUserTickets(
         token: String,
         page: Int,
         pageSize: Int,
-        forceOnline :Boolean
+        forceOnline: Boolean
 
-    ): Flow<Resource<List<UserTicket>>> = networkBoundResource(
+    ) = networkBoundResource(
         query = {
             ticketDao.getTickets()
 
         },
         fetch = {
-            ticketService.getTickets(token , page , pageSize)
+            ticketService.getTickets(token, page, pageSize)
 
         },
-        saveFetchResult = {userTickets->
+        saveFetchResult = { userTickets ->
             ticketDB.withTransaction {
                 ticketDao.deleteTickets()
                 ticketDao.insertTickets(userTickets)
@@ -54,8 +54,10 @@ class TicketRepositoryImpl constructor(
             }
         },
         shouldFetch = {
-            forceOnline
+            it==null
+
         }
+
     )
 
     override suspend fun getTicketDetails(token: String, ticketId: String) = kotlin.runCatching {

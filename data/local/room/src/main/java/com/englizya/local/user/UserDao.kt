@@ -17,7 +17,7 @@ interface UserDao {
     fun getUsers(): List<User?>
 
     @Query(value = "SELECT * from User limit 1")
-    fun getUser(): User
+    fun getUser():Flow<User>
 
     @Query(value = "DELETE from User")
     fun deleteUser()

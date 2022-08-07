@@ -15,6 +15,7 @@ import com.englizya.datastore.UserDataStore
 import com.englizya.home_screen.databinding.FragmentHomeBinding
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
+import com.englizya.repository.utils.Resource
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.squareup.picasso.Picasso
@@ -26,10 +27,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var offerSliderAdapter: OfferSliderAdapter
 
-    //    private lateinit var announcementSliderAdapter: AnnouncementSliderAdapter
     private lateinit var announcementAdapter: AnnouncementAdapter
-    private val userDataStore: UserDataStore by inject()
-    private var firstOpenState: Boolean = true
 
 
     private val homeViewModel: HomeViewModel by viewModel()
@@ -49,17 +47,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        firstOpenState = userDataStore.getFirstOpenState()
-
-//        if (firstOpenState) {
-////            homeViewModel.getAnnouncements(true)
-//            homeViewModel.getOffers(true)
-//        } else {
-////            homeViewModel.getAnnouncements(false)
-//            homeViewModel.getOffers(false)
-//        }
-
-        userDataStore.setFirstOpenState(false)
 
         setupListeners()
         setupObservers()
@@ -84,13 +71,6 @@ class HomeFragment : BaseFragment() {
             }
         )
         binding.announcementRecyclerView.adapter = announcementAdapter
-//        announcementSliderAdapter = AnnouncementSliderAdapter(
-//            emptyList(),
-//        )
-//        binding.imageSliderAnnouncement.setSliderAdapter(offerSliderAdapter)
-//        binding.imageSliderAnnouncement.setIndicatorAnimation(IndicatorAnimationType.WORM)
-//        binding.imageSliderAnnouncement.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
-//        binding.imageSliderAnnouncement.startAutoCycle()
     }
 
     private fun navigateToOfferDetails(offer: Offer) {
@@ -118,11 +98,22 @@ class HomeFragment : BaseFragment() {
             showInternetSnackBar(binding.root, it)
         }
 
-        homeViewModel.user.observe(viewLifecycleOwner) {
-            binding.userNameTV.text = it.name
-            if (it.imageUrl != null) {
-                Picasso.get().load(it.imageUrl).into(binding.imageView)
+        homeViewModel.user.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    handleLoading(false)
+                    binding.userNameTV.text = resource.data?.name
+                    if (resource.data?.imageUrl != null) {
+                        Picasso.get().load(resource.data?.imageUrl).into(binding.imageView)
+                    }
+                }
+                is Resource.Error -> {
+                    handleFailure(resource.error)
 
+                }
+                is Resource.Loading -> {
+                    handleLoading(true)
+                }
             }
         }
 
@@ -135,9 +126,9 @@ class HomeFragment : BaseFragment() {
             }
             Log.d("offers", it.toString())
         }
-        homeViewModel.announcements.observe(viewLifecycleOwner) {result ->
+        homeViewModel.announcements.observe(viewLifecycleOwner) { result ->
 
-                announcementAdapter.setAnnouncements(result.data!!)
+            announcementAdapter.setAnnouncements(result.data!!)
 
             Log.d("Announcements", result.data.toString())
         }
@@ -168,6 +159,7 @@ class HomeFragment : BaseFragment() {
         binding.homeSwipeLayout.setOnRefreshListener {
 //            homeViewModel.getAnnouncements(true)
 //            homeViewModel.getOffers(true)
+            homeViewModel.getUser(true)
             binding.homeSwipeLayout.isRefreshing = false
         }
     }

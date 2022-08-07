@@ -13,6 +13,7 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Offer
 import com.englizya.offers.databinding.FragmentOffersBinding
+import com.englizya.repository.utils.Resource
 
 
 class OffersFragment : BaseFragment() {
@@ -71,12 +72,23 @@ class OffersFragment : BaseFragment() {
         offersViewModel.loading.observe(viewLifecycleOwner){
             handleLoading(it)
         }
-        offersViewModel.offers.observe(viewLifecycleOwner) {
-            if(it.data != null){
-                adapter.setOffers(it.data!!)
+        offersViewModel.offers.observe(viewLifecycleOwner) {resource->
+            when (resource) {
+                is Resource.Loading -> {
+                    handleLoading(true)
+                }
+                is Resource.Success -> {
+                    Log.d("Offers", resource.data?.size.toString())
+                    handleLoading(false)
+                    resource.data?.let { adapter.setOffers(it) }
 
+                }
+                is Resource.Error -> {
+                    Log.d("error" , resource.error.toString())
+//                    handleFailure()
+                }
             }
-            Log.d("offers", it.toString())
+
         }
     }
 

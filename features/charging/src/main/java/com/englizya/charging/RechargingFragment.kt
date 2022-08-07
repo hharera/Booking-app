@@ -15,6 +15,7 @@ import com.englizya.charging.utils.RechargeMethod
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
 import com.englizya.model.response.InvoicePaymentResponse
+import com.englizya.repository.utils.Resource
 import com.englyzia.paytabs.utils.PaymentMethod
 import com.payment.paymentsdk.PaymentSdkActivity
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
@@ -61,15 +62,23 @@ class RechargingFragment : BaseFragment(), CallbackPaymentInterface {
             handleLoading(it)
         }
 
-        lifecycleScope.launch(Dispatchers.IO){
-            chargingViewModel.user.collectLatest {
-                if (it == null){
-                    chargingViewModel.getUser()
+        chargingViewModel.user.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    handleLoading(false)
+                }
+                is Resource.Error -> {
+                    handleFailure(resource.error)
+                    if (resource.data == null) {
+                        chargingViewModel.getUser()
+                    }
+
+                }
+                is Resource.Loading -> {
+                    handleLoading(true)
                 }
             }
         }
-
-
 
         chargingViewModel.formValidity.observe(viewLifecycleOwner) {
             binding.next.isEnabled = it.formIsValid

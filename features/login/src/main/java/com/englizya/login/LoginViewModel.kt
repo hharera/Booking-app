@@ -11,7 +11,6 @@ import com.englizya.common.utils.code.CountryCode
 import com.englizya.model.request.LoginRequest
 import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
-import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

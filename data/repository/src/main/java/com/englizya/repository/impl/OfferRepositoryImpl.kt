@@ -1,15 +1,15 @@
 package com.englizya.repository.impl
 
-import android.util.Log
 import androidx.room.withTransaction
 import com.englizya.api.OfferService
-import com.englizya.local.announcement.AnnouncementDatabase
 import com.englizya.local.offers.OfferDao
 import com.englizya.local.offers.OfferDatabase
 import com.englizya.model.model.Offer
 import com.englizya.repository.OfferRepository
 import com.englizya.repository.utils.Resource
 import com.englizya.repository.utils.networkBoundResource
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 class OfferRepositoryImpl constructor(
@@ -26,6 +26,7 @@ class OfferRepositoryImpl constructor(
             },
             fetch =
             {
+                delay(2000)
                 offerService.getAllOffers()
             },
             saveFetchResult =

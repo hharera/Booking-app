@@ -33,6 +33,7 @@ import com.englizya.common.extension.afterTextChanged
 import com.englizya.common.utils.ImageUtils
 import com.englizya.model.model.User
 import com.englizya.profile_settings.databinding.FragmentProfileSettingsBinding
+import com.englizya.repository.utils.Resource
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.androidx.compose.get
@@ -66,8 +67,22 @@ class ProfileSettingsFragment : BaseFragment(), ImagePickerActivityClass.OnResul
     }
 
     private fun setupObservers() {
-        profileSettingViewModel.user.observe(viewLifecycleOwner) {
-            updateUI(it)
+        profileSettingViewModel.user.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    handleLoading(false)
+                    updateUI(resource.data)
+                }
+                is Resource.Error -> {
+                    handleFailure(resource.error)
+
+                }
+                is Resource.Loading -> {
+                    handleLoading(true)
+                }
+
+            }
+
         }
         profileSettingViewModel.userEditResponse.observe(viewLifecycleOwner) {
             showToast(it.message)
