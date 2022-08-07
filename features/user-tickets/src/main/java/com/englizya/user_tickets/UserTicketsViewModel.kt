@@ -1,7 +1,9 @@
 package com.englizya.user_tickets
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
@@ -16,13 +18,12 @@ class UserTicketsViewModel constructor(
     private val userDataStore: UserDataStore,
 ) : BaseViewModel() {
 
-    private val _tickets = MutableLiveData<List<UserTicket>>()
-    val tickets: MutableLiveData<List<UserTicket>>
-        get() = _tickets
+//    private val _tickets = MutableLiveData<List<UserTicket>>()
+//    val tickets: LiveData<List<UserTicket>> = _tickets
+//
 
     private val _cancelTicketStatus = MutableLiveData<CancelTicketResponse>()
-    val cancelTicketStatus: MutableLiveData<CancelTicketResponse>
-        get() = _cancelTicketStatus
+    val cancelTicketStatus: LiveData<CancelTicketResponse> = _cancelTicketStatus
 
     private val _page = MutableLiveData(0)
     val page: LiveData<Int> = _page
@@ -30,28 +31,14 @@ class UserTicketsViewModel constructor(
     private val _pageSize = MutableLiveData(5)
     private val pageSize: LiveData<Int> = _pageSize
 
-    init {
-        getUserTickets(false)
-    }
+    var tickets = ticketRepository.getUserTickets(userDataStore.getToken() , page.value!!,pageSize.value!!,false).asLiveData()
 
-    fun getUserTickets(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
+
+
+    fun cancelTicket(ticketId: String) = viewModelScope.launch {
         updateLoading(true)
         ticketRepository
-            .getUserTickets(userDataStore.getToken(), page.value!!, pageSize.value!!,forceOnline)
-            .onSuccess {
-                updateLoading(false)
-                _tickets.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
-
-    fun cancelTicket(ticketId:String)= viewModelScope.launch {
-        updateLoading(true)
-        ticketRepository
-            .cancelTicket(userDataStore.getToken() , ticketId)
+            .cancelTicket(userDataStore.getToken(), ticketId)
             .onSuccess {
                 updateLoading(false)
                 _cancelTicketStatus.value = it
@@ -72,5 +59,20 @@ class UserTicketsViewModel constructor(
     fun getFirstPageUserTickets() {
         _page.value = 0
         getUserTickets(false)
+    }
+
+    fun getUserTickets(forceOnline: Boolean) {
+        ticketRepository.getUserTickets(
+            userDataStore.getToken(),
+            page.value!!,
+            pageSize.value!!,
+            forceOnline
+        ).asLiveData().let {
+//            Log.d("Tickets Flow" , it.toString())
+//            Log.d("Tickets" , it.asLiveData().value?.data.toString())
+//            Log.d("Tickets Error" , it.asLiveData().value?.error.toString())
+            tickets = it
+        }
+
     }
 }

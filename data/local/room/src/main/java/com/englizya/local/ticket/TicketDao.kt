@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.englizya.model.response.UserTicket
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TicketDao {
@@ -14,7 +15,7 @@ interface TicketDao {
 
 
     @Query(value = "SELECT * from Ticket ")
-    fun getTickets(): List<UserTicket>
+    fun getTickets(): Flow<List<UserTicket>>
 
     @Query(value = "DELETE FROM Ticket WHERE ticketId = :ticketId")
     fun removeTicket(ticketId:Int)
