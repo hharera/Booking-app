@@ -38,4 +38,12 @@ object NavigationUtils {
             return uri.let { Uri.parse(it) }
         }
     }
+
+    fun getUriNavigation(
+        domain: String,
+        destination: String,
+        argument: Int
+    ): Uri {
+        return "$domain://$destination/$argument".let { Uri.parse(it) }
+    }
 }

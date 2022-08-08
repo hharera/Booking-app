@@ -118,9 +118,10 @@
         android:id="@+id/navigation_internal_routes_details"
         android:name="com.englizya.route.InternalRoutesDetailsFragment"
         tools:layout="@layout/fragment_internal_routes_details">
-        <argument android:name="cityName"/>
+        <argument android:name="cityName" />
         <deepLink app:uri="EnglizyaPay://internal-routes-details/{cityName}" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_internal_search_result"
         android:name="com.englizya.internal_search.InternalSearchResultFragment"
@@ -128,6 +129,7 @@
 
         <deepLink app:uri="EnglizyaPay://internal_search_result" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_offers"
         android:name="com.englizya.offers.OffersFragment"
@@ -145,19 +147,21 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_announcement"
-        android:name="com.englizya.announcement.AnnouncementFragment"
+        android:name="com.englizya.announcement.AnnouncementsFragment"
         tools:layout="@layout/fragment_announcement">
 
         <deepLink app:uri="EnglizyaPay://announcement" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_announcement_details"
-        android:name="com.englizya.announcement.AnnouncementDetailsFragment"
+        android:name="com.englizya.announcement.AnnouncementFragment"
         tools:layout="@layout/fragment_announcement_details">
         <argument android:name="announcementId" />
 
         <deepLink app:uri="EnglizyaPay://announcement-details/{announcementId}" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_recharging"
         android:name="com.englizya.charging.RechargingFragment"

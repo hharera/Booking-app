@@ -8,6 +8,29 @@ dependencies {
     implementation(Libs.roomRunTime)
     implementation(Libs.serializer)
     annotationProcessor(Libs.roomCompiler)
+
+    implementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation Testing.junit4
+
+    implementation(Libs.viewModels)
+    implementation(Libs.activity)
+
+    api(Libs.intuit)
+
+    implementation(Libs.appcompat)
+    api(Libs.searchBar)
+    implementation(Libs.androidxCore)
+    implementation(Libs.materialDesign)
+    implementation(Libs.gligarPicker)
+
+    implementation(Libs.playServicesMaps)
+
+    testImplementation(Libs.roomRunTime)
+    testImplementation(Testing.testRunner)
+    testImplementation(Testing.coroutinesTest)
+    testImplementation(Testing.androidCoreTesting)
+
+    api(Libs.jodaTime)
 }
 
 android {

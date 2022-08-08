@@ -6,10 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface AnnouncementRepository {
 
-     fun getAllAnnouncement(): Flow<Resource<List<Announcement>>>
-//     fun getAnnouncementDetails(announcementId: String): Flow<Resource<Announcement>>
-
-    suspend fun getAnnouncementDetails(announcementId: String, forceOnline: Boolean = false): Result<Announcement>
+    fun getAllAnnouncement(): Flow<Resource<List<Announcement>>>
+    fun getAnnouncement(announcementId: Int, forceOnline: Boolean = true): Flow<Resource<Announcement>>
     suspend fun insertAnnouncement(announcement: Announcement): Result<Unit>
     suspend fun insertAnnouncements(announcements: List<Announcement>): Result<Unit>
 }

@@ -42,7 +42,7 @@ object Routing {
     const val GET_OFFERS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/offers"
     const val GET_INTERNAL_LINES  = "${Domain.ENGLIZYA_BUS_REMOTE}api/route/short/all/path"
     const val GET_ANNOUNCEMENTS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/announcements"
-    const val GET_ANNOUNCEMENT_DETAILS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/announcements/"
+    const val GET_ANNOUNCEMENT  = "${Domain.ENGLIZYA_BUS_REMOTE}api/announcements"
     const val GET_OFFER_DETAILS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/offers/"
 
 

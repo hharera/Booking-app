@@ -17,7 +17,7 @@ interface AnnouncementDao {
     fun getAnnouncements():Flow<List<Announcement>>
 
     @Query(value = "SELECT * from Announcement where announcementId = :announcementId limit 1")
-    fun getAnnouncement(announcementId: String):Announcement
+    fun getAnnouncement(announcementId: Int): Flow<Announcement>
 
     @Query(value = "DELETE from Announcement")
     fun clearAnnouncements()

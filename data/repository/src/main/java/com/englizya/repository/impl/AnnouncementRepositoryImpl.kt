@@ -8,12 +8,11 @@ import com.englizya.model.model.Announcement
 import com.englizya.repository.AnnouncementRepository
 import com.englizya.repository.utils.Resource
 import com.englizya.repository.utils.networkBoundResource
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 class AnnouncementRepositoryImpl constructor(
     private val announcementService: AnnouncementService,
-    private val db: AnnouncementDatabase,
+    private val announcementDatabase: AnnouncementDatabase,
     private val announcementDao: AnnouncementDao,
 ) : AnnouncementRepository {
 
@@ -36,27 +35,29 @@ class AnnouncementRepositoryImpl constructor(
             announcementService.getAnnouncements()
         },
         saveFetchResult = { announcements ->
-            db.withTransaction {
+            announcementDatabase.withTransaction {
                 announcementDao.clearAnnouncements()
                 announcementDao.insertAnnouncements(announcements)
             }
-
-
         }
     )
 
-    override suspend fun getAnnouncementDetails(
-        announcementId: String,
+    override fun getAnnouncement(
+        announcementId: Int,
         forceOnline: Boolean
-    ): Result<Announcement> = kotlin.runCatching {
-        if (forceOnline) {
-            announcementService.getAnnouncementDetails(announcementId)
-
-        } else {
+    ) = networkBoundResource(
+        query = {
             announcementDao.getAnnouncement(announcementId)
-
-        }
-    }
+        },
+        fetch = {
+            announcementService.getAnnouncement(announcementId)
+        },
+        saveFetchResult = { announcement ->
+            announcementDatabase.withTransaction {
+                announcementDao.insertAnnouncement(announcement)
+            }
+        },
+    )
 
 //    override fun getAnnouncementDetails(announcementId: String): Flow<Resource<Announcement>> =
 //        networkBoundResource(query = {

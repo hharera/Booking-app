@@ -11,8 +11,7 @@ import com.squareup.picasso.Picasso
 class AnnouncementAdapter(
     private var announcements: List<Announcement>,
     private val onItemClicked: (Announcement) -> Unit,
-
-    ) : RecyclerView.Adapter<AnnouncementAdapter.NavigationItemViewHolder>() {
+) : RecyclerView.Adapter<AnnouncementAdapter.NavigationItemViewHolder>() {
 
     inner class NavigationItemViewHolder(private val binding: AnnnouncementItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -20,8 +19,9 @@ class AnnouncementAdapter(
         fun updateUI(announcement: Announcement) {
             binding.announcementName.text = announcement.announcementTitle
             binding.announcementDetails.text = announcement.announcementDescription
-            Picasso.get().load(ImagesConstants.IMAGE_URL + announcement.announcementImageUrl).into(binding.announcementImage)
-            binding.navigateArrow.setOnClickListener{
+            Picasso.get().load(ImagesConstants.IMAGE_URL + announcement.announcementImageUrl)
+                .into(binding.announcementImage)
+            binding.navigateArrow.setOnClickListener {
                 navigateToAnnouncementDetails(announcement)
             }
             itemView.setOnClickListener {
