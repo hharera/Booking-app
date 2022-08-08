@@ -2,6 +2,7 @@ package com.englizya.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
@@ -20,32 +21,23 @@ class ProfileViewModel constructor(
     private val dataStore: UserDataStore,
 ) : BaseViewModel() {
 
-    private var _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
 
     private var _userBalance = MutableStateFlow<Double?>(0.0)
     val userBalance: StateFlow<Double?> = _userBalance
+    var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
 
     init {
         getUserBalance()
-        fetchUser()
+
     }
 
-     fun fetchUser() = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        userRepository
-            .getUser(dataStore.getToken(),true)
-            .onSuccess {
-                updateLoading(false)
-                _user.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
+    fun fetchUser(forceOnline: Boolean) =
+        userRepository.getUser(dataStore.getToken(), forceOnline).asLiveData().let {
+            user = it
+        }
 
-     fun getUserBalance() = viewModelScope.launch(Dispatchers.IO) {
+
+    fun getUserBalance() = viewModelScope.launch(Dispatchers.IO) {
         walletRepository
             .getBalance(dataStore.getToken())
             .onSuccess {

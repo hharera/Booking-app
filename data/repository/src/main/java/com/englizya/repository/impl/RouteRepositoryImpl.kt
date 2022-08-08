@@ -1,6 +1,5 @@
 package com.englizya.repository.impl
 
-import android.util.Log
 import androidx.room.withTransaction
 import com.englizya.api.RouteService
 import com.englizya.local.externalRoutes.ExternalRoutesDao
@@ -9,10 +8,10 @@ import com.englizya.local.internalRoutes.InternalRoutesDao
 import com.englizya.local.internalRoutes.InternalRoutesDatabase
 import com.englizya.model.model.ExternalRoutes
 import com.englizya.model.model.InternalRoutes
-import com.englizya.model.model.Offer
 import com.englizya.repository.RouteRepository
 import com.englizya.repository.utils.Resource
 import com.englizya.repository.utils.networkBoundResource
+//import com.englizya.repository.utils.networkBoundResource
 import kotlinx.coroutines.flow.Flow
 
 

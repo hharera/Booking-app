@@ -12,6 +12,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.datastore.UserDataStore
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.login.LoginActivity
+import com.englizya.repository.utils.Resource
 import com.englizya.splash.databinding.ActivitySplashLongBinding
 import com.englizya.splash.databinding.ActivitySplashShortBinding
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -60,6 +61,7 @@ class SplashActivity : BaseActivity() {
         updateUI()
         setupObservers()
         appUpdate = AppUpdateManagerFactory.create(this)
+        userDataStore.setFirstOpenState(false)
 
         checkUpdate()
     }
@@ -104,6 +106,22 @@ class SplashActivity : BaseActivity() {
 
         splashViewModel.error.observe(this) { exception ->
             handleFailure(exception)
+        }
+        splashViewModel.user.observe(this) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+//                    handleLoading(true)
+                }
+                is Resource.Success -> {
+                    Log.d("User", resource.data.toString())
+//                    handleLoading(false)
+                    resource.data?.let { splashViewModel.updateUserDataStore(it) }
+                    goBooking()
+                }
+                is Resource.Error -> {
+                    splashViewModel.checkException(resource.error!!)
+                }
+            }
         }
     }
 

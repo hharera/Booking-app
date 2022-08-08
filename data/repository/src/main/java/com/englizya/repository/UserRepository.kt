@@ -7,12 +7,14 @@ import com.englizya.model.request.SignupRequest
 import com.englizya.model.request.UserEditRequest
 import com.englizya.model.response.LoginResponse
 import com.englizya.model.response.UserEditResponse
+import com.englizya.repository.utils.Resource
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
+import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     fun sendVerificationCode(
@@ -29,7 +31,7 @@ interface UserRepository {
     fun createCredential(verificationId: String, code: String): PhoneAuthCredential
     fun signup(credential: AuthCredential): Task<AuthResult>
     fun signOut()
-    suspend fun getUser(token: String, forceOnline : Boolean = true): Result<User>
+    fun getUser(token: String, forceOnline : Boolean ): Flow<Resource<User>>
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any>
     suspend fun insertUser(user: User) : Result<Any>
     suspend fun updateUser(token: String ,request:UserEditRequest) : Result<UserEditResponse>

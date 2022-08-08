@@ -95,13 +95,16 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         userTicketViewModel.tickets.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
+            Log.d("Tickets", it.data.toString())
+            Log.d("Tickets error", it.error?.localizedMessage.toString())
+
+            if (it == null || it.data?.isEmpty() == true) {
                 binding.emptyView.root.visibility = View.VISIBLE
                 binding.ticketsInfoText.visibility = View.GONE
 
             } else {
                 binding.emptyView.root.visibility = View.GONE
-                updateUI(it)
+                updateUI(it.data!!)
 
             }
 
@@ -148,7 +151,12 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun navigateToBooking() {
-        startActivity(Intent(context, Class.forName("com.englizya.navigation.booking.BookingActivity")))
+        startActivity(
+            Intent(
+                context,
+                Class.forName("com.englizya.navigation.booking.BookingActivity")
+            )
+        )
     }
 
     override fun onResume() {

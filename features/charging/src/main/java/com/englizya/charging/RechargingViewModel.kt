@@ -1,9 +1,9 @@
 package com.englizya.charging
 
 import android.util.Log
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.charging.utils.RechargeMethod
 import com.englizya.charging.utils.Validator.isValidAmount
@@ -13,10 +13,8 @@ import com.englizya.model.model.User
 import com.englizya.model.request.InvoicePaymentOrderRequest
 import com.englizya.model.request.PaymentOrderRequest
 import com.englizya.model.request.RechargingRequest
-import com.englizya.model.request.ReservationRequest
 import com.englizya.model.response.InvoicePaymentResponse
 import com.englizya.model.response.PaymentOrder
-import com.englizya.model.response.ReservationOrder
 import com.englizya.repository.PaymentRepository
 import com.englizya.repository.UserRepository
 import com.englizya.repository.WalletRepository
@@ -36,8 +34,8 @@ class RechargingViewModel constructor(
     private val dataStore: UserDataStore,
 ) : BaseViewModel() {
 
-    private val _user = MutableStateFlow<User?>(null)
-    val user: StateFlow<User?> = _user
+//    private val _user = MutableStateFlow<User?>(null)
+//    val user: StateFlow<User?> = _user
 
     private val _amount = MutableStateFlow<Double?>(null)
     val amount: StateFlow<Double?>
@@ -69,9 +67,10 @@ class RechargingViewModel constructor(
     private var _rechargingOperationState = MutableStateFlow<Boolean?>(null)
     val rechargingOperationState: StateFlow<Boolean?> get() = this._rechargingOperationState
 
-    init {
-        getUser()
-    }
+//    init {
+//        getUser()
+//    }
+var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
 
 
     private fun checkFormValidity() {
@@ -201,7 +200,7 @@ class RechargingViewModel constructor(
 
     private fun createInvoice() = kotlin.runCatching {
         PayTabsService.createInvoice(
-            user.value!!,
+            user.value?.data!!,
             amount.value!!,
             paymentInvoiceOrder.value!!.orderId,
             getRechargeMethod()
@@ -231,17 +230,10 @@ class RechargingViewModel constructor(
     }
 
 
-    fun getUser() = viewModelScope.launch(Dispatchers.IO) {
-        userRepository
-            .getUser(dataStore.getToken(), true)
-            .onSuccess {
-                Log.d("UserFromViewModel" , it.toString())
-                _user.value = it
-            }
-            .onFailure {
-                handleException(it)
-            }
+    fun getUser() = userRepository.getUser(dataStore.getToken(),false).asLiveData().let {
+        user = it
     }
+
 
     private suspend fun requestPayment(request: PaymentOrderRequest) {
 
@@ -292,7 +284,7 @@ class RechargingViewModel constructor(
     private fun encapsulatePaymentConfigurationDetails() =
         kotlin.runCatching {
             PayTabsService.createPaymentConfigData(
-                user = user.value!!,
+                user = user.value?.data!!,
                 amount = amount.value!!,
                 cartId = paymentOrder.value!!.orderId
             )
@@ -301,7 +293,7 @@ class RechargingViewModel constructor(
     private fun encapsulatePaymentConfigurationDetails(paymentOrder: PaymentOrder) =
         kotlin.runCatching {
             PayTabsService.createPaymentConfigData(
-                user = user.value!!,
+                user = user.value?.data!!,
                 amount = amount.value!!,
                 cartId = paymentOrder.orderId
             )

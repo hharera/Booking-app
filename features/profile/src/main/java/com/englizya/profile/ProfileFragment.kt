@@ -15,6 +15,7 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.User
 import com.englizya.profile.NavigationItem.*
 import com.englizya.profile.databinding.FragmentProfileBinding
+import com.englizya.repository.utils.Resource
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.squareup.picasso.Picasso
@@ -68,8 +69,21 @@ class ProfileFragment : BaseFragment() {
             }
         }
 
-        profileViewModel.user.observe(viewLifecycleOwner) {
-            updateUI(it)
+        profileViewModel.user.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    handleLoading(false)
+                    updateUI(resource.data!!)
+                }
+                is Resource.Error -> {
+                    handleFailure(resource.error)
+
+                }
+                is Resource.Loading -> {
+                    handleLoading(true)
+                }
+
+            }
         }
 
         connectionLiveData.observe(viewLifecycleOwner) {
@@ -81,7 +95,7 @@ class ProfileFragment : BaseFragment() {
         BarcodeEncoder().encodeBitmap(user.uid, BarcodeFormat.QR_CODE, 48, 48).let {
             binding.profileQr.setImageBitmap(it)
         }
-        if(user.imageUrl != null){
+        if (user.imageUrl != null) {
             Picasso.get().load(user.imageUrl).into(binding.imageView8)
 
         }
@@ -110,7 +124,7 @@ class ProfileFragment : BaseFragment() {
             viewQrDialog()
         }
         binding.swipeLayout.setOnRefreshListener {
-            profileViewModel.fetchUser()
+            profileViewModel.fetchUser(true)
             profileViewModel.getUserBalance()
             binding.swipeLayout.isRefreshing = false
         }
@@ -118,7 +132,7 @@ class ProfileFragment : BaseFragment() {
 
     private fun viewQrDialog() {
         QrDialog(
-            profileViewModel.user.value,
+            profileViewModel.user.value?.data,
         ).show(
             childFragmentManager,
             "QrDialog"

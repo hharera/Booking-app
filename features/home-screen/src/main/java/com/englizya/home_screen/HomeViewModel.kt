@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
-import com.englizya.model.model.Offer
 import com.englizya.model.model.User
 import com.englizya.repository.AnnouncementRepository
 import com.englizya.repository.OfferRepository
@@ -31,24 +30,19 @@ class HomeViewModel constructor(
     val announcements = announcementRepository.getAllAnnouncement().asLiveData()
     val offers = offerRepository.getAllOffers().asLiveData()
 
-    private var _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
+    //    private var _user = MutableLiveData<User>()
+//    val user: LiveData<User> = _user
+    var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
 
-    init {
-        getUser()
+//    init {
+//        getUser()
+//
+//    }
 
-    }
-
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
-        userRepository
-            .getUser(dataStore.getToken(), true)
-            .onSuccess {
-                _user.postValue(it)
-            }
-            .onFailure {
-                handleException(it)
-            }
-    }
+     fun getUser(forceOnline: Boolean) =
+        userRepository.getUser(dataStore.getToken(), forceOnline).asLiveData().let {
+            user = it
+        }
 
 //    fun getOffers(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
 //        updateLoading(true)

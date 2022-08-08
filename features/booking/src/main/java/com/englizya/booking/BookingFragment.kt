@@ -17,6 +17,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.Station
+import com.englizya.repository.utils.Resource
 import com.englyzia.booking.BookingViewModel
 import com.englyzia.booking.utils.BookingType
 import com.google.android.material.datepicker.CalendarConstraints
@@ -125,6 +126,21 @@ class BookingFragment : BaseFragment() {
             }
         }
 
+        bookingViewModel.user.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Error -> {
+                    handleFailure(resource.error)
+                    bookingViewModel.getUser(true)
+                }
+                is Resource.Loading -> {
+                    handleLoading(true)
+                }
+                is Resource.Success -> {
+                    handleLoading(false)
+
+                }
+            }
+        }
         bookingViewModel.destination.observe(viewLifecycleOwner) {
             it.branchName?.let {
                 binding.destination.setText(it)
