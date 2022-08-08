@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
@@ -118,11 +121,16 @@ class HomeFragment : BaseFragment() {
             showInternetSnackBar(binding.root, it)
         }
 
-        homeViewModel.user.observe(viewLifecycleOwner) {
-            binding.userNameTV.text = it.name
-            if (it.imageUrl != null) {
-                Picasso.get().load(it.imageUrl).into(binding.imageView)
-
+        homeViewModel.user.observe(viewLifecycleOwner) { user ->
+            binding.userNameTV.text = user.name
+            if (user.imageUrl != null) {
+                val glideUrl = GlideUrl(
+                    user.imageUrl,
+                    LazyHeaders.Builder()
+                        .addHeader("Authorization", "Bearer ${userDataStore.getToken()}")
+                        .build()
+                )
+                view?.let { Glide.with(it).load(glideUrl).into(binding.imageView) }
             }
         }
 

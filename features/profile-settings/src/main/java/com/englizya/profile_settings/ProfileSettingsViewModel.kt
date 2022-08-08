@@ -71,7 +71,7 @@ class ProfileSettingsViewModel constructor(
         UserEditRequest(
             name = name.value!!,
             address = address.value!!,
-            image =  ImageUtils.convertBitmapToFile(image.value!!) ,
+            image = ImageUtils.convertBitmapToFile(image.value!!),
         )
     }
 

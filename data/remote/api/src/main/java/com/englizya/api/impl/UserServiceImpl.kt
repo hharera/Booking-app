@@ -21,6 +21,7 @@ import io.ktor.client.request.forms.*
 import io.ktor.http.*
 import io.ktor.http.HttpHeaders.Authorization
 import io.ktor.util.*
+import java.text.Normalizer
 
 class UserServiceImpl constructor(
     private val client: HttpClient
@@ -41,7 +42,7 @@ class UserServiceImpl constructor(
         }
 
     override suspend fun getUser(token: String): User =
-        client.post {
+        client.get {
             url(FETCH_USER)
             headers.append(
                 Authorization,
@@ -50,24 +51,25 @@ class UserServiceImpl constructor(
         }
 
     override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Any =
-        client.post( RESET_PASSWORD) {
+        client.post(RESET_PASSWORD) {
             contentType(ContentType.Application.Json)
             body = resetPasswordRequest
         }
 
+    @OptIn(InternalAPI::class)
     override suspend fun updateUser(token: String, request: UserEditRequest): UserEditResponse =
-        client.submitFormWithBinaryData(
-            url = EDIT_USER,
-            formData = formData {
-                append("name", request.name)
-                append("address", request.address)
+        client.put(EDIT_USER) {
+            headers.append(Authorization, "Bearer $token")
+            body = MultiPartFormDataContent(
+                formData {
+                    append(FormPart("name", request.name))
+                    append(FormPart("address", request.address))
+                    append("image", request.image.readBytes(), Headers.build {
+                        append(HttpHeaders.ContentType, "multipart/form-data;")
 
-                request.image.readBytes().let {
-                    append("image", it)
+                    })
                 }
-            }
-        ) {
-            headers.append(HttpHeaders.Authorization, "Bearer $token")
+            )
         }
 
 }

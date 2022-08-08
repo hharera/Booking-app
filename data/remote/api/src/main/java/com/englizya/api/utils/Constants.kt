@@ -25,10 +25,10 @@ object Routing {
     const val SEARCH_TRIPS = "${Domain.ENGLIZYA_BUS_REMOTE}api/trip/search"
 
     const val SIGNUP = "${Domain.ENGLIZYA_BUS_REMOTE}signup"
-    const val FETCH_USER = "${Domain.ENGLIZYA_BUS_REMOTE}api/profile"
+    const val FETCH_USER = "${Domain.ENGLIZYA_BUS_LOCAL}api/v1/profile"
     const val RESET_PASSWORD = "${Domain.ENGLIZYA_BUS_REMOTE}reset-password"
     const val LOGIN = "${Domain.ENGLIZYA_BUS_REMOTE}login"
-    const val EDIT_USER = "${Domain.ENGLIZYA_BUS_REMOTE}api/profile/update"
+    const val EDIT_USER = "${Domain.ENGLIZYA_BUS_LOCAL}api/v1/profile/update"
 
 
     const val GET_ALL_STATIONS = "${Domain.ENGLIZYA_BUS_REMOTE}api/station/all"

@@ -73,6 +73,9 @@ class ProfileSettingsFragment : BaseFragment(), ImagePickerActivityClass.OnResul
             showToast(it.message)
             findNavController().popBackStack()
         }
+        profileSettingViewModel.image.observe(viewLifecycleOwner) {
+            Log.d("Image", ImageUtils.convertBitmapToFile(it).toString())
+        }
     }
 
 

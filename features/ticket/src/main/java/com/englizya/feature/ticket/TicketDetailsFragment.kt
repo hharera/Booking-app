@@ -88,7 +88,6 @@ class TicketDetailsFragment : BaseFragment() {
         }
     }
     private  fun updateUI(user: User?) {
-        Log.d("UserInfo" , user?.phoneNumber +user?.password)
         binding.userPhoneNumber.text = user?.phoneNumber
         binding.userName.text = user?.name
     }

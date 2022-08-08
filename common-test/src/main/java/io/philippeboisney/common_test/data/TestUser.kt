@@ -9,7 +9,6 @@ object TestUser {
         uid = "1",
         name = "test",
         username = "test",
-        password = "test",
         phoneNumber = "123456789",
         walletOtp = "123456",
     )

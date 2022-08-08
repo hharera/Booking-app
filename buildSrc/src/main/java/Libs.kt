@@ -12,6 +12,7 @@ object Libs {
 
     //Image Loader
     const val picasso = "com.squareup.picasso:picasso:${Versions.PICASSO_VERSION}"
+    const val glide = "com.github.bumptech.glide:glide:4.13.2"
     const val slider =   "com.github.smarteist:autoimageslider:${Versions.SLIDER_VERSION}"
 
     //Room

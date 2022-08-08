@@ -165,7 +165,7 @@
     <string name="address">العنوان</string>
     <string name="complete_your_profile_data">أكمل بيانات ملفك الشخصي</string>
     <string name="please_enter_the_following_information_to_complete_your_profile">يرجى إدخال المعلومات التالية لإكمال ملفك الشخصي</string>
-    <string name="required_name">الاسم *</string>
+    <string name="required_name">الاسم</string>
     <string name="card_number">رقم البطاقة</string>
     <string name="card_owner">صاحب البطاقة</string>
     <string name="card_number_is_required">رقم البطاقة مطلوب</string>

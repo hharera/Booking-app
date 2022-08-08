@@ -2,16 +2,21 @@ package com.englizya.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.ui.QrDialog
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
+import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.User
 import com.englizya.profile.NavigationItem.*
 import com.englizya.profile.databinding.FragmentProfileBinding
@@ -21,12 +26,14 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 
 class ProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var adapter: NavigationAdapter
     private val profileViewModel: ProfileViewModel by viewModel()
+    private val dataStore: UserDataStore by inject()
 
     private val navigationItemList = arrayListOf(
         UserTickets,
@@ -81,8 +88,15 @@ class ProfileFragment : BaseFragment() {
         BarcodeEncoder().encodeBitmap(user.uid, BarcodeFormat.QR_CODE, 48, 48).let {
             binding.profileQr.setImageBitmap(it)
         }
-        if(user.imageUrl != null){
-            Picasso.get().load(user.imageUrl).into(binding.imageView8)
+        if (user.imageUrl != null) {
+            val glideUrl = GlideUrl(
+                user.imageUrl,
+                LazyHeaders.Builder()
+                    .addHeader("Authorization", "Bearer ${dataStore.getToken()}")
+                    .build()
+            )
+            view?.let { Glide.with(it).load(glideUrl).into(binding.imageView8) }
+
 
         }
         binding.profileName.text = getString(R.string.profile_name, user.name)

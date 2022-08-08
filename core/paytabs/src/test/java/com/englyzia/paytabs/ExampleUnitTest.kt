@@ -27,7 +27,6 @@ class ExampleUnitTest {
             uid = "test",
             name = "test",
             username = "test",
-            password = "test",
             phoneNumber = "+201062227714",
             address = null,
             walletOtp = "123456",

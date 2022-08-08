@@ -11,8 +11,7 @@ import com.englizya.model.response.UserEditResponse
 interface UserService {
     suspend fun login(request: LoginRequest): LoginResponse
     suspend fun signup(request: SignupRequest): User
-    suspend fun getUser(token : String): User
+    suspend fun getUser(token: String): User
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Any
-    suspend fun updateUser(token: String , request:UserEditRequest): UserEditResponse
-
+    suspend fun updateUser(token: String, request: UserEditRequest): UserEditResponse
 }

@@ -165,7 +165,7 @@
     <string name="address">Address</string>
     <string name="complete_your_profile_data">Complete your profile data</string>
     <string name="please_enter_the_following_information_to_complete_your_profile">Please enter the following information to complete your profile</string>
-    <string name="required_name">Name*</string>
+    <string name="required_name">Name</string>
     <string name="card_number">Card number</string>
     <string name="card_owner">Card Owner</string>
     <string name="card_number_is_required">Card number is required</string>
