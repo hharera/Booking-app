@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.date.DateOnly
-import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.offers.databinding.FragmentOfferDetailsBinding
 import com.squareup.picasso.Picasso
@@ -32,7 +31,7 @@ class OfferDetailsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.getString("offerId").let {
-            offersViewModel.offersId.value = it
+            offersViewModel.offerId.value = it
         }
     }
 
