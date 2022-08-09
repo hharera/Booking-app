@@ -17,7 +17,7 @@ object Feature {
     const val RESET_PASSWORD = ":features:reset-password"
     const val PROFILE = ":features:profile"
     const val BOOKING = ":features:booking"
-    const val EDIT_PROFILE = ":features:edit-profile"
+    const val PROFILE_SETTINGS = ":features:profile-settings"
     const val ROUTE = ":features:route"
     const val LINE_MAP = ":features:line-map"
     const val PRIVACY_POLICY = ":features:privacy-policy"
@@ -33,6 +33,7 @@ object Feature {
     const val SELECT_TRIP = ":features:select-trip"
     const val OFFERS = ":features:offers"
     const val ANNOUNCEMENT = ":features:announcement"
+    const val INTERNAL_SEARCH = ":features:internal-search"
 
 
 }

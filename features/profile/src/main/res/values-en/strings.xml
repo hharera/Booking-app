@@ -4,8 +4,11 @@
     <string name="contact_us">Contact Us</string>
     <string name="my_tickets">My tickets</string>
     <string name="review_driver">Review driver</string>
-    <string name="support_payment_services">We support payment with Visa &amp; Mastercard</string>
+    <string name="support_payment_services">We support payment with Visa , Mastercard , Fawry &amp; Englizya Wallet</string>
     <string name="suggestions_and_complaints">Suggestions and Complaints</string>
     <string name="profile_name">%1$s\'s Profile</string>
     <string name="refund_policy">Refund Policy</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="charge_info">Recharge your Wallet and Get 20% Discount when you Book with it</string>
+
 </resources>

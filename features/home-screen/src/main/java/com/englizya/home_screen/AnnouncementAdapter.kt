@@ -3,6 +3,7 @@ package com.englizya.home_screen
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.englizya.home_screen.constants.ImagesConstants
 import com.englizya.home_screen.databinding.CardViewAnnouncementBinding
 import com.englizya.model.model.Announcement
 import com.squareup.picasso.Picasso
@@ -18,13 +19,13 @@ class AnnouncementAdapter(
         fun updateUI(announcement: Announcement) {
             binding.announcementName.text = announcement.announcementTitle
             binding.announcementDetails.text = announcement.announcementDescription
-            Picasso.get().load(announcement.announcementImageUrl).into(binding.announcementImage)
+            Picasso.get().load(ImagesConstants.IMAGE_URL + announcement.announcementImageUrl).into(binding.announcementImage)
             itemView.setOnClickListener{
-                NavigateToAnnouncementDetails(announcement)
+                navigateToAnnouncementDetails(announcement)
             }
         }
 
-        private fun NavigateToAnnouncementDetails(announcement: Announcement) {
+        private fun navigateToAnnouncementDetails(announcement: Announcement) {
             onItemClicked(announcement)
 
         }

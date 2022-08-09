@@ -20,7 +20,7 @@ object Routing {
     const val POST_COMPLAINT = "${Domain.ENGLIZYA_BUS_REMOTE}api/support/complaint"
 
     const val BOOK_SEATS = "${Domain.ENGLIZYA_BUS_REMOTE}api/payment/confirm-reservation"
-    const val CONFIRM_RESERVATION = "${Domain.ENGLIZYA_BUS_LOCAL}api/payment/confirm-reservation"
+    const val CONFIRM_RESERVATION = "${Domain.ENGLIZYA_BUS_REMOTE}api/payment/confirm-reservation"
     const val REQUEST_RESERVATION = "${Domain.ENGLIZYA_BUS_REMOTE}api/payment/request-reservation"
     const val SEARCH_TRIPS = "${Domain.ENGLIZYA_BUS_REMOTE}api/trip/search"
 
@@ -28,6 +28,8 @@ object Routing {
     const val FETCH_USER = "${Domain.ENGLIZYA_BUS_REMOTE}api/profile"
     const val RESET_PASSWORD = "${Domain.ENGLIZYA_BUS_REMOTE}reset-password"
     const val LOGIN = "${Domain.ENGLIZYA_BUS_REMOTE}login"
+    const val EDIT_USER = "${Domain.ENGLIZYA_BUS_REMOTE}api/profile/update"
+
 
     const val GET_ALL_STATIONS = "${Domain.ENGLIZYA_BUS_REMOTE}api/station/all"
     const val GET_ALL_OFFICES: String = "${Domain.ENGLIZYA_BUS_REMOTE}api/office/all"
@@ -40,7 +42,7 @@ object Routing {
     const val GET_OFFERS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/offers"
     const val GET_INTERNAL_LINES  = "${Domain.ENGLIZYA_BUS_REMOTE}api/route/short/all/path"
     const val GET_ANNOUNCEMENTS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/announcements"
-    const val GET_ANNOUNCEMENT_DETAILS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/announcements/"
+    const val GET_ANNOUNCEMENT  = "${Domain.ENGLIZYA_BUS_REMOTE}api/announcements"
     const val GET_OFFER_DETAILS  = "${Domain.ENGLIZYA_BUS_REMOTE}api/offers/"
 
 

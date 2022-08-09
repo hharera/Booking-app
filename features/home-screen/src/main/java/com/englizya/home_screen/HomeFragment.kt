@@ -2,7 +2,6 @@ package com.englizya.home_screen
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,11 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.home_screen.databinding.FragmentHomeBinding
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
+import com.englizya.model.model.User
+import com.englizya.repository.utils.Resource
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
+import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
@@ -23,7 +25,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var offerSliderAdapter: OfferSliderAdapter
 
-    //    private lateinit var announcementSliderAdapter: AnnouncementSliderAdapter
     private lateinit var announcementAdapter: AnnouncementAdapter
 
 
@@ -45,12 +46,36 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getAnnouncements(false)
-        homeViewModel.getOffers(false)
-
         setupListeners()
         setupObservers()
         setupUI()
+        getOffers()
+        getAnnouncements()
+        getUser()
+    }
+
+    private fun getUser(forceOnline: Boolean = false) {
+        homeViewModel
+            .getUser(forceOnline)
+            .observe(viewLifecycleOwner) {
+                handleUserResult(it)
+            }
+    }
+
+    private fun getAnnouncements(forceOnline: Boolean = false) {
+        homeViewModel
+            .getAnnouncements(forceOnline)
+            .observe(viewLifecycleOwner) {
+                handleAnnouncementsResult(it)
+            }
+    }
+
+    private fun getOffers(forceOnline: Boolean = false) {
+        homeViewModel
+            .getOffers(forceOnline)
+            .observe(viewLifecycleOwner) {
+                handleOffersResult(it)
+            }
     }
 
     private fun setupUI() {
@@ -71,13 +96,6 @@ class HomeFragment : BaseFragment() {
             }
         )
         binding.announcementRecyclerView.adapter = announcementAdapter
-//        announcementSliderAdapter = AnnouncementSliderAdapter(
-//            emptyList(),
-//        )
-//        binding.imageSliderAnnouncement.setSliderAdapter(offerSliderAdapter)
-//        binding.imageSliderAnnouncement.setIndicatorAnimation(IndicatorAnimationType.WORM)
-//        binding.imageSliderAnnouncement.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
-//        binding.imageSliderAnnouncement.startAutoCycle()
     }
 
     private fun navigateToOfferDetails(offer: Offer) {
@@ -95,7 +113,7 @@ class HomeFragment : BaseFragment() {
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
                 Destination.ANNOUNCEMENT_DETAILS,
-                announcement.announcementId.toString()
+                announcement.announcementId
             )
         )
     }
@@ -104,29 +122,70 @@ class HomeFragment : BaseFragment() {
         connectionLiveData.observe(viewLifecycleOwner) {
             showInternetSnackBar(binding.root, it)
         }
+    }
 
-        homeViewModel.user.observe(viewLifecycleOwner) {
-            binding.userNameTV.text = it.name
-        }
+    private fun handleOffersResult(resource: Resource<List<Offer>>) {
+        when (resource) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateUI(resource.data!!)
+            }
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(resource.error)
 
-        homeViewModel.offers.observe(viewLifecycleOwner) {
-            if(it == null){
-                homeViewModel.getOffers(true)
             }
-            if (it != null) {
-                offerSliderAdapter.setOffers(it)
+            is Resource.Loading -> {
+                handleLoading(true)
             }
-            Log.d("offers", it.toString())
         }
-        homeViewModel.announcements.observe(viewLifecycleOwner) {
-            if(it == null){
-                homeViewModel.getAnnouncements(true)
+    }
+
+    private fun updateUI(offerList: List<Offer>) {
+        offerSliderAdapter.setOffers(offerList)
+    }
+
+    private fun handleUserResult(resource: Resource<User>) {
+        when (resource) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateUI(resource.data!!)
             }
-            if (it != null) {
-                announcementAdapter.setAnnouncements(it)
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(resource.error)
             }
-            Log.d("Announcements", it.toString())
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
         }
+    }
+
+    private fun updateUI(user: User) {
+        binding.userNameTV.text = user.name
+        Picasso.get().load(user.imageUrl).into(binding.imageView)
+    }
+
+    private fun handleAnnouncementsResult(result: Resource<List<Announcement>>) {
+        when (result) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateAnnouncementsUI(result.data!!)
+            }
+
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(result.error)
+            }
+
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
+        }
+    }
+
+    private fun updateAnnouncementsUI(data: List<Announcement>) {
+        announcementAdapter.setAnnouncements(data)
     }
 
     private fun setupListeners() {
@@ -135,8 +194,9 @@ class HomeFragment : BaseFragment() {
                 NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.PROFILE, false)
             )
         }
+
         binding.shortTransportationService.setOnClickListener {
-            progressToHomeActivity()
+            progressToInternalSearchActivity()
         }
 
         binding.longTransportationService.setOnClickListener {
@@ -152,10 +212,15 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.homeSwipeLayout.setOnRefreshListener {
-            homeViewModel.getAnnouncements(true)
-            homeViewModel.getOffers(true)
             binding.homeSwipeLayout.isRefreshing = false
+            refreshData()
         }
+    }
+
+    private fun refreshData() {
+        getOffers(true)
+        getAnnouncements(true)
+        getUser(true)
     }
 
     private fun progressToAnnouncements() {
@@ -171,10 +236,22 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun progressToBookingActivity() {
-        startActivity(Intent(context, Class.forName("com.englizya.navigation.booking.BookingActivity")))
+        startActivity(
+            Intent(
+                context,
+                Class.forName("com.englizya.navigation.booking.BookingActivity")
+            )
+        )
     }
 
-    private fun progressToHomeActivity() {
+    private fun progressToInternalSearchActivity() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.INTERNAL_SEARCH,
+                false
+            )
+        )
 
     }
 

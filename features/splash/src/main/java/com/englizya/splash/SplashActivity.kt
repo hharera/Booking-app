@@ -12,8 +12,15 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.datastore.UserDataStore
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.login.LoginActivity
+import com.englizya.repository.utils.Resource
 import com.englizya.splash.databinding.ActivitySplashLongBinding
 import com.englizya.splash.databinding.ActivitySplashShortBinding
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.sarnava.textwriter.TextWriter
 import io.ktor.client.features.*
 import io.ktor.http.*
@@ -32,6 +39,8 @@ class SplashActivity : BaseActivity() {
     private lateinit var splashLongBinding: ActivitySplashLongBinding
     private lateinit var splashShortBinding: ActivitySplashShortBinding
 
+    private var appUpdate: AppUpdateManager? = null
+    private val REQUEST_CODE = 100
     private val splashViewModel: SplashViewModel by viewModel()
 
     private val userDataStore: UserDataStore by inject()
@@ -51,7 +60,10 @@ class SplashActivity : BaseActivity() {
 
         updateUI()
         setupObservers()
+        appUpdate = AppUpdateManagerFactory.create(this)
         userDataStore.setFirstOpenState(false)
+
+        checkUpdate()
     }
 
     private fun updateUI() {
@@ -95,6 +107,22 @@ class SplashActivity : BaseActivity() {
         splashViewModel.error.observe(this) { exception ->
             handleFailure(exception)
         }
+        splashViewModel.user.observe(this) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+//                    handleLoading(true)
+                }
+                is Resource.Success -> {
+                    Log.d("User", resource.data.toString())
+//                    handleLoading(false)
+                    resource.data?.let { splashViewModel.updateUserDataStore(it) }
+                    goBooking()
+                }
+                is Resource.Error -> {
+                    splashViewModel.checkException(resource.error!!)
+                }
+            }
+        }
     }
 
     private fun checkLoginState(loginState: Boolean) {
@@ -121,6 +149,55 @@ class SplashActivity : BaseActivity() {
         }.let { intent ->
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        inProgressUpdate()
+
+    }
+
+    private fun checkUpdate() {
+
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+            if (updateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                Log.d("updateInfo", updateInfo.toString())
+                appUpdate?.startUpdateFlowForResult(
+                    updateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    REQUEST_CODE
+                )
+
+            }
+        }
+    }
+
+    private fun inProgressUpdate() {
+        appUpdate?.appUpdateInfo?.addOnSuccessListener { updateInfo ->
+            if (updateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+            ) {
+                Log.d("updateInfo", updateInfo.toString())
+
+                appUpdate?.startUpdateFlowForResult(
+                    updateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    REQUEST_CODE
+                )
+
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CODE && resultCode != RESULT_OK) {
+            showToast("You should update the Application")
+            finish()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun startTextAnimation() {

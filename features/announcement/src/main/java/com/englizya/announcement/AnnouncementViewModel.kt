@@ -2,56 +2,23 @@ package com.englizya.announcement
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.asLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.model.model.Announcement
 import com.englizya.repository.AnnouncementRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.englizya.repository.utils.Resource
 
 class AnnouncementViewModel constructor(
     private val announcementRepository: AnnouncementRepository,
 ) : BaseViewModel() {
 
-    private var _announcements = MutableLiveData<List<Announcement>>()
-    val announcements: LiveData<List<Announcement>> = _announcements
+    fun getAnnouncement(announcementId: Int, forceOnline : Boolean = false) =
+        announcementRepository
+            .getAnnouncement(announcementId, forceOnline)
+            .asLiveData()
 
-    private var _announcementsDetails = MutableLiveData<Announcement>()
-    val announcementsDetails: LiveData<Announcement> = _announcementsDetails
-
-
-    private val _announcementsId = MutableLiveData<String?>()
-    val announcementsId: MutableLiveData<String?>
-        get() = _announcementsId
-
-
-    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
+    fun getAnnouncements(forceOnline : Boolean = false) =
         announcementRepository
             .getAllAnnouncement(forceOnline)
-            .onSuccess {
-                updateLoading(false)
-                _announcements.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
-
-    fun getAnnouncementDetails(announcementId: String?) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        if (announcementId != null) {
-            announcementRepository
-                .getAnnouncementDetails(announcementId)
-                .onSuccess {
-                    updateLoading(false)
-                    _announcementsDetails.postValue(it)
-                }
-                .onFailure {
-                    updateLoading(false)
-                    handleException(it)
-                }
-        }
-    }
+            .asLiveData()
 }

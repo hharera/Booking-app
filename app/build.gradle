@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
     id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
+    id("com.github.triplet.play")
 }
 apply plugin: 'kotlin-kapt'
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
@@ -68,6 +69,14 @@ android {
     namespace 'com.englizya.client.ticket'
 }
 
+play {
+    serviceAccountCredentials.set(file("pc-api-7814527509238064419-392-2cc9b670dfa5.json"))
+    track.set("production")
+    updatePriority.set(5)
+    defaultToAppBundles.set(true)
+}
+
+
 dependencies {
     implementation project(":features:location-update")
     implementation project(Base.COMMON)
@@ -98,6 +107,9 @@ dependencies {
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 
-    implementation platform('com.google.firebase:firebase-bom:30.2.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //in-app updates
+    implementation("com.google.android.play:app-update:2.0.0")
+
+    // For Kotlin users also import the Kotlin extensions library for Play In-App Update:
+    implementation("com.google.android.play:app-update-ktx:2.0.0")
 }

@@ -10,7 +10,6 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import com.englizya.model.model.RouteStations
 import com.englizya.route.R
-import java.util.HashMap
 
 class CustomExpandableListAdapter internal constructor(
     private val context: Context,
@@ -20,7 +19,6 @@ class CustomExpandableListAdapter internal constructor(
 ) : BaseExpandableListAdapter() {
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
         return RoutesList[listPosition][expandedListPosition].stationName
-//        [this.lineList[listPosition]][expandedListPosition]
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -39,7 +37,7 @@ class CustomExpandableListAdapter internal constructor(
         if (convertView == null) {
             val layoutInflater =
                 this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.card_view_line_routes, null)
+            convertView = layoutInflater.inflate(R.layout.station_item, null)
         }
         val expandedListTextView = convertView!!.findViewById<TextView>(R.id.lineDetailTxt)
         expandedListTextView.text =  expandedListText
@@ -54,7 +52,7 @@ class CustomExpandableListAdapter internal constructor(
         return this.titleList[listPosition]
     }
 
-    fun getLineCode(listPosition: Int): Any {
+    private fun getLineCode(listPosition: Int): Any {
         return this.lineCodeList[listPosition]
     }
 
@@ -78,12 +76,18 @@ class CustomExpandableListAdapter internal constructor(
         if (convertView == null) {
             val layoutInflater =
                 this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.card_view_route_category, null)
+            convertView = layoutInflater.inflate(R.layout.line_item, null)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.lineTitleTxt)
         val listLineCodeTextView = convertView!!.findViewById<TextView>(R.id.lineCodeTxt)
-//        listLineCodeTextView.setTypeface(listLineCodeTextView.typeface, Typeface.BOLD)
-        listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode
+        if(listLineCode.contains("M")){
+
+            listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode.drop(1)
+
+        }else{
+            listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode
+
+        }
         listTitleTextView.setTypeface(listTitleTextView.typeface, Typeface.BOLD)
         listTitleTextView.text = listTitle
         return convertView

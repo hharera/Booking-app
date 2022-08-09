@@ -78,7 +78,7 @@ class BookingFragmentTest : KoinTest {
     private fun launchFragment(): NavController {
         val mockNavController = mockk<NavController>(relaxed = true)
         val homeScenario =
-            launchFragmentInContainer<BookingFragment>(themeResId = R.style.AppStyle)
+            launchFragmentInContainer<BookingFragment>()
         homeScenario.onFragment { fragment ->
             Navigation.setViewNavController(fragment.requireView(), mockNavController)
         }

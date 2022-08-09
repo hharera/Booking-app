@@ -58,6 +58,15 @@ class HomeActivity : BaseActivity() {
                     startActivity(Intent(this, BookingActivity::class.java))
                 }
 
+                R.id.navigation_map -> {
+                    navController.navigate(
+                        NavigationUtils.getUriNavigation(
+                            Domain.ENGLIZYA_PAY,
+                            Destination.INTERNAL_SEARCH,
+                            false
+                        )
+                    )
+                }
                 else -> {
                     navController.navigate(it.itemId)
                 }

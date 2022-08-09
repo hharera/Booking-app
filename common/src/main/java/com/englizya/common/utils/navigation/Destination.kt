@@ -32,6 +32,11 @@ object Destination {
     const val ANNOUNCEMENT = "announcement"
     const val ANNOUNCEMENT_DETAILS = "announcement-details"
     const val OFFER_DETAILS = "offer-details"
+    const val PROFILE_SETTINGS = "profile_settings"
+    const val INTERNAL_SEARCH = "internal_search"
+    const val INTERNAL_SEARCH_RESULT= "internal_search_result"
+    const val INTERNAL_ROUTES_DETAILS= "internal-routes-details"
+
 
 
 

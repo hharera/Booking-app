@@ -139,8 +139,8 @@
     <string name="end_shift">انهاء الشيفت</string>
     <string name="englizya">Englizya</string>
     <string name="our_way_is_once">طريقنا دايماً واحد</string>
-    <string name="car_code">كود السيارة</string>
-    <string name="line_code">كود الخط</string>
+    <string name="car_code">Car Code</string>
+    <string name="line_code">Line Code</string>
     <string name="date">Date</string>
     <string name="shift_start">بداية الشيف</string>
     <string name="shift_end">نهاية الشيف</string>

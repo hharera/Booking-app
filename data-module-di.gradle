@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
 apply from: "$rootDir/${CommonBuild.TESTING_MODULE}"
+apply from:"$rootDir/${CommonBuild.UI_TESTING_MODULE}"
 apply from: "$rootDir/${CommonBuild.KOIN_MODULE}"
 apply from: "$rootDir/${CommonBuild.KTOR_MODULE}"
 

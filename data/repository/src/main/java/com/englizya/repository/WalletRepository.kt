@@ -2,9 +2,12 @@ package com.englizya.repository
 
 import com.englizya.api.WalletService
 import com.englizya.model.dto.UserBalance
+import com.englizya.model.request.InvoicePaymentOrderRequest
 import com.englizya.model.request.PaymentOrderRequest
 import com.englizya.model.request.RechargingRequest
+import com.englizya.model.response.InvoicePaymentResponse
 import com.englizya.model.response.PaymentOrder
+import com.englyzia.paytabs.dto.Invoice
 
 interface WalletRepository {
     suspend fun getBalance(token: String): Result<UserBalance>
@@ -14,6 +17,8 @@ interface WalletRepository {
     ): Result<UserBalance>
 
     suspend fun requestRecharge(token: String, request: PaymentOrderRequest): Result<PaymentOrder>
+    suspend fun requestInvoicePayment(request: Invoice): Result<InvoicePaymentResponse>
+
 }
 
 class WalletRepositoryImpl constructor(
@@ -37,4 +42,12 @@ class WalletRepositoryImpl constructor(
     ): Result<PaymentOrder> = kotlin.runCatching {
         walletService.requestRecharge(token)
     }
+
+    override suspend fun requestInvoicePayment(request: Invoice): Result<InvoicePaymentResponse> = kotlin.runCatching {
+        walletService.requestInvoicePayment(request)
+
+    }
+
+
+
 }

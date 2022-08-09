@@ -1,7 +1,9 @@
 package com.englizya.route
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.model.model.ExternalRoutes
@@ -16,39 +18,41 @@ class RouteViewModel constructor(
 
     ) : BaseViewModel() {
 
-    private val _externalLines = MutableLiveData<List<ExternalRoutes>>()
-    val externalLines: MutableLiveData<List<ExternalRoutes>>
-        get() = _externalLines
+//    private val _externalLines = MutableLiveData<List<ExternalRoutes>>()
+//    val externalLines: LiveData<List<ExternalRoutes>> = _externalLines
 
-    private val _internalLines = MutableLiveData<List<InternalRoutes>>()
-    val internalLines: MutableLiveData<List<InternalRoutes>>
-        get() = _internalLines
+//    private val _internalLines = MutableLiveData<List<InternalRoutes>>()
+//    val internalLines: LiveData<List<InternalRoutes>> = _internalLines
 
-    fun getExternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        routeRepository
-            .getExternalLines(getOnlineForced)
-            .onSuccess {
-                updateLoading(false)
-                _externalLines.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
 
-    fun getInternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        routeRepository
-            .getInternalLines(getOnlineForced)
-            .onSuccess {
-                updateLoading(false)
-                _internalLines.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-    }
+    val externalLines = routeRepository.getExternalLines().asLiveData()
+    val internalLines = routeRepository.getInternalLines().asLiveData()
+
+//    fun getExternalRoutes() = viewModelScope.launch(Dispatchers.IO) {
+//        updateLoading(true)
+//        routeRepository
+//            .getExternalLines(getOnlineForced)
+//            .onSuccess {
+//                updateLoading(false)
+//                _externalLines.postValue(it)
+//            }
+//            .onFailure {
+//                updateLoading(false)
+//                handleException(it)
+//            }
+//    }
+
+//    fun getInternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+//        updateLoading(true)
+//        routeRepository
+//            .getInternalLines(getOnlineForced)
+//            .onSuccess {
+//                updateLoading(false)
+//                _internalLines.postValue(it)
+//            }
+//            .onFailure {
+//                updateLoading(false)
+//                handleException(it)
+//            }
+//    }
 }

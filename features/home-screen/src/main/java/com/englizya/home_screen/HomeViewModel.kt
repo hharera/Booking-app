@@ -2,7 +2,7 @@ package com.englizya.home_screen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.asLiveData
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.Announcement
@@ -11,8 +11,7 @@ import com.englizya.model.model.User
 import com.englizya.repository.AnnouncementRepository
 import com.englizya.repository.OfferRepository
 import com.englizya.repository.UserRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.englizya.repository.utils.Resource
 
 class HomeViewModel constructor(
     private val userRepository: UserRepository,
@@ -21,60 +20,21 @@ class HomeViewModel constructor(
     private val dataStore: UserDataStore,
 ) : BaseViewModel() {
 
-
-    private var _onNavigationClicked = MutableLiveData<Boolean>(false)
-    val onNavigationClicked: LiveData<Boolean> = _onNavigationClicked
-
-    private var _offers = MutableLiveData<List<Offer>>()
-    val offers: LiveData<List<Offer>> = _offers
-
-    private var _announcements = MutableLiveData<List<Announcement>>()
-    val announcements: LiveData<List<Announcement>> = _announcements
-
-    private var _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
-
-    init {
-        getUser()
-
+    fun getUser(forceOnline: Boolean = false): LiveData<Resource<User>> {
+       return userRepository
+            .getUser(dataStore.getToken(), forceOnline)
+            .asLiveData()
     }
 
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
-        userRepository
-            .getUser(dataStore.getToken(),true)
-            .onSuccess {
-                _user.postValue(it)
-            }
-            .onFailure {
-                handleException(it)
-            }
-    }
-
-    fun getOffers(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        offerRepository
+    fun getOffers(forceOnline: Boolean = false): LiveData<Resource<List<Offer>>> {
+        return offerRepository
             .getAllOffers(forceOnline)
-            .onSuccess {
-                updateLoading(false)
-                _offers.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
+            .asLiveData()
     }
 
-    fun getAnnouncements(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        updateLoading(true)
-        announcementRepository
+    fun getAnnouncements(forceOnline: Boolean = false): LiveData<Resource<List<Announcement>>> {
+        return announcementRepository
             .getAllAnnouncement(forceOnline)
-            .onSuccess {
-                updateLoading(false)
-                _announcements.postValue(it)
-            }
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
+            .asLiveData()
     }
 }

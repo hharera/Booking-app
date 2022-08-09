@@ -1,10 +1,11 @@
 package com.englizya.repository
 
 import com.englizya.model.model.Offer
+import com.englizya.repository.utils.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface OfferRepository {
-    suspend fun getAllOffers(forceOnline : Boolean = false): Result<List<Offer>>
-    suspend fun getOfferDetails(offerId: String): Result<Offer>
 
-
+    fun getAllOffers(forceOnline: Boolean = false): Flow<Resource<List<Offer>>>
+    fun getOffer(offerId: Int, forceOnline: Boolean = false): Flow<Resource<Offer>>
 }

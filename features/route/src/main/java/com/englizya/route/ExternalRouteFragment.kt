@@ -35,19 +35,19 @@ class ExternalRouteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        externalRoutesViewModel.getExternalRoutes(false)
+//        externalRoutesViewModel.getExternalRoutes(false)
         setupObservers()
         setUpListeners()
 
     }
 
     private fun setUpListeners() {
-        binding.externalSwipeLayout.setOnRefreshListener {
-            externalRoutesViewModel.getExternalRoutes(true)
-            binding.externalSwipeLayout.isRefreshing = false
-
-
-        }
+//        binding.externalSwipeLayout.setOnRefreshListener {
+//            externalRoutesViewModel.getExternalRoutes(true)
+//            binding.externalSwipeLayout.isRefreshing = false
+//
+//
+//        }
     }
 
 
@@ -56,13 +56,13 @@ class ExternalRouteFragment : BaseFragment() {
             handleLoading(it)
         }
 
-        externalRoutesViewModel.externalLines.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
-                Log.d("get External Routes ", "Remote")
-
-                externalRoutesViewModel.getExternalRoutes(true)
-            }
-            setData(it)
+        externalRoutesViewModel.externalLines.observe(viewLifecycleOwner) { result->
+//            if (it.isEmpty()) {
+//                Log.d("get External Routes ", "Remote")
+//
+//                externalRoutesViewModel.getExternalRoutes(true)
+//            }
+            setData(result.data)
             setUpAdapter()
 
         }

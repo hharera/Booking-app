@@ -14,7 +14,7 @@ class AnnouncementServiceImpl constructor(
     override suspend fun getAnnouncements(): List<Announcement> =
        client.get(Routing.GET_ANNOUNCEMENTS)
 
-    override suspend fun getAnnouncementDetails(announcementId: String): Announcement =
-        client.get(Routing.GET_ANNOUNCEMENT_DETAILS+announcementId.toInt())
+    override suspend fun getAnnouncement(announcementId: Int): Announcement =
+        client.get("${Routing.GET_ANNOUNCEMENT}/$announcementId")
 
 }

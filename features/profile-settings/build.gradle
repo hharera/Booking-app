@@ -2,6 +2,11 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 
 dependencies {
     implementation Libs.playServicesTasks
+    implementation Libs.gligarPicker
+    api(UI.SSPICKER)
+    implementation Libs.picasso
+    api("io.coil-kt:coil-compose:2.1.0")
+
 }
 
 android {

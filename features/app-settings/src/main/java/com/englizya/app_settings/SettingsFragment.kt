@@ -1,5 +1,6 @@
 package com.englizya.app_settings
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.englizya.app_settings.databinding.FragmentAppSettingsBinding
 import com.englizya.common.base.BaseFragment
 import com.englizya.datastore.utils.Language
+import com.jakewharton.processphoenix.ProcessPhoenix
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -63,20 +65,26 @@ class SettingsFragment : BaseFragment() {
         }
 
         binding.save.setOnClickListener {
-            settingsViewModel.saveSelectedLanguage()
-            binding.save.isEnabled = false
-            activity?.onBackPressed()
+            settingsViewModel.saveSelectedLanguage().also {
+                startActivity(Intent(context ,  Class.forName("com.englizya.navigation.home.HomeActivity")))
+                activity?.finish()
+            }
+
         }
 
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
     }
-
+    private fun restartApp() {
+        val mStartActivity =
+            Intent(context, Class.forName("com.englizya.splash.SplashActivity"))
+        ProcessPhoenix.triggerRebirth(context, mStartActivity)
+    }
     private fun updateLanguage() {
         val locale = Locale.Builder().setLanguage(settingsViewModel.selectedLanguage.value!!.key).build()
         Locale.setDefault(locale)
-        val resources: Resources = activity!!.resources
+        val resources: Resources = requireActivity().resources
         val config: Configuration = resources.configuration
         config.setLocale(locale)
         config.setLayoutDirection(locale)

@@ -1,10 +1,8 @@
 package com.englizya.local.announcement
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.englizya.model.model.Announcement
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AnnouncementDao {
@@ -16,8 +14,14 @@ interface AnnouncementDao {
     fun insertAnnouncement(announcement: Announcement)
 
     @Query(value = "SELECT * from Announcement ")
-    fun getAnnouncements(): List<Announcement>
+    fun getAnnouncements():Flow<List<Announcement>>
 
     @Query(value = "SELECT * from Announcement where announcementId = :announcementId limit 1")
-    fun getAnnouncement(announcementId: String): Announcement
+    fun getAnnouncement(announcementId: Int): Flow<Announcement>
+
+    @Query(value = "DELETE from Announcement")
+    fun clearAnnouncements()
+
+    @Delete
+    fun deleteAnnouncement(announcement : Announcement)
 }

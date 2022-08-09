@@ -1,10 +1,10 @@
 package com.englizya.local.di
 
 import androidx.room.Room
-import com.englizya.local.external_routes.ExternalRoutesDao
-import com.englizya.local.external_routes.ExternalRoutesDatabase
-import com.englizya.local.iInternal_routes.InternalRoutesDao
-import com.englizya.local.iInternal_routes.InternalRoutesDatabase
+import com.englizya.local.externalRoutes.ExternalRoutesDao
+import com.englizya.local.externalRoutes.ExternalRoutesDatabase
+import com.englizya.local.internalRoutes.InternalRoutesDao
+import com.englizya.local.internalRoutes.InternalRoutesDatabase
 import com.englizya.local.offers.OfferDao
 import com.englizya.local.offers.OfferDatabase
 import com.englizya.local.ticket.TicketDao
@@ -22,7 +22,6 @@ import com.englizya.local.utils.Constants.OFFER_DATA_BASE
 import com.englizya.local.utils.Constants.TICKET_DATA_BASE
 import com.englizya.local.utils.Constants.TRIP_DATA_BASE
 import com.englizya.local.utils.Constants.USER_DATA_BASE
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
@@ -36,10 +35,13 @@ val databaseModule = module {
         get<TicketDatabase>().getMarketDao()
     }
 
-    single(named("user_dao")) {
-        Room.databaseBuilder(get(), UserDatabase::class.java, USER_DATA_BASE)
-            .build()
-            .getDao()
+
+    single<UserDatabase> {
+        Room.databaseBuilder(get(), UserDatabase::class.java, USER_DATA_BASE).build()
+    }
+
+    single<UserDao> {
+        get<UserDatabase>().getMarketDao()
     }
 
     single<OfferDao> {

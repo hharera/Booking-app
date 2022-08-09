@@ -6,6 +6,17 @@
     <string name="invalid_amount_empty">الرجاء إدخال مبلغ صالح مثل 100</string>
     <string name="pound">جنيه</string>
     <string name="invalid_amount">الرجاء إدخال مبلغ مساوى او اكبر من 50</string>
-
+    <string name="done_charging_text"> تم شحن رصيد حسابكم بمبلغ  %1$s ج</string>
+    <string name="ok_text">حسناً</string>
+    <string name="error_text">حدث خطاً اثناء شحن الرصيد , الرجاء المحاولة مرة اخرى</string>
+    <string name="card_recharge">ادفع ببطاقة الائتمان / الخصم</string>
+    <string name="cards_method">بطاقة دفع</string>
+    <string name="payment_info_txt">
+    <li>عند الضغط على زر الدفع سيتم تحويلك إلى المتصفح </li>
+    \n\n <li>اضغط على Pay Now ثم اختار الدفع بميزة</li>
+    \n\n <li>اكمل بياناتك الشخصية ثم اضغط على Pay Now</li>
+    \n\n <li>امسح ال QR Code الذى سيظهر لك باستخدام تطبيق الشبكة الخاصة بيك </li>
+</string>
+    <string name="charge_info">اشحن محفظتك و احصل على خصم 20% عند الحجز بها</string>
 
 </resources>

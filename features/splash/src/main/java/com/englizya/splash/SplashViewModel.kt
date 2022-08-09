@@ -1,7 +1,9 @@
 package com.englizya.splash
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
 import com.englizya.datastore.UserDataStore
@@ -20,6 +22,8 @@ class SplashViewModel constructor(
     private val _loginState = MutableLiveData<Boolean>()
     val loginState: LiveData<Boolean> = _loginState
 
+    var user = userRepository.getUser(userDataStore.getToken(), true).asLiveData()
+
     fun checkLoginState() = viewModelScope.launch {
         val token = userDataStore.getToken()
         if (token == NULL_STRING) {
@@ -29,19 +33,17 @@ class SplashViewModel constructor(
         }
     }
 
-    private suspend fun getUser(token: String) {
+    private fun getUser(token: String) {
         userRepository
-            .getUser(token,true)
-            .onSuccess {
-                updateUserDataStore(it)
-                _loginState.postValue(true)
-            }
-            .onFailure {
-                checkException(it)
+            .getUser(token,true).asLiveData().let {
+                user = it
             }
     }
 
-    private fun checkException(exception: Throwable) {
+    fun setLoginState(loginState:Boolean){
+        _loginState.postValue(loginState)
+    }
+     fun checkException(exception: Throwable) {
         when (exception) {
             is ClientRequestException -> {
                 when (exception.response.status) {
@@ -61,7 +63,7 @@ class SplashViewModel constructor(
         }
     }
 
-    private fun updateUserDataStore(it: User) {
+     fun updateUserDataStore(it: User) {
         userDataStore.setUserName(it.name)
         userDataStore.setPhoneNumber(it.phoneNumber)
     }
