@@ -8,10 +8,7 @@ import com.englizya.model.model.Offer
     version = 1,
     entities = [Offer::class],
     exportSchema = true,
-
-
-    )
-
+)
 abstract class OfferDatabase : RoomDatabase(){
     abstract fun getMarketDao() : OfferDao
 }

@@ -1,10 +1,8 @@
 package com.englizya.local.di
 
 import androidx.room.Room
-import com.englizya.local.externalRoutes.ExternalRoutesDao
-import com.englizya.local.externalRoutes.ExternalRoutesDatabase
-import com.englizya.local.internalRoutes.InternalRoutesDao
-import com.englizya.local.internalRoutes.InternalRoutesDatabase
+import com.englizya.local.internal_routes.InternalRoutesDao
+import com.englizya.local.internal_routes.InternalRoutesDatabase
 import com.englizya.local.offers.OfferDao
 import com.englizya.local.offers.OfferDatabase
 import com.englizya.local.ticket.TicketDao
@@ -15,6 +13,8 @@ import com.englizya.local.user.UserDao
 import com.englizya.local.user.UserDatabase
 import com.englizya.local.announcement.AnnouncementDao
 import com.englizya.local.announcement.AnnouncementDatabase
+import com.englizya.local.external_routes.ExternalRoutesDao
+import com.englizya.local.external_routes.ExternalRoutesDatabase
 import com.englizya.local.utils.Constants.ANNOUNCEMENT_DATA_BASE
 import com.englizya.local.utils.Constants.EXTERNAL_ROUTES_DATA_BASE
 import com.englizya.local.utils.Constants.INTERNAL_ROUTES_DATA_BASE
