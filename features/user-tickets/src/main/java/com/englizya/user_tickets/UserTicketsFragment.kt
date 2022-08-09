@@ -44,7 +44,7 @@ class UserTicketsFragment : BaseFragment() {
 
     private fun setupAdapter() {
         adapter = TicketAdapter(
-            emptyList(),
+            emptySet(),
             onCancelledClicked = { ticketId ->
                 confirmationDialog = ConfirmationDialog(
                     onPositiveButtonClicked = {
@@ -95,22 +95,22 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         userTicketViewModel.tickets.observe(viewLifecycleOwner) {
+            Log.d(TAG, "setupObservers: ")
             if (it.isEmpty()) {
+                adapter.clearList()
                 binding.emptyView.root.visibility = View.VISIBLE
-                binding.ticketsInfoText.visibility = View.GONE
+//                binding.ticketsInfoText.visibility = View.GONE
 
             } else {
                 binding.emptyView.root.visibility = View.GONE
                 updateUI(it)
-
             }
-
         }
 
         userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
             updateUI(it)
             adapter.clearList()
-            userTicketViewModel.getFirstPageUserTickets()
+            userTicketViewModel.resetPages()
         }
 
         userTicketViewModel.error.observe(viewLifecycleOwner) {
@@ -118,10 +118,14 @@ class UserTicketsFragment : BaseFragment() {
             handleFailure(it)
             showErrorDialog(it?.message!!.split("Text:")[1].dropWhile { it == '"' })
         }
+
+        userTicketViewModel.page.observe(viewLifecycleOwner) {
+            binding.pageNumber.text = (it.plus(1)).toString()
+        }
     }
 
     private fun updateUI(userTickets: List<UserTicket>) {
-        adapter.addTickets(userTickets)
+        adapter.setTickets(userTickets)
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
@@ -144,6 +148,14 @@ class UserTicketsFragment : BaseFragment() {
 
         binding.emptyView.goBook.setOnClickListener {
             navigateToBooking()
+        }
+
+        binding.previousPage.setOnClickListener {
+            userTicketViewModel.getPreviousTicketsPage()
+        }
+
+        binding.nextPage.setOnClickListener {
+            userTicketViewModel.getNextTicketsPage()
         }
     }
 

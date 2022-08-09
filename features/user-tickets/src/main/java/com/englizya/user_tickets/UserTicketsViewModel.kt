@@ -10,6 +10,8 @@ import com.englizya.model.response.UserTicket
 import com.englizya.repository.TicketRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.max
+import kotlin.math.min
 
 class UserTicketsViewModel constructor(
     private val ticketRepository: TicketRepository,
@@ -27,17 +29,16 @@ class UserTicketsViewModel constructor(
     private val _page = MutableLiveData(0)
     val page: LiveData<Int> = _page
 
-    private val _pageSize = MutableLiveData(5)
-    private val pageSize: LiveData<Int> = _pageSize
+    private val pageSize = 5
 
     init {
         getUserTickets(false)
     }
 
-    fun getUserTickets(forceOnline : Boolean) = viewModelScope.launch(Dispatchers.IO) {
+    fun getUserTickets(forceOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         ticketRepository
-            .getUserTickets(userDataStore.getToken(), page.value!!, pageSize.value!!,forceOnline)
+            .getUserTickets(userDataStore.getToken(), page.value!!, pageSize, forceOnline)
             .onSuccess {
                 updateLoading(false)
                 _tickets.postValue(it)
@@ -48,10 +49,10 @@ class UserTicketsViewModel constructor(
             }
     }
 
-    fun cancelTicket(ticketId:String)= viewModelScope.launch {
+    fun cancelTicket(ticketId: String) = viewModelScope.launch {
         updateLoading(true)
         ticketRepository
-            .cancelTicket(userDataStore.getToken() , ticketId)
+            .cancelTicket(userDataStore.getToken(), ticketId)
             .onSuccess {
                 updateLoading(false)
                 _cancelTicketStatus.value = it
@@ -72,5 +73,28 @@ class UserTicketsViewModel constructor(
     fun getFirstPageUserTickets() {
         _page.value = 0
         getUserTickets(false)
+    }
+
+    fun getPreviousTicketsPage() {
+        if (_page.value!! <= 0) {
+            if (tickets.value?.isNotEmpty() == true) {
+                return
+            } else {
+                getUserTickets(true)
+            }
+        } else {
+            _page.value = max(page.value!! - 1, 0)
+            getUserTickets(true)
+        }
+    }
+
+    fun getNextTicketsPage() {
+        _page.value = page.value!! + 1
+        getUserTickets(true)
+    }
+
+    fun resetPages() {
+        _page.value = 0
+        getUserTickets(true)
     }
 }

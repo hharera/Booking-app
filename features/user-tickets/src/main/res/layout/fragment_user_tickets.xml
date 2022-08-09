@@ -29,16 +29,62 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_margin="4dp"
                 android:fontFamily="@font/sf"
-                android:text="@string/my_tickets"
+                android:text="@string/tickets"
                 android:textColor="@color/grey_500"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/paginationLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                <ImageView
+                    android:id="@+id/previousPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="6dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_previous" />
+
+                <TextView
+                    android:id="@+id/page_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="4dp"
+                    android:padding="8dp"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/nextPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="6dp"
+                    android:padding="8dp"
+                    android:rotationY="180"
+                    android:src="@drawable/ic_previous" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -54,34 +100,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tickets_info_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="23dp"
-                android:fontFamily="@font/sf"
-                android:gravity="center"
-                android:padding="@dimen/_9sdp"
-                android:text="@string/tickets_info"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!--            <TextView-->
+            <!--                android:id="@+id/tickets_info_text"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="23dp"-->
+            <!--                android:layout_marginTop="9dp"-->
+            <!--                android:layout_marginEnd="23dp"-->
+            <!--                android:fontFamily="@font/sf"-->
+            <!--                android:gravity="center"-->
+            <!--                android:padding="@dimen/_9sdp"-->
+            <!--                android:text="@string/tickets_info"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="@dimen/_11sdp"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tickets"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 android:padding="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tickets_info_text"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/card_view_ticket" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
