@@ -31,7 +31,7 @@ interface UserRepository {
     fun createCredential(verificationId: String, code: String): PhoneAuthCredential
     fun signup(credential: AuthCredential): Task<AuthResult>
     fun signOut()
-    fun getUser(token: String, forceOnline : Boolean ): Flow<Resource<User>>
+    fun getUser(token: String, forceOnline : Boolean = false): Flow<Resource<User>>
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any>
     suspend fun insertUser(user: User) : Result<Any>
     suspend fun updateUser(token: String ,request:UserEditRequest) : Result<UserEditResponse>

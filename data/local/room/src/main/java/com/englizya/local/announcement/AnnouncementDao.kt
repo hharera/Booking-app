@@ -22,6 +22,6 @@ interface AnnouncementDao {
     @Query(value = "DELETE from Announcement")
     fun clearAnnouncements()
 
-    @Query(value = "DELETE from Announcement where announcementId = :announcementId")
-    fun deleteAnAnnouncement(announcementId: String)
+    @Delete
+    fun deleteAnnouncement(announcement : Announcement)
 }

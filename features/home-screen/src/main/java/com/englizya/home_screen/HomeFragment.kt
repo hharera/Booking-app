@@ -2,7 +2,6 @@ package com.englizya.home_screen
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +10,14 @@ import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
-import com.englizya.datastore.UserDataStore
 import com.englizya.home_screen.databinding.FragmentHomeBinding
 import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
+import com.englizya.model.model.User
 import com.englizya.repository.utils.Resource
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.squareup.picasso.Picasso
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
@@ -51,6 +49,33 @@ class HomeFragment : BaseFragment() {
         setupListeners()
         setupObservers()
         setupUI()
+        getOffers()
+        getAnnouncements()
+        getUser()
+    }
+
+    private fun getUser(forceOnline: Boolean = false) {
+        homeViewModel
+            .getUser(forceOnline)
+            .observe(viewLifecycleOwner) {
+                handleUserResult(it)
+            }
+    }
+
+    private fun getAnnouncements(forceOnline: Boolean = false) {
+        homeViewModel
+            .getAnnouncements(forceOnline)
+            .observe(viewLifecycleOwner) {
+                handleAnnouncementsResult(it)
+            }
+    }
+
+    private fun getOffers(forceOnline: Boolean = false) {
+        homeViewModel
+            .getOffers(forceOnline)
+            .observe(viewLifecycleOwner) {
+                handleOffersResult(it)
+            }
     }
 
     private fun setupUI() {
@@ -88,7 +113,7 @@ class HomeFragment : BaseFragment() {
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
                 Destination.ANNOUNCEMENT_DETAILS,
-                announcement.announcementId.toString()
+                announcement.announcementId
             )
         )
     }
@@ -97,41 +122,70 @@ class HomeFragment : BaseFragment() {
         connectionLiveData.observe(viewLifecycleOwner) {
             showInternetSnackBar(binding.root, it)
         }
+    }
 
-        homeViewModel.user.observe(viewLifecycleOwner) { resource ->
-            when (resource) {
-                is Resource.Success -> {
-                    handleLoading(false)
-                    binding.userNameTV.text = resource.data?.name
-                    if (resource.data?.imageUrl != null) {
-                        Picasso.get().load(resource.data?.imageUrl).into(binding.imageView)
-                    }
-                }
-                is Resource.Error -> {
-                    handleFailure(resource.error)
+    private fun handleOffersResult(resource: Resource<List<Offer>>) {
+        when (resource) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateUI(resource.data!!)
+            }
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(resource.error)
 
-                }
-                is Resource.Loading -> {
-                    handleLoading(true)
-                }
+            }
+            is Resource.Loading -> {
+                handleLoading(true)
             }
         }
+    }
 
-        homeViewModel.offers.observe(viewLifecycleOwner) {
-//            if (it == null) {
-//                homeViewModel.getOffers(true)
-//            }
-            if (it.data != null) {
-                offerSliderAdapter.setOffers(it.data!!)
+    private fun updateUI(offerList: List<Offer>) {
+        offerSliderAdapter.setOffers(offerList)
+    }
+
+    private fun handleUserResult(resource: Resource<User>) {
+        when (resource) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateUI(resource.data!!)
             }
-            Log.d("offers", it.toString())
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(resource.error)
+            }
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
         }
-        homeViewModel.announcements.observe(viewLifecycleOwner) { result ->
+    }
 
-            announcementAdapter.setAnnouncements(result.data!!)
+    private fun updateUI(user: User) {
+        binding.userNameTV.text = user.name
+        Picasso.get().load(user.imageUrl).into(binding.imageView)
+    }
 
-            Log.d("Announcements", result.data.toString())
+    private fun handleAnnouncementsResult(result: Resource<List<Announcement>>) {
+        when (result) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateAnnouncementsUI(result.data!!)
+            }
+
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(result.error)
+            }
+
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
         }
+    }
+
+    private fun updateAnnouncementsUI(data: List<Announcement>) {
+        announcementAdapter.setAnnouncements(data)
     }
 
     private fun setupListeners() {
@@ -140,6 +194,7 @@ class HomeFragment : BaseFragment() {
                 NavigationUtils.getUriNavigation(Domain.ENGLIZYA_PAY, Destination.PROFILE, false)
             )
         }
+
         binding.shortTransportationService.setOnClickListener {
             progressToInternalSearchActivity()
         }
@@ -157,11 +212,15 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.homeSwipeLayout.setOnRefreshListener {
-//            homeViewModel.getAnnouncements(true)
-//            homeViewModel.getOffers(true)
-            homeViewModel.getUser(true)
             binding.homeSwipeLayout.isRefreshing = false
+            refreshData()
         }
+    }
+
+    private fun refreshData() {
+        getOffers(true)
+        getAnnouncements(true)
+        getUser(true)
     }
 
     private fun progressToAnnouncements() {

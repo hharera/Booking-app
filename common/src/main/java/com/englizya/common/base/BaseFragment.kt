@@ -63,9 +63,11 @@ open class BaseFragment : Fragment() {
     }
 
     private fun showLoading() {
-        kotlin.runCatching {
-            if (loadingDialog.isAdded.not())
-                loadingDialog.show(childFragmentManager, "LOADING")
+        try {
+            loadingDialog.dismiss()
+            loadingDialog.show(childFragmentManager, "LOADING")
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

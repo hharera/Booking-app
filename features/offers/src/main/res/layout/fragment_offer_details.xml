@@ -9,7 +9,6 @@
         android:id="@+id/offerImg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_220sdp"
-        android:src="@drawable/app_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

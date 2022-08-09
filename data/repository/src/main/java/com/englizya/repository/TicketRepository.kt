@@ -54,10 +54,8 @@ class TicketRepositoryImpl constructor(
             }
         },
         shouldFetch = {
-            it==null
-
+            forceOnline
         }
-
     )
 
     override suspend fun getTicketDetails(token: String, ticketId: String) = kotlin.runCatching {

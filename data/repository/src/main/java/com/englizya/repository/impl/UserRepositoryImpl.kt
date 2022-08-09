@@ -47,11 +47,11 @@ class UserRepositoryImpl constructor(
                 userDB.withTransaction {
                     userDao.insertUser(it)
                 }
-
             },
-
-
-            )
+            shouldFetch = {
+                forceOnline
+            },
+        )
 
     override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any> =
         kotlin.runCatching {
