@@ -8,7 +8,6 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.ImageUtils
 import com.englizya.datastore.UserDataStore
 import com.englizya.model.model.User
-import com.englizya.model.request.UserEditRequest
 import com.englizya.model.response.UserEditResponse
 import com.englizya.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -53,32 +52,10 @@ class ProfileSettingsViewModel constructor(
             }
     }
 
-    suspend fun updateUser() {
-        updateLoading(true)
-        createEditUserRequest()
-            .onFailure {
-                updateLoading(false)
-                handleException(it)
-            }
-            .onSuccess {
-                updateLoading(false)
-                updateUser(it)
-            }
-
-    }
-
-    private fun createEditUserRequest() = kotlin.runCatching {
-        UserEditRequest(
-            name = name.value!!,
-            address = address.value!!,
-            image = ImageUtils.convertBitmapToFile(image.value!!),
-        )
-    }
-
-    private fun updateUser(request: UserEditRequest) = viewModelScope.launch(Dispatchers.IO) {
+      fun updateUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
-            .updateUser(dataStore.getToken(), request)
+            .updateUser(dataStore.getToken(), name.value, _address.value, ImageUtils.convertBitmapToFile(_image.value))
             .onSuccess {
                 updateLoading(false)
                 _userEditResponse.postValue(it)

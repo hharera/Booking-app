@@ -1,27 +1,23 @@
 package com.englizya.api.impl
 
 import com.englizya.api.UserService
-import com.englizya.api.utils.RequestParam
-import com.englizya.api.utils.Routing
 import com.englizya.api.utils.Routing.EDIT_USER
 import com.englizya.api.utils.Routing.FETCH_USER
 import com.englizya.api.utils.Routing.LOGIN
 import com.englizya.api.utils.Routing.RESET_PASSWORD
 import com.englizya.api.utils.Routing.SIGNUP
 import com.englizya.model.model.User
-import com.englizya.model.request.LoginRequest
-import com.englizya.model.request.ResetPasswordRequest
-import com.englizya.model.request.SignupRequest
-import com.englizya.model.request.UserEditRequest
+import com.englizya.model.request.*
 import com.englizya.model.response.LoginResponse
 import com.englizya.model.response.UserEditResponse
 import io.ktor.client.*
+import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
 import io.ktor.http.HttpHeaders.Authorization
 import io.ktor.util.*
-import java.text.Normalizer
+import java.io.File
 
 class UserServiceImpl constructor(
     private val client: HttpClient
@@ -56,20 +52,77 @@ class UserServiceImpl constructor(
             body = resetPasswordRequest
         }
 
-    @OptIn(InternalAPI::class)
-    override suspend fun updateUser(token: String, request: UserEditRequest): UserEditResponse =
-        client.put(EDIT_USER) {
-            headers.append(Authorization, "Bearer $token")
-            body = MultiPartFormDataContent(
-                formData {
-                    append(FormPart("name", request.name))
-                    append(FormPart("address", request.address))
-                    append("image", request.image.readBytes(), Headers.build {
-                        append(HttpHeaders.ContentType, "multipart/form-data;")
+    override suspend fun updateUserName(token: String, userName: String): UserEditResponse =
+        client.submitFormWithBinaryData<UserEditResponse>(
+            url = EDIT_USER, formData =
+            formData {
+                append(FormPart("name", userName))
 
-                    })
-                }
-            )
+            })
+        {
+            headers.append(Authorization, "Bearer $token")
+            onUpload { bytesSentTotal, contentLength ->
+                println("Sent $bytesSentTotal bytes from $contentLength")
+            }
+
+
         }
 
+    override suspend fun updateUserNameAndAddress(token: String, name:String, address: String): UserEditResponse =
+        client.submitFormWithBinaryData<UserEditResponse>(
+            url = EDIT_USER, formData =
+            formData {
+                append(FormPart("name", name))
+
+                append(FormPart("address", address))
+            })
+        {
+            headers.append(Authorization, "Bearer $token")
+            onUpload { bytesSentTotal, contentLength ->
+                println("Sent $bytesSentTotal bytes from $contentLength")
+            }
+
+
+        }
+
+    override suspend fun updateUserNameAndImage(token: String, name:String ,image: File): UserEditResponse =
+        client.submitFormWithBinaryData<UserEditResponse>(
+            url = EDIT_USER, formData =
+            formData {
+                append(FormPart("name", name))
+
+                append(FormPart("image", image.readBytes(), Headers.build {
+                    append(HttpHeaders.ContentType, "image/jpeg")
+                    append(HttpHeaders.ContentDisposition, "filename=image.png")
+                }))
+            })
+        {
+            headers.append(Authorization, "Bearer $token")
+            onUpload { bytesSentTotal, contentLength ->
+                println("Sent $bytesSentTotal bytes from $contentLength")
+            }
+
+
+        }
+
+    @OptIn(InternalAPI::class)
+    override suspend fun updateUser(token: String, name: String, address: String, image: File): UserEditResponse =
+        client.submitFormWithBinaryData<UserEditResponse>(
+            url = EDIT_USER, formData =
+            formData {
+                append(FormPart("name", name))
+                append(FormPart("address", address))
+                append(FormPart("image", image.readBytes(), Headers.build {
+                    append(HttpHeaders.ContentType, "image/jpeg")
+                    append(HttpHeaders.ContentDisposition, "filename=image.png")
+                }))
+            })
+        {
+            headers.append(Authorization, "Bearer $token")
+            onUpload { bytesSentTotal, contentLength ->
+                println("Sent $bytesSentTotal bytes from $contentLength")
+            }
+
+
+        }
 }

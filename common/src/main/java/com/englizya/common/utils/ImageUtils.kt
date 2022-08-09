@@ -10,14 +10,15 @@ import android.provider.MediaStore
 
 object ImageUtils {
 
-    fun convertBitmapToFile(bitmap: Bitmap): java.io.File {
+    fun convertBitmapToFile(bitmap: Bitmap?): java.io.File? {
         val file = java.io.File.createTempFile("image", ".jpg")
         val outputStream: java.io.OutputStream =
             java.io.BufferedOutputStream(java.io.FileOutputStream(file))
-        bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 30, outputStream)
+        bitmap?.compress(android.graphics.Bitmap.CompressFormat.JPEG, 30, outputStream)
         outputStream.close()
         return file
     }
+
 
     fun getImageFromUri(imageUri: Uri?, context: Context): Bitmap? {
         imageUri?.let {

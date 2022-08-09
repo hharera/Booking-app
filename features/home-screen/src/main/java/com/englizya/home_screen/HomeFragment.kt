@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.englizya.common.base.BaseFragment
@@ -29,7 +30,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var offerSliderAdapter: OfferSliderAdapter
 
-    //    private lateinit var announcementSliderAdapter: AnnouncementSliderAdapter
     private lateinit var announcementAdapter: AnnouncementAdapter
     private val userDataStore: UserDataStore by inject()
     private var firstOpenState: Boolean = true
@@ -87,13 +87,6 @@ class HomeFragment : BaseFragment() {
             }
         )
         binding.announcementRecyclerView.adapter = announcementAdapter
-//        announcementSliderAdapter = AnnouncementSliderAdapter(
-//            emptyList(),
-//        )
-//        binding.imageSliderAnnouncement.setSliderAdapter(offerSliderAdapter)
-//        binding.imageSliderAnnouncement.setIndicatorAnimation(IndicatorAnimationType.WORM)
-//        binding.imageSliderAnnouncement.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
-//        binding.imageSliderAnnouncement.startAutoCycle()
     }
 
     private fun navigateToOfferDetails(offer: Offer) {
@@ -130,7 +123,10 @@ class HomeFragment : BaseFragment() {
                         .addHeader("Authorization", "Bearer ${userDataStore.getToken()}")
                         .build()
                 )
-                view?.let { Glide.with(it).load(glideUrl).into(binding.imageView) }
+                view?.let {
+                    Glide.with(it).load(glideUrl).fitCenter().diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true).into(binding.imageView)
+                }
             }
         }
 

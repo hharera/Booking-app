@@ -13,6 +13,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
+import java.io.File
 
 interface UserRepository {
     fun sendVerificationCode(
@@ -29,8 +30,14 @@ interface UserRepository {
     fun createCredential(verificationId: String, code: String): PhoneAuthCredential
     fun signup(credential: AuthCredential): Task<AuthResult>
     fun signOut()
-    suspend fun getUser(token: String, forceOnline : Boolean = true): Result<User>
+    suspend fun getUser(token: String, forceOnline: Boolean = true): Result<User>
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any>
-    suspend fun insertUser(user: User) : Result<Any>
-    suspend fun updateUser(token: String ,request:UserEditRequest) : Result<UserEditResponse>
+    suspend fun insertUser(user: User): Result<Any>
+    suspend fun updateUser(
+        token: String,
+        name: String?,
+        address: String?,
+        image: File?
+    ): Result<UserEditResponse>
+
 }

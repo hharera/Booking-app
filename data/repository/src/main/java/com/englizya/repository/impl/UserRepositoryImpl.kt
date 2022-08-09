@@ -7,12 +7,12 @@ import com.englizya.model.model.User
 import com.englizya.model.request.LoginRequest
 import com.englizya.model.request.ResetPasswordRequest
 import com.englizya.model.request.SignupRequest
-import com.englizya.model.request.UserEditRequest
 import com.englizya.model.response.LoginResponse
 import com.englizya.model.response.UserEditResponse
 import com.englizya.repository.UserRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 class UserRepositoryImpl constructor(
@@ -60,9 +60,29 @@ class UserRepositoryImpl constructor(
 
     override suspend fun updateUser(
         token: String,
-        request: UserEditRequest
+        name: String?,
+        address: String?,
+        image: File?
     ): Result<UserEditResponse> = kotlin.runCatching {
-        userService.updateUser(token, request)
+        Log.d("name , address, image", name + address + image?.name)
+
+        if (address == "" && image == null) {
+            Log.d("Name Update", "Done")
+            userService.updateUserName(token, name!!)
+        } else if (image == null) {
+            Log.d("Name Address Update", "Done")
+
+            userService.updateUserNameAndAddress(token, name!!, address!!)
+        } else if (address == null) {
+            Log.d("Name Image Update", "Done")
+
+            userService.updateUserNameAndImage(token, name!!, image)
+        } else {
+            Log.d("All Update", "Done")
+
+            userService.updateUser(token, name!!, address!!, image)
+        }
+
     }
 
     override fun signInWithCredential(credential: PhoneAuthCredential) =

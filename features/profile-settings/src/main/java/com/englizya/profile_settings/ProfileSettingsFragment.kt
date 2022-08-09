@@ -70,8 +70,11 @@ class ProfileSettingsFragment : BaseFragment(), ImagePickerActivityClass.OnResul
             updateUI(it)
         }
         profileSettingViewModel.userEditResponse.observe(viewLifecycleOwner) {
-            showToast(it.message)
-            findNavController().popBackStack()
+            Log.d("Response", it.toString())
+            if (it != null) {
+                showToast(it.message)
+                findNavController().popBackStack()
+            }
         }
         profileSettingViewModel.image.observe(viewLifecycleOwner) {
             Log.d("Image", ImageUtils.convertBitmapToFile(it).toString())
@@ -102,10 +105,13 @@ class ProfileSettingsFragment : BaseFragment(), ImagePickerActivityClass.OnResul
             findNavController().popBackStack()
         }
         binding.name.afterTextChanged {
+            Log.d("NAme" , it)
             profileSettingViewModel.setName(it)
         }
 
         binding.address.afterTextChanged {
+            Log.d("address" , it)
+
             profileSettingViewModel.setAddress(it)
         }
         binding.save.setOnClickListener {

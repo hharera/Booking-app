@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.englizya.common.base.BaseFragment
@@ -89,13 +90,17 @@ class ProfileFragment : BaseFragment() {
             binding.profileQr.setImageBitmap(it)
         }
         if (user.imageUrl != null) {
+            Log.d("imageUrl", user.imageUrl.toString())
             val glideUrl = GlideUrl(
                 user.imageUrl,
                 LazyHeaders.Builder()
                     .addHeader("Authorization", "Bearer ${dataStore.getToken()}")
                     .build()
             )
-            view?.let { Glide.with(it).load(glideUrl).into(binding.imageView8) }
+            view?.let {
+                Glide.with(it).load(glideUrl).fitCenter().diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(binding.imageView8)
+            }
 
 
         }
