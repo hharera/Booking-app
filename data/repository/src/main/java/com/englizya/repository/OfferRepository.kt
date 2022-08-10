@@ -5,8 +5,7 @@ import com.englizya.repository.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface OfferRepository {
-     fun getAllOffers(): Flow<Resource<List<Offer>>>
-    suspend fun getOfferDetails(offerId: String): Result<Offer>
 
-
+    fun getAllOffers(forceOnline: Boolean = false): Flow<Resource<List<Offer>>>
+    fun getOffer(offerId: Int, forceOnline: Boolean = false): Flow<Resource<Offer>>
 }

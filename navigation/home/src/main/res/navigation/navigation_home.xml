@@ -140,11 +140,13 @@
 
     <fragment
         android:id="@+id/navigation_offers_details"
-        android:name="com.englizya.offers.OfferDetailsFragment"
+        android:name="com.englizya.offers.OfferFragment"
         tools:layout="@layout/fragment_offer_details">
         <argument android:name="offerId" />
         <deepLink app:uri="EnglizyaPay://offer-details/{offerId}" />
     </fragment>
+
+
     <fragment
         android:id="@+id/navigation_announcement"
         android:name="com.englizya.announcement.AnnouncementsFragment"
@@ -157,8 +159,8 @@
         android:id="@+id/navigation_announcement_details"
         android:name="com.englizya.announcement.AnnouncementFragment"
         tools:layout="@layout/fragment_announcement_details">
-        <argument android:name="announcementId" />
 
+        <argument android:name="announcementId" />
         <deepLink app:uri="EnglizyaPay://announcement-details/{announcementId}" />
     </fragment>
 

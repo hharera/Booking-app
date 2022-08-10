@@ -1,6 +1,10 @@
 package com.englizya.repository.utils
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flow
+import okhttp3.internal.wait
 
 
 inline fun <ResultType, RequestType> networkBoundResource(
@@ -19,7 +23,9 @@ inline fun <ResultType, RequestType> networkBoundResource(
             emit(Resource.Error(it))
         }.onSuccess {
             saveFetchResult(it)
-            emit(Resource.Success(query().first()))
+            query().collect {
+                emit(Resource.Success(it))
+            }
         }
     } else {
         if(shouldFetch(data)) {
@@ -30,8 +36,9 @@ inline fun <ResultType, RequestType> networkBoundResource(
                 emit(Resource.Error(it))
             }.onSuccess {
                 saveFetchResult(it)
-                emit(Resource.Success(query().first()))
-            }
+                query().collect {
+                    emit(Resource.Success(it))
+                }            }
         } else {
             emit(Resource.Success(data))
         }

@@ -8,15 +8,21 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.date.DateOnly
-import com.englizya.model.model.Announcement
 import com.englizya.model.model.Offer
 import com.englizya.offers.databinding.FragmentOfferDetailsBinding
+import com.englizya.repository.utils.Resource
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class OfferDetailsFragment : BaseFragment() {
+class OfferFragment : BaseFragment() {
+
     private lateinit var binding: FragmentOfferDetailsBinding
     private val offersViewModel: OffersViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,32 +34,36 @@ class OfferDetailsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.getString("offerId").let {
-            offersViewModel.offersId.value = it
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.root.visibility = View.INVISIBLE
 
         setupListeners()
         setupObservers()
 
+        arguments?.getString("offerId")?.let {
+            getOffer(it.toInt())
+        }
+    }
+
+    private fun getOffer(toInt: Int) {
+        offersViewModel
+            .getOffer(toInt)
+            .observe(viewLifecycleOwner) {
+                handleResult(it)
+            }
     }
 
     private fun updateUI(offer: Offer) {
+        Log.d(TAG, "updateUI: $offer")
         Picasso.get().load(offer.offerImageUrl).into(binding.offerImg)
         binding.offerDetails.text = offer.offerDescription
         binding.offerTitle.text = offer.offerTitle
-        binding.offerStartDate.text = getString(R.string.offerStartDate).plus(" ").plus(DateOnly.toMonthDate(offer.startDate))
-        binding.offerEndDate.text = getString(R.string.offerEndDate).plus(" ").plus(DateOnly.toMonthDate(offer.endDate))
-        binding.offerDiscount.text = getString(R.string.offerDiscount).plus(" ").plus(offer.discount.toString())
-
-
+        binding.offerStartDate.text =
+            getString(R.string.offerStartDate).plus(" ").plus(DateOnly.toMonthDate(offer.startDate))
+        binding.offerEndDate.text =
+            getString(R.string.offerEndDate).plus(" ").plus(DateOnly.toMonthDate(offer.endDate))
+        binding.offerDiscount.text =
+            getString(R.string.offerDiscount).plus(" ").plus(offer.discount.toString())
     }
 
     private fun setupObservers() {
@@ -63,13 +73,23 @@ class OfferDetailsFragment : BaseFragment() {
         offersViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
+    }
 
-        offersViewModel.offersDetails.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.root.visibility = View.VISIBLE
-                updateUI(it)
+    private fun handleResult(resource: Resource<Offer>) {
+        when (resource) {
+            is Resource.Success -> {
+                updateUI(resource.data!!)
+                handleLoading(false)
             }
-            Log.d("offer", it.toString())
+
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(resource.error)
+            }
+
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
         }
     }
 
@@ -77,11 +97,5 @@ class OfferDetailsFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        offersViewModel.getOfferDetails(arguments?.get("offerId").toString())
     }
 }

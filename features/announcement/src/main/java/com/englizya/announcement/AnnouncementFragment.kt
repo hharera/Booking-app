@@ -20,14 +20,6 @@ class AnnouncementFragment : BaseFragment() {
     private lateinit var binding: FragmentAnnouncementDetailsBinding
     private val announcementViewModel: AnnouncementViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.getInt("announcementId")?.let {
-            announcementViewModel.getAnnouncement(it)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,11 +33,22 @@ class AnnouncementFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.root.visibility = View.INVISIBLE
 
         setupListeners()
         setupObservers()
 
+        arguments?.getString("announcementId")?.let {
+            getAnnouncement(it.toInt())
+        }
+    }
+
+    private fun getAnnouncement(announcementId: Int) {
+        Log.d(TAG, "getAnnouncement: $announcementId")
+        announcementViewModel
+            .getAnnouncement(announcementId)
+            .observe(viewLifecycleOwner) {
+                handleResult(it)
+            }
     }
 
     private fun updateUI(announcement: Announcement) {
@@ -62,21 +65,18 @@ class AnnouncementFragment : BaseFragment() {
         announcementViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
-
-        announcementViewModel.announcement.observe(viewLifecycleOwner) {
-            handleResult(it)
-        }
     }
 
     private fun handleResult(resource: Resource<Announcement>) {
         when (resource) {
-            is Resource.Loading -> {
-                handleLoading(true)
+            is Resource.Success -> {
+                Log.d(TAG, "getAnnouncement: ${resource.data}")
+                updateUI(resource.data!!)
+                handleLoading(false)
             }
 
-            is Resource.Success -> {
-                handleLoading(false)
-                resource.data?.let { updateUI(it) }
+            is Resource.Loading -> {
+                handleLoading(true)
             }
 
             is Resource.Error -> {

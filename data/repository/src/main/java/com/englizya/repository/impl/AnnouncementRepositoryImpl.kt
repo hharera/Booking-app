@@ -16,18 +16,7 @@ class AnnouncementRepositoryImpl constructor(
     private val announcementDao: AnnouncementDao,
 ) : AnnouncementRepository {
 
-//    override suspend fun getAllAnnouncement(forceOnline: Boolean): Result<List<Announcement>> =
-//        kotlin.runCatching {
-//            if (forceOnline) {
-//                announcementService.getAnnouncements().also {
-//                    insertAnnouncements(it)
-//                }
-//            } else {
-//                announcementDao.getAnnouncements()
-//            }
-//        }
-
-    override fun getAllAnnouncement(): Flow<Resource<List<Announcement>>> = networkBoundResource(
+    override fun getAllAnnouncement(forceOnline: Boolean): Flow<Resource<List<Announcement>>> = networkBoundResource(
         query = {
             announcementDao.getAnnouncements()
         },
@@ -39,6 +28,9 @@ class AnnouncementRepositoryImpl constructor(
                 announcementDao.clearAnnouncements()
                 announcementDao.insertAnnouncements(announcements)
             }
+        },
+        shouldFetch = {
+            forceOnline
         }
     )
 
@@ -54,40 +46,12 @@ class AnnouncementRepositoryImpl constructor(
         },
         saveFetchResult = { announcement ->
             announcementDatabase.withTransaction {
+                announcementDao.deleteAnnouncement(announcement)
                 announcementDao.insertAnnouncement(announcement)
             }
         },
-    )
-
-//    override fun getAnnouncementDetails(announcementId: String): Flow<Resource<Announcement>> =
-//        networkBoundResource(query = {
-//            announcementDao.getAnnouncement(announcementId)
-//        }, fetch = {
-//            announcementService.getAnnouncementDetails(announcementId)
-//        },
-//            saveFetchResult = {
-//                announcement->
-//                db.withTransaction {
-//                    announcementDao.deleteAnAnnouncement(announcementId)
-//                    announcementDao.insertAnnouncement(announcement)
-//                }
-//            }
-//        )
-
-
-    override suspend fun insertAnnouncements(
-        announcements: List<Announcement>
-    ): Result<Unit> = kotlin.runCatching {
-        announcementDao.clearAnnouncements()
-
-        announcements.map {
-            announcementDao.insertAnnouncement(it)
+        shouldFetch = {
+            forceOnline
         }
-    }
-
-    override suspend fun insertAnnouncement(
-        announcement: Announcement
-    ): Result<Unit> = kotlin.runCatching {
-        announcementDao.insertAnnouncement(announcement)
-    }
+    )
 }

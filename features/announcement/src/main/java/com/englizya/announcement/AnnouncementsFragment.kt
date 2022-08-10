@@ -1,13 +1,11 @@
 package com.englizya.announcement
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.englizya.announcement.R
 import com.englizya.announcement.databinding.FragmentAnnouncementBinding
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.utils.navigation.Destination
@@ -61,19 +59,31 @@ class AnnouncementsFragment : BaseFragment() {
         announcementViewModel.loading.observe(viewLifecycleOwner) {
             handleLoading(it)
         }
-        announcementViewModel.announcements.observe(viewLifecycleOwner) {result->
 
+        announcementViewModel.getAnnouncements().observe(viewLifecycleOwner) {
+            handleAnnouncementsResult(it)
+        }
+    }
+
+    private fun handleAnnouncementsResult(result: Resource<List<Announcement>>) {
+        when(result) {
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
+
+            is Resource.Success -> {
+                handleLoading(false)
                 adapter.setAnnouncements(result.data!!)
-            Log.d("Announcement", result.data.toString())
+            }
 
-            binding.progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
-            binding.errorText.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
-       binding.errorText.text = result.error?.localizedMessage
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(result.error)
+            }
         }
     }
 
     private fun navigateToAnnouncementDetails(announcement: Announcement) {
-
         findNavController().navigate(
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
