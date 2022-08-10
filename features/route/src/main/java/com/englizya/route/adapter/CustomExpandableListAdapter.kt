@@ -40,7 +40,7 @@ class CustomExpandableListAdapter internal constructor(
             convertView = layoutInflater.inflate(R.layout.station_item, null)
         }
         val expandedListTextView = convertView!!.findViewById<TextView>(R.id.lineDetailTxt)
-        expandedListTextView.text =  expandedListText
+        expandedListTextView.text = expandedListText
         return convertView
     }
 
@@ -80,14 +80,7 @@ class CustomExpandableListAdapter internal constructor(
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.lineTitleTxt)
         val listLineCodeTextView = convertView!!.findViewById<TextView>(R.id.lineCodeTxt)
-        if(listLineCode.contains("M")){
-
-            listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode.drop(1)
-
-        }else{
-            listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode
-
-        }
+        listLineCodeTextView.text = context.getString(R.string.line_code) + " " + listLineCode
         listTitleTextView.setTypeface(listTitleTextView.typeface, Typeface.BOLD)
         listTitleTextView.text = listTitle
         return convertView

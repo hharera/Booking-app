@@ -17,10 +17,6 @@ class InternalSearchViewModel constructor(
 ) : BaseViewModel() {
     val stations: MutableList<List<RouteStations>> = ArrayList()
 
-
-//    private val _internalRoutes = MutableLiveData<List<InternalRoutes>>()
-//    val internalRoutes: LiveData<List<InternalRoutes>> = _internalRoutes
-
     private val _sourceStationName = MutableLiveData<String>()
     val sourceStationName: MutableLiveData<String>
         get() = _sourceStationName
@@ -32,25 +28,7 @@ class InternalSearchViewModel constructor(
     private val _searchResult = MutableLiveData<List<InternalRoutes>>()
     val searchResult: LiveData<List<InternalRoutes>> = _searchResult
 
-    val internalRoutes = routeRepository.getInternalLines().asLiveData()
-
-
-    init {
-//        getInternalRoutes(true)
-    }
-//    fun getInternalRoutes(getOnlineForced: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-//        updateLoading(true)
-//        routeRepository
-//            .getInternalLines(getOnlineForced)
-//            .onSuccess {
-//                updateLoading(false)
-//                _internalRoutes.postValue(it)
-//            }
-//            .onFailure {
-//                updateLoading(false)
-//                handleException(it)
-//            }
-//    }
+    val internalRoutes = routeRepository.getInternalLines(false).asLiveData()
 
 
     fun searchRoute() {
