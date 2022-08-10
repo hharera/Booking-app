@@ -50,10 +50,10 @@ class StationsAdapter(
     }
 
     fun setStations(list: List<List<RouteStations>>) {
-
-        stations = list.flatten()
-        Log.d("Stations from adapter", list.toString())
-        Log.d("Size Stations from adapter", list.size.toString())
+        val list1 = list.flatten().distinctBy { it.stationName }
+        stations = list1
+        Log.d("Stations from adapter", list1.toString())
+        Log.d("Size Stations from adapter", list1.size.toString())
         notifyDataSetChanged()
 
     }
