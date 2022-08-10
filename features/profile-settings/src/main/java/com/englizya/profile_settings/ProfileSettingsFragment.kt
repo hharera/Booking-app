@@ -79,6 +79,19 @@ class ProfileSettingsFragment : BaseFragment(), ImagePickerActivityClass.OnResul
         profileSettingViewModel.image.observe(viewLifecycleOwner) {
             Log.d("Image", ImageUtils.convertBitmapToFile(it).toString())
         }
+        profileSettingViewModel.formValidity.observe(viewLifecycleOwner) {
+            binding.save.isEnabled = it.formIsValid
+            if (it.amountRes != null) {
+                if (it.amountRes == R.string.name_is_required) {
+                    binding.textInputLayoutName.error = getString(R.string.name_is_required)
+
+                }
+
+            } else {
+                binding.textInputLayoutName.error = null
+
+            }
+        }
     }
 
 
@@ -105,12 +118,12 @@ class ProfileSettingsFragment : BaseFragment(), ImagePickerActivityClass.OnResul
             findNavController().popBackStack()
         }
         binding.name.afterTextChanged {
-            Log.d("NAme" , it)
+            Log.d("NAme", it)
             profileSettingViewModel.setName(it)
         }
 
         binding.address.afterTextChanged {
-            Log.d("address" , it)
+            Log.d("address", it)
 
             profileSettingViewModel.setAddress(it)
         }
@@ -185,6 +198,7 @@ fun SuggestionImage(
         Image(
             bitmap = bitmap.asImageBitmap(),
             contentDescription = null,
+
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()

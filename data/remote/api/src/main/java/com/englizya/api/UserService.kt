@@ -14,9 +14,6 @@ interface UserService {
     suspend fun signup(request: SignupRequest): User
     suspend fun getUser(token: String): User
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Any
-    suspend fun updateUserName(token: String, userName: String): UserEditResponse
-    suspend fun updateUserNameAndAddress(token: String, name :String, address:String): UserEditResponse
-    suspend fun updateUserNameAndImage(token: String,name:String, image: File): UserEditResponse
     suspend fun updateUser(token: String, name: String , address: String , image: File): UserEditResponse
 
 

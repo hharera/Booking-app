@@ -52,58 +52,7 @@ class UserServiceImpl constructor(
             body = resetPasswordRequest
         }
 
-    override suspend fun updateUserName(token: String, userName: String): UserEditResponse =
-        client.submitFormWithBinaryData<UserEditResponse>(
-            url = EDIT_USER, formData =
-            formData {
-                append(FormPart("name", userName))
 
-            })
-        {
-            headers.append(Authorization, "Bearer $token")
-            onUpload { bytesSentTotal, contentLength ->
-                println("Sent $bytesSentTotal bytes from $contentLength")
-            }
-
-
-        }
-
-    override suspend fun updateUserNameAndAddress(token: String, name:String, address: String): UserEditResponse =
-        client.submitFormWithBinaryData<UserEditResponse>(
-            url = EDIT_USER, formData =
-            formData {
-                append(FormPart("name", name))
-
-                append(FormPart("address", address))
-            })
-        {
-            headers.append(Authorization, "Bearer $token")
-            onUpload { bytesSentTotal, contentLength ->
-                println("Sent $bytesSentTotal bytes from $contentLength")
-            }
-
-
-        }
-
-    override suspend fun updateUserNameAndImage(token: String, name:String ,image: File): UserEditResponse =
-        client.submitFormWithBinaryData<UserEditResponse>(
-            url = EDIT_USER, formData =
-            formData {
-                append(FormPart("name", name))
-
-                append(FormPart("image", image.readBytes(), Headers.build {
-                    append(HttpHeaders.ContentType, "image/jpeg")
-                    append(HttpHeaders.ContentDisposition, "filename=image.png")
-                }))
-            })
-        {
-            headers.append(Authorization, "Bearer $token")
-            onUpload { bytesSentTotal, contentLength ->
-                println("Sent $bytesSentTotal bytes from $contentLength")
-            }
-
-
-        }
 
     @OptIn(InternalAPI::class)
     override suspend fun updateUser(token: String, name: String, address: String, image: File): UserEditResponse =

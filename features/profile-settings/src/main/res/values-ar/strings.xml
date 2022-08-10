@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="save_info">حفظ</string>
+    <string name="name_is_required">الاسم مطلوب</string>
+
 </resources>

@@ -98,8 +98,10 @@ class ProfileFragment : BaseFragment() {
                     .build()
             )
             view?.let {
-                Glide.with(it).load(glideUrl).fitCenter().diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).into(binding.imageView8)
+                Glide.with(it).load(glideUrl).fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(binding.imageView8)
             }
 
 

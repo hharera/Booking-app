@@ -1,6 +1,7 @@
 package com.englizya.profile_settings
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -33,6 +34,9 @@ class ProfileSettingsViewModel constructor(
     private val _address: MutableLiveData<String> = MutableLiveData()
     val address: LiveData<String> = _address
 
+    private var _formValidity = MutableLiveData<ProfileSettingFormState>()
+    val formValidity: LiveData<ProfileSettingFormState> = _formValidity
+
     init {
         fetchUser()
     }
@@ -51,7 +55,13 @@ class ProfileSettingsViewModel constructor(
                 handleException(it)
             }
     }
-
+    private fun checkFormValidity() {
+        if (name.value == "") {
+            _formValidity.postValue(ProfileSettingFormState(amountRes = R.string.name_is_required))
+        } else {
+            _formValidity.postValue(ProfileSettingFormState(formIsValid = true))
+        }
+    }
       fun updateUser() = viewModelScope.launch(Dispatchers.IO) {
         updateLoading(true)
         userRepository
@@ -72,6 +82,8 @@ class ProfileSettingsViewModel constructor(
 
     fun setName(name: String) {
         _name.value = name
+        Log.d("name" , _name.value.toString())
+        checkFormValidity()
     }
 
     fun setAddress(address: String) {

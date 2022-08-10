@@ -64,24 +64,13 @@ class UserRepositoryImpl constructor(
         address: String?,
         image: File?
     ): Result<UserEditResponse> = kotlin.runCatching {
-        Log.d("name , address, image", name + address + image?.name)
+        Log.d("name , address, image", name + address + image?.toString())
 
-        if (address == "" && image == null) {
-            Log.d("Name Update", "Done")
-            userService.updateUserName(token, name!!)
-        } else if (image == null) {
-            Log.d("Name Address Update", "Done")
 
-            userService.updateUserNameAndAddress(token, name!!, address!!)
-        } else if (address == null) {
-            Log.d("Name Image Update", "Done")
-
-            userService.updateUserNameAndImage(token, name!!, image)
-        } else {
             Log.d("All Update", "Done")
 
-            userService.updateUser(token, name!!, address!!, image)
-        }
+            userService.updateUser(token, name!!, address!!, image!!)
+
 
     }
 
