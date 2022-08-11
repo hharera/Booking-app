@@ -22,6 +22,7 @@ import com.englyzia.paytabs.utils.PaymentMethod.Fawry
 import com.englyzia.paytabs.utils.PaymentMethod.Meeza
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -444,7 +445,6 @@ class BookingViewModel constructor(
 
         encapsulateInvoicePaymentOrderRequest()
             .onSuccess {
-                updateLoading(false)
                 requestInvoicePaymentOrder(it)
             }.onFailure {
                 updateLoading(false)
@@ -459,11 +459,9 @@ class BookingViewModel constructor(
 
     private fun requestInvoicePaymentOrder(request: InvoicePaymentOrderRequest) =
         viewModelScope.launch(Dispatchers.IO) {
-            updateLoading(true)
             paymentRepository
                 .requestInvoicePaymentOrder(request, dataStore.getToken())
                 .onSuccess {
-                    updateLoading(false)
                     requestInvoicePayment()
                 }
                 .onFailure {
@@ -506,10 +504,8 @@ class BookingViewModel constructor(
     }
 
     private fun requestInvoicePayment() {
-        updateLoading(true)
         createInvoice()
             .onSuccess {
-                updateLoading(false)
                 requestInvoicePayment(it)
             }
             .onFailure {
@@ -518,11 +514,11 @@ class BookingViewModel constructor(
             }
     }
 
-    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch {
-        updateLoading(true)
+    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch(Dispatchers.IO) {
         paymentRepository
             .requestInvoicePayment(request = invoice)
             .onSuccess {
+                delay(3000)
                 updateLoading(false)
                 _invoicePaymentResponse.postValue(it)
             }

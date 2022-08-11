@@ -23,6 +23,7 @@ import com.englyzia.paytabs.dto.Invoice
 import com.englyzia.paytabs.utils.PaymentMethod
 import com.payment.paymentsdk.integrationmodels.PaymentSdkConfigurationDetails
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -147,8 +148,6 @@ var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
         walletRepository
             .requestRecharge(dataStore.getToken(), request)
             .onSuccess {
-                updateLoading(false)
-
                 _paymentInvoiceOrder.postValue(it)
             }.onFailure {
                 updateLoading(false)
@@ -160,10 +159,9 @@ var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
     fun requestRechargeByInvoice(paymentOrder: PaymentOrder) {
         encapsulateInvoicePaymentOrderRequest(paymentOrder)
             .onSuccess {
-                Log.d("requestRechargeByInvoice", "1")
-
                 requestInvoicePayment()
             }.onFailure {
+                updateLoading(false)
                 handleException(it)
             }
     }
@@ -177,23 +175,25 @@ var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
     private fun requestInvoicePayment() {
         createInvoice()
             .onSuccess {
-                Log.d("requestInvoicePayment", "2")
-
                 requestInvoicePayment(it)
             }
             .onFailure {
+                updateLoading(false)
                 handleException(it)
             }
     }
 
-    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch {
+    private fun requestInvoicePayment(invoice: Invoice) = viewModelScope.launch(Dispatchers.IO) {
         walletRepository
             .requestInvoicePayment(request = invoice)
             .onSuccess {
+                delay(3000)
                 Log.d("requestInvoicePayment", it.toString())
+                updateLoading(false)
                 _invoicePaymentResponse.postValue(it)
             }
             .onFailure {
+                updateLoading(false)
                 handleException(it)
             }
     }

@@ -64,8 +64,8 @@ open class BaseFragment : Fragment() {
 
     private fun showLoading() {
         try {
-            loadingDialog.dismiss()
-            loadingDialog.show(childFragmentManager, "LOADING")
+            dismissLoading()
+            loadingDialog.show (childFragmentManager, "LOADING")
         } catch (e: Exception) {
             e.printStackTrace()
         }
