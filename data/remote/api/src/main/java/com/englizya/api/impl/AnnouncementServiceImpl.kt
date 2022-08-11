@@ -4,6 +4,7 @@ import com.englizya.api.AnnouncementService
 import com.englizya.api.utils.Routing
 import com.englizya.model.model.Announcement
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 
 
@@ -12,9 +13,9 @@ class AnnouncementServiceImpl constructor(
 ) : AnnouncementService {
 
     override suspend fun getAnnouncements(): List<Announcement> =
-       client.get(Routing.GET_ANNOUNCEMENTS)
+       client.get(Routing.GET_ANNOUNCEMENTS).body()
 
     override suspend fun getAnnouncement(announcementId: Int): Announcement =
-        client.get("${Routing.GET_ANNOUNCEMENT}/$announcementId")
+        client.get("${Routing.GET_ANNOUNCEMENT}/$announcementId").body()
 
 }

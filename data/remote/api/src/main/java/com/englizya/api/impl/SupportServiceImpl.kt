@@ -11,6 +11,7 @@ import com.englizya.api.utils.Routing
 import com.englizya.model.request.ComplaintRequest
 import com.englizya.model.request.DriverReviewRequest
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
 import io.ktor.util.*
@@ -34,9 +35,9 @@ class SupportServiceImpl(
                     append(IMAGE, it)
                 }
             }
-        ) {
+        ){
             headers.append(HttpHeaders.Authorization, "Bearer $token")
-        }
+        }.body()
     }
 
     @OptIn(InternalAPI::class)
@@ -58,6 +59,6 @@ class SupportServiceImpl(
             },
         ) {
             headers.append(HttpHeaders.Authorization, "Bearer $token")
-        }
+        }.body()
     }
 }

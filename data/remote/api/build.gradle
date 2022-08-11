@@ -9,6 +9,7 @@ dependencies {
     api("com.paytabs:payment-sdk:6.2.2")
     implementation Testing.testRunner
     implementation Ktor.ktorClientSerialization
+    implementation Ktor.ktorContentNegotiation
 }
 
 android {

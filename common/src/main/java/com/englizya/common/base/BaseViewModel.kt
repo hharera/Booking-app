@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.englizya.common.utils.exception.CustomException
 import com.englizya.common.utils.exception.CustomException.AuthorizationException
-import io.ktor.client.features.*
+import io.ktor.client.plugins.*
 import io.ktor.http.*
 
 open class BaseViewModel : ViewModel() {

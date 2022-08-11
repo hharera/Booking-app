@@ -16,7 +16,7 @@ import com.englizya.common.ui.ErrorDialog
 import com.englizya.common.ui.LoadingDialog
 import com.englizya.common.utils.network.ConnectionLiveData
 import com.google.android.material.snackbar.Snackbar
-import io.ktor.client.features.*
+import io.ktor.client.plugins.*
 import io.ktor.http.*
 import java.net.ConnectException
 import java.util.*
@@ -64,7 +64,6 @@ open class BaseFragment : Fragment() {
 
     private fun showLoading() {
         try {
-            loadingDialog.dismiss()
             loadingDialog.show(childFragmentManager, "LOADING")
         } catch (e: Exception) {
             e.printStackTrace()

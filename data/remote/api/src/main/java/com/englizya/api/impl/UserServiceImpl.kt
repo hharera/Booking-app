@@ -16,6 +16,7 @@ import com.englizya.model.request.UserEditRequest
 import com.englizya.model.response.LoginResponse
 import com.englizya.model.response.UserEditResponse
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
@@ -27,33 +28,31 @@ class UserServiceImpl constructor(
 ) : UserService {
 
     override suspend fun login(request: LoginRequest): LoginResponse =
-        client.post<LoginResponse> {
-            url(LOGIN)
+        client.post(LOGIN) {
             contentType(ContentType.Application.Json)
-            body = request
-        }
+            setBody(request)
+        }.body()
 
     override suspend fun signup(request: SignupRequest): User =
-        client.post<User> {
-            url(SIGNUP)
+        client.post(SIGNUP) {
             contentType(ContentType.Application.Json)
-            body = request
-        }
+            setBody(request)
+        }.body()
 
     override suspend fun getUser(token: String): User =
-        client.post {
-            url(FETCH_USER)
+        client.post(FETCH_USER) {
             headers.append(
                 Authorization,
                 "Bearer $token"
             )
-        }
+        }.body()
 
+    @OptIn(InternalAPI::class)
     override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Any =
-        client.post( RESET_PASSWORD) {
+        client.post(RESET_PASSWORD) {
             contentType(ContentType.Application.Json)
             body = resetPasswordRequest
-        }
+        }.body()
 
     override suspend fun updateUser(token: String, request: UserEditRequest): UserEditResponse =
         client.submitFormWithBinaryData(
@@ -68,6 +67,6 @@ class UserServiceImpl constructor(
             }
         ) {
             headers.append(HttpHeaders.Authorization, "Bearer $token")
-        }
+        }.body()
 
 }

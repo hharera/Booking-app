@@ -7,7 +7,8 @@ import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.google.common.net.HttpHeaders
 import io.ktor.client.*
-import io.ktor.client.features.*
+import io.ktor.client.call.*
+import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 
 interface TicketService {
@@ -31,8 +32,7 @@ class TicketServiceImpl constructor(
             headers{
                 append(HttpHeaders.AUTHORIZATION, "Bearer $token")
             }
-        }
-
+        }.body()
     override suspend fun getTicketDetails(token: String , ticketId : String): UserTicket =
         client.get(Routing.GET_TICKET_DETAILS+ticketId.toInt()) {
             timeout {
@@ -41,7 +41,7 @@ class TicketServiceImpl constructor(
             headers{
                 append(HttpHeaders.AUTHORIZATION, "Bearer $token")
             }
-        }
+        }.body()
 
     override suspend fun cancelTicket(token: String, ticketId: String): CancelTicketResponse =
         client.get("${Routing.CANCEL_TICKET}/${ticketId.toInt()}/cancel") {
@@ -51,6 +51,6 @@ class TicketServiceImpl constructor(
             headers{
                 append(HttpHeaders.AUTHORIZATION, "Bearer $token")
             }
-        }
+        }.body()
 
 }

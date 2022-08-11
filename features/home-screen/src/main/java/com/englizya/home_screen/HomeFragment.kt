@@ -163,7 +163,10 @@ class HomeFragment : BaseFragment() {
 
     private fun updateUI(user: User) {
         binding.userNameTV.text = user.name
-        Picasso.get().load(user.imageUrl).into(binding.imageView)
+        if (user.imageUrl != null) {
+            Picasso.get().load(user.imageUrl).into(binding.imageView)
+
+        }
     }
 
     private fun handleAnnouncementsResult(result: Resource<List<Announcement>>) {

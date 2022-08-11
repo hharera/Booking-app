@@ -14,7 +14,6 @@ import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.FragmentUserTicketsBinding
-import io.ktor.client.features.*
 import io.ktor.http.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

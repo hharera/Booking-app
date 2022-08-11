@@ -10,7 +10,7 @@ import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.utils.Value.NULL_STRING
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
-import io.ktor.client.features.*
+import io.ktor.client.plugins.*
 import io.ktor.http.*
 import kotlinx.coroutines.launch
 

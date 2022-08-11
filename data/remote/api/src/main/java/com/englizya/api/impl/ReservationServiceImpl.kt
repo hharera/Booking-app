@@ -12,13 +12,16 @@ import com.englizya.model.request.ReservationRequest
 import com.englizya.model.request.ReservationWithWalletRequest
 import com.englizya.model.response.ReservationOrder
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.util.*
 
 class ReservationServiceImpl constructor(
     private val client: HttpClient
 ) : ReservationService {
 
+    @OptIn(InternalAPI::class)
     override suspend fun bookSeats(
         paymentRequest: PaymentRequest,
         token: String
@@ -28,8 +31,9 @@ class ReservationServiceImpl constructor(
 
             contentType(ContentType.Application.Json)
             body = paymentRequest
-        }
+        }.body()
 
+    @OptIn(InternalAPI::class)
     override suspend fun requestReservation(
         reservationRequest: ReservationRequest,
         token: String
@@ -39,8 +43,9 @@ class ReservationServiceImpl constructor(
 
             contentType(ContentType.Application.Json)
             body = reservationRequest
-        }
+        }.body()
 
+    @OptIn(InternalAPI::class)
     override suspend fun confirmReservation(
         request: ReservationConfirmationRequest,
         token: String
@@ -49,8 +54,9 @@ class ReservationServiceImpl constructor(
             with(headers) { append(HttpHeaders.Authorization, "Bearer $token") }
             contentType(ContentType.Application.Json)
             body = request
-        }
+        }.body()
 
+    @OptIn(InternalAPI::class)
     override suspend fun confirmReservation(
         request: ReservationWithWalletRequest,
         token: String
@@ -59,6 +65,6 @@ class ReservationServiceImpl constructor(
             with(headers) { append(HttpHeaders.Authorization, "$BEARER $token") }
             contentType(ContentType.Application.Json)
             body = request
-        }
+        }.body()
 
 }
