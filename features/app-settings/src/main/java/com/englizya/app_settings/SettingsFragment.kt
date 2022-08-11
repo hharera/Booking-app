@@ -81,6 +81,7 @@ class SettingsFragment : BaseFragment() {
             Intent(context, Class.forName("com.englizya.splash.SplashActivity"))
         ProcessPhoenix.triggerRebirth(context, mStartActivity)
     }
+
     private fun updateLanguage() {
         val locale = Locale.Builder().setLanguage(settingsViewModel.selectedLanguage.value!!.key).build()
         Locale.setDefault(locale)

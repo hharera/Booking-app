@@ -1,5 +1,7 @@
 package com.englizya.common.base
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -14,10 +16,13 @@ import com.englizya.common.R
 import com.englizya.common.ui.DoneDialog
 import com.englizya.common.ui.ErrorDialog
 import com.englizya.common.ui.LoadingDialog
+import com.englizya.common.utils.language.ContextUtils
 import com.englizya.common.utils.network.ConnectionLiveData
+import com.englizya.datastore.UserDataStore
 import com.google.android.material.snackbar.Snackbar
 import io.ktor.client.features.*
 import io.ktor.http.*
+import io.ktor.utils.io.errors.*
 import java.net.ConnectException
 import java.util.*
 
@@ -34,6 +39,14 @@ open class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         connectionLiveData = ConnectionLiveData(requireContext())
+    }
+
+    override fun onAttach(context: Context) {
+        val localeToSwitchTo = UserDataStore(context).getLanguage()
+
+        val localeUpdatedContext: ContextWrapper =
+            ContextUtils.updateLocale(context, Locale(localeToSwitchTo.toString()))
+        super.onAttach(localeUpdatedContext)
     }
 
     override fun onCreateView(
@@ -102,7 +115,7 @@ open class BaseFragment : Fragment() {
     private fun checkExceptionType(throwable: Exception?) {
         when (throwable) {
             is ConnectException -> {
-                activity?.window?.decorView?.let { showInternetSnackBar(it, false) }
+                showInternetErrorDialog()
             }
 
             is ClientRequestException -> {
@@ -116,6 +129,14 @@ open class BaseFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun showInternetErrorDialog() {
+        try {
+            ErrorDialog(getString(R.string.no_internet)).show(childFragmentManager, "ERROR")
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -179,7 +200,7 @@ open class BaseFragment : Fragment() {
         val sbView: View = snackBar.getView()
         val sbText: TextView = sbView.findViewById(com.google.android.material.R.id.snackbar_text)
         sbText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_no_wifi, 0, 0, 0);
-        sbText.setCompoundDrawablePadding(getResources().getDimensionPixelOffset(R.dimen._10sdp));
+        sbText.compoundDrawablePadding = resources.getDimensionPixelOffset(R.dimen._10sdp);
 
     }
 }

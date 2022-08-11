@@ -14,6 +14,7 @@
         android:background="@drawable/background_card_ticket"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
+        android:layoutDirection="locale"
         android:paddingTop="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_round_bus"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,6 +51,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="1dp"
                 android:src="@drawable/ic_clock"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/source" />
 
@@ -80,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_round_bus"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,6 +105,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="1dp"
                 android:src="@drawable/ic_clock"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toBottomOf="@+id/destination" />
 
@@ -122,11 +127,10 @@
         <HorizontalScrollView
             android:id="@+id/detailsSV"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:scrollbars="none"
             android:layout_height="wrap_content"
+            android:scrollbars="none"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/book">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <GridLayout
                 android:id="@+id/details"
@@ -317,11 +321,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_25sdp"
             android:fontFamily="@font/sf"
+            app:layout_constraintHorizontal_bias="1"
             android:text="100$"
-            app:layout_constraintStart_toEndOf="@+id/guideline2"
             android:textColor="@color/grey_500"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sourceCL"
             app:layout_constraintTop_toTopOf="parent" />
 
 

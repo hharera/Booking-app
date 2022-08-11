@@ -31,7 +31,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        val localeToSwitchTo = "en"
+        val localeToSwitchTo = UserDataStore(newBase).getLanguage()
 
         val localeUpdatedContext: ContextWrapper =
             ContextUtils.updateLocale(newBase, Locale(localeToSwitchTo.toString()))
