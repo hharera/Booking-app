@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.core.view.setPadding
 import androidx.lifecycle.lifecycleScope
 import com.englizya.common.base.BaseActivity
@@ -15,15 +16,13 @@ import com.englizya.navigation.login.LoginActivity
 import com.englizya.repository.utils.Resource
 import com.englizya.splash.databinding.ActivitySplashLongBinding
 import com.englizya.splash.databinding.ActivitySplashShortBinding
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.firebase.messaging.FirebaseMessaging
 import com.sarnava.textwriter.TextWriter
-import io.ktor.client.features.*
-import io.ktor.http.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -48,6 +47,20 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = "token : $token"
+            Log.d(TAG, msg)
+        })
 
         firstOpenState = userDataStore.getFirstOpenState()
         if (firstOpenState) {
