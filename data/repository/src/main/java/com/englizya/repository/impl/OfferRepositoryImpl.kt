@@ -8,8 +8,7 @@ import com.englizya.model.model.Offer
 import com.englizya.repository.OfferRepository
 import com.englizya.repository.utils.Resource
 import com.englizya.repository.utils.networkBoundResource
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 
 class OfferRepositoryImpl constructor(
     private val offerService: OfferService,
@@ -17,13 +16,16 @@ class OfferRepositoryImpl constructor(
     private val offerDao: OfferDao,
 ) : OfferRepository {
 
+    companion object {
+        private const val TAG = "OfferRepositoryImpl"
+    }
+
     override fun getAllOffers(forceOnline: Boolean): Flow<Resource<List<Offer>>> =
         networkBoundResource(
             query = {
                 offerDao.getOffers()
             },
             fetch = {
-                delay(2000)
                 offerService.getAllOffers()
             },
             saveFetchResult = { offers ->

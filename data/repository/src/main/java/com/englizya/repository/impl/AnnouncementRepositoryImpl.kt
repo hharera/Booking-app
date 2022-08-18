@@ -16,23 +16,24 @@ class AnnouncementRepositoryImpl constructor(
     private val announcementDao: AnnouncementDao,
 ) : AnnouncementRepository {
 
-    override fun getAllAnnouncement(forceOnline: Boolean): Flow<Resource<List<Announcement>>> = networkBoundResource(
-        query = {
-            announcementDao.getAnnouncements()
-        },
-        fetch = {
-            announcementService.getAnnouncements()
-        },
-        saveFetchResult = { announcements ->
-            announcementDatabase.withTransaction {
-                announcementDao.clearAnnouncements()
-                announcementDao.insertAnnouncements(announcements)
+    override fun getAllAnnouncement(forceOnline: Boolean): Flow<Resource<List<Announcement>>> =
+        networkBoundResource(
+            query = {
+                announcementDao.getAnnouncements()
+            },
+            fetch = {
+                announcementService.getAnnouncements()
+            },
+            saveFetchResult = { announcements ->
+                announcementDatabase.withTransaction {
+                    announcementDao.clearAnnouncements()
+                    announcementDao.insertAnnouncements(announcements)
+                }
+            },
+            shouldFetch = {
+                forceOnline
             }
-        },
-        shouldFetch = {
-            forceOnline
-        }
-    )
+        )
 
     override fun getAnnouncement(
         announcementId: Int,
