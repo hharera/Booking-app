@@ -127,16 +127,16 @@ class HomeFragment : BaseFragment() {
     private fun handleOffersResult(resource: Resource<List<Offer>>) {
         when (resource) {
             is Resource.Success -> {
-                handleLoading(false)
+//                handleLoading(false)
                 updateUI(resource.data!!)
             }
             is Resource.Error -> {
-                handleLoading(false)
+//                handleLoading(false)
                 handleFailure(resource.error)
 
             }
             is Resource.Loading -> {
-                handleLoading(true)
+//                handleLoading(true)
             }
         }
     }
@@ -163,23 +163,26 @@ class HomeFragment : BaseFragment() {
 
     private fun updateUI(user: User) {
         binding.userNameTV.text = user.name
-        Picasso.get().load(user.imageUrl).into(binding.imageView)
+        if(user.imageUrl != null){
+            Picasso.get().load(user.imageUrl).into(binding.imageView)
+
+        }
     }
 
     private fun handleAnnouncementsResult(result: Resource<List<Announcement>>) {
         when (result) {
             is Resource.Success -> {
-                handleLoading(false)
+//                handleLoading(false)
                 updateAnnouncementsUI(result.data!!)
             }
 
             is Resource.Error -> {
-                handleLoading(false)
+//                handleLoading(false)
                 handleFailure(result.error)
             }
 
             is Resource.Loading -> {
-                handleLoading(true)
+//                handleLoading(true)
             }
         }
     }
