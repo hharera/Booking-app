@@ -16,6 +16,8 @@ import com.facebook.*
 import com.facebook.CallbackManager.Factory.create
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,8 +26,9 @@ class LoginViewModel constructor(
     private val userRepository: UserRepository,
     private val userDataStore: UserDataStore,
 ) : BaseViewModel() {
-    private lateinit var callbackManager: CallbackManager
-    private lateinit var loginManager: LoginManager
+
+
+
     private val _loginOperationState = MutableLiveData<Boolean>()
     val loginOperationState: LiveData<Boolean> = _loginOperationState
 
@@ -122,30 +125,7 @@ class LoginViewModel constructor(
 //
 //            }
 //    }
-     fun facebookLogin() {
-        loginManager = LoginManager.getInstance()
-        callbackManager = create()
-        loginManager
-            .registerCallback(
-                callbackManager, object : FacebookCallback<LoginResult> {
-                    override fun onSuccess(loginResult: LoginResult) {
-                        Log.v("LoginScreen", "---onSuccess")
 
-                    }
-
-                    override fun onCancel() {
-                        Log.v("LoginScreen", "---onCancel")
-                    }
-
-                    override fun onError(error: FacebookException) {
-                        // here write code when get error
-                        Log.v(
-                            "LoginScreen", "----onError: "
-                                    + error.message
-                        )
-                    }
-                })
-    }
 
     private fun updateToken(token: String) {
         userDataStore.setToken(token)

@@ -1,24 +1,37 @@
 package com.englizya.login
 
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Base64.DEFAULT
+import android.util.Base64.encodeToString
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
-import com.facebook.CallbackManager
-import com.facebook.FacebookSdk
+import com.facebook.*
 import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.util.*
 
 
@@ -28,8 +41,7 @@ class LoginFragment : BaseFragment() {
     private lateinit var bind: FragmentLoginBinding
     private lateinit var callbackManager: CallbackManager
     private lateinit var loginManager: LoginManager
-
-    private val EMAIL = "email"
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreateView(
@@ -44,25 +56,11 @@ class LoginFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        printHashKey()
         context?.let { FacebookSdk.sdkInitialize(it.applicationContext) };
 
         callbackManager = CallbackManager.Factory.create()
-        loginViewModel.facebookLogin()
-//        bind.loginButton.setReadPermissions(Arrays.asList(EMAIL));
-//        bind.loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
-//
-//            override fun onCancel() {
-//                // App code
-//            }
-//
-//            override fun onError(exception: FacebookException) {
-//                // App code
-//            }
-//
-//            override fun onSuccess(result: LoginResult?) {
-//                result?.accessToken?.userId?.let { Log.d("Login", it) }
-//            }
-//        })
+        facebookLogin()
     }
 
     override fun onActivityResult(
@@ -103,6 +101,7 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+        printHashKey()
         setupSignupSpannable()
     }
 
@@ -201,7 +200,7 @@ class LoginFragment : BaseFragment() {
                     "email",
                     "public_profile",
 
-                )
+                    )
             )
         }
 
@@ -227,4 +226,84 @@ class LoginFragment : BaseFragment() {
             startActivity(Intent(context, SignupActivity::class.java))
         }
     }
+
+    fun printHashKey() {
+
+        // Add code to print out the key hash
+        try {
+            val info: PackageInfo = activity?.packageManager?.getPackageInfo(
+                "com.android.facebookloginsample",
+                PackageManager.GET_SIGNATURES
+            )!!
+            for (signature in info.signatures) {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d(
+                    "KeyHash:", encodeToString(md.digest(), DEFAULT)
+                )
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: NoSuchAlgorithmException) {
+        }
+    }
+
+    fun facebookLogin() {
+        loginManager = LoginManager.getInstance()
+        callbackManager = CallbackManager.Factory.create()
+        loginManager
+            .registerCallback(
+                callbackManager, object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+                        handleFacebookAccessToken(loginResult.accessToken);
+
+                    }
+
+                    override fun onCancel() {
+                        Log.v("LoginScreen", "---onCancel")
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        // here write code when get error
+                        Log.v(
+                            "LoginScreen", "----onError: "
+                                    + error.message
+                        )
+                    }
+                })
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d(TAG, "handleFacebookAccessToken:$token")
+        auth = FirebaseAuth.getInstance()
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success")
+                    val user = auth.currentUser
+                    if (user != null) {
+                        navigateToSetPassword(user.uid)
+                        Log.d(TAG, "UserId : ${user.uid}")
+                    }
+//                    updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    showToast("Authentication Failed")
+//                    updateUI(null)
+                }
+            }
+    }
+
+    private fun navigateToSetPassword(uid: String) {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.SET_PASSWORD,
+                uid
+            )
+        )
+    }
+
 }
