@@ -15,13 +15,22 @@ import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
-import com.englizya.select_service.SelectServiceActivity
+import com.facebook.CallbackManager
+import com.facebook.FacebookSdk
+import com.facebook.login.LoginManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+
 
 class LoginFragment : BaseFragment() {
 
     private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var bind: FragmentLoginBinding
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var loginManager: LoginManager
+
+    private val EMAIL = "email"
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +40,48 @@ class LoginFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         bind = FragmentLoginBinding.inflate(layoutInflater)
         return bind.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        context?.let { FacebookSdk.sdkInitialize(it.applicationContext) };
+
+        callbackManager = CallbackManager.Factory.create()
+        loginViewModel.facebookLogin()
+//        bind.loginButton.setReadPermissions(Arrays.asList(EMAIL));
+//        bind.loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
+//
+//            override fun onCancel() {
+//                // App code
+//            }
+//
+//            override fun onError(exception: FacebookException) {
+//                // App code
+//            }
+//
+//            override fun onSuccess(result: LoginResult?) {
+//                result?.accessToken?.userId?.let { Log.d("Login", it) }
+//            }
+//        })
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+
+        // add this line
+        callbackManager.onActivityResult(
+            requestCode,
+            resultCode,
+            data
+        )
+        super.onActivityResult(
+            requestCode,
+            resultCode,
+            data
+        )
     }
 
     override fun onResume() {
@@ -59,7 +110,7 @@ class LoginFragment : BaseFragment() {
         val notHaveAccount = getString(R.string.not_have_an_account)
         val signup = getString(R.string.signup)
 
-        val spannable: Spannable = SpannableString( notHaveAccount.plus(signup))
+        val spannable: Spannable = SpannableString(notHaveAccount.plus(signup))
         spannable.setSpan(
             ForegroundColorSpan(Color.BLACK),
             0,
@@ -143,13 +194,24 @@ class LoginFragment : BaseFragment() {
         bind.password.afterTextChanged {
             loginViewModel.setPassword(it)
         }
+        bind.loginButton.setOnClickListener {
+            loginManager.logInWithReadPermissions(
+                this,
+                Arrays.asList(
+                    "email",
+                    "public_profile",
+
+                )
+            )
+        }
+
 
         bind.signup.setOnClickListener {
             gotToSignup()
         }
 
         bind.login.setOnClickListener {
-                loginViewModel.login()
+            loginViewModel.login()
             bind.login.isEnabled = false
         }
     }

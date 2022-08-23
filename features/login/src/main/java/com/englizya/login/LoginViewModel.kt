@@ -8,18 +8,24 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity.Companion.passwordIsValid
 import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
 import com.englizya.common.utils.code.CountryCode
-import com.englizya.model.request.LoginRequest
 import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
+import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
+import com.facebook.*
+import com.facebook.CallbackManager.Factory.create
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class LoginViewModel constructor(
     private val userRepository: UserRepository,
     private val userDataStore: UserDataStore,
 ) : BaseViewModel() {
-
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var loginManager: LoginManager
     private val _loginOperationState = MutableLiveData<Boolean>()
     val loginOperationState: LiveData<Boolean> = _loginOperationState
 
@@ -106,7 +112,7 @@ class LoginViewModel constructor(
 //            }
 //    }
 
-//    private suspend fun cacheUser(user: User) {
+    //    private suspend fun cacheUser(user: User) {
 //        userRepository
 //            .insertUser(user)
 //            .onSuccess {
@@ -116,6 +122,30 @@ class LoginViewModel constructor(
 //
 //            }
 //    }
+     fun facebookLogin() {
+        loginManager = LoginManager.getInstance()
+        callbackManager = create()
+        loginManager
+            .registerCallback(
+                callbackManager, object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+                        Log.v("LoginScreen", "---onSuccess")
+
+                    }
+
+                    override fun onCancel() {
+                        Log.v("LoginScreen", "---onCancel")
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        // here write code when get error
+                        Log.v(
+                            "LoginScreen", "----onError: "
+                                    + error.message
+                        )
+                    }
+                })
+    }
 
     private fun updateToken(token: String) {
         userDataStore.setToken(token)

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="_app_name">انجليزية باص</string>
+    <string name="facebook_app_id">1100914234173498</string>
+    <string name="fb_login_protocol_scheme">fb1100914234173498</string>
+    <string name="facebook_client_token">47abdc37d89573ace4a71498c22c86fe</string>
 </resources>
