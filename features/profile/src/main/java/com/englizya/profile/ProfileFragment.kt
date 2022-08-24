@@ -1,12 +1,18 @@
 package com.englizya.profile
 
+import android.app.ActivityManager
+import android.content.Context
+import android.content.Context.ACTIVITY_SERVICE
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.ui.QrDialog
 import com.englizya.common.utils.navigation.Destination
@@ -22,6 +28,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ProfileFragment : BaseFragment() {
 
@@ -207,6 +214,7 @@ class ProfileFragment : BaseFragment() {
             is LogOut -> {
                 profileViewModel.logout()
                 profileViewModel.authLogout()
+                clearAppData()
                 navigateToLogin()
             }
             is ProfileSettings -> {
@@ -237,7 +245,20 @@ class ProfileFragment : BaseFragment() {
                 )
             )
     }
-
+    private fun clearAppData() {
+        try {
+            // clearing app data
+            if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
+                (activity?.getSystemService(ACTIVITY_SERVICE) as ActivityManager?)?.clearApplicationUserData() // note: it has a return value!
+            } else {
+                val packageName = getApplicationContext<Context>().packageName
+                val runtime = Runtime.getRuntime()
+                runtime.exec("pm clear $packageName")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
     private fun navigateToPrivacyPolicy() {
         findNavController()
             .navigate(
