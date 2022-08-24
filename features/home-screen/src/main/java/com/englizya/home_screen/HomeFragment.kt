@@ -2,6 +2,7 @@ package com.englizya.home_screen
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +59,7 @@ class HomeFragment : BaseFragment() {
         homeViewModel
             .getUser(forceOnline)
             .observe(viewLifecycleOwner) {
+                Log.d(TAG, "getUser: $it")
                 handleUserResult(it)
             }
     }
@@ -66,6 +68,7 @@ class HomeFragment : BaseFragment() {
         homeViewModel
             .getAnnouncements(forceOnline)
             .observe(viewLifecycleOwner) {
+                Log.d(TAG, "getAnnouncements: $it")
                 handleAnnouncementsResult(it)
             }
     }
@@ -74,6 +77,7 @@ class HomeFragment : BaseFragment() {
         homeViewModel
             .getOffers(forceOnline)
             .observe(viewLifecycleOwner) {
+                Log.d(TAG, "getOffers: $it")
                 handleOffersResult(it)
             }
     }

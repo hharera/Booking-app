@@ -64,15 +64,16 @@ open class BaseFragment : Fragment() {
 
     private fun showLoading() {
         try {
-            loadingDialog.dismiss()
-            loadingDialog.show(childFragmentManager, "LOADING")
+            if (childFragmentManager.findFragmentByTag("LOADING")?.isAdded == false) {
+                loadingDialog.show(childFragmentManager, "LOADING")
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
     private fun dismissLoading() {
-        if (loadingDialog.isVisible) {
+        if (childFragmentManager.findFragmentByTag("LOADING")?.isAdded == true) {
             loadingDialog.dismiss()
         }
     }

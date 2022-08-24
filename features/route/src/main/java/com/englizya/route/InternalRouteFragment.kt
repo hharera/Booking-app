@@ -14,6 +14,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.model.InternalRoutes
+import com.englizya.repository.utils.Resource
 import com.englizya.route.adapter.CityAdapter
 import com.englizya.route.adapter.CustomExpandableListAdapter
 import com.englizya.route.adapter.ExpandableListData
@@ -77,22 +78,36 @@ class InternalRouteFragment : BaseFragment() {
             handleLoading(it)
         }
 
-        internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {result->
-//            if (it.isEmpty()) {
-//                Log.d("get Internal Routes ", "Remote")
-//                internalRouteViewModel.getInternalRoutes(true)
-//            }
-            adapter.setCities(result.data!!)
-
+        internalRouteViewModel.internalLines.observe(viewLifecycleOwner) {
+            handleResult(it)
         }
+
         internalRouteViewModel.error.observe(viewLifecycleOwner) {
             handleFailure(it)
         }
     }
 
-    private fun navigateToCityLine(cityName: String) {
-        Log.d("Clicking To Navigate" , "click")
+    private fun handleResult(it: Resource<List<InternalRoutes>>) {
+        when(it) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateUI(it.data!!)
+            }
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(it.error)
+            }
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
+        }
+    }
 
+    private fun updateUI(data: List<InternalRoutes>) {
+        adapter.setCities(data)
+    }
+
+    private fun navigateToCityLine(cityName: String) {
         findNavController().navigate(
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,

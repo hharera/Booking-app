@@ -70,7 +70,6 @@ class InternalSearchFragment : BaseFragment() {
 
     private fun setUpListeners() {
         binding.source.setOnClickListener {
-//            internalSearchViewModel.getInternalRoutes(true)
 
             sourceStationsDialog = SourceStationsDialog(
                 stationsList = internalSearchViewModel.stations,
@@ -90,7 +89,6 @@ class InternalSearchFragment : BaseFragment() {
 
         }
         binding.destination.setOnClickListener {
-//            internalSearchViewModel.getInternalRoutes(true)
 
             destinationStationsDialog = DestinationStationsDialog(
                 stationsList = internalSearchViewModel.stations,
