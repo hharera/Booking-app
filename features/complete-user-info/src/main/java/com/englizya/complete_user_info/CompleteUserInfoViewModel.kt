@@ -1,84 +1,85 @@
-package com.englizya.login
+package com.englizya.complete_user_info
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.englizya.common.base.BaseViewModel
-import com.englizya.common.utils.Validity.Companion.passwordIsValid
-import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
 import com.englizya.common.utils.code.CountryCode
 import com.englizya.datastore.UserDataStore
-import com.englizya.login.utils.LoginFormState
 import com.englizya.model.request.LoginRequest
+import com.englizya.model.request.SignupRequest
 import com.englizya.repository.UserRepository
-import com.facebook.*
-import com.facebook.CallbackManager.Factory.create
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
-class LoginViewModel constructor(
+class CompleteUserInfoViewModel constructor(
     private val userRepository: UserRepository,
     private val userDataStore: UserDataStore,
+
+    private val auth: FirebaseAuth
 ) : BaseViewModel() {
 
 
-
-    private val _loginOperationState = MutableLiveData<Boolean>()
-    val loginOperationState: LiveData<Boolean> = _loginOperationState
+    private val _signupOperationState = MutableLiveData<Boolean>()
+    val signupOperationState: LiveData<Boolean> = _signupOperationState
 
     private var _phoneNumber = MutableLiveData<String>()
     val phoneNumber: LiveData<String> = _phoneNumber
 
+    private val _loginOperationState = MutableLiveData<Boolean>()
+    val loginOperationState: LiveData<Boolean> = _loginOperationState
+
+    private var _name = MutableLiveData<String>()
+    val name: LiveData<String> = _name
+
     private var _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
-    private var _formValidity = MutableLiveData<LoginFormState>()
-    val formValidity: LiveData<LoginFormState> = _formValidity
 
-    private var _redirectRouting = MutableLiveData<String>(null)
-    val redirectRouting: LiveData<String> = _redirectRouting
+    fun setName(name: String) {
+        _name.value = name
+    }
 
     fun setPhoneNumber(phoneNumber: String) {
         _phoneNumber.value = phoneNumber
-        checkFormValidity()
     }
 
     fun setPassword(password: String) {
         _password.value = password
-        checkFormValidity()
     }
-
-    private fun checkFormValidity() {
-        Log.d(TAG, "checkFormValidity: ${_phoneNumber.value}")
-        when {
-            _phoneNumber.value.isNullOrBlank() -> {
-                _formValidity.postValue(LoginFormState(phoneNumberError = R.string.empty_phone_error))
-            }
-            phoneNumberIsValid(_phoneNumber.value!!).not() -> {
-                _formValidity.postValue(LoginFormState(phoneNumberError = R.string.phone_number_not_valid))
-            }
-            password.value.isNullOrBlank() -> {
-                _formValidity.postValue(LoginFormState(passwordError = R.string.password_should_be_not_empty))
-            }
-            passwordIsValid(password.value!!).not() -> {
-                _formValidity.postValue(LoginFormState(passwordError = R.string.password_not_vlid))
-            }
-            else -> {
-                _formValidity.postValue(LoginFormState(formIsValid = true))
-            }
-        }
+    fun validateForm(): Boolean {
+        return !(_name.value == null ||
+                _phoneNumber.value == null ||
+                _password.value == null )
     }
+    suspend fun signup() {
+        val request = SignupRequest(
+            uid = auth.uid!!,
+            phoneNumber = CountryCode.EgyptianCode.code.plus(phoneNumber.value!!),
+            password = password.value!!,
+            name = name.value!!
+        )
 
-    fun setRedirectRouting(redirect: String) {
-        _redirectRouting.postValue(redirect)
+        signup(request)
     }
+    private suspend fun signup(request: SignupRequest) {
+        Log.d(TAG, "signup: $request")
+        updateLoading(true)
 
+        userRepository
+            .signup(request)
+            .onSuccess {
+                updateLoading(false)
+                _signupOperationState.value = true
+            }
+            .onFailure {
+                handleException(it)
+                updateLoading(false)
+                _signupOperationState.value = false
+            }
+    }
     fun login() = viewModelScope.launch(Dispatchers.IO) {
         phoneNumber.value?.let { phoneNumber ->
             password.value?.let { password ->
@@ -104,7 +105,6 @@ class LoginViewModel constructor(
                 _loginOperationState.postValue(false)
             }
     }
-
     private fun updateToken(token: String) {
         userDataStore.setToken(token)
     }

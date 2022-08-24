@@ -24,6 +24,7 @@ import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
+import com.englyzia.booking_payment.NoBalanceDialog
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -42,6 +43,8 @@ class LoginFragment : BaseFragment() {
     private lateinit var callbackManager: CallbackManager
     private lateinit var loginManager: LoginManager
     private lateinit var auth: FirebaseAuth
+    private var alreadySignedDialog: AlreadySignedDialog? = null
+
 
 
     override fun onCreateView(
@@ -67,19 +70,9 @@ class LoginFragment : BaseFragment() {
         requestCode: Int,
         resultCode: Int,
         data: Intent?
-    ) {
-
-        // add this line
-        callbackManager.onActivityResult(
-            requestCode,
-            resultCode,
-            data
-        )
-        super.onActivityResult(
-            requestCode,
-            resultCode,
-            data
-        )
+    ) { // add this line
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onResume() {
@@ -193,7 +186,7 @@ class LoginFragment : BaseFragment() {
         bind.password.afterTextChanged {
             loginViewModel.setPassword(it)
         }
-        bind.loginButton.setOnClickListener {
+        bind.fbBtn.setOnClickListener {
             loginManager.logInWithReadPermissions(
                 this,
                 Arrays.asList(
@@ -227,7 +220,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    fun printHashKey() {
+    private fun printHashKey() {
 
         // Add code to print out the key hash
         try {
@@ -247,7 +240,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    fun facebookLogin() {
+    private fun facebookLogin() {
         loginManager = LoginManager.getInstance()
         callbackManager = CallbackManager.Factory.create()
         loginManager
@@ -279,29 +272,35 @@ class LoginFragment : BaseFragment() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    if (user != null) {
-                        navigateToSetPassword(user.uid)
-                        Log.d(TAG, "UserId : ${user.uid}")
-                    }
-//                    updateUI(user)
+                   if(task.result?.additionalUserInfo?.isNewUser == true) {
+                       Log.d(TAG, "signInWithCredential:NewUser")
+                       navigateToCompleteInfo()
+
+                   }else{
+                       Log.d(TAG, "signInWithCredential:oldUser")
+                       alreadySignedDialog = AlreadySignedDialog (
+                           onOkButtonClicked = {
+                               alreadySignedDialog!!.dismiss()
+                           }
+                               )
+
+                       alreadySignedDialog?.show(childFragmentManager , "Already Signed Dialog")
+
+                   }
+
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     showToast("Authentication Failed")
-//                    updateUI(null)
                 }
             }
     }
 
-    private fun navigateToSetPassword(uid: String) {
+    private fun navigateToCompleteInfo() {
         findNavController().navigate(
             NavigationUtils.getUriNavigation(
                 Domain.ENGLIZYA_PAY,
-                Destination.SET_PASSWORD,
-                uid
+                Destination.COMPLETE_USER_INFO,
+                false
             )
         )
     }

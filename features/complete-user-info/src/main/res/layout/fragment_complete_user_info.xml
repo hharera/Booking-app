@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:src="@drawable/ic_character_password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
+        android:layout_marginStart="23dp"
         android:layout_marginTop="19dp"
         android:fontFamily="@font/sf"
-        android:text="@string/welcome_back"
+        android:text="@string/complete_your_profile_data"
         android:textColor="#303030"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -35,70 +32,101 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
+        android:layout_marginStart="23dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="23dp"
         android:fontFamily="@font/sf"
-        android:text="@string/log_in_to_your_existing_account"
+        android:text="@string/please_enter_a_strong_password_and_keep_it_secret"
         android:textColor="#6D809B"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
     <TextView
-        android:id="@+id/textViewPhoneNumber"
-        android:layout_width="match_parent"
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/sf"
-        android:text="@string/contact_phone_number"
+        android:text="@string/required_name"
         android:textColor="@color/grey_300"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutPhoneNumber"
+        android:id="@+id/textInputLayoutName"
         style="@style/MainInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
-        android:layout_marginTop="4dp"
+        android:inputType="textPersonName"
+        app:layout_constraintCircleRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPhoneNumber"
-        app:placeholderText="@string/contact_phone_number"
-        app:startIconDrawable="@drawable/ic_call_incoming">
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        app:placeholderText="@string/name"
+        app:startIconDrawable="@drawable/ic_user">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phoneNumber"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:imeActionId="@integer/btm_to"
-            android:inputType="phone|none"
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:textColor="@color/black"
+            app:boxCornerRadiusBottomStart="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf"
+        android:text="@string/phone_number"
+        android:textColor="#303030"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutPhone"
+        style="@style/MainInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:placeholderText="@string/phone_number"
+        app:startIconDrawable="@drawable/ic_phone_contact">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeActionId="@integer/btm_to"
+            android:inputType="phone"
             android:lines="1"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
+        android:layout_marginStart="23dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/sf"
         android:text="@string/password"
         android:textColor="#303030"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhoneNumber" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhone" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutPassword"
         style="@style/MainInputLayoutStyle"
@@ -117,82 +145,24 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:imeActionId="180"
+            android:imeActionId="@integer/btm_to"
             android:inputType="textPassword"
             android:lines="1"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/forget_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/sf"
-        android:text="@string/forget_password"
-        android:textColor="#003BAD"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPassword"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/login"
+        android:id="@+id/complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/background_button_login"
-        android:enabled="false"
-        android:text="@string/login"
+        android:enabled="true"
+        android:text="@string/next"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forget_password" />
-
-
-    <TextView
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/sf"
-        android:textColor="#303030"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fb_btn" />
-
-    <TextView
-        android:id="@+id/fb_btn"
-        android:layout_width="328dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:background="@drawable/custom_button"
-        android:fontFamily="@font/sf"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:text="@string/facebook_sign_up"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        app:drawableStartCompat="@drawable/ic_fb"
-        app:drawableLeftCompat="@drawable/ic_fb" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--<com.facebook.login.widget.LoginButton-->
-    <!--android:id="@+id/login_button"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="60dp"-->
-    <!--android:layout_gravity="center_horizontal"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/login"-->
-    <!--android:layout_marginTop="30dp"-->
-    <!--android:layout_marginBottom="30dp" />-->
