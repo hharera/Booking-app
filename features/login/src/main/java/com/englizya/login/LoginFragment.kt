@@ -1,27 +1,51 @@
 package com.englizya.login
 
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Base64.DEFAULT
+import android.util.Base64.encodeToString
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.extension.afterTextChanged
+import com.englizya.common.utils.navigation.Destination
+import com.englizya.common.utils.navigation.Domain
+import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.login.databinding.FragmentLoginBinding
 import com.englizya.navigation.forget_password.ResetPasswordActivity
 import com.englizya.navigation.home.HomeActivity
 import com.englizya.navigation.signup.SignupActivity
-import com.englizya.select_service.SelectServiceActivity
+import com.englyzia.booking_payment.NoBalanceDialog
+import com.facebook.*
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.util.*
+
 
 class LoginFragment : BaseFragment() {
 
     private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var bind: FragmentLoginBinding
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var loginManager: LoginManager
+    private lateinit var auth: FirebaseAuth
+    private var alreadySignedDialog: AlreadySignedDialog? = null
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +55,24 @@ class LoginFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         bind = FragmentLoginBinding.inflate(layoutInflater)
         return bind.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        printHashKey()
+        context?.let { FacebookSdk.sdkInitialize(it.applicationContext) };
+
+        callbackManager = CallbackManager.Factory.create()
+        facebookLogin()
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) { // add this line
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onResume() {
@@ -52,6 +94,7 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+        printHashKey()
         setupSignupSpannable()
     }
 
@@ -59,7 +102,7 @@ class LoginFragment : BaseFragment() {
         val notHaveAccount = getString(R.string.not_have_an_account)
         val signup = getString(R.string.signup)
 
-        val spannable: Spannable = SpannableString( notHaveAccount.plus(signup))
+        val spannable: Spannable = SpannableString(notHaveAccount.plus(signup))
         spannable.setSpan(
             ForegroundColorSpan(Color.BLACK),
             0,
@@ -143,13 +186,24 @@ class LoginFragment : BaseFragment() {
         bind.password.afterTextChanged {
             loginViewModel.setPassword(it)
         }
+        bind.fbBtn.setOnClickListener {
+            loginManager.logInWithReadPermissions(
+                this,
+                Arrays.asList(
+                    "email",
+                    "public_profile",
+
+                    )
+            )
+        }
+
 
         bind.signup.setOnClickListener {
             gotToSignup()
         }
 
         bind.login.setOnClickListener {
-                loginViewModel.login()
+            loginViewModel.login()
             bind.login.isEnabled = false
         }
     }
@@ -165,4 +219,90 @@ class LoginFragment : BaseFragment() {
             startActivity(Intent(context, SignupActivity::class.java))
         }
     }
+
+    private fun printHashKey() {
+
+        // Add code to print out the key hash
+        try {
+            val info: PackageInfo = activity?.packageManager?.getPackageInfo(
+                "com.android.facebookloginsample",
+                PackageManager.GET_SIGNATURES
+            )!!
+            for (signature in info.signatures) {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d(
+                    "KeyHash:", encodeToString(md.digest(), DEFAULT)
+                )
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: NoSuchAlgorithmException) {
+        }
+    }
+
+    private fun facebookLogin() {
+        loginManager = LoginManager.getInstance()
+        callbackManager = CallbackManager.Factory.create()
+        loginManager
+            .registerCallback(
+                callbackManager, object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+                        handleFacebookAccessToken(loginResult.accessToken);
+
+                    }
+
+                    override fun onCancel() {
+                        Log.v("LoginScreen", "---onCancel")
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        // here write code when get error
+                        Log.v(
+                            "LoginScreen", "----onError: "
+                                    + error.message
+                        )
+                    }
+                })
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d(TAG, "handleFacebookAccessToken:$token")
+        auth = FirebaseAuth.getInstance()
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                   if(task.result?.additionalUserInfo?.isNewUser == true) {
+                       Log.d(TAG, "signInWithCredential:NewUser")
+                       navigateToCompleteInfo()
+
+                   }else{
+                       Log.d(TAG, "signInWithCredential:oldUser")
+                       alreadySignedDialog = AlreadySignedDialog (
+                           onOkButtonClicked = {
+                               alreadySignedDialog!!.dismiss()
+                           }
+                               )
+
+                       alreadySignedDialog?.show(childFragmentManager , "Already Signed Dialog")
+
+                   }
+
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    showToast("Authentication Failed")
+                }
+            }
+    }
+
+    private fun navigateToCompleteInfo() {
+        findNavController().navigate(
+            NavigationUtils.getUriNavigation(
+                Domain.ENGLIZYA_PAY,
+                Destination.COMPLETE_USER_INFO,
+                false
+            )
+        )
+    }
+
 }

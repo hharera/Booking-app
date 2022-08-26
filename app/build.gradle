@@ -112,4 +112,5 @@ dependencies {
 
     // For Kotlin users also import the Kotlin extensions library for Play In-App Update:
     implementation("com.google.android.play:app-update-ktx:2.0.0")
+    implementation 'com.facebook.android:facebook-login:latest.release'
 }

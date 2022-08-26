@@ -206,6 +206,7 @@ class ProfileFragment : BaseFragment() {
 
             is LogOut -> {
                 profileViewModel.logout()
+                profileViewModel.authLogout()
                 navigateToLogin()
             }
             is ProfileSettings -> {

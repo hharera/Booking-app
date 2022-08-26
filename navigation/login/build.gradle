@@ -3,7 +3,7 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 dependencies {
     api(project(Feature.LOGIN))
     api(project(Base.COMMON))
-
+    api(project(Feature.COMPLETE_USER_INFO))
 
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)

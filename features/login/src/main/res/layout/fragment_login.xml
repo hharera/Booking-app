@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,9 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintHeight_percent="0.18"
         android:src="@drawable/ic_character_password"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,12 +104,12 @@
         style="@style/MainInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:passwordToggleEnabled="true"
         app:placeholderText="@string/password"
         app:startIconDrawable="@drawable/ic_lock">
 
@@ -159,6 +160,39 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintTop_toBottomOf="@+id/fb_btn" />
+
+    <TextView
+        android:id="@+id/fb_btn"
+        android:layout_width="328dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/sf"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:text="@string/facebook_sign_up"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:drawableStartCompat="@drawable/ic_fb"
+        app:drawableLeftCompat="@drawable/ic_fb" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--<com.facebook.login.widget.LoginButton-->
+    <!--android:id="@+id/login_button"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/login"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:layout_marginBottom="30dp" />-->

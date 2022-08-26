@@ -8,17 +8,26 @@ import com.englizya.common.base.BaseViewModel
 import com.englizya.common.utils.Validity.Companion.passwordIsValid
 import com.englizya.common.utils.Validity.Companion.phoneNumberIsValid
 import com.englizya.common.utils.code.CountryCode
-import com.englizya.model.request.LoginRequest
 import com.englizya.datastore.UserDataStore
 import com.englizya.login.utils.LoginFormState
+import com.englizya.model.request.LoginRequest
 import com.englizya.repository.UserRepository
+import com.facebook.*
+import com.facebook.CallbackManager.Factory.create
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class LoginViewModel constructor(
     private val userRepository: UserRepository,
     private val userDataStore: UserDataStore,
 ) : BaseViewModel() {
+
+
 
     private val _loginOperationState = MutableLiveData<Boolean>()
     val loginOperationState: LiveData<Boolean> = _loginOperationState
@@ -95,27 +104,6 @@ class LoginViewModel constructor(
                 _loginOperationState.postValue(false)
             }
     }
-
-//    private suspend fun getUserDetails() {
-//        userRepository
-//            .onSuccess {
-////                cacheUser(it)
-//            }
-//            .onFailure {
-//
-//            }
-//    }
-
-//    private suspend fun cacheUser(user: User) {
-//        userRepository
-//            .insertUser(user)
-//            .onSuccess {
-//
-//            }
-//            .onFailure {
-//
-//            }
-//    }
 
     private fun updateToken(token: String) {
         userDataStore.setToken(token)
