@@ -61,5 +61,8 @@ class UserDataStore(context: Context) {
     fun getFirstOpenState(): Boolean =
         driverSharedPreferences.getBoolean(KEY.FIRST_OPEN, true)
 
+    fun clearData() {
+        driverSharedPreferences.edit().clear().commit()
+    }
 }
 

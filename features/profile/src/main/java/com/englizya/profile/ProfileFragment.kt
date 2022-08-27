@@ -93,6 +93,14 @@ class ProfileFragment : BaseFragment() {
             }
         }
 
+        profileViewModel.logoutState.observe(viewLifecycleOwner){
+            if (it == true){
+                profileViewModel.authLogout()
+                profileViewModel.dataStore.clearData()
+                navigateToLogin()
+
+            }
+        }
         connectionLiveData.observe(viewLifecycleOwner) {
             showInternetSnackBar(binding.root, it)
         }
@@ -150,6 +158,7 @@ class ProfileFragment : BaseFragment() {
         kotlin.runCatching {
             Class.forName("com.englizya.navigation.login.LoginActivity").let {
                 Intent(context, it).apply {
+                    this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(this)
                     activity?.finish()
                 }
@@ -213,9 +222,7 @@ class ProfileFragment : BaseFragment() {
 
             is LogOut -> {
                 profileViewModel.logout()
-                profileViewModel.authLogout()
-                clearAppData()
-                navigateToLogin()
+
             }
             is ProfileSettings -> {
                 navigateToProfileSettings()

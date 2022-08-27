@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 class ProfileViewModel constructor(
     private val userRepository: UserRepository,
     private val walletRepository: WalletRepository,
-    private val dataStore: UserDataStore,
+     val dataStore: UserDataStore,
     private val auth: FirebaseAuth
 
     ) : BaseViewModel() {
@@ -27,6 +27,9 @@ class ProfileViewModel constructor(
 
     private var _userBalance = MutableStateFlow<Double?>(0.0)
     val userBalance: StateFlow<Double?> = _userBalance
+
+    private var _logOutState = MutableLiveData<Boolean>()
+    val logoutState : LiveData<Boolean> =_logOutState
     var user = userRepository.getUser(dataStore.getToken(), false).asLiveData()
 
     init {
@@ -55,7 +58,12 @@ fun authLogout(){
         auth.signOut()
     }
 }
-    fun logout() {
+    fun logout() = viewModelScope.launch(Dispatchers.IO) {
+        userRepository.logOut().onSuccess {
+            _logOutState.postValue(true)
+        }.onFailure {
+            _logOutState.postValue(false)
+        }
         dataStore.setToken(Value.NULL_STRING)
     }
 }
