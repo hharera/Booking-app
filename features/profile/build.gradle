@@ -3,6 +3,8 @@ apply from: "$rootDir/${CommonBuild.FeatureModule}"
 dependencies {
     implementation Libs.playServicesTasks
     implementation Libs.picasso
+    implementation 'com.facebook.android:facebook-login:latest.release'
+
 }
 
 android {

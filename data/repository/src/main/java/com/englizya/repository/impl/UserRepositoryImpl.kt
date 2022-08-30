@@ -69,6 +69,10 @@ class UserRepositoryImpl constructor(
         userService.updateUser(token, request)
     }
 
+    override suspend fun logOut(): Result<Unit> =kotlin.runCatching {
+        userDao.deleteUser()
+    }
+
     override fun signInWithCredential(credential: PhoneAuthCredential) =
         auth.signInWithCredential(credential)
 

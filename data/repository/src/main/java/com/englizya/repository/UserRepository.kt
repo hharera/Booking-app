@@ -35,4 +35,5 @@ interface UserRepository {
     suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Result<Any>
     suspend fun insertUser(user: User) : Result<Any>
     suspend fun updateUser(token: String ,request:UserEditRequest) : Result<UserEditResponse>
+    suspend fun logOut(): Result<Unit>
 }
