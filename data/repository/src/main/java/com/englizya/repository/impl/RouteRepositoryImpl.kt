@@ -2,10 +2,10 @@ package com.englizya.repository.impl
 
 import androidx.room.withTransaction
 import com.englizya.api.RouteService
-import com.englizya.local.externalRoutes.ExternalRoutesDao
-import com.englizya.local.externalRoutes.ExternalRoutesDatabase
-import com.englizya.local.internalRoutes.InternalRoutesDao
-import com.englizya.local.internalRoutes.InternalRoutesDatabase
+import com.englizya.local.external_routes.ExternalRoutesDao
+import com.englizya.local.external_routes.ExternalRoutesDatabase
+import com.englizya.local.internal_routes.InternalRoutesDao
+import com.englizya.local.internal_routes.InternalRoutesDatabase
 import com.englizya.model.model.ExternalRoutes
 import com.englizya.model.model.InternalRoutes
 import com.englizya.repository.RouteRepository
@@ -32,7 +32,7 @@ class RouteRepositoryImpl constructor(
             },
             saveFetchResult = { externalRoutes ->
                 externalRoutesDatabase.withTransaction {
-                    externalRoutesDao.clearExternalRoutes()
+//                    externalRoutesDao.clearExternalRoutes()
                     externalRoutesDao.insertExternalRoutes(externalRoutes)
                 }
             },
@@ -52,7 +52,7 @@ class RouteRepositoryImpl constructor(
             },
             saveFetchResult = { internalRoutes ->
                 internalRoutesDatabase.withTransaction {
-                    internalRouteDao.clearInternalRoutes()
+//                    internalRouteDao.clearInternalRoutes()
                     internalRouteDao.insertInternalRoutes(internalRoutes)
                 }
             },

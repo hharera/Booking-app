@@ -44,7 +44,7 @@ class UserTicketsFragment : BaseFragment() {
 
     private fun setupAdapter() {
         adapter = TicketAdapter(
-            emptySet(),
+            emptyList(),
             onCancelledClicked = { ticketId ->
                 confirmationDialog = ConfirmationDialog(
                     onPositiveButtonClicked = {
@@ -125,7 +125,7 @@ class UserTicketsFragment : BaseFragment() {
     }
 
     private fun updateUI(userTickets: List<UserTicket>) {
-        adapter.setTickets(userTickets)
+        adapter.addTickets(userTickets)
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
