@@ -45,6 +45,7 @@ class ProfileFragment : BaseFragment() {
 //        Settings,
         AboutUs,
         ContactUs,
+        ShareApp,
         TermsAndConditions,
         RefundPolicy,
         PrivacyPolicy,
@@ -211,6 +212,9 @@ class ProfileFragment : BaseFragment() {
             is ContactUs -> {
                 navigateToContactUs()
             }
+            is ShareApp ->{
+                shareApp()
+            }
 
             is DriverReview -> {
                 navigateReviewDriver()
@@ -229,6 +233,16 @@ class ProfileFragment : BaseFragment() {
             }
             else -> {}
         }
+    }
+
+    private fun shareApp() {
+        val appLink = getString(R.string.app_link)
+        val sharingIntent = Intent()
+        sharingIntent.action = Intent.ACTION_SEND
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT , appLink)
+        startActivity(Intent.createChooser(sharingIntent , getString(R.string.share_title)))
+
     }
 
     private fun navigateToProfileSettings() {

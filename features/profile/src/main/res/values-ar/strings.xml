@@ -10,5 +10,8 @@
     <string name="refund_policy">سياسة الاسترجاع</string>
     <string name="profile_settings">اعدادات الملف الشخصى</string>
     <string name="charge_info">اشحن محفظتك و احصل على خصم 20% عند الحجز بها</string>
+    <string name="share_link">مشاركة التطبيق</string>
+    <string name="app_link">https://play.google.com/store/apps/details?id=com.englizya.client.ticket</string>
+    <string name="share_title">Share Englizya Bus Link via</string>
 
 </resources>
