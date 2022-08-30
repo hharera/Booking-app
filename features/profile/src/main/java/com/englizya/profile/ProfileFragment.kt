@@ -9,10 +9,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.englizya.common.base.BaseFragment
 import com.englizya.common.ui.QrDialog
 import com.englizya.common.utils.navigation.Destination
@@ -265,20 +263,6 @@ class ProfileFragment : BaseFragment() {
                     false
                 )
             )
-    }
-    private fun clearAppData() {
-        try {
-            // clearing app data
-            if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
-                (activity?.getSystemService(ACTIVITY_SERVICE) as ActivityManager?)?.clearApplicationUserData() // note: it has a return value!
-            } else {
-                val packageName = getApplicationContext<Context>().packageName
-                val runtime = Runtime.getRuntime()
-                runtime.exec("pm clear $packageName")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
     private fun navigateToPrivacyPolicy() {
         findNavController()
