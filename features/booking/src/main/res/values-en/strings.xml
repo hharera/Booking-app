@@ -2,7 +2,12 @@
 <resources>
     <string name="round_trip">Round</string>
     <string name="one_way">One Way</string>
-    <string name="round_discount_percentage">10%\nDiscount</string>
-    <string name="round_discount_details">Get 10% off your tickets \nwhen booking a round trip</string>
-    <string name="round_booking_note">Book the outbound trip, the value of the return ticket will be saved in the wallet and you can book it while you are back or use it to book other trips</string>
+    <string name="round_discount_percentage">10%\nخصم</string>
+    <string name="round_discount_details">ستحصل على خصم 10٪ على التذاكر\n عند حجز الذهاب والعودة معاََ</string>
+    <string name="round_booking_note">احجز رحلة الذهاب وقيمة تذكرة العودة هتفضل في المحفظة وتقدر تحجز بيها وانت راجع أو تستخدمها في حجز رحلات اخري</string>
+
+<!--    <string name="round_discount_percentage">10%\nDiscount</string>-->
+<!--    <string name="round_discount_details">Get 10% off your tickets \nwhen booking a round trip</string>-->
+<!--    <string name="round_booking_note">Book the outbound trip, the value of the return ticket will be saved in the wallet and you can book it while you are back or use it to book other trips</string>-->
+
 </resources>
