@@ -11,4 +11,8 @@
     <string name="password_should_be_not_empty">كلمة المرور مطلوبة</string>
     <string name="password_not_vlid">يجب أن تكون كلمة المرور بين 8 و 40 حرفًا</string>
     <string name="create_new_account">إنشاء حساب جديد</string>
+    <string name="already_signed_in">انت مسجل بالفعل</string>
+    <string name="already_signed_in_info">أدخل رقم الهاتف وكلمة المرور اللذين قمت بالتسجيل بهما</string>
+    <string name="facebook_sign_up">SignUp With Facebook</string>
+
 </resources>

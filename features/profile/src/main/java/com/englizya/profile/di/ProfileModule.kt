@@ -11,6 +11,7 @@ val profileModule = module {
             get(),
             get(),
             get(),
+            get()
         )
     }
 }

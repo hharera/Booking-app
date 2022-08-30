@@ -10,6 +10,7 @@ import com.englizya.datastore.utils.Value
 import com.englizya.model.model.User
 import com.englizya.repository.UserRepository
 import com.englizya.repository.WalletRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,7 +20,9 @@ class ProfileViewModel constructor(
     private val userRepository: UserRepository,
     private val walletRepository: WalletRepository,
     private val dataStore: UserDataStore,
-) : BaseViewModel() {
+    private val auth: FirebaseAuth
+
+    ) : BaseViewModel() {
 
 
     private var _userBalance = MutableStateFlow<Double?>(0.0)
@@ -47,7 +50,11 @@ class ProfileViewModel constructor(
                 handleException(it)
             }
     }
-
+fun authLogout(){
+    if(auth.currentUser != null){
+        auth.signOut()
+    }
+}
     fun logout() {
         dataStore.setToken(Value.NULL_STRING)
     }

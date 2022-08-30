@@ -15,6 +15,7 @@ import com.englizya.car_socket.di.stompModule
 import com.englizya.charging.di.rechargingModule
 import com.englizya.common.di.baseModule
 import com.englizya.complaint.di.complaintModule
+import com.englizya.complete_user_info.di.completeUserInfoModule
 import com.englizya.datastore.UserDataStore
 import com.englizya.datastore.di.dataStoreModule
 import com.englizya.datastore.utils.Language
@@ -147,6 +148,7 @@ class TicketApplication : Application(), KoinComponent {
                     externalRoute,
                     ticketDetailsModule,
                     offersModule,
+                    completeUserInfoModule,
                     announcementModule,
                     profileModule,
                     profileSettingsModule,
@@ -158,9 +160,11 @@ class TicketApplication : Application(), KoinComponent {
                     contextModule,
                     remoteModule,
                     homeModule,
+
                     driverReviewModule,
                     rechargingModule,
                     settingsModule,
+
                     module {
                         single<TextEncryptor> {
                             AES256TextEncryptor().apply {

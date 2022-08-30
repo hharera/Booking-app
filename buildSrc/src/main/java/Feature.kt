@@ -34,6 +34,8 @@ object Feature {
     const val OFFERS = ":features:offers"
     const val ANNOUNCEMENT = ":features:announcement"
     const val INTERNAL_SEARCH = ":features:internal-search"
+    const val COMPLETE_USER_INFO = ":features:complete-user-info"
+
 
 
 }

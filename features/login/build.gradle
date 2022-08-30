@@ -6,6 +6,7 @@ dependencies {
     api project(Navigation.HOME)
     api project(Navigation.SIGNUP)
     api project(Navigation.FORGE_PASSWORD)
+    implementation 'com.facebook.android:facebook-login:latest.release'
 }
 
 android {
