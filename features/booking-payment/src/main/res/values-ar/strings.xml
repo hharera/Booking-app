@@ -22,7 +22,7 @@
     <string name="dialog_title">تأكيد</string>
     <string name="ok_btn">حسناً</string>
     <string name="done_reserving_text">تم حجز تذكرتك بنجاح</string>
-
+    <string name="walletDiscount"> عند شرائك التذاكر باستخدام محفظة الانجليزية سيتم خصم 20% من قيمة التذاكر</string>
     <string name="cancel_btn">إلغاء</string>
     <string name="total">الإجمالي</string>
     <string name="ok_text">حسناً</string>

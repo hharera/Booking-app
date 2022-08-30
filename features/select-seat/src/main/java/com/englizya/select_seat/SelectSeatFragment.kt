@@ -19,6 +19,7 @@ import com.englizya.common.utils.navigation.Destination
 import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.common.utils.time.TimeOnly
+import com.englizya.model.model.LineStationTime
 import com.englizya.model.model.Seat
 import com.englizya.model.model.ServiceDegree
 import com.englizya.model.model.Trip
@@ -36,6 +37,7 @@ class SelectSeatFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSelectSeatBinding
     private val bookingViewModel: BookingViewModel by sharedViewModel()
+    private lateinit var adapter: StationAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -229,9 +231,23 @@ class SelectSeatFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // bookingViewModel.clearSelectSeats()
-
+        setupUI()
         setupObservers()
         setupListeners()
+    }
+
+    private fun setupUI() {
+        adapter = StationAdapter(
+            emptyList(),
+            onItemClicked = {
+                onOfficeSelected(it)
+            })
+        binding.stations?.adapter = adapter
+    }
+
+    private fun onOfficeSelected(office : LineStationTime) {
+        bookingViewModel.setSelectedBookingOffice(office)
+
     }
 
     private fun updateTimeUI(trip: Trip) {
@@ -272,7 +288,17 @@ class SelectSeatFragment : BaseFragment() {
                 binding.sourceTimeTV.text = it.startTime
             }
         }
+        bookingViewModel.selectedBookingOffice.observe(viewLifecycleOwner){stationTime ->
+            if (stationTime != null) {
+                Log.d("Selected" , stationTime.bookingOffice.toString())
+                adapter.setSelectedOffice(stationTime)
+            }
 
+        }
+        bookingViewModel.selectedTrip.observe(viewLifecycleOwner) { trip ->
+            updateOfficeUI(trip)
+
+        }
         bookingViewModel.destination.observe(viewLifecycleOwner) { branch ->
             bookingViewModel.selectedTrip.value?.tripTimes?.firstOrNull {
                 it.areaId == branch.branchId
@@ -348,6 +374,11 @@ class SelectSeatFragment : BaseFragment() {
         connectionLiveData.observe(viewLifecycleOwner) {
             showInternetSnackBar(binding.root, it)
         }
+    }
+
+    private fun updateOfficeUI(trip: Trip?) {
+        trip?.tripTimes?.let { adapter.setOffice(it) }
+
     }
 
 

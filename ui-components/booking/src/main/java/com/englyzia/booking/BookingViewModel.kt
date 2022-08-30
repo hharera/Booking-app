@@ -701,6 +701,7 @@ class BookingViewModel constructor(
     }
 
     fun setSelectedBookingOffice(stationTime: LineStationTime?) {
+        Log.d("selectedOffice" , stationTime?.bookingOffice.toString())
         _selectedBookingOffice.value = stationTime
     }
 

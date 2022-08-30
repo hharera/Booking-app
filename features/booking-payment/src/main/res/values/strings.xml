@@ -14,7 +14,6 @@
     <string name="off_details">احصل على خصم 20٪ على التذاكر\n عند استخدام محفظة الاشتراكات</string>
     <string name="wallet_discount_txt">قيمة خصم المحفظة</string>
     <string name="round_discount_txt">خصم الذهاب و العودة</string>
-
     <string name="total">الإجمالي</string>
     <string name="sub_total">الإجمالى قبل الخصم</string>
     <string name="ok_text">حسناً</string>
@@ -25,6 +24,7 @@
     <string name="dialog_title">تأكيد</string>
     <string name="ok_btn">حسناً</string>
     <string name="cancel_btn">إلغاء</string>
+    <string name="walletDiscount">  عند شرائك التذاكر باستخدام محفظة الانجليزية سيتم خصم 20% من قيمة التذاكر</string>
     <string name="done_reserving_text">تم حجز تذكرتك بنجاح</string>
     <string name="payment_info_txt">
     <li>عند الضغط على زر الدفع سيتم تحويلك إلى المتصفح </li>
