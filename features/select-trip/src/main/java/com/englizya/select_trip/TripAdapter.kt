@@ -81,11 +81,11 @@ class TripAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(trip: Trip, source: Station?, destination: Station?) {
-            updateStopStationsUI(
-                trip.tripTimes.sortedBy {
-                    TimeOnly.timeIn24TimeSystem(it.startTime)
-                }
-            )
+//            updateStopStationsUI(
+//                trip.tripTimes.sortedBy {
+//                    TimeOnly.timeIn24TimeSystem(it.startTime)
+//                }
+//            )
             setTripDate(trip.reservations.first().date)
             updateTripDetails(trip)
 
@@ -187,49 +187,49 @@ class TripAdapter(
             }
         }
 
-        private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
-            binding.stations.setContent {
-                var selectedBookingOffice by remember { mutableStateOf(tripTimes.first().bookingOffice?.officeId) }
-
-                LazyRow() {
-                    tripTimes.forEach { stationTime ->
-                        item {
-                            Card(
-                                backgroundColor =
-                                if (stationTime.bookingOffice?.officeId == selectedBookingOffice) {
-                                    Blue500
-                                } else {
-                                    Grey100
-                                },
-                                elevation = 0.dp,
-                                modifier = Modifier.padding(6.dp),
-                                onClick = {
-                                    selectedBookingOffice = stationTime.bookingOffice?.officeId
-                                    onOfficeClicked(stationTime)
-                                }
-                            ) {
-                                Text(
-                                    text = stationTime.bookingOffice?.officeName?.plus(
-                                        "\n".plus(
-                                            TimeOnly.map(
-                                                stationTime.startTime
-                                            )
-                                        )
-                                    ).toString(),
-                                    color = if (stationTime.bookingOffice?.officeId == selectedBookingOffice) {
-                                        Grey100
-                                    } else {
-                                        Blue500
-                                    },
-                                    modifier = Modifier.padding(6.dp),
-                                    textAlign = TextAlign.Center
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//        private fun updateStopStationsUI(tripTimes: List<LineStationTime>) {
+//            binding.stations.setContent {
+//                var selectedBookingOffice by remember { mutableStateOf(tripTimes.first().bookingOffice?.officeId) }
+//
+//                LazyRow() {
+//                    tripTimes.forEach { stationTime ->
+//                        item {
+//                            Card(
+//                                backgroundColor =
+//                                if (stationTime.bookingOffice?.officeId == selectedBookingOffice) {
+//                                    Blue500
+//                                } else {
+//                                    Grey100
+//                                },
+//                                elevation = 0.dp,
+//                                modifier = Modifier.padding(6.dp),
+//                                onClick = {
+//                                    selectedBookingOffice = stationTime.bookingOffice?.officeId
+//                                    onOfficeClicked(stationTime)
+//                                }
+//                            ) {
+//                                Text(
+//                                    text = stationTime.bookingOffice?.officeName?.plus(
+//                                        "\n".plus(
+//                                            TimeOnly.map(
+//                                                stationTime.startTime
+//                                            )
+//                                        )
+//                                    ).toString(),
+//                                    color = if (stationTime.bookingOffice?.officeId == selectedBookingOffice) {
+//                                        Grey100
+//                                    } else {
+//                                        Blue500
+//                                    },
+//                                    modifier = Modifier.padding(6.dp),
+//                                    textAlign = TextAlign.Center
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         private fun boomBook(trip: Trip) {
             BoomUtils.boomAll(binding.book)

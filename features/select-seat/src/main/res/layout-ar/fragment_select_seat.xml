@@ -278,19 +278,37 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/walletDiscountText"
-        android:layout_width="match_parent"
+        android:id="@+id/choose_office"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginBottom="324dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/sf"
-        android:gravity="center"
-        android:text="@string/walletDiscount"
-        android:textAlignment="center"
-        android:textColor="@color/grey_300"
-        android:textSize="13sp"
+        android:text="@string/select_office"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/blue_500"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/stations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/background_recycler_view_stations"
+        android:backgroundTint="@color/grey_100"
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:nestedScrollingEnabled="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewSeats"
+        app:layout_constraintCircleRadius="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_office"
+        tools:listitem="@layout/card_view_office" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSeats"
@@ -301,7 +319,7 @@
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walletDiscountText">
+        app:layout_constraintTop_toBottomOf="@+id/stations">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

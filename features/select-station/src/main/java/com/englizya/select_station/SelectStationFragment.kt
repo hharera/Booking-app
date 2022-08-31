@@ -65,17 +65,17 @@ class SelectStationFragment : BaseFragment() {
         }
 
         bookingViewModel.selectedTrip.observe(viewLifecycleOwner) {
-            updateUI(it)
+//            updateUI(it)
         }
     }
 
-    private fun updateUI(trip: Trip) {
-        val stationAdapter = StationAdapter(trip.tripTimes) {
-            bookingViewModel.setSelectedBookingOffice(it)
-        }
-
-        binding.stations.adapter = stationAdapter
-    }
+//    private fun updateUI(trip: Trip) {
+//        val stationAdapter = StationAdapter(trip.tripTimes) {
+//            bookingViewModel.setSelectedBookingOffice(it)
+//        }
+//
+//        binding.stations.adapter = stationAdapter
+//    }
 
     override fun onStart() {
         super.onStart()
