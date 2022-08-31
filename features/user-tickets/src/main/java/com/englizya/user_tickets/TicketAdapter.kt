@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.runtime.Composable
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -16,93 +17,58 @@ import com.englizya.common.utils.time.TimeOnly
 import com.englizya.model.response.UserTicket
 import com.englizya.user_tickets.databinding.CardViewLoadingBinding
 import com.englizya.user_tickets.databinding.CardViewTicketBinding
-import com.englizya.user_tickets.utils.CardType
 
 
 class TicketAdapter(
     private var ticketList: List<UserTicket>,
-    private val onNextPageRequested: () -> Unit,
     private val onItemClicked: (UserTicket) -> Unit,
     private val onCancelledClicked: (String) -> Unit,
 ) : RecyclerView.Adapter<TicketAdapter.BaseViewHolder>() {
 
-    private var isLoading = false
-    private var nextPageRequested = false
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position == ticketList.size) {
-            CardType.LOADING
-        } else {
-            CardType.TICKET
-        }
-    }
-
-    fun addTickets(tickets: List<UserTicket>) {
-        tickets.forEach {
-            addTicket(it)
-        }
-        nextPageRequested = false
-    }
-
-    private fun addTicket(ticket: UserTicket) {
-        ticketList = ticketList.plus(ticket)
-        notifyItemInserted(ticketList.lastIndex)
+    companion object {
+        private const val TAG = "TicketAdapter"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return when (viewType) {
-            CardType.LOADING -> {
-                LoadingViewHolder(
-                    CardViewLoadingBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                )
-            }
-            else -> {
-                CardViewTicketBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                ).let {
-                    TicketViewHolder(it)
-                }
-            }
-        }
-    }
-
-    private fun requestNextPage() {
-        if (ticketList.isNotEmpty() && nextPageRequested.not()) {
-            onNextPageRequested()
-            nextPageRequested = true
+        CardViewTicketBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        ).let {
+            return TicketViewHolder(it)
         }
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        if (getItemViewType(position) == CardType.TICKET) {
-            (holder as TicketViewHolder).updateUI(ticketList[position])
-        } else {
-            requestNextPage()
-        }
+        (holder as TicketViewHolder).updateUI(ticketList[position])
     }
 
     override fun getItemCount(): Int {
-        return if (ticketList.isEmpty()) {
-            0
-        } else {
-            ticketList.size + 1
-        }
+        return ticketList.size
     }
 
     fun clearList() {
-        ticketList.forEachIndexed { index, userTicket ->
+        ticketList.forEach {
+            val index = ticketList.lastIndex
+            ticketList.dropLast(1)
             notifyItemRemoved(index)
         }
-        ticketList = emptyList()
     }
 
-    open inner class BaseViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root)
+    fun setTickets(userTickets: List<UserTicket>) {
+        Log.d(TAG, "setTickets: ${userTickets.size}")
+        ticketList = userTickets
+        notifyDataSetChanged()
+    }
+
+    private fun addList(userTickets: List<UserTicket>) {
+        userTickets.forEach { userTicket ->
+            ticketList = ticketList.plus(userTicket)
+            notifyItemInserted(ticketList.lastIndex)
+        }
+    }
+
+    open inner class BaseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root)
 
     inner class LoadingViewHolder(
         private val binding: CardViewLoadingBinding

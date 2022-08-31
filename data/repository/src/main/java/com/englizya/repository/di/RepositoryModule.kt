@@ -42,7 +42,7 @@ val repositoryModule = module {
     }
 
     single<TicketRepository> {
-        TicketRepositoryImpl(get(), get())
+        TicketRepositoryImpl(get(), get(), get())
     }
 
     single<WalletRepository> {

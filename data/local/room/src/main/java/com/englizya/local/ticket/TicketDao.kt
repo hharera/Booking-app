@@ -9,13 +9,12 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TicketDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTickets(ticket:List<UserTicket>)
 
-
-
     @Query(value = "SELECT * from Ticket ")
-    fun getTickets(): List<UserTicket>
+    fun getTickets(): Flow<List<UserTicket>>
 
     @Query(value = "DELETE FROM Ticket WHERE ticketId = :ticketId")
     fun removeTicket(ticketId:Int)

@@ -2,7 +2,6 @@ package com.englizya.user_tickets
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,8 @@ import com.englizya.common.utils.navigation.Domain
 import com.englizya.common.utils.navigation.NavigationUtils
 import com.englizya.model.response.CancelTicketResponse
 import com.englizya.model.response.UserTicket
+import com.englizya.repository.utils.Resource
 import com.englizya.user_tickets.databinding.FragmentUserTicketsBinding
-import io.ktor.client.features.*
-import io.ktor.http.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserTicketsFragment : BaseFragment() {
@@ -37,7 +35,7 @@ class UserTicketsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
+
         setupListeners()
         setupObservers()
     }
@@ -61,9 +59,6 @@ class UserTicketsFragment : BaseFragment() {
             onItemClicked = {
                 showFullTicket(it)
             },
-            onNextPageRequested = {
-                userTicketViewModel.nextTicketsPage()
-            }
         )
         binding.tickets.adapter = adapter
     }
@@ -94,23 +89,18 @@ class UserTicketsFragment : BaseFragment() {
             handleLoading(it)
         }
 
-        userTicketViewModel.tickets.observe(viewLifecycleOwner) {
-            Log.d(TAG, "setupObservers: ")
-            if (it.isEmpty()) {
-                adapter.clearList()
-                binding.emptyView.root.visibility = View.VISIBLE
-//                binding.ticketsInfoText.visibility = View.GONE
+        userTicketViewModel.page.observe(viewLifecycleOwner) {
+            binding.pageNumber.text = it.plus(1).toString()
+        }
 
-            } else {
-                binding.emptyView.root.visibility = View.GONE
-                updateUI(it)
-            }
+        userTicketViewModel.tickets.observe(viewLifecycleOwner) {
+            handleTicketsResult(it)
         }
 
         userTicketViewModel.cancelTicketStatus.observe(viewLifecycleOwner) {
             updateUI(it)
             adapter.clearList()
-            userTicketViewModel.resetPages()
+            userTicketViewModel.getFirstPageUserTickets()
         }
 
         userTicketViewModel.error.observe(viewLifecycleOwner) {
@@ -118,14 +108,43 @@ class UserTicketsFragment : BaseFragment() {
             handleFailure(it)
             showErrorDialog(it?.message!!.split("Text:")[1].dropWhile { it == '"' })
         }
+    }
 
-        userTicketViewModel.page.observe(viewLifecycleOwner) {
-            binding.pageNumber.text = (it.plus(1)).toString()
+    private fun handleTicketsResult(result: Resource<List<UserTicket>>?) {
+        if (result != null) {
+            checkResultStatus(result)
+        }
+    }
+
+    private fun checkResultStatus(result: Resource<List<UserTicket>>) {
+        when (result) {
+            is Resource.Success -> {
+                handleLoading(false)
+                updateUI(result.data!!)
+            }
+
+            is Resource.Error -> {
+                handleLoading(false)
+                handleFailure(result.error)
+            }
+
+            is Resource.Loading -> {
+                handleLoading(true)
+            }
         }
     }
 
     private fun updateUI(userTickets: List<UserTicket>) {
-        adapter.addTickets(userTickets)
+        if (userTickets.isEmpty()) {
+            binding.emptyView.root.visibility = View.VISIBLE
+            binding.ticketSwipeLayout.visibility = View.INVISIBLE
+        } else {
+            binding.emptyView.root.visibility = View.INVISIBLE
+            binding.ticketSwipeLayout.visibility = View.VISIBLE
+            setupAdapter().also {
+                adapter.setTickets(userTickets)
+            }
+        }
     }
 
     private fun updateUI(cancellingStatus: CancelTicketResponse?) {
@@ -133,7 +152,7 @@ class UserTicketsFragment : BaseFragment() {
             confirmationDialog?.dismiss()
         } else {
             confirmationDialog?.dismiss()
-            showToast(cancellingStatus!!.message)
+            showToast(cancellingStatus.message)
         }
     }
 
@@ -141,6 +160,7 @@ class UserTicketsFragment : BaseFragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+
         binding.ticketSwipeLayout.setOnRefreshListener {
             userTicketViewModel.getUserTickets(true)
             binding.ticketSwipeLayout.isRefreshing = false
@@ -151,21 +171,32 @@ class UserTicketsFragment : BaseFragment() {
         }
 
         binding.previousPage.setOnClickListener {
-            userTicketViewModel.getPreviousTicketsPage()
+            getPreviousTicketsPage()
         }
 
         binding.nextPage.setOnClickListener {
-            userTicketViewModel.getNextTicketsPage()
+            getNextTicketsPage()
+        }
+    }
+
+    private fun getNextTicketsPage() {
+        userTicketViewModel.nextTicketsPage().observe(viewLifecycleOwner) {
+            handleTicketsResult(it)
+        }
+    }
+
+    private fun getPreviousTicketsPage() {
+        userTicketViewModel.previousTicketsPage().observe(viewLifecycleOwner) {
+            handleTicketsResult(it)
         }
     }
 
     private fun navigateToBooking() {
-        startActivity(Intent(context, Class.forName("com.englizya.navigation.booking.BookingActivity")))
+        startActivity(
+            Intent(
+                context,
+                Class.forName("com.englizya.navigation.booking.BookingActivity")
+            )
+        )
     }
-
-    override fun onResume() {
-        super.onResume()
-        userTicketViewModel.getUserTickets(false)
-    }
-
 }
